@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.0.2
+------------------------
+ o move parser functions from ggtree <2016-12-06, Tue>
+ 
 CHANGES IN VERSION 0.0.1
 ------------------------
  o read.nhx from ggtree <2016-12-06, Tue>

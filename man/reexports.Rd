@@ -5,13 +5,15 @@
 \alias{\%>\%}
 \alias{read.tree}
 \alias{reexports}
+\alias{rtree}
+\alias{write.tree}
 \title{Objects exported from other packages}
 \description{
 These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{read.tree}}}
+  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 }}

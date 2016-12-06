@@ -23,7 +23,7 @@ check: build
 	cd ..;\
 	Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz")'
 
-check2: build
+check2: rd build
 	cd ..;\
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz
 
