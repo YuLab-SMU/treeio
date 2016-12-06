@@ -7,9 +7,9 @@
 ##' @return \code{beast} object
 ##' @importFrom ape read.nexus
 ##' @export
-##' @author Guangchuang Yu \url{http://ygc.name}
+##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 ##' @examples
-##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
+##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
 ##' read.beast(file)
 read.beast <- function(file) {
     translation <- read.trans_beast(file)

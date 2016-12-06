@@ -8,7 +8,7 @@
 ##' @export
 ##' @author ygc
 ##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- system.file("extdata", "sample.jplace", package="treeio")
 ##' read.jplace(jp)
 read.jplace <- function(file) {  
     fields <- tree <- placements <- NULL
