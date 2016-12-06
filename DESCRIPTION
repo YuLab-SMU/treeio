@@ -1,6 +1,6 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 0.99.0
+Version: 0.99.1
 Authors@R: person("Guangchuang", "Yu",
 	   	  email = "guangchuangyu@gmail.com",
 		  role = c("aut", "cre"))
@@ -21,8 +21,8 @@ Suggests:
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
-URL: https://guangchuangyu.github.io/ggtree
-BugReports: https://github.com/GuangchuangYu/ggtree/issues
+URL: https://guangchuangyu.github.io/treeio
+BugReports: https://github.com/GuangchuangYu/treeio/issues
 Encoding: UTF-8
 LazyData: true
 biocViews: Alignment, Annotation, Clustering, DataImport,
