@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.0.1
 ------------------------
- o as.phylo.treedata to access phylo from treedata object <2016-12-06>
- o as.treedata.phylo to convert phylo to tree data object <2016-12-06>
- o treedata class definition <2016-12-06, tue>
+ o read.nhx from ggtree <2016-12-06, Tue>
+ o as.phylo.treedata to access phylo from treedata object <2016-12-06, Tue>
+ o as.treedata.phylo to convert phylo to tree data object <2016-12-06, Tue>
+ o treedata class definition <2016-12-06, Tue>

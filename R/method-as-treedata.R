@@ -9,8 +9,12 @@
 ##' @author guangchuang yu
 as.treedata.phylo <- function(tree, boot=NULL, ...) {
     ## boot is output from boot.phylo
-    new("treedata",
-        phylo = tree,
-        data = data.frame(node=1:Nnode(tree, internal.only=FALSE), bootstrap=boot)
-        )
+    res <- new("treedata",
+               phylo = tree
+               )
+
+    if (!is.null(boot)) {
+        res@data = data.frame(node=1:Nnode(tree, internal.only=FALSE), bootstrap=boot)
+    }
+    return(res)
 }

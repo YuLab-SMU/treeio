@@ -8,6 +8,7 @@ Depends:
     R (>= 3.3.2)
 Imports:
     ape,
+    magrittr,
     methods
 Suggests:
     knitr,
