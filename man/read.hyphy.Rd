@@ -21,8 +21,8 @@ A hyphy object
 read HYPHY output
 }
 \examples{
-nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
-ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
 read.hyphy(nwk, ancseq)
 }
 \author{

@@ -18,8 +18,8 @@ A \code{paml_rst} object
 read rst and mlb file from baseml output
 }
 \examples{
-rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
-mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
+rstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
+mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="treeio")
 read.baseml(rstfile, mlbfile)
 }
 \author{

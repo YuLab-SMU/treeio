@@ -49,7 +49,7 @@ read.jplace <- function(file) {
 ## ##' @author Guangchuang Yu \url{http://ygc.name}
 ## ##' @usage get.treeinfo(object, layout, ladderize, right, ...)
 ## ##' @examples
-## ##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+## ##' jp <- system.file("extdata", "sample.jplace", package="treeio")
 ## ##' jp <- read.jplace(jp)
 ## ##' get.treeinfo(jp)
 ## setMethod("get.treeinfo", signature(object = "jplace"),
@@ -72,7 +72,7 @@ read.jplace <- function(file) {
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.treetext(object, ...)
 ##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- system.file("extdata", "sample.jplace", package="treeio")
 ##' jp <- read.jplace(jp)
 ##' get.treetext(jp)
 setMethod("get.treetext", signature(object = "jplace"),
@@ -93,7 +93,7 @@ setMethod("get.treetext", signature(object = "jplace"),
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.fields(object, ...)
 ##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- system.file("extdata", "sample.jplace", package="treeio")
 ##' jp <- read.jplace(jp)
 ##' get.fields(jp)
 setMethod("get.fields", signature(object = "jplace"),
@@ -113,7 +113,7 @@ setMethod("get.fields", signature(object = "jplace"),
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @usage get.placements(object, by, ...)
 ##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- system.file("extdata", "sample.jplace", package="treeio")
 ##' jp <- read.jplace(jp)
 ##' get.placements(jp, by="all")
 setMethod("get.placements", signature(object = "jplace"),
@@ -204,8 +204,8 @@ get.fields.jplace <- function(object, ...) {
 ##' @export
 ##' @author ygc
 ##' @examples
-##' tree <- system.file("extdata", "pa.nwk", package="ggtree")
-##' data <- read.csv(system.file("extdata", "pa_subs.csv", package="ggtree"),
+##' tree <- system.file("extdata", "pa.nwk", package="treeio")
+##' data <- read.csv(system.file("extdata", "pa_subs.csv", package="treeio"),
 ##'                 stringsAsFactor=FALSE)
 ##' outfile <- tempfile()
 ##' write.jplace(tree, data, outfile)

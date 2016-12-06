@@ -22,7 +22,7 @@ phylo object
 get.treetext method
 }
 \examples{
-jp <- system.file("extdata", "sample.jplace", package="ggtree")
+jp <- system.file("extdata", "sample.jplace", package="treeio")
 jp <- read.jplace(jp)
 get.treetext(jp)
 }

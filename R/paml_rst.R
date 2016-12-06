@@ -8,8 +8,8 @@
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
-##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
-##' mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="ggtree")
+##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
+##' mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="treeio")
 ##' read.baseml(rstfile, mlbfile)
 read.baseml <- function(rstfile, mlbfile) {
     res <- read.paml_rst(rstfile)
@@ -28,7 +28,7 @@ read.baseml <- function(rstfile, mlbfile) {
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
-##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
+##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
 ##' read.paml_rst(rstfile)
 read.paml_rst <- function(rstfile) {
     ms <- read.ancseq_paml_rst(rstfile, by="Marginal")

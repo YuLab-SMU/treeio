@@ -57,9 +57,9 @@ setMethod("show", signature(object = "codeml_mlc"),
 ##' @importFrom methods show
 ##' @exportMethod show
 ##' @usage show(object)
-##' @author Guangchuang Yu \url{http://ygc.name}
+##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 ##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="ggtree")
+##' jp <- system.file("extdata", "sample.jplace", package="treeio")
 ##' jp <- read.jplace(jp)
 ##' show(jp)
 setMethod("show", signature(object = "jplace"),

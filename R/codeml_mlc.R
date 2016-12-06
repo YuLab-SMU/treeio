@@ -7,7 +7,7 @@
 ##' @export
 ##' @author ygc
 ##' @examples
-##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
 ##' read.codeml_mlc(mlcfile)
 read.codeml_mlc <- function(mlcfile) {
     ## tip_seq <- read.tip_seq_mlc(mlcfile)

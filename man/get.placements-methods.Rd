@@ -24,7 +24,7 @@ data.frame
 get.placement method
 }
 \examples{
-jp <- system.file("extdata", "sample.jplace", package="ggtree")
+jp <- system.file("extdata", "sample.jplace", package="treeio")
 jp <- read.jplace(jp)
 get.placements(jp, by="all")
 }

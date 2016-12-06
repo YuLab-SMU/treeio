@@ -12,8 +12,8 @@
 ##' @export
 ##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
-##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
-##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
 ##' read.hyphy(nwk, ancseq)
 read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     anc <- scan(ancseq, what="", sep="\n", quiet=TRUE)
@@ -158,8 +158,8 @@ setMethod("show", signature(object = "hyphy"),
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree
 ##' @examples
-##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
-##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
 ##' hy <- read.hyphy(nwk, ancseq)
 ##' get.tree(hy)
 setMethod("get.tree", signature(object = "hyphy"),
@@ -183,9 +183,9 @@ setMethod("get.fields", signature(object = "hyphy"),
 ##' @rdname get.subs-methods
 ##' @exportMethod get.subs
 ##' @examples
-##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
-##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
-##' tipfas <- system.file("extdata", "pa.fas", package="ggtree")
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
+##' tipfas <- system.file("extdata", "pa.fas", package="treeio")
 ##' hy <- read.hyphy(nwk, ancseq, tipfas)
 ##' get.subs(hy, type="AA_subs")
 setMethod("get.subs", signature(object="hyphy"),

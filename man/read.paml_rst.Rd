@@ -16,7 +16,7 @@ A \code{paml_rst} object
 read rst file from paml output
 }
 \examples{
-rstfile <- system.file("extdata/PAML_Baseml", "rst", package="ggtree")
+rstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
 read.paml_rst(rstfile)
 }
 \author{

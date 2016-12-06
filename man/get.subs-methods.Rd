@@ -31,9 +31,9 @@ data.frame
 get substitution information
 }
 \examples{
-nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="ggtree")
-ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="ggtree")
-tipfas <- system.file("extdata", "pa.fas", package="ggtree")
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
+tipfas <- system.file("extdata", "pa.fas", package="treeio")
 hy <- read.hyphy(nwk, ancseq, tipfas)
 get.subs(hy, type="AA_subs")
 }

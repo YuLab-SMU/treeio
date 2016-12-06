@@ -8,8 +8,8 @@
 ##' @export
 ##' @author ygc
 ##' @examples
-##' rstfile <- system.file("extdata/PAML_Codeml", "rst", package="ggtree")
-##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="ggtree")
+##' rstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
+##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
 ##' read.codeml(rstfile, mlcfile) 
 read.codeml <- function(rstfile, mlcfile) {
     rst <- read.paml_rst(rstfile)
