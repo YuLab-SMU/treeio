@@ -29,6 +29,10 @@ setGeneric("get.tree", function(object, ...) standardGeneric("get.tree"))
 setGeneric("get.treetext", function(object, ...) standardGeneric("get.treetext"))
 
 
+##' access tree info
+##'
+##'
+##' access treeinfo, designed for jplace object
 ##' @docType methods
 ##' @name get.treeinfo
 ##' @rdname get.treeinfo-methods
@@ -40,7 +44,7 @@ setGeneric("get.treetext", function(object, ...) standardGeneric("get.treetext")
 ##' @param ... additional parameter
 ##' @return data.frame
 ##' @export
-setGeneric("get.treeinfo", function(object, layout="phylogram", ladderize=TRUE, right=FALSE, ...) standardGeneric("get.treeinfo"))
+setGeneric("get.treeinfo", function(object, layout="rectangular", ladderize=TRUE, right=FALSE, ...) standardGeneric("get.treeinfo"))
 
 
 ##' @docType methods

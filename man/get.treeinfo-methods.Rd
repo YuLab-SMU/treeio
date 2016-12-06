@@ -5,7 +5,7 @@
 \alias{get.treeinfo}
 \title{get.treeinfo method}
 \usage{
-get.treeinfo(object, layout = "phylogram", ladderize = TRUE,
+get.treeinfo(object, layout = "rectangular", ladderize = TRUE,
   right = FALSE, ...)
 }
 \arguments{
@@ -21,5 +21,11 @@ get.treeinfo(object, layout = "phylogram", ladderize = TRUE,
 }
 \value{
 data.frame
+}
+\description{
+access tree info
+}
+\details{
+access treeinfo, designed for jplace object
 }
 

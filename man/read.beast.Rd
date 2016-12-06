@@ -16,10 +16,10 @@ read.beast(file)
 read beast output
 }
 \examples{
-file <- system.file("extdata/BEAST", "beast_mcc.tree", package="ggtree")
+file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
 read.beast(file)
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{https://guangchuangyu.github.io}
 }
 

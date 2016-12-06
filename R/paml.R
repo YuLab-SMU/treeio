@@ -166,24 +166,33 @@ read.phylo_paml_mlc <- function(mlcfile) {
 
     root <- getRoot(tr3) ## always == (Ntip(tr3) + 1)
     currentNode <- treeinfo$label[ii]
-    treeinfo.tr3 <- fortify(tr3)
-
+    ## treeinfo.tr3 <- fortify(tr3)
+    tr3_label <- c(tr3$tip.label, tr3$node.label)
+    tr3_edge <- as.data.frame(tr3$edge)
+    colnames(tr3_edge) <- c("parent", "node")
+    
     treeinfo$visited <- FALSE
     while(any(treeinfo$visited == FALSE)) {
         pNode <- c()
         for( kk in currentNode ) {
             i <- which(treeinfo$label == kk)
             treeinfo[i, "visited"] <- TRUE
-            j <- which(treeinfo.tr3$label == kk)
+            ## j <- which(treeinfo.tr3$label == kk)
+            j <- which(tr3_label == kk)
             ip <- treeinfo[i, "parent"]
             if (ip != root) {
                 ii <- which(treeinfo[, "node"] == ip)
                 if (treeinfo$visited[ii] == FALSE) {
-                    jp <- treeinfo.tr3[j, "parent"]
-                    jj <- which(treeinfo.tr3[, "node"] == jp)
+                    ## jp <- treeinfo.tr3[j, "parent"]
+                    jp <- tr3_edge[tr3_edge$node == j, "parent"]
+                    
+                    ## jj <- which(treeinfo.tr3[, "node"] == jp)
+                    ## jj <- jp
                     treeinfo[ii, "label"] <- as.character(ip)
-                    treeinfo.tr3[jj, "label"] <- as.character(ip)
-                    treeinfo[ii, "length"] <- treeinfo.tr3[jj, "branch.length"]
+                    ## treeinfo.tr3[jj, "label"] <- as.character(ip)
+                    tr3_label[jp] <- as.character(ip)
+                    treeinfo[ii, "length"] <- tr3$edge.length[tr3_edge$node == jp]
+                    ## treeinfo.tr3[jj, "branch.length"]
                     pNode <- c(pNode, ip)
                 }
                 treeinfo[ii, "visited"] <- TRUE

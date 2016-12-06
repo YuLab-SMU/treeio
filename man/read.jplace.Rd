@@ -16,7 +16,7 @@ read.jplace(file)
 read jplace file
 }
 \examples{
-jp <- system.file("extdata", "sample.jplace", package="ggtree")
+jp <- system.file("extdata", "sample.jplace", package="treeio")
 read.jplace(jp)
 }
 \author{
