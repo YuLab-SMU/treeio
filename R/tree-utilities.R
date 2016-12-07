@@ -6,6 +6,9 @@
 ##' @return number of tips
 ##' @export
 ##' @author guangchuang yu
+##' @examples
+##' Ntip(rtree(30))
+##' @author guangchuang yu
 Ntip <- function(tree) {
     phylo <- as.phylo(tree)
     length(phylo$tip.label)
@@ -19,6 +22,8 @@ Ntip <- function(tree) {
 ##' @param internal.only whether only count internal nodes
 ##' @return number of nodes
 ##' @export
+##' @examples
+##' Nnode(rtree(30))
 ##' @author guangchuang yu
 Nnode <- function(tree, internal.only=TRUE) {
     phylo <- as.phylo(tree)
@@ -34,11 +39,19 @@ Nnode <- function(tree, internal.only=TRUE) {
 ##' @title getNodeNum
 ##' @param tree tree object
 ##' @return number
-##' @author Guangchuang Yu
 ##' @export
+##' @examples
+##' getNodeNum(rtree(30))
+##' @author Guangchuang Yu
 getNodeNum <- function(tree) {
     Nnode(tree, internal.only=FALSE)
 }
+
+##' @rdname getNodeNum
+##' @export
+##' @examples
+##' Nnode2(rtree(30))
+Nnode2 <- getNodeNum
 
 getParent <- function(tr, node) {
     if ( node == getRoot(tr) )
@@ -100,6 +113,8 @@ getAncestor <- function(tr, node) {
 ##' @param tr phylo object
 ##' @return root number
 ##' @export
+##' @examples
+##' getRoot(rtree(10))
 ##' @author Guangchuang Yu
 getRoot <- function(tr) {
     edge <- tr[["edge"]]
@@ -125,6 +140,10 @@ getRoot <- function(tr) {
 ##' @param x object
 ##' @return TRUE or FALSE
 ##' @export
+##' @examples
+##' library(ggtree)
+##' p <- ggtree(rtree(30))
+##' is.ggtree(p)
 ##' @author guangchuang yu
 is.ggtree <- function(x) inherits(x, 'ggtree')
 

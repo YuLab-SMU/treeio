@@ -1,6 +1,6 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 0.99.1
+Version: 0.99.2
 Authors@R: person("Guangchuang", "Yu",
 	   	  email = "guangchuangyu@gmail.com",
 		  role = c("aut", "cre"))

@@ -6,6 +6,9 @@
 ##' @return nhx object
 ##' @importFrom magrittr %<>%
 ##' @export
+##' @examples
+##' nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+##' read.nhx(nhxfile)
 ##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 read.nhx <- function(file) {
     treetext <- suppressWarnings(readLines(file))

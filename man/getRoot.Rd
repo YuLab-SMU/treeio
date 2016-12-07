@@ -15,6 +15,9 @@ root number
 \description{
 get the root number
 }
+\examples{
+getRoot(rtree(10))
+}
 \author{
 Guangchuang Yu
 }

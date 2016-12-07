@@ -17,6 +17,9 @@ number of nodes
 \description{
 number of nodes
 }
+\examples{
+Nnode(rtree(30))
+}
 \author{
 guangchuang yu
 }

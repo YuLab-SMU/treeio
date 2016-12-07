@@ -15,6 +15,9 @@ r8s instance
 \description{
 parse output from r8s
 }
+\examples{
+read.r8s(system.file("extdata/r8s", "H3_r8s_output.log", package="treeio"))
+}
 \author{
 Guangchuang Yu
 }

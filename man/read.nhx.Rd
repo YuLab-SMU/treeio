@@ -15,6 +15,10 @@ nhx object
 \description{
 read nhx tree file
 }
+\examples{
+nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+read.nhx(nhxfile)
+}
 \author{
 Guangchuang Yu \url{https://guangchuangyu.github.io}
 }

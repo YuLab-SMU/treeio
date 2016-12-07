@@ -1,10 +1,13 @@
 ##' parsing phylip tree format
 ##'
-##' 
+##'
 ##' @title read.phylip
 ##' @param file phylip file
 ##' @return an instance of 'phylip'
 ##' @export
+##' @examples
+##' phyfile <- system.file("extdata", "sample.phy", package="treeio")
+##' read.phylip(phyfile)
 ## @importFrom Biostrings BStringSet
 ##' @author Guangchuang Yu
 read.phylip <- function(file) {
@@ -31,7 +34,7 @@ read.phylip <- function(file) {
     if (any(nchar(seqs) != seqLen)) {
         stop(paste("sequence length not consistent...\n->", paste0(nchar(seqs), collapse=" ")))
     }
-    
+
     new("phylip",
         file = filename(file),
         phylo = trees,

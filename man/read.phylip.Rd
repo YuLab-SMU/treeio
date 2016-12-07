@@ -15,6 +15,10 @@ an instance of 'phylip'
 \description{
 parsing phylip tree format
 }
+\examples{
+phyfile <- system.file("extdata", "sample.phy", package="treeio")
+read.phylip(phyfile)
+}
 \author{
 Guangchuang Yu
 }

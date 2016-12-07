@@ -33,6 +33,11 @@ updated object
 \description{
 drop.tip method
 }
+\examples{
+nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+nhx <- read.nhx(nhxfile)
+drop.tip(nhx, c("ADH2", "ADH1"))
+}
 \author{
 Casey Dunn \url{http://dunnlab.org}  and Guangchuang Yu \url{https://guangchuangyu.github.io}
 }

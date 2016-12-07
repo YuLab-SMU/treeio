@@ -1,12 +1,16 @@
+CHANGES IN VERSION 0.99.2
+------------------------
+ o fixed BiocCheck by adding examples <2016-12-07, Wed>
+
 CHANGES IN VERSION 0.99.1
 ------------------------
  o fixed link in DESCRIPTION <2016-12-06, Tue>
- 
+
 CHANGES IN VERSION 0.99.0
 ------------------------
  o add vignette <2016-12-06, Tue>
  o move parser functions from ggtree <2016-12-06, Tue>
- 
+
 CHANGES IN VERSION 0.0.1
 ------------------------
  o read.nhx from ggtree <2016-12-06, Tue>

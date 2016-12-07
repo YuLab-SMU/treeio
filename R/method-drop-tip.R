@@ -6,13 +6,17 @@
 ##' @exportMethod drop.tip
 ##' @author Casey Dunn \url{http://dunnlab.org}  and Guangchuang Yu \url{https://guangchuangyu.github.io}
 ##' @usage drop.tip(object, tip, ...)
+##' @examples
+##' nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+##' nhx <- read.nhx(nhxfile)
+##' drop.tip(nhx, c("ADH2", "ADH1"))
 setMethod("drop.tip", signature(object="treedata"),
           function(object, tip, ...) {
 
               ## label the internal tree nodes by their number
               no_node_label <- FALSE
               if (is.null(object@phylo$node.label)) {
-                  object@phylo$node.label <- Nnode(object, internal.only=FALSE)
+                  object@phylo$node.label <- Ntip(object) + (1:Nnode(object))
                   no_node_label <- TRUE
               }
 

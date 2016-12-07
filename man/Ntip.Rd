@@ -15,7 +15,12 @@ number of tips
 \description{
 number of tips
 }
+\examples{
+Ntip(rtree(30))
+}
 \author{
+guangchuang yu
+
 guangchuang yu
 }
 

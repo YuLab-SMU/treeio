@@ -1,10 +1,13 @@
 ##' parse RAxML bootstrapping analysis output
 ##'
-##' 
+##'
 ##' @title read.raxml
 ##' @param file RAxML bootstrapping analysis output
 ##' @return raxml object
 ##' @export
+##' @examples
+##' raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio")
+##' read.raxml(raxml_file)
 ##' @author Guangchuang Yu
 read.raxml <- function(file) {
     tree.text <- readLines(file)
@@ -40,7 +43,7 @@ setMethod("show", signature(object = "raxml"),
               cat("'raxml' S4 object that stored information of\n\t",
                   paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
-              print.phylo(get.tree(object))                  
+              print.phylo(get.tree(object))
               cat("\nwith the following features available:\n")
               print_fields(object)
           })

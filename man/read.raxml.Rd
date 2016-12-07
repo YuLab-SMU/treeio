@@ -15,6 +15,10 @@ raxml object
 \description{
 parse RAxML bootstrapping analysis output
 }
+\examples{
+raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio")
+read.raxml(raxml_file)
+}
 \author{
 Guangchuang Yu
 }
