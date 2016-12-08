@@ -1,13 +1,13 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 0.99.3
+Version: 0.99.4
 Authors@R: person("Guangchuang", "Yu",
 	   	  email = "guangchuangyu@gmail.com",
 		  role = c("aut", "cre"))
 Description: Base classes and functions for parsing and exporting phylogenetic
     trees.
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.4.0)
 Imports:
     ape,
     jsonlite,
