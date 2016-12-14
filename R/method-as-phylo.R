@@ -27,8 +27,9 @@ as.phylo.data.frame <- function(x, ...) {
     return(phylo)
 }
 
-##' @method as.phylo ggtree
-as.phylo.ggtree <- function(x, ...) {
+##' @method as.phylo gg
+## change to ggtree when ggtree updated on Bioconductor
+as.phylo.gg <- function(x, ...) {
     as.phylo(x$data)
 }
 
