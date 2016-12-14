@@ -6,7 +6,7 @@ author: "Guangchuang Yu\\
 date: "`r Sys.Date()`"
 bibliography: treeio.bib
 csl: nature.csl
-output: 
+output:
   prettydoc::html_pretty:
     toc: true
     theme: cayman
@@ -49,7 +49,7 @@ The `treeio` package define several parser functions and `S4` classes to store s
 
 and software output from:
 
-+ [BEAST](http://beast2.org/)[@bouckaert_beast_2014] 
++ [BEAST](http://beast2.org/)[@bouckaert_beast_2014]
 + [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011]
 + [HYPHY](http://hyphy.org/w/index.php/Main_Page)[@pond_hyphy_2005]
 + [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)[@yang_paml_2007]
@@ -100,7 +100,7 @@ Viewing a phylogenetic tree in `ggtree` is easy by using the command `ggtree(tre
 -->
 
 
-For each class, we defined _`get.fields`_ method to get the annotation features that available in the object that can be used to annotate a phylogenetic tree directly in `ggtree`. A _`get.tree`_ method can be used to convert tree object to `phylo` (or `multiPhylo` for `r8s`) object that are widely supported by other `R` packages. 
+For each class, we defined _`get.fields`_ method to get the annotation features that available in the object that can be used to annotate a phylogenetic tree directly in `ggtree`. A _`get.tree`_ method can be used to convert tree object to `phylo` (or `multiPhylo` for `r8s`) object that are widely supported by other `R` packages.
 
 <!--
 The _`groupOTU`_ method is used for clustering related OTUs (from tips to their most recent common ancestor). Related OTUs are not necessarily within a clade, they can be distantly related. _`groupOTU`_ works fine for monophyletic (clade), polyphyletic and paraphyletic, while _`groupClade`_ only works for clade (monophyletic). These methods are useful for clustering related OTUs or clades.
@@ -233,7 +233,7 @@ ggtree(mlc, branch.length = "dN_vs_dS", aes(color=dN_vs_dS)) +
     theme_tree2(legend.position=c(.9, .5))
 ```
 
-We can also plot the _`dN`_ or _`dS`_ tree and others. More examples (including evidences inferred by BEAST) can be found in the [Tree Annotation](treeAnnotation.html) vignette.  
+We can also plot the _`dN`_ or _`dS`_ tree and others. More examples (including evidences inferred by BEAST) can be found in the [Tree Annotation](treeAnnotation.html) vignette.
 -->
 
 #### _`CODEML`_ output: rst and mlc files\
@@ -241,7 +241,7 @@ We can also plot the _`dN`_ or _`dS`_ tree and others. More examples (including 
 
 We annotate the tree with information presented in _`rst`_ and _`mlc`_ file separately as demonstrated in previous sessions.
 
-We can also use both of them which is highly recommended. 
+We can also use both of them which is highly recommended.
 
 
 ```{r}
@@ -312,20 +312,20 @@ ggtree(raxml) + geom_label(aes(label=bootstrap, fill=bootstrap)) + geom_tiplab()
 ```
 -->
 
-<!--
+
 ## Parsing NHX tree
 
 NHX (New Hampshire eXtended) format is commonly used in phylogenetics software (e.g. [PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/)[@boussau_genome-scale_2013], [RevBayes](http://revbayes.github.io/intro.html)[@hohna_probabilistic_2014], *etc*.)
 
-#```{r}
-nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+```{r}
+nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 nhx <- read.nhx(nhxfile)
-ggtree(nhx) + geom_tiplab() + geom_point(aes(color=S), size=5, alpha=.5) + 
-    theme(legend.position="right") +
-    geom_text(aes(label=branch.length, x=branch), vjust=-.5) + 
-    xlim(NA, 0.3)
+nhx
+## ggtree(nhx) + geom_tiplab() + geom_point(aes(color=S), size=5, alpha=.5) +
+##     theme(legend.position="right") +
+##     geom_text(aes(label=branch.length, x=branch), vjust=-.5) +
+##     xlim(NA, 0.3)
 ```
--->
 
 ## Parsing Phylip tree
 
@@ -350,7 +350,7 @@ msaplot(phylip, offset=1)
 
 ## Parsing EPA and pplacer output
 
-[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`, which can be parsed by `read.jplace()` function. 
+[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)[@matsen_pplacer_2010] have common output file format, `jplace`, which can be parsed by `read.jplace()` function.
 
 ```{r}
 jpf <- system.file("extdata/sample.jplace",  package="treeio")
@@ -370,7 +370,7 @@ get.placements(jp, by="all")
 This is only a tiny sample file. In reality, [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) and [PPLACER](http://matsen.fhcrc.org/pplacer/) may place thousands of short reads on a reference tree.
 
 
-We may, for example, count the number of placement and annotate this information in the tree. 
+We may, for example, count the number of placement and annotate this information in the tree.
 
 <!--
 # merging tree objects
@@ -405,11 +405,11 @@ After merging, all evidences inferred from different tools can be used to annota
 
 #```{r fig.width=20, fig.height=26, warning=FALSE}
 ggtree(merged_tree, aes(color=dN_vs_dS), mrsd="2013-01-01", ndigits = 3) +
-    geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5, color="black") + 
+    geom_text(aes(label=posterior), vjust=.1, hjust=-.1, size=5, color="black") +
     scale_color_continuous(name='dN/dS', limits=c(0, 1.5),
                            oob=scales::squish, low="green", high="red")+
     theme_tree2(legend.position="right")
-```	
+```
 
 
 # `jplace` file format
@@ -440,8 +440,8 @@ print(jp)
 Now we know the _`jp`_ object that stores the tree and the associated amino acid substitution and GC content information, we can view the tree and display the associated annotation data on it directly by _`ggtree`_.
 
 #```{r fig.width=12, fig.height=12, warning=FALSE, fig.align="center"}
-ggtree(jp) + 
-    geom_text(aes(x=branch, label=subs), color="purple", vjust=-1, size=3) + 
+ggtree(jp) +
+    geom_text(aes(x=branch, label=subs), color="purple", vjust=-1, size=3) +
     geom_text(aes(label=gc), color="steelblue", hjust=-.6, size=3) +
     geom_tiplab()
 ```

@@ -57,19 +57,3 @@ read.r8s <- function(file) {
 ##           })
 
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="r8s"),
-          function(object,...) {
-              object@phylo
-          }
-          )
-
-
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object="r8s"),
-          function(object, ...) {
-              get.fields.tree(object)
-          }
-          )

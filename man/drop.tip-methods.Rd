@@ -34,7 +34,7 @@ updated object
 drop.tip method
 }
 \examples{
-nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 nhx <- read.nhx(nhxfile)
 drop.tip(nhx, c("ADH2", "ADH1"))
 }

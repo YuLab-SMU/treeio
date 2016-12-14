@@ -59,15 +59,6 @@ remove_quote_in_tree_label <- function(phylo) {
 }
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object="beast"),
-          function(object, ...) {
-              get.fields.tree(object)
-          }
-          )
-
-
 read.treetext_beast <- function(file) {
     beast <- readLines(file)
 
@@ -184,13 +175,13 @@ read.stats_beast_internal <- function(beast, tree) {
                     root:getNodeNum(phylo))
         ## label2 <- c(treeinfo[treeinfo$isTip, "label"],
         ##             root:(root+nnode-1))
-    
+
     } else {
         ## node <- as.character(treeinfo$node[match(nn, treeinfo$label)])
         label2 <- as.character(1:getNodeNum(phylo))
     }
     node <- label2[match(nn, tree_label)]
-    
+
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
     stats <- strsplit(tree, ":") %>% unlist

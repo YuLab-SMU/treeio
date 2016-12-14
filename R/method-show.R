@@ -6,7 +6,7 @@ setMethod("show", signature(object = "beast"),
               cat("'beast' S4 object that stored information of\n\t",
                   paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
-              print.phylo(get.tree(object))                  
+              print.phylo(get.tree(object))
               cat("\nwith the following features available:\n")
               print_fields(object)
           })
@@ -20,7 +20,7 @@ setMethod("show", signature(object = "codeml"),
                          object@mlc@mlcfile, "'."),
                   "\n\n")
               cat("...@ tree:")
-              print.phylo(get.tree(object))                  
+              print.phylo(get.tree(object))
               cat("\nwith the following features available:\n")
               print_fields(object, len=4)
           })
@@ -32,10 +32,10 @@ setMethod("show", signature(object = "codeml_mlc"),
               cat("'codeml_mlc' S4 object that stored information of\n\t",
                   paste0("'", object@mlcfile, "'."),
                   "\n\n")
-              
+
               cat("...@ tree:")
-              print.phylo(get.tree(object))                  
-              
+              print.phylo(get.tree(object))
+
               cat("\nwith the following features available:\n")
               cat("\t", paste0("'",
                                  paste(get.fields(object), collapse="',\t'"),
@@ -46,7 +46,7 @@ setMethod("show", signature(object = "codeml_mlc"),
 
 ##' show method for \code{jplace} instance
 ##'
-##' 
+##'
 ##' @name show
 ##' @docType methods
 ##' @rdname show-methods
@@ -72,8 +72,8 @@ setMethod("show", signature(object = "jplace"),
 
               phylo <- get.tree(object)
               phylo$node.label <- NULL
-              phylo$tip.label %<>% gsub("\\@\\d+", "", .) 
-        
+              phylo$tip.label %<>% gsub("\\@\\d+", "", .)
+
               print.phylo(phylo)
 
               cat("\nwith the following features availables:\n")
@@ -92,7 +92,7 @@ setMethod("show", signature(object = "jplace"),
 ##               cat("'nhx' S4 object that stored information of\n\t",
 ##                   paste0("'", object@file, "'.\n\n"))
 ##               cat("...@ tree: ")
-##               print.phylo(get.tree(object))                  
+##               print.phylo(get.tree(object))
 ##               cat("\nwith the following features available:\n")
 ##               print_fields(object)
 ##           })
@@ -105,7 +105,7 @@ setMethod("show", signature(object = "phylip"),
               cat("'phylip' S4 object that stored information of\n\t",
                   paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
-              print.phylo(get.tree(object))                  
+              print.phylo(get.tree(object))
               msg <- paste0("\nwith sequence alignment available (", length(object@sequence),
                             " sequences of length ", nchar(object@sequence)[1], ")\n")
               cat(msg)
@@ -132,9 +132,9 @@ setMethod("show", signature(object = "paml_rst"),
                   fields <- fields[fields != "joint_subs"]
                   fields <- fields[fields != "joint_AA_subs"]
               }
-              
+
               cat("...@ tree:")
-              print.phylo(get.tree(object))                  
+              print.phylo(get.tree(object))
               cat("\nwith the following features available:\n")
               cat("\t", paste0("'",
                                paste(fields, collapse="',\t'"),
@@ -152,7 +152,61 @@ setMethod("show", signature(object = "r8s"),
               cat("'r8s' S4 object that stored information of\n\t",
                   paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
-              print.phylo(get.tree(object))                  
+              print.phylo(get.tree(object))
               ## cat("\nwith the following features available:\n")
               ## print_fields(object)
+          })
+
+
+
+##' @rdname show-methods
+##' @exportMethod show
+setMethod("show", signature(object = "hyphy"),
+          function(object) {
+              cat("'hyphy' S4 object that stored information of \n\t",
+                  paste0("'", object@tree.file, "'"))
+              if (length(object@tip_seq) == 0) {
+                  cat(paste0("and '", object@ancseq.file, "'"), ".\n")
+              } else {
+                  cat(paste0(", \n\t'", object@ancseq.file, "'"),
+                      paste0("and \n\t'", object@tip.fasfile, "'."),
+                      "\n\n")
+              }
+              cat("...@ tree:")
+              print.phylo(get.tree(object))
+              cat("\nwith the following features available:\n")
+              cat("\t", paste0("'",
+                               paste(get.fields(object), collapse="',\t'"),
+                               "'."),
+                  "\n")
+
+          })
+
+
+
+##' @rdname show-methods
+##' @importFrom ape print.phylo
+##' @exportMethod show
+setMethod("show", signature(object = "raxml"),
+          function(object) {
+              cat("'raxml' S4 object that stored information of\n\t",
+                  paste0("'", object@file, "'.\n\n"))
+              cat("...@ tree: ")
+              print.phylo(get.tree(object))
+              cat("\nwith the following features available:\n")
+              print_fields(object)
+          })
+
+
+##' @rdname show-methods
+##' @importFrom ape print.phylo
+##' @exportMethod show
+setMethod("show", signature(object = "treedata"),
+          function(object) {
+              cat("'treedata' S4 object that stored information of\n\t",
+                  paste0("'", object@file, "'.\n\n"))
+              cat("...@ tree: ")
+              print.phylo(get.tree(object))
+              cat("\nwith the following features available:\n")
+              print_fields(object)
           })

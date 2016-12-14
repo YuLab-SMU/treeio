@@ -7,7 +7,7 @@
 ##' @importFrom magrittr %<>%
 ##' @export
 ##' @examples
-##' nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+##' nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 ##' read.nhx(nhxfile)
 ##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 read.nhx <- function(file) {
@@ -30,7 +30,7 @@ read.nhx <- function(file) {
     }
 
     phylo2 <- read.tree(text = tree2)
-    node <- match(nlab, c(phylo2$tip.label, phylo2$node.label))
+    node <- match(nlab, sub(".+(X\\d+)$","\\1", c(phylo2$tip.label, phylo2$node.label)))
 
     nhx.matches <- gregexpr("(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?\\[&&NHX.*?\\]", treetext)
     matches <- nhx.matches[[1]]

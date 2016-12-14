@@ -68,6 +68,13 @@ get.fields.tree <- function(object) {
         fields <- c(get.fields(object@rst),
                     get.fields(object@mlc))
         fields <- unique(fields)
+    } else if (is(object, "treedata")) {
+        if (nrow(object@data) > 0) {
+            fields <- colnames(object@data)
+            fields <- fields[fields != "node"]
+        } else {
+            fields <- ""
+        }
     } else {
         fields <- object@fields
     }

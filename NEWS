@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.5
+------------------------
+ o add unit test of NHX (move from ggtree) <2016-12-14, Wed>
+
 CHANGES IN VERSION 0.99.3
 ------------------------
  o fixed BiocCheck by adding examples <2016-12-07, Wed>

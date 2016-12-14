@@ -35,19 +35,6 @@ read.raxml <- function(file) {
 }
 
 
-##' @rdname show-methods
-##' @importFrom ape print.phylo
-##' @exportMethod show
-setMethod("show", signature(object = "raxml"),
-          function(object) {
-              cat("'raxml' S4 object that stored information of\n\t",
-                  paste0("'", object@file, "'.\n\n"))
-              cat("...@ tree: ")
-              print.phylo(get.tree(object))
-              cat("\nwith the following features available:\n")
-              print_fields(object)
-          })
-
 ## ##' @rdname groupOTU-methods
 ## ##' @exportMethod groupOTU
 ## setMethod("groupOTU", signature(object="raxml"),
@@ -77,22 +64,4 @@ setMethod("show", signature(object = "raxml"),
 ##           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
 ##               gzoom.phylo(get.tree(object), focus, subtree, widths)
 ##           })
-
-
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="raxml"),
-          function(object,...) {
-              object@phylo
-          }
-          )
-
-
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object="raxml"),
-          function(object, ...) {
-              get.fields.tree(object)
-          }
-          )
 

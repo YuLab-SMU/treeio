@@ -16,7 +16,7 @@ nhx object
 read nhx tree file
 }
 \examples{
-nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 read.nhx(nhxfile)
 }
 \author{

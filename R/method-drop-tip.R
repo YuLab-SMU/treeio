@@ -7,7 +7,7 @@
 ##' @author Casey Dunn \url{http://dunnlab.org}  and Guangchuang Yu \url{https://guangchuangyu.github.io}
 ##' @usage drop.tip(object, tip, ...)
 ##' @examples
-##' nhxfile <- system.file("extdata", "ADH.nhx", package="treeio")
+##' nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 ##' nhx <- read.nhx(nhxfile)
 ##' drop.tip(nhx, c("ADH2", "ADH1"))
 setMethod("drop.tip", signature(object="treedata"),

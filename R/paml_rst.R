@@ -19,7 +19,7 @@ read.baseml <- function(rstfile, mlbfile) {
 
 ##' read rst file from paml output
 ##'
-##' 
+##'
 ## @importFrom Biostrings readBStringSet
 ## @importFrom Biostrings toString
 ##' @title read.paml_rst
@@ -42,7 +42,7 @@ read.paml_rst <- function(rstfile) {
     res <- new("paml_rst",
                fields          = fields,
                treetext        = read.treetext_paml_rst(rstfile),
-               phylo           = phylo, 
+               phylo           = phylo,
                seq_type        = type,
                marginal_ancseq = ms,
                joint_ancseq    = read.ancseq_paml_rst(rstfile, by = "Joint"),
@@ -57,7 +57,7 @@ read.paml_rst <- function(rstfile) {
     ##     res@tip.fasfile <- tip.fasfile
     ## }
     res@tip_seq <- ms[names(ms) %in% phylo$tip.label]
-    
+
     set.paml_rst_(res)
 }
 
@@ -74,7 +74,7 @@ read.paml_rst <- function(rstfile) {
 
 ##' get tipseq
 ##'
-##' 
+##'
 ##' @rdname get.tipseq-methods
 ##' @exportMethod get.tipseq
 setMethod("get.tipseq", signature(object="paml_rst"),
@@ -87,30 +87,12 @@ setMethod("get.tipseq", signature(object="paml_rst"),
           })
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object = "paml_rst"),
-          function(object) {
-              if (length(object@tip_seq) == 0) {
-                  warning("tip sequence not available...\n")
-              } else {
-                  get.fields.tree(object) 
-              }
-          }
-          )
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object = "paml_rst"),
-          function(object) {
-              object@phylo
-          }
-          )
 
 
 ##' get substitution information
 ##'
-##' 
+##'
 ##' @rdname get.subs-methods
 ##' @exportMethod get.subs
 setMethod("get.subs", signature(object = "paml_rst"),

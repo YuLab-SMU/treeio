@@ -18,7 +18,7 @@
 read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     anc <- scan(ancseq, what="", sep="\n", quiet=TRUE)
     end <- grep("END;", anc, ignore.case=TRUE)
-    
+
     seq.start <- grep("MATRIX", anc, ignore.case=TRUE)
     seq.end   <- end[end > seq.start][1]
     seq       <- anc[(seq.start+1):(seq.end-1)]
@@ -26,7 +26,7 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     seq       <- seq[seq != ""]
     seq       <- gsub(" ", "", seq)
     seq       <- gsub(";", "", seq)
-    
+
     ## some files may only contains sequences (should have TAXALABELS block that contains seq names).
     ## some may contains sequence name like phylip format in MATRIX block (no need to have TAXALABELS block).
     ##
@@ -35,9 +35,9 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
         ## if contains blank space, may contains seq name
         sn <- gsub("(\\w*)\\s.*", "\\1", seq)
     }
-    
+
     seq <- gsub("\\w*\\s+", "", seq)
-    
+
     label.start <- grep("TAXLABELS", anc, ignore.case = TRUE)
     if (length(label.start) == 0) {
         if (all(sn == "")) {
@@ -47,13 +47,13 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     } else {
         label.end   <- end[end > label.start][1]
         label       <- anc[(label.start+1):(label.end-1)]
-        
+
         label <- sub("^\t+", "", label)
         label <- sub("\\s*;$", "", label)
         label <- unlist(strsplit(label, split="\\s+"))
         label <- gsub("'|\"", "", label)
     }
-    
+
     names(seq) <- label
 
     tr <- read.tree(nwk)
@@ -66,7 +66,7 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     ##
     ## nl[nl == ""] <- "Node1"
     nl[nl == ""] <- label[!label %in% nl]
-    
+
     tr$node.label <- nl
 
     type <- get_seqtype(seq)
@@ -88,7 +88,7 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     if ( !is.null(tip.fasfile) ) {
         readBStringSet <- get_fun_from_pkg("Biostrings", "readBStringSet")
         toString <- get_fun_from_pkg("Biostrings", "toString")
-        
+
         tip_seq <- readBStringSet(tip.fasfile)
         nn <- names(tip_seq)
         tip_seq <- sapply(seq_along(tip_seq), function(i) {
@@ -131,54 +131,6 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
 ##           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
 ##               gzoom.phylo(get.tree(object), focus, subtree, widths)
 ##           })
-
-##' @rdname show-methods
-##' @exportMethod show
-setMethod("show", signature(object = "hyphy"),
-          function(object) {
-              cat("'hyphy' S4 object that stored information of \n\t",
-                  paste0("'", object@tree.file, "'"))
-              if (length(object@tip_seq) == 0) {
-                  cat(paste0("and '", object@ancseq.file, "'"), ".\n")
-              } else {
-                  cat(paste0(", \n\t'", object@ancseq.file, "'"),
-                      paste0("and \n\t'", object@tip.fasfile, "'."),
-                      "\n\n")
-              }
-              cat("...@ tree:")
-              print.phylo(get.tree(object))
-              cat("\nwith the following features available:\n")
-              cat("\t", paste0("'",
-                               paste(get.fields(object), collapse="',\t'"),
-                               "'."),
-                  "\n")
-              
-          })
-
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-##' @examples
-##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
-##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
-##' hy <- read.hyphy(nwk, ancseq)
-##' get.tree(hy)
-setMethod("get.tree", signature(object = "hyphy"),
-          function(object) {
-              object@phylo
-          }
-          )
-
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object = "hyphy"),
-          function(object, ...) {
-              if(length(object@tip_seq) == 0) {
-                  warning("tip sequence not available...\n")
-              } else {
-                  get.fields.tree(object)
-              }
-          })
-
 
 ##' @rdname get.subs-methods
 ##' @exportMethod get.subs

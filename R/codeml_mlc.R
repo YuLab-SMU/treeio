@@ -1,7 +1,7 @@
 ##' read mlc file of codeml output
 ##'
-##' 
-##' @title read.codeml_mlc 
+##'
+##' @title read.codeml_mlc
 ##' @param mlcfile mlc file
 ##' @return A \code{codeml_mlc} object
 ##' @export
@@ -12,7 +12,7 @@
 read.codeml_mlc <- function(mlcfile) {
     ## tip_seq <- read.tip_seq_mlc(mlcfile)
     dNdS <- read.dnds_mlc(mlcfile)
-    
+
     new("codeml_mlc",
         fields   = colnames(dNdS)[-c(1,2)],
         treetext = read.treetext_paml_mlc(mlcfile),
@@ -51,15 +51,6 @@ read.codeml_mlc <- function(mlcfile) {
 
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object = "codeml_mlc"),
-          function(object) {
-              get.fields.tree(object)
-          })
-
-
-
 ## plot.codeml_mlc_<- function(p, position, annotation=NULL,
 ##                             annotation.size, annotation.color){
 
@@ -71,15 +62,3 @@ setMethod("get.fields", signature(object = "codeml_mlc"),
 ##     }
 ##     p + theme_tree2()
 ## }
-
-    
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object = "codeml_mlc"),
-          function(object, ...) {
-              object@phylo
-          }
-          )
-
-
-

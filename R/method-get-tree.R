@@ -66,5 +66,60 @@ setMethod("get.tree", signature(object="phylo"),
               return(object)
           })
 
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object="treedata"),
+          function(object, ...) {
+              return(object@phylo)
+          })
 
+
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+##' @examples
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
+##' hy <- read.hyphy(nwk, ancseq)
+##' get.tree(hy)
+setMethod("get.tree", signature(object = "hyphy"),
+          function(object) {
+              object@phylo
+          }
+          )
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object = "paml_rst"),
+          function(object) {
+              object@phylo
+          }
+          )
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object="raxml"),
+          function(object,...) {
+              object@phylo
+          }
+          )
+
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object = "codeml_mlc"),
+          function(object, ...) {
+              object@phylo
+          }
+          )
+
+
+
+##' @rdname get.tree-methods
+##' @exportMethod get.tree
+setMethod("get.tree", signature(object="r8s"),
+          function(object,...) {
+              object@phylo
+          }
+          )
 
