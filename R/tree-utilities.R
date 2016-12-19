@@ -1,0 +1,162 @@
+##' number of tips
+##'
+##'
+##' @title Ntip
+##' @param tree tree object
+##' @return number of tips
+##' @export
+##' @author guangchuang yu
+##' @examples
+##' Ntip(rtree(30))
+##' @author guangchuang yu
+Ntip <- function(tree) {
+    phylo <- as.phylo(tree)
+    length(phylo$tip.label)
+}
+
+##' number of nodes
+##'
+##'
+##' @title Nnode
+##' @param tree tree object
+##' @param internal.only whether only count internal nodes
+##' @return number of nodes
+##' @export
+##' @examples
+##' Nnode(rtree(30))
+##' @author guangchuang yu
+Nnode <- function(tree, internal.only=TRUE) {
+    phylo <- as.phylo(tree)
+    if (internal.only)
+        return(phylo$Nnode)
+
+    Ntip(phylo) + phylo$Nnode
+}
+
+##' calculate total number of nodes
+##'
+##'
+##' @title getNodeNum
+##' @param tree tree object
+##' @return number
+##' @export
+##' @examples
+##' getNodeNum(rtree(30))
+##' @author Guangchuang Yu
+getNodeNum <- function(tree) {
+    Nnode(tree, internal.only=FALSE)
+}
+
+##' @rdname getNodeNum
+##' @export
+##' @examples
+##' Nnode2(rtree(30))
+Nnode2 <- getNodeNum
+
+getParent <- function(tr, node) {
+    if ( node == getRoot(tr) )
+        return(0)
+    edge <- tr[["edge"]]
+    parent <- edge[,1]
+    child <- edge[,2]
+    res <- parent[child == node]
+    if (length(res) == 0) {
+        stop("cannot found parent node...")
+    }
+    if (length(res) > 1) {
+        stop("multiple parent found...")
+    }
+    return(res)
+}
+
+getChild <- function(tr, node) {
+    edge <- tr[["edge"]]
+    res <- edge[edge[,1] == node, 2]
+    ## if (length(res) == 0) {
+    ##     ## is a tip
+    ##     return(NA)
+    ## }
+    return(res)
+}
+
+getSibling <- function(tr, node) {
+    root <- getRoot(tr)
+    if (node == root) {
+        return(NA)
+    }
+
+    parent <- getParent(tr, node)
+    child <- getChild(tr, parent)
+    sib <- child[child != node]
+    return(sib)
+}
+
+
+getAncestor <- function(tr, node) {
+    root <- getRoot(tr)
+    if (node == root) {
+        return(NA)
+    }
+    parent <- getParent(tr, node)
+    res <- parent
+    while(parent != root) {
+        parent <- getParent(tr, parent)
+        res <- c(res, parent)
+    }
+    return(res)
+}
+
+##' get the root number
+##'
+##'
+##' @title getRoot
+##' @param tr phylo object
+##' @return root number
+##' @export
+##' @examples
+##' getRoot(rtree(10))
+##' @author Guangchuang Yu
+getRoot <- function(tr) {
+    edge <- tr[["edge"]]
+    ## 1st col is parent,
+    ## 2nd col is child,
+    if (!is.null(attr(tr, "order")) && attr(tr, "order") == "postorder")
+        return(edge[nrow(edge), 1])
+
+    parent <- unique(edge[,1])
+    child <- unique(edge[,2])
+    ## the node that has no parent should be the root
+    root <- parent[ ! parent %in% child ]
+    if (length(root) > 1) {
+        stop("multiple roots founded...")
+    }
+    return(root)
+}
+
+##' test whether input object is produced by ggtree function
+##'
+##'
+##' @title is.ggtree
+##' @param x object
+##' @return TRUE or FALSE
+##' @export
+##' @examples
+##' library(ggtree)
+##' p <- ggtree(rtree(30))
+##' is.ggtree(p)
+##' @author guangchuang yu
+is.ggtree <- function(x) inherits(x, 'ggtree')
+
+getNodeName <- function(tr) {
+    if (is.null(tr$node.label)) {
+        n <- length(tr$tip.label)
+        nl <- (n + 1):(2 * n - 2)
+        nl <- as.character(nl)
+    }
+    else {
+        nl <- tr$node.label
+    }
+    nodeName <- c(tr$tip.label, nl)
+    return(nodeName)
+}
+
