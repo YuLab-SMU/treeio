@@ -9,7 +9,7 @@ Authors@R: c(person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role
 Description: Base classes and functions for parsing and exporting phylogenetic
     trees.
 Depends:
-    R (>= 3.4.0)
+    R (>= 3.3.0)
 Imports:
     ape,
     jsonlite,

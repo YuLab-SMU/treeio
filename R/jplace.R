@@ -38,27 +38,27 @@ read.jplace <- function(file) {
 
 
 
-## ##' get.treeinfo method
-## ##'
-## ##'
-## ##' @docType methods
-## ##' @name get.treeinfo
-## ##' @rdname get.treeinfo-methods
-## ##' @aliases get.treeinfo,jplace,ANY-method
-## ##' @exportMethod get.treeinfo
-## ##' @author Guangchuang Yu \url{http://ygc.name}
-## ##' @usage get.treeinfo(object, layout, ladderize, right, ...)
-## ##' @examples
-## ##' jp <- system.file("extdata", "sample.jplace", package="treeio")
-## ##' jp <- read.jplace(jp)
-## ##' get.treeinfo(jp)
-## setMethod("get.treeinfo", signature(object = "jplace"),
-##           function(object, layout="phylogram",
-##                    ladderize=TRUE, right=FALSE, ...) {
-##               get.treeinfo.jplace(object, layout,
-##                                   ladderize, right, ...)
-##           }
-##           )
+##' get.treeinfo method
+##'
+##'
+##' @docType methods
+##' @name get.treeinfo
+##' @rdname get.treeinfo-methods
+##' @aliases get.treeinfo,jplace,ANY-method
+##' @exportMethod get.treeinfo
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @usage get.treeinfo(object, layout, ladderize, right, ...)
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="treeio")
+##' jp <- read.jplace(jp)
+##' get.treeinfo(jp)
+setMethod("get.treeinfo", signature(object = "jplace"),
+          function(object, layout="phylogram",
+                   ladderize=TRUE, right=FALSE, ...) {
+              get.treeinfo.jplace(object, layout,
+                                  ladderize, right, ...)
+          }
+          )
 
 
 ##' get.treetext method
