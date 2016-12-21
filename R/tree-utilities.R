@@ -33,6 +33,19 @@ Nnode <- function(tree, internal.only=TRUE) {
     Ntip(phylo) + phylo$Nnode
 }
 
+
+tipIds <- function(tree) {
+    1:Ntip(tree)
+}
+
+nodeIds <- function(tree, internal.only=TRUE) {
+    if (internal.only) {
+        return(Ntip(tree) + 1:Nnode(tree, internal.only))
+    }
+    1:Nnode(tree, internal.only)
+}
+
+
 ##' calculate total number of nodes
 ##'
 ##'

@@ -106,3 +106,31 @@ setGeneric (
 	def = function( object, tip, ... )
 		{ standardGeneric("drop.tip") }
 )
+
+
+##' @docType methods
+##' @name groupOTU
+##' @rdname groupOTU-methods
+##' @title groupOTU method
+##' @param object supported objects, including phylo, paml_rst,
+##'               codeml_mlc, codeml, jplace, beast, hyphy
+##' @param focus a vector of tip (label or number) or a list of tips.
+##' @param group_name name of the group, 'group' by default
+##' @param ... additional parameter
+##' @return group index
+##' @export
+setGeneric("groupOTU", function(object, focus, group_name="group", ...) standardGeneric("groupOTU"))
+
+##' @docType methods
+##' @name groupClade
+##' @rdname groupClade-methods
+##' @title groupClade method
+##' @param object supported objects, including phylo, paml_rst,
+##'               codeml_mlc, codeml, jplace, beast, hyphy
+##' @param node a internal node or a vector of internal nodes
+##' @param group_name name of the group, 'group' by default
+##' @param ... additional parameter
+##' @return group index
+##' @export
+setGeneric("groupClade", function(object, node, group_name="group", ...) standardGeneric("groupClade"))
+

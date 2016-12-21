@@ -7,6 +7,9 @@ all: rd  check clean
 rd:
 	Rscript -e 'roxygen2::roxygenise(".")'
 
+readme:
+	Rscript -e 'rmarkdown::render("README.Rmd")'
+
 build:
 	cd ..;\
 	R CMD build $(PKGSRC)
@@ -35,3 +38,26 @@ clean:
 	cd ..;\
 	$(RM) -r $(PKGNAME).Rcheck/
 
+
+site: mkdocs
+
+mkdocs: mdfiles
+	cd mkdocs;\
+	mkdocs build;\
+	cd ../docs;\
+	rm -rf fonts;\
+	rm -rf css/font-awesome*;\
+	Rscript -e 'library(ypages); add_biobabble("index.html")'
+
+
+mdfiles:
+	cd mkdocs;\
+	Rscript -e 'library(ypages); gendoc("src/index.md", "blue", "docs/index.md")';\
+	Rscript -e 'library(ypages); gendoc("src/documentation.md", "blue", "docs/documentation.md")';\
+	Rscript -e 'library(ypages); gendoc("src/featuredArticles.md", "blue", "docs/featuredArticles.md")';\
+	Rscript -e 'library(ypages); gendoc("src/faq.md", "blue", "docs/faq.md")';\
+	cd docs;\
+	ln -f -s ../mysoftware/* ./
+
+svnignore:
+	svn propset svn:ignore -F .svnignore .
