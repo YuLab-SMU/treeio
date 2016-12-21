@@ -29,22 +29,22 @@ setGeneric("get.tree", function(object, ...) standardGeneric("get.tree"))
 setGeneric("get.treetext", function(object, ...) standardGeneric("get.treetext"))
 
 
-##' access tree info
-##'
-##'
-##' access treeinfo, designed for jplace object
-##' @docType methods
-##' @name get.treeinfo
-##' @rdname get.treeinfo-methods
-##' @title get.treeinfo method
-##' @param object jplace object
-##' @param layout layout
-##' @param ladderize ladderize, logical
-##' @param right logical, parameter for ladderize
-##' @param ... additional parameter
-##' @return data.frame
-##' @export
-setGeneric("get.treeinfo", function(object, layout="rectangular", ladderize=TRUE, right=FALSE, ...) standardGeneric("get.treeinfo"))
+## ##' access tree info
+## ##'
+## ##'
+## ##' access treeinfo, designed for jplace object
+## ##' @docType methods
+## ##' @name get.treeinfo
+## ##' @rdname get.treeinfo-methods
+## ##' @title get.treeinfo method
+## ##' @param object jplace object
+## ##' @param layout layout
+## ##' @param ladderize ladderize, logical
+## ##' @param right logical, parameter for ladderize
+## ##' @param ... additional parameter
+## ##' @return data.frame
+## ##' @export
+## setGeneric("get.treeinfo", function(object, layout="rectangular", ladderize=TRUE, right=FALSE, ...) standardGeneric("get.treeinfo"))
 
 
 ##' @docType methods
