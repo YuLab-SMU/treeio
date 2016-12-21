@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.7
+------------------------
+ o groupOTU, groupClade, gzoom methods from ggtree <2016-12-21, Wed>
+
 CHANGES IN VERSION 0.99.6
 ------------------------
  o add unit test of NHX (move from ggtree) <2016-12-14, Wed>
