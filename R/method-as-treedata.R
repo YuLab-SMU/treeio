@@ -39,10 +39,9 @@ as.treedata.phylo4d <- function(tree, ...) {
 ##' @method as.treedata ggtree
 ##' @export
 as.treedata.ggtree <- function(tree, ...) {
-    df <- tree$data
-    cn <- colnames(df)
+    cn <- colnames(tree$data)
     idx <- cn[!cn %in% c("parent", "branch.length", "label", "isTip", "x", "y", "branch", "angle")]
     new("treedata",
         phylo = as.phylo(tree),
-        data = df[, idx])
+        data = tree$data[, idx])
 }
