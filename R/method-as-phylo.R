@@ -1,10 +1,38 @@
 ##' @importFrom ape as.phylo
+##' @export
+ape::as.phylo
+
+
 ##' @method as.phylo treedata
 ##' @export
 as.phylo.treedata <- function(x, ...) {
     return(x@phylo)
 }
 
+
+##' @method as.phylo phylo4
+##' @export
+as.phylo.phylo4 <- function(x, ...) {
+    edge <- x@edge
+    edge <- edge[edge[,1] != 0, ]
+    edge.length <- x@edge.length
+    edge.length <- edge.length[!is.na(edge.length)]
+    tip.id <- sort(setdiff(edge[,2], edge[,1]))
+    tip.label <- x@label[tip.id]
+    phylo <- list(edge = edge,
+                  edge.length = edge.length,
+                  tip.label = tip.label)
+
+    node.id <- sort(unique(edge[,1]))
+    node.id <- node.id[node.id != 0]
+    node.label <- x@label[node.id]
+    if (!all(is.na(node.label))) {
+        phylo$node.label <- node.label
+    }
+    phylo$Nnode <- length(node.id)
+    class(phylo) <- "phylo"
+    return(phylo)
+}
 
 ##' @method as.phylo data.frame
 ## contributed by Bradley Jones and modified by Guangchuang Yu
@@ -27,9 +55,8 @@ as.phylo.data.frame <- function(x, ...) {
     return(phylo)
 }
 
-##' @method as.phylo gg
-## change to ggtree when ggtree updated on Bioconductor
-as.phylo.gg <- function(x, ...) {
+##' @method as.phylo ggtree
+as.phylo.ggtree <- function(x, ...) {
     as.phylo(x$data)
 }
 

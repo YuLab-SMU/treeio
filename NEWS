@@ -1,3 +1,8 @@
+CHANGES IN VERSION 0.99.8
+------------------------
+ o as.treedata.ggtree <2016-12-30, Fri>
+ o as.treedata.phylo4 & as.treedata.phylo4d <2016-12-28, Wed>
+
 CHANGES IN VERSION 0.99.7
 ------------------------
  o groupOTU, groupClade, gzoom methods from ggtree <2016-12-21, Wed>
