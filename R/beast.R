@@ -213,6 +213,7 @@ read.stats_beast_internal <- function(beast, tree) {
 
     stats <- sub("^&", "", stats)
     stats <- sub("];*$", "", stats)
+    stats <- gsub("\"", "", stats)
 
     stats2 <- lapply(stats, function(x) {
         y <- unlist(strsplit(x, ","))
@@ -271,15 +272,25 @@ read.stats_beast_internal <- function(beast, tree) {
         x[nn]
     }))
 
-    stats3 <- as.data.frame(stats3)
+    stats3 <- as.data.frame(stats3, stringsAsFactor = FALSE)
+    idx <- grep("\\+-", colnames(stats3))
+    if (length(idx)) {
+        for (i in idx) {
+            stats3[,i] <- as.numeric(gsub("\\d+\\+-", "", stats3[,i]))
+        }
+    }
+
     if (nrow(stats3) == 1) {
         ## only has one evidence
         ## transpose
         stats3 <- data.frame(X=unlist(stats3[1,]))
         colnames(stats3) <- nn
     }
-    colnames(stats3) <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
+    cn <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
+    cn <- gsub("\\(([^\\)]+)\\)", "_\\1", cn)
+    cn <- gsub("\\+-", "_", cn)
 
+    colnames(stats3) <- cn
     ## stats3$node <- node
     stats3$node <- names(stats)
     return(stats3)
