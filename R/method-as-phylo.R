@@ -56,6 +56,7 @@ as.phylo.data.frame <- function(x, ...) {
 }
 
 ##' @method as.phylo ggtree
+##' @export
 as.phylo.ggtree <- function(x, ...) {
     as.phylo(x$data)
 }
