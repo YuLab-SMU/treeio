@@ -41,7 +41,9 @@ as.treedata.phylo4d <- function(tree, ...) {
 as.treedata.ggtree <- function(tree, ...) {
     cn <- colnames(tree$data)
     idx <- cn[!cn %in% c("parent", "branch.length", "label", "isTip", "x", "y", "branch", "angle")]
-    new("treedata",
-        phylo = as.phylo(tree),
-        data = tree$data[, idx])
+    res <- new("treedata",
+               phylo = as.phylo(tree))
+    if (length(idx))
+        res@data <- tree$data[, idx]
+    return(res)
 }
