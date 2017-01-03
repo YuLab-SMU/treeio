@@ -1,0 +1,83 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+
+#  treeio: Base classes and functions for parsing and exporting phylogenetic tree
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("txtplot")
+library("ypages")
+```
+
+`r badge_release("treeio", "green")`
+`r badge_devel("treeio", "green")`
+[![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since)
+`r badge_download("treeio", "total", "blue")`
+`r badge_download("treeio", "month", "blue")`
+<img src="logo.png" align="right" />
+
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio)
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-green.svg)](https://github.com/GuangchuangYu/treeio/commits/master)
+[![GitHub forks](https://img.shields.io/github/forks/GuangchuangYu/treeio.svg)](https://github.com/GuangchuangYu/treeio/network)
+[![GitHub stars](https://img.shields.io/github/stars/GuangchuangYu/treeio.svg)](https://github.com/GuangchuangYu/treeio/stargazers)
+
+
+[![platform](http://www.bioconductor.org/shields/availability/devel/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#archives)
+[![Build Status](http://www.bioconductor.org/shields/build/devel/bioc/treeio.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/treeio/)
+[![Linux/Mac Travis Build Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/GuangchuangYu/treeio)
+[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/Guangchuangyu/treeio/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/treeio)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/treeio.svg?style=social)](https://twitter.com/intent/tweet?hashtags=treeio&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
+
+-----------------------------------------------------
+
+Please cite the following article when using `treeio`:
+
+__G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. _accepted_
+
+`r badge_doi("10.1111/2041-210X.12628", "green")`
+`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`
+`r badge_altmetric("10533079", "green")`
+
+----------------------------------------------------------------------------------------
+
+For details, please visit our project website, <https://guangchuangyu.github.io/treeio>.
+
++ [Documentation](https://guangchuangyu.github.io/treeio/documentation/)
++ [FAQ](https://guangchuangyu.github.io/treeio/faq/)
++ [Featured Articles](https://guangchuangyu.github.io/treeio/featuredArticles/)
++ [Feedback](https://guangchuangyu.github.io/treeio/#feedback)
+
+### Citation
+
+`r badge_citation("HtEfBTGE9r8C", "7268358477862164627", "green")`
+
+
+```{r echo=F, comment=NA}
+d <- get_article_cite_history('DO5oG40AAAAJ', 'HtEfBTGE9r8C')
+txtplot(d$year, d$cites, xlim=c(2015, 2017))
+```
+
+### Download stats
+
+`r badge_download_bioc("treeio")`
+`r badge_download("treeio", "total", "blue")`
+`r badge_download("treeio", "month", "blue")`
+
+
+```{r echo=F, comment=NA, eval=F}
+x <- dlstats::bioc_stats("treeio")
+x <- x[-nrow(x), ] # last month data is not complete
+txtplot(ggtree::Date2decimal(x$end), x$Nb_of_downloads, width=100, height=25)
+```
+
+
+
+
+

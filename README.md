@@ -1,0 +1,50 @@
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+treeio: Base classes and functions for parsing and exporting phylogenetic tree
+==============================================================================
+
+[![releaseVersion](https://img.shields.io/badge/release%20version-0.99.9-green.svg?style=flat)](https://bioconductor.org/packages/treeio) [![develVersion](https://img.shields.io/badge/devel%20version-0.99.9-green.svg?style=flat)](https://github.com/GuangchuangYu/treeio) [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since) [![total](https://img.shields.io/badge/downloads-13/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio) [![month](https://img.shields.io/badge/downloads-/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio) <img src="logo.png" align="right" />
+
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio) [![Last-changedate](https://img.shields.io/badge/last%20change-2017--01--03-green.svg)](https://github.com/GuangchuangYu/treeio/commits/master) [![GitHub forks](https://img.shields.io/github/forks/GuangchuangYu/treeio.svg)](https://github.com/GuangchuangYu/treeio/network) [![GitHub stars](https://img.shields.io/github/stars/GuangchuangYu/treeio.svg)](https://github.com/GuangchuangYu/treeio/stargazers)
+
+[![platform](http://www.bioconductor.org/shields/availability/devel/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#archives) [![Build Status](http://www.bioconductor.org/shields/build/devel/bioc/treeio.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/treeio/) [![Linux/Mac Travis Build Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/GuangchuangYu/treeio) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/Guangchuangyu/treeio/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/treeio) [![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/treeio.svg?style=social)](https://twitter.com/intent/tweet?hashtags=treeio&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
+
+------------------------------------------------------------------------
+
+Please cite the following article when using `treeio`:
+
+**G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. ***Methods in Ecology and Evolution***. *accepted*
+
+[![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-green.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628) [![citation](https://img.shields.io/badge/cited%20by-1-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627) [![Altmetric](https://img.shields.io/badge/Altmetric-284-green.svg?style=flat)](https://www.altmetric.com/details/10533079)
+
+------------------------------------------------------------------------
+
+For details, please visit our project website, <https://guangchuangyu.github.io/treeio>.
+
+-   [Documentation](https://guangchuangyu.github.io/treeio/documentation/)
+-   [FAQ](https://guangchuangyu.github.io/treeio/faq/)
+-   [Featured Articles](https://guangchuangyu.github.io/treeio/featuredArticles/)
+-   [Feedback](https://guangchuangyu.github.io/treeio/#feedback)
+
+### Citation
+
+[![citation](https://img.shields.io/badge/cited%20by-1-green.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+
+        +-------------+------------+------------+-------------++
+        |                                                      |
+        |                                                      |
+    1.2 +                                                      +
+        |                                                      |
+        |                                                      |
+      1 +                          *                           +
+        |                                                      |
+        |                                                      |
+        |                                                      |
+    0.8 +                                                      +
+        |                                                      |
+        |                                                      |
+    0.6 +-------------+------------+------------+-------------++
+      2015         2015.5        2016        2016.5         2017
+
+### Download stats
+
+[![download](http://www.bioconductor.org/shields/downloads/treeio.svg)](https://bioconductor.org/packages/stats/bioc/treeio) [![total](https://img.shields.io/badge/downloads-13/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio) [![month](https://img.shields.io/badge/downloads-/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)

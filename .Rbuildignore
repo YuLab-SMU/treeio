@@ -3,3 +3,5 @@
 Makefile
 .gitignore
 .svnignore
+.travis.yml
+appveyor.yml
