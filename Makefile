@@ -51,13 +51,6 @@ mkdocs: mdfiles
 	rm -rf css/font-awesome*;\
 	Rscript -e 'library(ypages); add_biobabble("index.html")'
 
-mysoftware:
-	git submodule add -f git@github.com:GuangchuangYu/mysoftware.git mkdocs/mysoftware;\
-	mv mkdocs/mysoftware mkdocs/mysoftware2;\
-	git submodule deinit mkdocs/mysoftware;\
-	git rm mkdocs/mysoftware;\
-	mv mkdocs/mysoftware2 mkdocs/mysoftware;\
-	rm -rf mkdocs/mysoftware/.git
 
 mdfiles:
 	cd mkdocs;\
