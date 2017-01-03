@@ -204,6 +204,11 @@
             "location": "/ReactomePA/", 
             "text": "", 
             "title": "ReactomePA"
+        }, 
+        {
+            "location": "/treeio/", 
+            "text": "", 
+            "title": "treeio"
         }
     ]
 }
