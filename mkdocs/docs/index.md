@@ -27,8 +27,9 @@
 
 
 
-The `ggtree` package defines classes and functions for parsing and
-exporting phylogenetic trees.  *treeio* is released within the [Bioconductor](https://bioconductor.org/packages/treeio/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/treeio"><i class="fa fa-github fa-lg"></i> GitHub</a>.
+The `treeio` package defines classes and functions for parsing and
+exporting phylogenetic trees.
+*treeio* is released within the [Bioconductor](https://bioconductor.org/packages/treeio/) project and the source code is hosted on <a href="https://github.com/GuangchuangYu/treeio"><i class="fa fa-github fa-lg"></i> GitHub</a>.
 
 
 ## <i class="fa fa-user"></i> Authors
