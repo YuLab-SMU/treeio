@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.9
 ------------------------
+ o read.newick for parsing node.label as support values <2017-01-03, Tue>
  o read.beast support MrBayes output <2016-12-30, Fri>
  o export as.phylo.ggtree <2016-12-30, Fri>
 
