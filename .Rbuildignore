@@ -5,3 +5,6 @@ Makefile
 .svnignore
 .travis.yml
 appveyor.yml
+mkdocs
+docs
+README.Rmd
