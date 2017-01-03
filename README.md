@@ -10,7 +10,7 @@ treeio: Base classes and functions for parsing and exporting phylogenetic tree
 
 ------------------------------------------------------------------------
 
-Please cite the following article when using `treeio`:
+`treeio` was splited from `ggtree` package, please cite the following article when using `treeio`:
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. ***Methods in Ecology and Evolution***. *accepted*
 

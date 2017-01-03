@@ -37,7 +37,7 @@ library("ypages")
 
 -----------------------------------------------------
 
-Please cite the following article when using `treeio`:
+`treeio` was splited from `ggtree` package, please cite the following article when using `treeio`:
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. _accepted_
 
