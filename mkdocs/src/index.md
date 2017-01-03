@@ -1,10 +1,6 @@
 <!-- addtoany:= -->
 
 
-
-<img src="https://raw.githubusercontent.com/GuangchuangYu/ggtree/master/logo.png" align="right" />
-
-
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 <!-- release:=treeio -->

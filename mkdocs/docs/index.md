@@ -14,10 +14,6 @@
 <!-- AddToAny END -->
 
 
-
-<img src="https://raw.githubusercontent.com/GuangchuangYu/ggtree/master/logo.png" align="right" />
-
-
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-0.99.9-blue.svg?style=flat)](https://bioconductor.org/packages/treeio)
