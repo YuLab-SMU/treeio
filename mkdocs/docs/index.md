@@ -18,8 +18,8 @@
 
 [![releaseVersion](https://img.shields.io/badge/release%20version-0.99.9-blue.svg?style=flat)](https://bioconductor.org/packages/treeio)
 [![develVersion](https://img.shields.io/badge/devel%20version-0.99.9-blue.svg?style=flat)](https://github.com/GuangchuangYu/treeio)
-[![total](https://img.shields.io/badge/downloads-13/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
-[![month](https://img.shields.io/badge/downloads-/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![total](https://img.shields.io/badge/downloads-16/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![month](https://img.shields.io/badge/downloads-13/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
 
 
 

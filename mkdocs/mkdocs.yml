@@ -1,7 +1,7 @@
-site_name: "ggtree"
-site_url: https://guangchuangyu.github.io/ggtree
+site_name: "treeio"
+site_url: https://guangchuangyu.github.io/treeio
 site_author: Guangchuang Yu
-repo_url: https://github.com/GuangchuangYu/ggtree
+repo_url: https://github.com/GuangchuangYu/treeio
 site_dir: ../docs
 theme: yeti
 google_analytics: ['UA-77901140-1', 'guangchuangyu.github.io']
