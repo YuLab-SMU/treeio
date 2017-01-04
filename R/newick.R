@@ -9,7 +9,7 @@
 ##' @export
 ##' @author guangchuang yu
 read.newick <- function(file, node.label = "label", ...) {
-    node.labels <- match.arg(node.label, c("support", "label"))
+    node.label <- match.arg(node.label, c("support", "label"))
     tree <- read.tree(file, ...)
     if (node.label == "label")
         return(tree)
