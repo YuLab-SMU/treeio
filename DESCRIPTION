@@ -18,7 +18,7 @@ Imports:
     methods
 Suggests:
     Biostrings,
-    ggtree,
+    ggtree (>= 1.7.5),
     knitr,
     prettydoc,
     testthat

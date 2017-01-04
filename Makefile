@@ -2,7 +2,9 @@ PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGSRC  := $(shell basename `pwd`)
 
-all: rd  check clean
+all: rd check clean
+
+alldocs: rd readme site
 
 rd:
 	Rscript -e 'roxygen2::roxygenise(".")'
@@ -54,8 +56,6 @@ mdfiles:
 	cd mkdocs;\
 	Rscript -e 'library(ypages); gendoc("src/index.md", "blue", "docs/index.md")';\
 	Rscript -e 'library(ypages); gendoc("src/documentation.md", "blue", "docs/documentation.md")';\
-	Rscript -e 'library(ypages); gendoc("src/featuredArticles.md", "blue", "docs/featuredArticles.md")';\
-	Rscript -e 'library(ypages); gendoc("src/faq.md", "blue", "docs/faq.md")';\
 	cd docs;\
 	ln -f -s ../mysoftware/* ./
 

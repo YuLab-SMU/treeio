@@ -109,6 +109,8 @@ read.stats_beast <- function(file) {
     lapply(trees, read.stats_beast_internal, beast=beast)
 }
 
+
+
 read.stats_beast_internal <- function(beast, tree) {
     tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
     phylo <- read.tree(text = tree2)
@@ -184,13 +186,34 @@ read.stats_beast_internal <- function(beast, tree) {
 
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
-    stats <- strsplit(tree, ":") %>% unlist
+
+    if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
+        ## MrBayes output
+        stats <- strsplit(tree, "\\]:[0-9\\.eE+\\-]*\\[") %>% unlist
+        lstats <- lapply(stats, function(x) unlist(strsplit(x, split="\\][,\\)]")))
+
+        for (i in seq_along(stats)) {
+            n <- length(lstats[[i]])
+            if (i == length(stats)) {
+                stats[i] <- lstats[[i]][n]
+            } else {
+                stats[i] <- paste0(lstats[[i]][n], sub("&", ",", lstats[[i+1]][1]))
+            }
+        }
+        stats <- gsub("\\]\\[&", ",", stats)
+    } else {
+        ## BEAST output
+        stats <- strsplit(tree, ":") %>% unlist
+    }
+
     names(stats) <- node
+
     stats <- stats[grep("\\[", stats)]
-    stats <- sub("[^\\[]+\\[", "", stats)
+    stats <- sub("[^\\[]*\\[", "", stats)
 
     stats <- sub("^&", "", stats)
     stats <- sub("];*$", "", stats)
+    stats <- gsub("\"", "", stats)
 
     stats2 <- lapply(stats, function(x) {
         y <- unlist(strsplit(x, ","))
@@ -249,19 +272,30 @@ read.stats_beast_internal <- function(beast, tree) {
         x[nn]
     }))
 
-    stats3 <- as.data.frame(stats3)
+    stats3 <- as.data.frame(stats3, stringsAsFactor = FALSE)
+    idx <- grep("\\+-", colnames(stats3))
+    if (length(idx)) {
+        for (i in idx) {
+            stats3[,i] <- as.numeric(gsub("\\d+\\+-", "", stats3[,i]))
+        }
+    }
+
     if (nrow(stats3) == 1) {
         ## only has one evidence
         ## transpose
         stats3 <- data.frame(X=unlist(stats3[1,]))
         colnames(stats3) <- nn
     }
-    colnames(stats3) <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
+    cn <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
+    cn <- gsub("\\(([^\\)]+)\\)", "_\\1", cn)
+    cn <- gsub("\\+-", "_", cn)
 
+    colnames(stats3) <- cn
     ## stats3$node <- node
     stats3$node <- names(stats)
     return(stats3)
 }
+
 
 add_pseudo_nodelabel <- function(phylo, treetext) {
     if(is.null(phylo$node.label)) {

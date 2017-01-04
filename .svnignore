@@ -6,3 +6,6 @@ appveyor.yml
 .travis.yml
 docs
 mkdocs
+.gitignore
+.gitmodules
+README.Rmd

@@ -41,12 +41,12 @@ as.phylo.data.frame <- function(x, ...) {
     i <- which(edge[,1] != 0 & edge[,1] != edge[,2])
     edge <- edge[i, ]
     edge.length <- x[i, "branch.length"]
-    tip.label <- x[x[, "isTip"], "label"]
+    tip.label <- as.character(x[x[, "isTip"], "label"])
     phylo <- list(edge = as.matrix(edge),
                   edge.length = edge.length,
                   tip.label = tip.label)
 
-    node.label <- x[!x[, "isTip"], "label"]
+    node.label <- as.character(x[!x[, "isTip"], "label"])
     if (!all(is.na(node.label))) {
         phylo$node.label <- node.label
     }
