@@ -13,12 +13,27 @@
 setMethod("drop.tip", signature(object="treedata"),
           function(object, tip, ...) {
 
-              ## label the internal tree nodes by their number
-              no_node_label <- FALSE
-              if (is.null(object@phylo$node.label)) {
-                  object@phylo$node.label <- Ntip(object) + (1:Nnode(object))
-                  no_node_label <- TRUE
+              #no_node_label <- FALSE
+
+              # Column name that has very low chance of collision with existing column
+              node_label_name = "cd8128f329f72c167a8028cf8"
+
+              if (!is.null(object@phylo$node.label)) {
+                # Tree has node labels. Put these in data 
+                # for safe keeping and remove them from tree
+                # for now
+
+                labels = c( 
+                  rep( NA, length( object@phylo$tip.label ) ), 
+                  object@phylo$node.label
+                )
+                object@data[[ node_label_name ]] <- labels
+
+                object@phylo$node.label <- NULL
               }
+
+              ## label the internal tree nodes by their number
+              object@phylo$node.label <- Ntip(object) + (1:Nnode(object))
 
               ## Prepare the nhx object for subsampling
               object@data$node <- as.numeric(object@data$node)
@@ -47,8 +62,14 @@ setMethod("drop.tip", signature(object="treedata"),
               ## Clean up
               object@data$node.label = NULL
               object@data$is_tip = NULL
-              if (no_node_label) {
-                  object@phylo$node.label <- NULL
+
+              ## Add node labels back to tree, if there were any
+              if (node_label_name %in% names( object@data ) ) {
+                labels = object@data[[ node_label_name ]]
+                ntips = length ( object@phylo$tip.label )
+                labels = labels[ (ntips+1):nrow( object@data ) ]
+                object@phylo$node.label = labels
+                object@data[[ node_label_name ]] <- NULL
               }
 
               return(object)
