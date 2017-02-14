@@ -416,12 +416,13 @@ subs_paml_rst <- function(x, type, ...) {
 label_branch_paml <- function(tree, node, label) {
     sp_id <- get.offspring(tree, node)
     tip_id <- sp_id[sp_id <= Ntip(tree)]
-    node_id <- sp_id[sp_id > Ntip(tree)]
+    node_id <- c(node, sp_id[sp_id > Ntip(tree)])
     tree$tip.label[tip_id] <- paste(tree$tip.label[tip_id], label)
     if (is.null(tree$node.label)) {
         tree$node.label <- rep("", Nnode(tree))
     }
-    tree$node.label[node_id] <- paste(tree$node.label[node_id], label)
+    node_index <- node_id - Ntip(tree)
+    tree$node.label[node_index] <- paste(tree$node.label[node_index], label)
     return(tree)
 }
 
