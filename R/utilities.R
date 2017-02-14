@@ -395,3 +395,19 @@ has.slot <- function(object, slotName) {
     ## slot <- tryCatch(slot(object, slotName), error=function(e) NULL)
     ## ! is.null(slot)
 }
+
+
+get.offspring <- function(tree, node) {
+    sp <- getChild(tree, node)
+    sp <- sp[sp != 0]
+    if (length(sp) == 0) {
+        stop("input node is a tip...")
+    }
+    i <- 1
+    while (i <= length(sp)) {
+        sp <- c(sp, getChild(tree, sp[i]))
+        sp <- sp[sp != 0]
+        i <- i + 1
+    }
+    return(sp)
+}

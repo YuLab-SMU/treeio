@@ -31,4 +31,4 @@ Encoding: UTF-8
 LazyData: true
 biocViews: Alignment, Annotation, Clustering, DataImport,
     MultipleSequenceAlignment, Software
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
