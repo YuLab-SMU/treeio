@@ -145,21 +145,20 @@ setMethod("show", signature(object = "paml_rst"),
 
 
 ##' @rdname show-methods
-##' @importFrom ape print.phylo
 ##' @exportMethod show
 setMethod("show", signature(object = "r8s"),
           function(object) {
               cat("'r8s' S4 object that stored information of\n\t",
                   paste0("'", object@file, "'.\n\n"))
-              cat("...@ tree: ")
-              print.phylo(get.tree(object))
+              cat("...@ trees: \n")
               ## cat("\nwith the following features available:\n")
-              ## print_fields(object)
+              print_fields(object)
           })
 
 
 
 ##' @rdname show-methods
+##' @importFrom ape print.phylo
 ##' @exportMethod show
 setMethod("show", signature(object = "hyphy"),
           function(object) {
