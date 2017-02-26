@@ -69,7 +69,7 @@ read.treetext_beast <- function(file) {
 
     trees <- sapply(seq_along(ii), function(i) {
         tree <- beast[(ii[i]+1):(jj[i]-1)]
-        tree <- tree[grep("\\s*[Tt]ree", tree)]
+        tree <- tree[grep("^\\s*[Tt]ree", tree)]
         ## if (length(tree) > 1) {
         ##     tree <- paste0(tree, collapse='')
         ## }

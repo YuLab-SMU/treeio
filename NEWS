@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.10
+------------------------
+ o bug fixed of read.beast <2017-02-27, Mon>
+ 
 CHANGES IN VERSION 0.99.9
 ------------------------
  o read.newick for parsing node.label as support values <2017-01-03, Tue>
