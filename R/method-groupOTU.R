@@ -1,10 +1,10 @@
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="apeBootstrap"),
-          function(object, focus, group_name="group", ...) {
-              groupOTU_(object, focus, group_name, ...)
-          }
-          )
+## ##' @rdname groupOTU-methods
+## ##' @exportMethod groupOTU
+## setMethod("groupOTU", signature(object="apeBootstrap"),
+##           function(object, focus, group_name="group", ...) {
+##               groupOTU_(object, focus, group_name, ...)
+##           }
+##           )
 
 
 ##' @rdname groupOTU-methods

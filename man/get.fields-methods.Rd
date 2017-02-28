@@ -10,7 +10,6 @@
 \alias{get.fields,jplace,ANY-method}
 \alias{get.fields,paml_rst-method}
 \alias{get.fields,r8s-method}
-\alias{get.fields,raxml-method}
 \alias{get.fields,treedata-method}
 \title{get.fields method}
 \usage{
@@ -27,8 +26,6 @@ get.fields(object, ...)
 \S4method{get.fields}{hyphy}(object, ...)
 
 \S4method{get.fields}{paml_rst}(object)
-
-\S4method{get.fields}{raxml}(object, ...)
 
 \S4method{get.fields}{codeml_mlc}(object)
 

@@ -1,10 +1,10 @@
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="apeBootstrap"),
-          function(object,...) {
-              object@phylo
-          }
-          )
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object="apeBootstrap"),
+##           function(object,...) {
+##               object@phylo
+##           }
+##           )
 
 ##' get.tree method
 ##'
@@ -96,13 +96,13 @@ setMethod("get.tree", signature(object = "paml_rst"),
           }
           )
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="raxml"),
-          function(object,...) {
-              object@phylo
-          }
-          )
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object="raxml"),
+##           function(object,...) {
+##               object@phylo
+##           }
+##           )
 
 
 ##' @rdname get.tree-methods

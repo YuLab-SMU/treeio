@@ -63,13 +63,13 @@ setMethod("get.fields", signature(object = "paml_rst"),
           )
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object="raxml"),
-          function(object, ...) {
-              get.fields.tree(object)
-          }
-          )
+## ##' @rdname get.fields-methods
+## ##' @exportMethod get.fields
+## setMethod("get.fields", signature(object="raxml"),
+##           function(object, ...) {
+##               get.fields.tree(object)
+##           }
+##           )
 
 
 

@@ -38,7 +38,7 @@ setClass("treedata",
 ##' @name beast-class
 ##' @aliases beast-class
 ##'      get.tree,beast-method
-##' 
+##'
 ##' @docType class
 ##' @slot fields beast statistic variables
 ##' @slot treetext tree text in beast file
@@ -101,7 +101,7 @@ setClass("codeml_mlc",
 ##' @aliases paml_rst-class
 ##'   set.subs,paml_rst-method
 ##'   set.subs<-,paml_rst-method
-##' 
+##'
 ##' @docType class
 ##' @slot fields availabel attributes
 ##' @slot treetext tree text
@@ -320,50 +320,50 @@ setClass("r8s",
          )
 
 
-##' Class "apeBootstrap"
-##' This class stores ape bootstrapping analysis result
-##'
-##'
-##' @name apeBootstrap-class
-##' @docType class
-##' @slot phylo phylo object of treetext
-##' @slot fields available features
-##' @slot bootstrap bootstrap value
-##' @slot extraInfo extra information
-##' @exportClass apeBootstrap
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @keywords classes
-setClass("apeBootstrap",
-         representation = representation(
-             phylo = "phylo",
-             fields = "character",
-             bootstrap = "data.frame",
-             extraInfo = "data.frame"
-         )
-         )
+## ##' Class "apeBootstrap"
+## ##' This class stores ape bootstrapping analysis result
+## ##'
+## ##'
+## ##' @name apeBootstrap-class
+## ##' @docType class
+## ##' @slot phylo phylo object of treetext
+## ##' @slot fields available features
+## ##' @slot bootstrap bootstrap value
+## ##' @slot extraInfo extra information
+## ##' @exportClass apeBootstrap
+## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+## ##' @keywords classes
+## setClass("apeBootstrap",
+##          representation = representation(
+##              phylo = "phylo",
+##              fields = "character",
+##              bootstrap = "data.frame",
+##              extraInfo = "data.frame"
+##          )
+##          )
 
 
-##' Class "raxml"
-##' This class stores RAxML bootstrapping analysis result
-##'
-##'
-##' @name raxml-class
-##' @docType class
-##' @slot file input file
-##' @slot fields available features
-##' @slot treetext tree text
-##' @slot phylo phylo object of treetext
-##' @slot bootstrap bootstrap value
-##' @slot extraInfo extra information
-##' @exportClass raxml
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @keywords classes
-setClass("raxml",
-         representation = representation(
-             file       = "character",
-             treetext   = "character"
-         ),
-         contains = "apeBootstrap"
-         )
+## ##' Class "raxml"
+## ##' This class stores RAxML bootstrapping analysis result
+## ##'
+## ##'
+## ##' @name raxml-class
+## ##' @docType class
+## ##' @slot file input file
+## ##' @slot fields available features
+## ##' @slot treetext tree text
+## ##' @slot phylo phylo object of treetext
+## ##' @slot bootstrap bootstrap value
+## ##' @slot extraInfo extra information
+## ##' @exportClass raxml
+## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+## ##' @keywords classes
+## setClass("raxml",
+##          representation = representation(
+##              file       = "character",
+##              treetext   = "character"
+##          ),
+##          contains = "apeBootstrap"
+##          )
 
 

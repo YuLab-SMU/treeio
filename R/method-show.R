@@ -183,18 +183,18 @@ setMethod("show", signature(object = "hyphy"),
 
 
 
-##' @rdname show-methods
-##' @importFrom ape print.phylo
-##' @exportMethod show
-setMethod("show", signature(object = "raxml"),
-          function(object) {
-              cat("'raxml' S4 object that stored information of\n\t",
-                  paste0("'", object@file, "'.\n\n"))
-              cat("...@ tree: ")
-              print.phylo(get.tree(object))
-              cat("\nwith the following features available:\n")
-              print_fields(object)
-          })
+## ##' @rdname show-methods
+## ##' @importFrom ape print.phylo
+## ##' @exportMethod show
+## setMethod("show", signature(object = "raxml"),
+##           function(object) {
+##               cat("'raxml' S4 object that stored information of\n\t",
+##                   paste0("'", object@file, "'.\n\n"))
+##               cat("...@ tree: ")
+##               print.phylo(get.tree(object))
+##               cat("\nwith the following features available:\n")
+##               print_fields(object)
+##           })
 
 
 ##' @rdname show-methods
