@@ -3,7 +3,6 @@
 \docType{methods}
 \name{get.tree}
 \alias{get.tree}
-\alias{get.tree,apeBootstrap-method}
 \alias{get.tree,beast}
 \alias{get.tree,codeml-method}
 \alias{get.tree,codeml_mlc-method}
@@ -13,13 +12,10 @@
 \alias{get.tree,phylip-method}
 \alias{get.tree,phylo-method}
 \alias{get.tree,r8s-method}
-\alias{get.tree,raxml-method}
 \alias{get.tree,treedata-method}
 \title{get.tree method}
 \usage{
 get.tree(object, ...)
-
-\S4method{get.tree}{apeBootstrap}(object, ...)
 
 get.tree(object, ...)
 
@@ -36,8 +32,6 @@ get.tree(object, ...)
 \S4method{get.tree}{hyphy}(object)
 
 \S4method{get.tree}{paml_rst}(object)
-
-\S4method{get.tree}{raxml}(object, ...)
 
 \S4method{get.tree}{codeml_mlc}(object, ...)
 

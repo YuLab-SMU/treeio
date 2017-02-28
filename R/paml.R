@@ -170,7 +170,7 @@ read.phylo_paml_mlc <- function(mlcfile) {
     tr3_label <- c(tr3$tip.label, tr3$node.label)
     tr3_edge <- as.data.frame(tr3$edge)
     colnames(tr3_edge) <- c("parent", "node")
-    
+
     treeinfo$visited <- FALSE
     while(any(treeinfo$visited == FALSE)) {
         pNode <- c()
@@ -185,7 +185,7 @@ read.phylo_paml_mlc <- function(mlcfile) {
                 if (treeinfo$visited[ii] == FALSE) {
                     ## jp <- treeinfo.tr3[j, "parent"]
                     jp <- tr3_edge[tr3_edge$node == j, "parent"]
-                    
+
                     ## jj <- which(treeinfo.tr3[, "node"] == jp)
                     ## jj <- jp
                     treeinfo[ii, "label"] <- as.character(ip)
@@ -401,3 +401,28 @@ subs_paml_rst <- function(x, type, ...) {
     seqs <- c(seqs, ancseq)
     get.subs_(x@phylo, seqs, translate=translate, ...)
 }
+
+
+##' label branch for PAML to infer selection pressure using branch model
+##'
+##'
+##' @title label_branch_paml
+##' @param tree phylo object
+##' @param node node number
+##' @param label label of branch, e.g. #1
+##' @return updated phylo object
+##' @export
+##' @author guangchuang yu
+label_branch_paml <- function(tree, node, label) {
+    sp_id <- get.offspring(tree, node)
+    tip_id <- sp_id[sp_id <= Ntip(tree)]
+    node_id <- c(node, sp_id[sp_id > Ntip(tree)])
+    tree$tip.label[tip_id] <- paste(tree$tip.label[tip_id], label)
+    if (is.null(tree$node.label)) {
+        tree$node.label <- rep("", Nnode(tree))
+    }
+    node_index <- node_id - Ntip(tree)
+    tree$node.label[node_index] <- paste(tree$node.label[node_index], label)
+    return(tree)
+}
+

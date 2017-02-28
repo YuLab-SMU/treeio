@@ -3,7 +3,6 @@
 \docType{methods}
 \name{groupOTU}
 \alias{groupOTU}
-\alias{groupOTU,apeBootstrap-method}
 \alias{groupOTU,beast-method}
 \alias{groupOTU,codeml-method}
 \alias{groupOTU,codeml_mlc-method}
@@ -17,8 +16,6 @@
 \title{groupOTU method}
 \usage{
 groupOTU(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{apeBootstrap}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{beast}(object, focus, group_name = "group", ...)
 

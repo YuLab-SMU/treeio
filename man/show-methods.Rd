@@ -10,7 +10,6 @@
 \alias{show,paml_rst-method}
 \alias{show,phylip-method}
 \alias{show,r8s-method}
-\alias{show,raxml-method}
 \alias{show,treedata-method}
 \title{show method}
 \usage{
@@ -29,8 +28,6 @@ show(object)
 \S4method{show}{r8s}(object)
 
 \S4method{show}{hyphy}(object)
-
-\S4method{show}{raxml}(object)
 
 \S4method{show}{treedata}(object)
 }

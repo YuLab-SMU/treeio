@@ -25,12 +25,19 @@ read.raxml <- function(file) {
     bootstrap <- data.frame(node = Ntip(phylo) + 1:phylo$Nnode,
                             bootstrap = bootstrap)
 
-    new("raxml",
-        file      = file,
-        fields    = "bootstrap",
-        treetext  = tree.text,
-        phylo     = phylo,
-        bootstrap = bootstrap
+    ## new("raxml",
+    ##     file      = file,
+    ##     fields    = "bootstrap",
+    ##     treetext  = tree.text,
+    ##     phylo     = phylo,
+    ##     bootstrap = bootstrap
+    ##     )
+
+    new("treedata",
+        file = filename(file),
+        treetext = tree.text,
+        phylo = phylo,
+        data = bootstrap
         )
 }
 
