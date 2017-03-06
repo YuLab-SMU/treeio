@@ -14,12 +14,14 @@
 <!-- AddToAny END -->
 
 
+<img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/treeio/treeio.png" height="128", align="right" />
+
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-0.99.9-blue.svg?style=flat)](https://bioconductor.org/packages/treeio)
-[![develVersion](https://img.shields.io/badge/devel%20version-0.99.9-blue.svg?style=flat)](https://github.com/GuangchuangYu/treeio)
-[![total](https://img.shields.io/badge/downloads-66/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
-[![month](https://img.shields.io/badge/downloads-33/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![releaseVersion](https://img.shields.io/badge/release%20version-0.99.10-blue.svg?style=flat)](https://bioconductor.org/packages/treeio)
+[![develVersion](https://img.shields.io/badge/devel%20version-0.99.11-blue.svg?style=flat)](https://github.com/GuangchuangYu/treeio)
+[![total](https://img.shields.io/badge/downloads-99/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![month](https://img.shields.io/badge/downloads-44/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
 
 
 
@@ -37,8 +39,8 @@ Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University o
 `treeio` was splitted from `ggtree` package, please cite the following article when using `treeio`:
 
 [![doi](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
-[![citation](https://img.shields.io/badge/cited%20by-7-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![Altmetric](https://img.shields.io/badge/Altmetric-345-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![citation](https://img.shields.io/badge/cited%20by-8-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![Altmetric](https://img.shields.io/badge/Altmetric-352-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36.
 
@@ -101,6 +103,8 @@ biocLite("treeio")
 
 ## <i class="fa fa-code-fork"></i> Projects that depend on _treeio_
 
+#### <i class="fa fa-angle-double-right"></i> CRAN packages
++ [harrietr](https://cran.r-project.org/package=harrietr): Wrangle Phylogenetic Distance Matrices and Other Utilities
 
 #### <i class="fa fa-angle-double-right"></i> Bioconductor packages
 + [LINC](https://www.bioconductor.org/packages/LINC): co-expression of lincRNAs and protein-coding genes

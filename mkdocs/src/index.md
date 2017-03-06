@@ -1,6 +1,8 @@
 <!-- addtoany:= -->
 
 
+<img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/treeio/treeio.png" height="128", align="right" />
+
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 
 <!-- release:=treeio -->
