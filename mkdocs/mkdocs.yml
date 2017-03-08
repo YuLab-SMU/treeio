@@ -8,7 +8,7 @@ google_analytics: ['UA-77901140-1', 'guangchuangyu.github.io']
 pages:
 - Home: index.md
 - Documentation: documentation.md
-- My Software:
+- Software:
   - ChIPseeker: ChIPseeker.md
   - clusterProfiler: clusterProfiler.md
   - DOSE: DOSE.md
