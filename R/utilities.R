@@ -221,6 +221,7 @@ seq2codon <- function(x) {
 }
 
 ## @importFrom Biostrings GENETIC_CODE
+##' @importFrom rvcheck get_fun_from_pkg
 codon2AA <- function(codon) {
     ## a genetic code name vector
     GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE")
@@ -361,12 +362,6 @@ is.tree_attribute_ <- function(p, var) {
     is.tree_attribute(p$data, var)
 }
 
-get_fun_from_pkg <- function(pkg, fun) {
-    ## requireNamespace(pkg)
-    ## eval(parse(text=paste0(pkg, "::", fun)))
-    require(pkg, character.only = TRUE)
-    eval(parse(text = fun))
-}
 
 has.extraInfo <- function(object) {
     if (!is.tree(object)) {

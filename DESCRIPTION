@@ -15,7 +15,8 @@ Imports:
     ggplot2,
     jsonlite,
     magrittr,
-    methods
+    methods,
+    rvcheck
 Suggests:
     Biostrings,
     ggtree (>= 1.7.5),
