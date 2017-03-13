@@ -22,7 +22,7 @@ pf <- tempfile(fileext=".png")
 ggsave(pg, filename=pf, bg="transparent", width=5, height=3)
 
 sticker(pf, package="treeio", p_size=9, p_y=1.5,
-        s_x=1.02, s_y=.8, s_width=1, s_height=1,
+        s_x=1.02, s_y=.8, s_width=.9, s_height=1,
         ## h_color="#2C3E50", h_fill="#2574A9",
         filename="docs/treeio.png")
 
