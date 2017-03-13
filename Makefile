@@ -12,6 +12,9 @@ rd:
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
 
+sticker:
+	Rscript -e 'source("treeio_sticker.R")'
+
 build:
 	cd ..;\
 	R CMD build $(PKGSRC)
