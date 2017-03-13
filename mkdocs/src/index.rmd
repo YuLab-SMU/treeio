@@ -11,7 +11,7 @@ html_preview: false
 `r ypages:::addtoany()`
 
 
-<img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/treeio/treeio.png" height="128", align="right" />
+<img src="https://guangchuangyu.github.io/treeio/treeio.png" height="128", align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">

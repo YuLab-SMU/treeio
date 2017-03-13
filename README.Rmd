@@ -15,11 +15,11 @@ library("txtplot")
 library("ypages")
 ```
 
-<img src="https://raw.githubusercontent.com/jotsetung/BioC-stickers/master/treeio/treeio.png" height="128", align="right" />
+<img src="https://guangchuangyu.github.io/treeio/treeio.png" height="128", align="right" />
 
 
 `r badge_bioc_release("treeio", "green")`
-`r badge_devel("treeio", "green")`
+`r badge_devel("guangchuangyu/treeio", "green")`
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since)
 `r badge_bioc_download("treeio", "total", "blue")`
 `r badge_bioc_download("treeio", "month", "blue")`
