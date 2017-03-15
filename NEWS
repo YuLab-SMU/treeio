@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.11
 ------------------------
+ o taxa_rename function <2017-03-15, Wed>
  o phyPML method moved from ggtree <2017-03-06, Mon>
 
 CHANGES IN VERSION 0.99.10
