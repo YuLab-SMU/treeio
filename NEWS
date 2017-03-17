@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.11
 ------------------------
+ o fixed raxml2nwk for using treedata as output of read.raxml <2017-03-17, Fri>
  o taxa_rename function <2017-03-15, Wed>
  o phyPML method moved from ggtree <2017-03-06, Mon>
 
