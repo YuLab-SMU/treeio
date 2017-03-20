@@ -49,16 +49,6 @@ read.paml_rst <- function(rstfile) {
                rstfile = filename(rstfile)
                )
 
-    if (nrow(res@marginal_subs) == 0) {
-        fields <- fields[fields != "marginal_subs"]
-        fields <- fields[fields != "marginal_AA_subs"]
-    }
-    if (nrow(res@joint_subs) == 0) {
-        fields <- fields[fields != "joint_subs"]
-        fields <- fields[fields != "joint_AA_subs"]
-    }
-
-    res@fields <- fields
 
     ## if (!is.null(tip.fasfile)) {
     ##     seqs <- readBStringSet(tip.fasfile)
@@ -70,7 +60,18 @@ read.paml_rst <- function(rstfile) {
     ## }
     res@tip_seq <- ms[names(ms) %in% phylo$tip.label]
 
-    set.paml_rst_(res)
+    res <- set.paml_rst_(res)
+
+    if (nrow(res@marginal_subs) == 0) {
+        fields <- fields[fields != "marginal_subs"]
+        fields <- fields[fields != "marginal_AA_subs"]
+    }
+    if (nrow(res@joint_subs) == 0) {
+        fields <- fields[fields != "joint_subs"]
+        fields <- fields[fields != "joint_AA_subs"]
+    }
+    res@fields <- fields
+    return(res)
 }
 
 
