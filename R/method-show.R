@@ -124,15 +124,6 @@ setMethod("show", signature(object = "paml_rst"),
               ## }
               fields <- get.fields(object)
 
-              if (nrow(object@marginal_subs) == 0) {
-                  fields <- fields[fields != "marginal_subs"]
-                  fields <- fields[fields != "marginal_AA_subs"]
-              }
-              if (nrow(object@joint_subs) == 0) {
-                  fields <- fields[fields != "joint_subs"]
-                  fields <- fields[fields != "joint_AA_subs"]
-              }
-
               cat("...@ tree:")
               print.phylo(get.tree(object))
               cat("\nwith the following features available:\n")
