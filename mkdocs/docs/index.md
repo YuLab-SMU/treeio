@@ -22,7 +22,7 @@ treeio: Base classes and functions for parsing and exporting phylogenetic tree
 
 <script async src="//static.addtoany.com/menu/page.js"></script>
 <!-- AddToAny END -->
-<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="128", align="right" />
+<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="200" align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">

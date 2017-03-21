@@ -2,7 +2,7 @@
 treeio: Base classes and functions for parsing and exporting phylogenetic tree
 ==============================================================================
 
-<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="128", align="right" />
+<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="200" align="right" />
 
 [![](https://img.shields.io/badge/release%20version-0.99.10-green.svg?style=flat)](https://bioconductor.org/packages/treeio) [![](https://img.shields.io/badge/devel%20version-0.99.11-green.svg?style=flat)](https://github.com/guangchuangyu/treeio) [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since) [![](https://img.shields.io/badge/download-80/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio) [![](https://img.shields.io/badge/download-35/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
 
