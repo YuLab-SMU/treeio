@@ -22,14 +22,14 @@ treeio: Base classes and functions for parsing and exporting phylogenetic tree
 
 <script async src="//static.addtoany.com/menu/page.js"></script>
 <!-- AddToAny END -->
-<img src="https://guangchuangyu.github.io/treeio/treeio.png" height="128", align="right" />
+<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="128", align="right" />
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css">
 
 [![](https://img.shields.io/badge/release%20version-0.99.10-blue.svg?style=flat)](https://bioconductor.org/packages/treeio)
 [![](https://img.shields.io/badge/devel%20version-0.99.11-blue.svg?style=flat)](https://github.com/guangchuangyu/treeio)
-[![](https://img.shields.io/badge/download-75/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![](https://img.shields.io/badge/download-80/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
 [![](https://img.shields.io/badge/download-35/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
 
 The `treeio` package defines classes and functions for parsing and
@@ -59,8 +59,8 @@ University of Hong Kong.
 article when using `treeio`:
 
 [![](https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat)](http://dx.doi.org/10.1111/2041-210X.12628)
-[![citation](https://img.shields.io/badge/cited%20by-9-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
-[![](https://img.shields.io/badge/Altmetric-351-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
+[![citation](https://img.shields.io/badge/cited%20by-11-blue.svg?style=flat)](https://scholar.google.com.hk/scholar?oi=bibs&hl=en&cites=7268358477862164627)
+[![](https://img.shields.io/badge/Altmetric-348-blue.svg?style=flat)](https://www.altmetric.com/details/10533079)
 
 **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an R
 package for visualization and annotation of phylogenetic trees with
