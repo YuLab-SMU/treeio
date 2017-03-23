@@ -240,7 +240,7 @@ getPhyInfo <- function(phy) {
 }
 
 get_seqtype <- function(seq) {
-    if (grepl("[^-ACGT]+", seq[1])) {
+    if (grepl("[-ACGT]+", seq[1])) {
         seq_type = "NT" ## NucleoTide
     } else {
         seq_type = "AA" ## Amino Acid
