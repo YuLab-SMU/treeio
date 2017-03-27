@@ -6,6 +6,7 @@
 \alias{groupClade,beast-method}
 \alias{groupClade,codeml-method}
 \alias{groupClade,jplace-method}
+\alias{groupClade,phangorn-method}
 \alias{groupClade,phylip-method}
 \alias{groupClade,phylo-method}
 \alias{groupClade,treedata-method}
@@ -24,6 +25,8 @@ groupClade(object, node, group_name = "group", ...)
 \S4method{groupClade}{phylip}(object, node, group_name = "group")
 
 \S4method{groupClade}{phylo}(object, node, group_name = "group")
+
+\S4method{groupClade}{phangorn}(object, node, group_name = "group")
 }
 \arguments{
 \item{object}{supported objects, including phylo, paml_rst,

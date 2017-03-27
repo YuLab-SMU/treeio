@@ -1,3 +1,10 @@
+CHANGES IN VERSION 0.99.11
+------------------------
+ o bug fixed in get.fields method for paml_rst <2017-03-20, Mon>
+ o fixed raxml2nwk for using treedata as output of read.raxml <2017-03-17, Fri>
+ o taxa_rename function <2017-03-15, Wed>
+ o phyPML method moved from ggtree <2017-03-06, Mon>
+
 CHANGES IN VERSION 0.99.10
 ------------------------
  o remove raxml class, now read.raxml output treedata object <2017-02-28, Tue>

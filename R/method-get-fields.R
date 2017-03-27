@@ -88,3 +88,12 @@ setMethod("get.fields", signature(object = "treedata"),
               get.fields.tree(object)
           })
 
+
+##' @rdname get.fields-methods
+##' @exportMethod get.fields
+setMethod("get.fields", signature(object="phangorn"),
+          function(object, ...) {
+              get.fields.tree(object)
+          }
+          )
+

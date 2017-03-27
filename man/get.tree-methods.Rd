@@ -9,6 +9,7 @@
 \alias{get.tree,hyphy-method}
 \alias{get.tree,jplace-method}
 \alias{get.tree,paml_rst-method}
+\alias{get.tree,phangorn-method}
 \alias{get.tree,phylip-method}
 \alias{get.tree,phylo-method}
 \alias{get.tree,r8s-method}
@@ -32,6 +33,8 @@ get.tree(object, ...)
 \S4method{get.tree}{hyphy}(object)
 
 \S4method{get.tree}{paml_rst}(object)
+
+\S4method{get.tree}{phangorn}(object, ...)
 
 \S4method{get.tree}{codeml_mlc}(object, ...)
 

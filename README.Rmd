@@ -15,11 +15,14 @@ library("txtplot")
 library("ypages")
 ```
 
-`r badge_release("treeio", "green")`
-`r badge_devel("treeio", "green")`
+<img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="200" align="right" />
+
+
+`r badge_bioc_release("treeio", "green")`
+`r badge_devel("guangchuangyu/treeio", "green")`
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since)
-`r badge_download("treeio", "total", "blue")`
-`r badge_download("treeio", "month", "blue")`
+`r badge_bioc_download("treeio", "total", "blue")`
+`r badge_bioc_download("treeio", "month", "blue")`
 
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
@@ -67,8 +70,8 @@ txtplot(d$year, d$cites, xlim=c(2015, 2017))
 ### Download stats
 
 `r badge_download_bioc("treeio")`
-`r badge_download("treeio", "total", "blue")`
-`r badge_download("treeio", "month", "blue")`
+`r badge_bioc_download("treeio", "total", "blue")`
+`r badge_bioc_download("treeio", "month", "blue")`
 
 
 ```{r echo=F, comment=NA, eval=F}

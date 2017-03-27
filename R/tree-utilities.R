@@ -1,3 +1,30 @@
+##' rename taxa
+##'
+##'
+##' @title taxa_rename
+##' @param tree tree object
+##' @param name a two column data.frame contains original name in 1st column and new name in 2nd column
+##' @return updated tree object with new taxa name
+##' @export
+##' @author guangchuang yu
+taxa_rename <- function(tree, name) {
+    ## name is a two column data.frame
+    ## 1st column contains original taxa name
+    ## 2nd column contains new taxa name
+    phylo <- as.phylo(tree)
+    taxa <- phylo$tip.label
+    i <- match(name[,1], taxa)
+    if (anyNA(i))
+        stop("taxa name not match, please check your input...")
+    taxa[i] <- name[,2]
+    phylo$tip.label <- taxa
+    if (inherits(tree, "phylo"))
+        return(phylo)
+    tree@phylo <- phylo
+    return(tree)
+}
+
+
 ##' number of tips
 ##'
 ##'

@@ -9,6 +9,7 @@
 \alias{get.fields,hyphy-method}
 \alias{get.fields,jplace,ANY-method}
 \alias{get.fields,paml_rst-method}
+\alias{get.fields,phangorn-method}
 \alias{get.fields,r8s-method}
 \alias{get.fields,treedata-method}
 \title{get.fields method}
@@ -30,6 +31,8 @@ get.fields(object, ...)
 \S4method{get.fields}{codeml_mlc}(object)
 
 \S4method{get.fields}{treedata}(object)
+
+\S4method{get.fields}{phangorn}(object, ...)
 }
 \arguments{
 \item{object}{one of \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}
