@@ -215,7 +215,9 @@ read.stats_beast_internal <- function(beast, tree) {
     stats <- sub("];*$", "", stats)
     stats <- gsub("\"", "", stats)
 
-    stats2 <- lapply(stats, function(x) {
+    stats2 <- lapply(seq_along(stats), function(i) {
+        x <- stats[[i]]
+        print(i)
         y <- unlist(strsplit(x, ","))
         sidx <- grep("=\\{", y)
         eidx <- grep("\\}$", y)
@@ -233,11 +235,9 @@ read.stats_beast_internal <- function(beast, tree) {
             y <- y[-kk]
         }
 
-
         name <- gsub("=.*", "", y)
         val <- gsub(".*=", "", y) %>% gsub("^\\{", "", .) %>%
             gsub("\\}$", "", .)
-
 
         if (flag) {
             nn <- c(name, names(SETS))
@@ -245,16 +245,16 @@ read.stats_beast_internal <- function(beast, tree) {
             nn <- name
         }
 
-        res <- character(length(nn))
+        res <- rep(NA, length(nn))
         names(res) <- nn
 
         for (i in seq_along(name)) {
-            res[i] <- val[i]
+            res[i] <- if(is_numeric(val[i])) as.numeric(val[i]) else val[i]
         }
         if (flag) {
             j <- i
             for (i in seq_along(SETS)) {
-                res[i+j] <- SETS[i]
+                res[i+j] <- if(is_numeric(SETS[[i]])) list(as.numeric(SETS[[i]])) else SETS[i]
             }
         }
 
@@ -264,14 +264,15 @@ read.stats_beast_internal <- function(beast, tree) {
     nn <- lapply(stats2, names) %>% unlist %>%
         unique %>% sort
 
-    ## stats3 is a matrix
-    stats3 <- t(sapply(stats2, function(x) {
-        for (ii in nn[!nn %in% names(x)]) {
-            x[ii] <- NA
-        }
-        x[nn]
-    }))
 
+    stats2 <- lapply(stats2, function(x) {
+        y <- x[nn]
+        names(y) <- nn
+        y[sapply(y, is.null)] <- NA
+        y
+    })
+
+    stats3 <- do.call(rbind, stats2)
     stats3 <- as.data.frame(stats3, stringsAsFactor = FALSE)
     idx <- grep("\\+-", colnames(stats3))
     if (length(idx)) {
@@ -280,19 +281,17 @@ read.stats_beast_internal <- function(beast, tree) {
         }
     }
 
-    if (nrow(stats3) == 1) {
-        ## only has one evidence
-        ## transpose
-        stats3 <- data.frame(X=unlist(stats3[1,]))
-        colnames(stats3) <- nn
-    }
     cn <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
     cn <- gsub("\\(([^\\)]+)\\)", "_\\1", cn)
     cn <- gsub("\\+-", "_", cn)
 
     colnames(stats3) <- cn
-    ## stats3$node <- node
     stats3$node <- names(stats)
+
+    i <- sapply(stats3, function(x) max(sapply(x, length)))
+    for (j in which(i==1)) {
+        stats3[,j] <- unlist(stats3[,j])
+    }
     return(stats3)
 }
 
