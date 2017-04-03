@@ -217,7 +217,6 @@ read.stats_beast_internal <- function(beast, tree) {
 
     stats2 <- lapply(seq_along(stats), function(i) {
         x <- stats[[i]]
-        print(i)
         y <- unlist(strsplit(x, ","))
         sidx <- grep("=\\{", y)
         eidx <- grep("\\}$", y)
