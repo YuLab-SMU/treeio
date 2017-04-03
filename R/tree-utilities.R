@@ -189,8 +189,8 @@ is.ggtree <- function(x) inherits(x, 'ggtree')
 
 getNodeName <- function(tr) {
     if (is.null(tr$node.label)) {
-        n <- length(tr$tip.label)
-        nl <- (n + 1):(2 * n - 2)
+        n <- Ntip(tr)
+        nl <- 1:(Nnode2(tr)-n) + n
         nl <- as.character(nl)
     }
     else {
