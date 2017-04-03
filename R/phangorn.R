@@ -15,8 +15,8 @@ phyPML <- function(pmlTree, type = "ml") {
     tr <- reorder.phylo(tr)
 
     if (is.null(tr$node.label)) {
-        n <- length(tr$tip.label)
-        nl <- (n+1):(2*n-2)
+        n <- Ntip(tr)
+        nl <- 1:(Nnode2(tr) - n) + n
         tr$node.label <- as.character(nl)
     } else {
         names(sequences) <- c(tr$tip.label, tr$node.label)
