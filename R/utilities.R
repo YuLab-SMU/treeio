@@ -94,34 +94,6 @@ get.fields.tree <- function(object) {
     return(fields)
 }
 
-print_fields <- function(object, len=5) {
-    fields <- get.fields(object)
-    n <- length(fields)
-    i <- floor(n/len)
-    for (j in 0:i) {
-        ii <- 1:len + len * j
-        if (j == i) {
-            x <- n %% len
-            if (x == 0) {
-                ii <- NULL
-            } else {
-                ii <- ii[1:x]
-            }
-        }
-
-        if (!is.null(ii)) {
-            cat("\t", paste0("'",
-                             paste(fields[ii], collapse="',\t'"),
-                             "'")
-                )
-        }
-        if ( j == i) {
-            cat(".\n")
-        } else {
-            cat(",\n")
-        }
-    }
-}
 
 ## plot.subs <- function(x, layout, show.tip.label,
 ##                       tip.label.size,
