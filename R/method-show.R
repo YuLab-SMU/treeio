@@ -7,7 +7,6 @@ setMethod("show", signature(object = "beast"),
                   paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
               print.phylo(get.tree(object))
-              cat("\nwith the following features available:\n")
               print_fields(object)
           })
 
@@ -182,7 +181,7 @@ setMethod("show", signature(object = "treedata"),
 
 
 print_fields <- function(object) {
-    cat("\nwith the following features availables:\n")
+    cat("\nwith the following features available:\n")
     ff <- paste0("\t'",paste(get.fields(object), collapse="',\t'"), "'.\n")
     cat(fields_wrap(ff))
 }
