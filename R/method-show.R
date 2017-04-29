@@ -176,7 +176,7 @@ setMethod("show", signature(object = "treedata"),
                   paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
               print.phylo(get.tree(object))
-              cat("\nwith the following features available:\n")
+              ## cat("\nwith the following features available:\n")
               print_fields(object)
           })
 
