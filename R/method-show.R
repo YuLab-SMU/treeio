@@ -7,6 +7,10 @@ setMethod("show", signature(object = "beast"),
                   paste0("'", object@file, "'.\n\n"))
               cat("...@ tree: ")
               print.phylo(get.tree(object))
+<<<<<<< HEAD
+=======
+              cat("\nwith the following features available:\n")
+>>>>>>> upstream/master
               print_fields(object)
           })
 
