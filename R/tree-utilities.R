@@ -16,7 +16,7 @@ taxa_rename <- function(tree, name) {
     i <- match(name[,1], taxa)
     if (anyNA(i))
         stop("taxa name not match, please check your input...")
-    taxa[i] <- name[,2]
+    taxa[i] <- as.character(name[,2])
     phylo$tip.label <- taxa
     if (inherits(tree, "phylo"))
         return(phylo)
