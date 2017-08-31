@@ -1,3 +1,9 @@
+CHANGES IN VERSION 1.1.1
+------------------------
+ o parse mlc file without dNdS <2017-08-31, Thu>
+   + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/bioc-ggtree/hTRj-uldgAg
+ o better implementation of merge_tree <2017-08-31, Thu>
+
 CHANGES IN VERSION 0.99.11
 ------------------------
  o bug fixed in get.fields method for paml_rst <2017-03-20, Mon>

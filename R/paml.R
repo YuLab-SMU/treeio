@@ -96,6 +96,9 @@ read.dnds_mlc <- function(mlcfile) {
     i <- grep("dN & dS for each branch", mlc)
     j <- grep("tree length for dN", mlc)
 
+    if (length(i) == 0 || length(j) == 0)
+        return(NULL)
+
     mlc <- mlc[i:j]
     hi <- grep("dN/dS", mlc)
     cn <- strsplit(mlc[hi], " ") %>% unlist %>% `[`(nzchar(.))
