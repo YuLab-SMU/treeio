@@ -38,63 +38,26 @@ merge_tree <- function(obj1, obj2) {
         stop("tip names not match...")
     }
 
-
-    ## order tip.label in tr2 as in tr1
-    ## mapping corresponding ID
     idx <- match(tr2$tip.label, tr1$tip.label)
-    tr2$edge[match(1:Ntip(tr2), tr2$edge[,2]), 2] <- idx
-    tr2$tip.label <- tr1$tip.label
 
     node_map <- list()
     node_map$from %<>% c(1:Ntip(tr2))
     node_map$to %<>% c(idx)
+    node1 <- node_map$to
+    node2 <- node_map$from
 
-    root <- getRoot(tr1)
-    root.2 <- getRoot(tr2)
-    tr2$edge[tr2$edge[,1] == root.2, 1] <-  root
-
-    node_map$from %<>% c(root.2)
-    node_map$to %<>% c(root)
-
-
-    currentNode <- 1:Ntip(tr1)
-    while(length(currentNode)) {
-        p1 <- sapply(currentNode, getParent, tr=tr1)
-        p2 <- sapply(currentNode, getParent, tr=tr2)
-
-        if (length(p1) != length(p2)) {
-            stop("trees are not identical...")
+    while(length(node1) > 0) {
+        p1 = sapply(node1, getParent, tr = tr1)
+        p2 = sapply(node2, getParent, tr = tr2)
+        if (!all(duplicated(p1) == duplicated(p2))) {
+            stop("tree structure not identical...")
         }
-
-        jj <- match(p2, tr2$edge[,1])
-        if (length(jj)) {
-            notNA <- which(!is.na(jj))
-            jj <- jj[notNA]
-        }
-        if (length(jj)) {
-            tr2$edge[jj,1] <- p1[notNA]
-        }
-
-
-        ii <- match(p2, tr2$edge[,2])
-        if (length(ii)) {
-            notNA <- which(!is.na(ii))
-            ii <- ii[notNA]
-        }
-        if (length(ii)) {
-            tr2$edge[ii,2] <- p1[notNA]
-        }
-
-        node_map$from %<>% c(p2)
-        node_map$to %<>% c(p1)
-
-        ## parent of root will return 0, which is in-valid node ID
-        currentNode <- unique(p1[p1 != 0])
+        node1 <- unique(p1[p1!=0])
+        node2 <- unique(p2[p2!=0])
+        node_map$from <- unique(c(node_map$from, node2))
+        node_map$to   <- unique(c(node_map$to,   node1))
     }
 
-    if ( any(tr2$edge != tr2$edge) ) {
-        stop("trees are not identical...")
-    }
 
     node_map.df <- do.call("cbind", node_map)
     node_map.df <- unique(node_map.df)
