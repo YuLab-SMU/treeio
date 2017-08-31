@@ -70,10 +70,22 @@ gitmaintain:
 	git prune -v;\
 	git fsck --full
 
-push:
+
+pushX:
 	git push -u origin master;\
 	git checkout bioc;\
+	git pull;\
 	git merge master;\
 	git push upstream master;\
 	git checkout master
+
+update:
+	git fetch --all;\
+	git checkout master;\
+	git merge upstream/master;\
+	git merge origin/master
+
+push: update
+	git push upstream master;\
+	git push origin master
 
