@@ -45,23 +45,19 @@ clean:
 	$(RM) -r $(PKGNAME).Rcheck/
 
 
-site: mkdocs
+site:
+	cd site_src;\
+	ln -s ../../software/themes themes;\
+	Rscript -e 'blogdown::build_site()';\
+	rm themes;\
+	cd ..
 
-mkdocs: mdfiles
-	cd mkdocs;\
-	mkdocs build;\
-	cd ../docs;\
-	rm -rf fonts;\
-	rm -rf css/font-awesome*
-
-mdfiles:
-	cd mkdocs;\
-	Rscript -e 'source("render.R")';\
-	cd docs;\
-	ln -f -s ../mysoftware/* ./
-
-svnignore:
-	svn propset svn:ignore -F .svnignore .
+preview:
+	cd site_src;\
+	ln -s ../../software/themes themes;\
+	Rscript -e 'blogdown::serve_site()';\
+	rm themes;\
+	cd ..
 
 
 
@@ -70,14 +66,6 @@ gitmaintain:
 	git prune -v;\
 	git fsck --full
 
-
-pushX:
-	git push -u origin master;\
-	git checkout bioc;\
-	git pull;\
-	git merge master;\
-	git push upstream master;\
-	git checkout master
 
 update:
 	git fetch --all;\

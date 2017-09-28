@@ -1,11 +1,9 @@
 ---
-output:
-  md_document:
-    variant: markdown
-html_preview: false
+date: 2017-07-24T00:11:02+01:00
+title: Documentation
+weight: 10
 ---
 
-`r ypages:::addtoany()`
 
 <link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css">
 

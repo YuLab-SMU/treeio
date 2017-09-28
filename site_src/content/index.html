@@ -1,0 +1,114 @@
+---
+date: 2017-07-06T12:08:13+01:00
+title: 'treeio: Base classes and functions for parsing and exporting phylogenetic tree'
+type: index
+weight: 1
+---
+
+
+
+<p><link rel="stylesheet" href="https://guangchuangyu.github.io/css/font-awesome.min.css"> <link rel="stylesheet" href="https://guangchuangyu.github.io/css/academicons.min.css"></p>
+<p><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="200" align="right" /></p>
+<p><a href="https://bioconductor.org/packages/treeio"><img src="https://img.shields.io/badge/release%20version-1.0.2-blue.svg?style=flat" alt="releaseVersion" /></a> <a href="https://github.com/guangchuangyu/treeio"><img src="https://img.shields.io/badge/devel%20version-1.1.1-blue.svg?style=flat" alt="develVersion" /></a> <a href="https://bioconductor.org/packages/stats/bioc/treeio"><img src="https://img.shields.io/badge/downloads-2697/total-blue.svg?style=flat" alt="total" /></a> <a href="https://bioconductor.org/packages/stats/bioc/treeio"><img src="https://img.shields.io/badge/downloads-515/month-blue.svg?style=flat" alt="month" /></a></p>
+<p>The <code>treeio</code> package defines classes and functions for parsing and exporting phylogenetic trees. <em>treeio</em> is released within the <a href="https://bioconductor.org/packages/treeio/">Bioconductor</a> project and the source code is hosted on <a href="https://github.com/GuangchuangYu/treeio"><i class="fa fa-github fa-lg"></i> GitHub</a>.</p>
+<div id="authors" class="section level2">
+<h2><i class="fa fa-user"></i> Authors</h2>
+<p>Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.</p>
+<p><a href="https://twitter.com/guangchuangyu"><i class="fa fa-twitter fa-3x"></i></a> <a href="https://guangchuangyu.github.io/blog_images/biobabble.jpg"><i class="fa fa-wechat fa-3x"></i></a> <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=Guangchuang+Yu[Author+-+Full]"><i class="ai ai-pubmed ai-3x"></i></a> <a href="https://scholar.google.com.hk/citations?user=DO5oG40AAAAJ&hl=en"><i class="ai ai-google-scholar ai-3x"></i></a> <a href="https://orcid.org/0000-0002-6485-8781"><i class="ai ai-orcid ai-3x"></i></a> <a href="https://impactstory.org/u/0000-0002-6485-8781"><i class="ai ai-impactstory ai-3x"></i></a></p>
+</div>
+<div id="citation" class="section level2">
+<h2><i class="fa fa-book"></i> Citation</h2>
+<p><code>treeio</code> was splitted from <code>ggtree</code> package, please cite the following article when using <code>treeio</code>:</p>
+<p><a href="http://dx.doi.org/10.1111/2041-210X.12628"><img src="https://img.shields.io/badge/doi-10.1111/2041--210X.12628-blue.svg?style=flat" alt="doi" /></a> <a href="https://www.altmetric.com/details/10533079"><img src="https://img.shields.io/badge/Altmetric-341-blue.svg?style=flat" alt="Altmetric" /></a> <a href="https://scholar.google.com.hk/scholar?oi=bibs&amp;hl=en&amp;cites=7268358477862164627"><img src="https://img.shields.io/badge/cited%20by-40-blue.svg?style=flat" alt="citation" /></a></p>
+<p><strong>G Yu</strong>, DK Smith, H Zhu, Y Guan, TTY Lam<sup>*</sup>. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. <strong><em>Methods in Ecology and Evolution</em></strong>. 2017, 8(1):28-36.</p>
+<!--
+## <i class="fa fa-pencil"></i> Featured Articles
+
+![](https://guangchuangyu.github.io/featured_img/ggtree/2015_peiyu_1-s2.0-S1567134815300721-gr1.jpg)
+
+<i class="fa fa-hand-o-right"></i> Find out more on <i class="fa fa-pencil"></i> [Featured Articles](https://guangchuangyu.github.io/ggtree/featuredArticles/).
+
+-->
+</div>
+<div id="installation" class="section level2">
+<h2><i class="fa fa-download"></i> Installation</h2>
+<p>Install <code>treeio</code> is easy, follow the guide on the <a href="https://bioconductor.org/packages/treeio/">Bioconductor page</a>:</p>
+<pre class="r"><code>## try http:// if https:// URLs are not supported
+source(&quot;https://bioconductor.org/biocLite.R&quot;)
+## biocLite(&quot;BiocUpgrade&quot;) ## you may need this
+biocLite(&quot;treeio&quot;)</code></pre>
+<!-- If you have problems when installing some of the dependent packages, please refer to the [ggtree-installation](https://github.com/GuangchuangYu/ggtree/wiki/ggtree-installation) wiki page.
+-->
+</div>
+<div id="overview" class="section level2">
+<h2><i class="fa fa-cogs"></i> Overview</h2>
+<div id="supported-tree-format" class="section level4">
+<h4><i class="fa fa-angle-double-right"></i> Supported tree format:</h4>
+<ul>
+<li>Newick</li>
+<li>NEXUS</li>
+<li>New Hampshire eXtended format (NHX)</li>
+<li>Jplace</li>
+<li>Phylip</li>
+</ul>
+</div>
+<div id="supported-software-output" class="section level4">
+<h4><i class="fa fa-angle-double-right"></i> Supported software output:</h4>
+<ul>
+<li>BEAST</li>
+<li>EPA</li>
+<li>HYPHY</li>
+<li>MrBayes</li>
+<li>PHYLODOG</li>
+<li>phyloT</li>
+<li>pplacer</li>
+<li>r8s</li>
+<li>RAxML</li>
+<li>RevBayes</li>
+</ul>
+</div>
+<div id="tree-manipulation" class="section level4">
+<h4><i class="fa fa-angle-double-right"></i> Tree manipulation</h4>
+<ul>
+<li><code>merge_tree</code> for merging evolutionary evidences inferred from different phylogenetic analyses</li>
+</ul>
+<p><i class="fa fa-hand-o-right"></i> Find out details and examples on <i class="fa fa-book"></i> <a href="https://guangchuangyu.github.io/treeio/documentation/">Documentation</a>.</p>
+</div>
+</div>
+<div id="projects-that-depend-on-treeio" class="section level2">
+<h2><i class="fa fa-code-fork"></i> Projects that depend on <em>treeio</em></h2>
+<div id="cran-packages" class="section level4">
+<h4><i class="fa fa-angle-double-right"></i> CRAN packages</h4>
+<ul>
+<li><a href="https://cran.r-project.org/package=harrietr">harrietr</a>: Wrangle Phylogenetic Distance Matrices and Other Utilities</li>
+</ul>
+</div>
+<div id="bioconductor-packages" class="section level4">
+<h4><i class="fa fa-angle-double-right"></i> Bioconductor packages</h4>
+<ul>
+<li><a href="https://www.bioconductor.org/packages/LINC">LINC</a>: co-expression of lincRNAs and protein-coding genes</li>
+<li><a href="https://www.bioconductor.org/packages/LymphoSeq">LymphoSeq</a>: Analyze high-throughput sequencing of T and B cell receptors</li>
+<li><a href="https://www.bioconductor.org/packages/philr">philr</a>: Phylogenetic partitioning based ILR transform for metagenomics data</li>
+</ul>
+</div>
+</div>
+<div id="feedback" class="section level2">
+<h2><i class="fa fa-comments"></i> Feedback</h2>
+<ul class="fa-ul">
+<li>
+<i class="fa-li fa fa-hand-o-right"></i> Please make sure you have followed <a href="https://guangchuangyu.github.io/2016/07/how-to-bug-author/"><strong>the important guide</strong></a> before posting any issue/question
+</li>
+<li>
+<i class="fa-li fa fa-bug"></i> For bugs or feature requests, please post to <i class="fa fa-github-alt"></i> <a href="https://github.com/GuangchuangYu/treeio/issues">github issue</a>
+</li>
+<li>
+<i class="fa-li fa fa-question"></i> For user questions, please post to <i class="fa fa-google"></i> <a href="https://groups.google.com/forum/#!forum/bioc-treeio">google group</a>
+</li>
+<li>
+<i class="fa-li fa fa-support"></i> We are also following every post tagged with <strong>treeio</strong> on <a href="https://support.bioconductor.org">Bioconductor support site</a> and <a href="https://www.biostars.org">Biostars</a>
+</li>
+<li>
+<i class="fa-li fa fa-commenting"></i> Join the group chat on <a href="https://twitter.com/hashtag/treeio"><i class="fa fa-twitter fa-lg"></i></a> and <a href="http://huati.weibo.com/k/treeio"><i class="fa fa-weibo fa-lg"></i></a>
+</li>
+</ul>
+</div>

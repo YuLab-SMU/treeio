@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Documentations on treeio</title>
+    <link>https://guangchuangyu.github.io/treeio/documentation/</link>
+    <description>Recent content in Documentations on treeio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the Artistic-2.0 license</copyright>
+    <lastBuildDate>Mon, 24 Jul 2017 00:11:02 +0100</lastBuildDate>
+    
+	<atom:link href="https://guangchuangyu.github.io/treeio/documentation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Documentation</title>
+      <link>https://guangchuangyu.github.io/treeio/documentation/documentation/</link>
+      <pubDate>Mon, 24 Jul 2017 00:11:02 +0100</pubDate>
+      
+      <guid>https://guangchuangyu.github.io/treeio/documentation/documentation/</guid>
+      <description> Vignettes  Base Classes and Functions for Phylogenetic Tree Input and Output ggtree for tree visualization and annotation    Blog posts  News and updates   object conversion  convert graphic object to tree object using treeio    </description>
+    </item>
+    
+  </channel>
+</rss>

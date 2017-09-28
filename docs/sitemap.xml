@@ -1,78 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/documentation/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/ChIPseeker/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/clusterProfiler/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/DOSE/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/emojifont/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/ggtree/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/GOSemSim/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/meshes/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/ReactomePA/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>https://guangchuangyu.github.io/treeio/treeio/</loc>
-     <lastmod>2017-04-27</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/treeio/</loc>
+    <lastmod>2017-07-06T12:08:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/treeio/documentation/documentation/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/treeio/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/treeio/documentation/</loc>
+    <lastmod>2017-07-24T00:11:02+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/treeio/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://guangchuangyu.github.io/treeio/</loc>
+    <lastmod>2017-07-06T12:08:13+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
 </urlset>

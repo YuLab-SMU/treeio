@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>treeio</title>
+    <link>https://guangchuangyu.github.io/treeio/</link>
+    <description>Recent content on treeio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the Artistic-2.0 license</copyright>
+    <lastBuildDate>Thu, 06 Jul 2017 12:08:13 +0100</lastBuildDate>
+    
+	<atom:link href="https://guangchuangyu.github.io/treeio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>treeio: Base classes and functions for parsing and exporting phylogenetic tree</title>
+      <link>https://guangchuangyu.github.io/treeio/</link>
+      <pubDate>Thu, 06 Jul 2017 12:08:13 +0100</pubDate>
+      
+      <guid>https://guangchuangyu.github.io/treeio/</guid>
+      <description>The treeio package defines classes and functions for parsing and exporting phylogenetic trees. treeio is released within the Bioconductor project and the source code is hosted on  GitHub.
+ Authors Guangchuang Yu and Tommy Tsan-Yuk Lam, School of Public Health, The University of Hong Kong.
+     
+  Citation treeio was splitted from ggtree package, please cite the following article when using treeio:</description>
+    </item>
+    
+    <item>
+      <title>Documentation</title>
+      <link>https://guangchuangyu.github.io/treeio/documentation/documentation/</link>
+      <pubDate>Mon, 24 Jul 2017 00:11:02 +0100</pubDate>
+      
+      <guid>https://guangchuangyu.github.io/treeio/documentation/documentation/</guid>
+      <description> Vignettes  Base Classes and Functions for Phylogenetic Tree Input and Output ggtree for tree visualization and annotation    Blog posts  News and updates   object conversion  convert graphic object to tree object using treeio    </description>
+    </item>
+    
+  </channel>
+</rss>

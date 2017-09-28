@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.1.2
+------------------------
+ o new project site using blogdown <2017-09-28, Thu>
+
 CHANGES IN VERSION 1.1.1
 ------------------------
  o parse mlc file without dNdS <2017-08-31, Thu>
