@@ -81,7 +81,7 @@ ggsave(p, file="docs/images/citation.png", width=8, height=4)
 `r badge_bioc_download("treeio", "month", "blue")`
 
 
-```{r echo=F, comment=NA, eval=F}
+```{r echo=F, comment=NA}
 x <- dlstats::bioc_stats("treeio")
 x <- x[-nrow(x), ] # last month data is not complete
 p <- ggplot(x, aes(end, Nb_of_distinct_IPs)) + geom_point() + geom_line() +
