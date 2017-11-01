@@ -112,6 +112,7 @@ read.stats_beast <- function(file) {
 
 
 read.stats_beast_internal <- function(beast, tree) {
+    tree <- gsub(" ", "", tree)
     tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
     phylo <- read.tree(text = tree2)
 
@@ -233,6 +234,9 @@ read.stats_beast_internal <- function(beast, tree) {
             kk <- sapply(seq_along(sidx), function(k) sidx[k]:eidx[k]) %>% unlist
             y <- y[-kk]
         }
+
+        if (length(y) == 0)
+            return(SETS)
 
         name <- gsub("=.*", "", y)
         val <- gsub(".*=", "", y) %>% gsub("^\\{", "", .) %>%

@@ -1,11 +1,12 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.3.0
-Authors@R: c(person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "cre")),
-	     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com", rol = c("aut", "ths")),
-	     person("Casey", "Dunn", email = "casey_dunn@brown.edu", rol = "ctb"),
-	     person("Bradley", "Jones", email="brj1@sfu.ca", rol = "ctb")
-	    )
+Version: 1.3.1
+Authors@R: c(
+    person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre")),
+    person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
+    person("Casey", "Dunn",         email = "casey_dunn@brown.edu",    role = "ctb"),
+    person("Bradley", "Jones",      email="brj1@sfu.ca",               role = "ctb")
+	  )
 Description: Base classes and functions for parsing and exporting phylogenetic
     trees.
 Depends:
