@@ -187,6 +187,10 @@ read.stats_beast_internal <- function(beast, tree) {
 
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
+    
+    ## BEAST1 edge stat fix
+   	tree <- gsub("\\]:\\[&(.+?\\])", ",\\1:", tree)
+	tree <- gsub(":(\\[.+?\\])", "\\1:", tree)
 
     if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
         ## MrBayes output
