@@ -4,6 +4,7 @@
 ##' @title read.raxml
 ##' @param file RAxML bootstrapping analysis output
 ##' @return raxml object
+##' @importFrom tibble data_frame
 ##' @export
 ##' @examples
 ##' raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio")
@@ -22,16 +23,8 @@ read.raxml <- function(file) {
         phylo$node.label <- NULL
     }
 
-    bootstrap <- data.frame(node = Ntip(phylo) + 1:phylo$Nnode,
+    bootstrap <- data_frame(node = Ntip(phylo) + 1:phylo$Nnode,
                             bootstrap = bootstrap)
-
-    ## new("raxml",
-    ##     file      = file,
-    ##     fields    = "bootstrap",
-    ##     treetext  = tree.text,
-    ##     phylo     = phylo,
-    ##     bootstrap = bootstrap
-    ##     )
 
     new("treedata",
         file = filename(file),

@@ -29,4 +29,3 @@ write.jplace(tree, data, outfile)
 \author{
 ygc
 }
-

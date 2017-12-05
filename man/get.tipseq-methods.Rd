@@ -24,4 +24,3 @@ character
 \description{
 get tipseq
 }
-

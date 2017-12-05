@@ -22,4 +22,3 @@ read.jplace(jp)
 \author{
 ygc
 }
-

@@ -24,4 +24,3 @@ group OTU
 \author{
 ygc
 }
-

@@ -3,18 +3,15 @@
 \docType{methods}
 \name{groupClade}
 \alias{groupClade}
-\alias{groupClade,beast-method}
 \alias{groupClade,codeml-method}
 \alias{groupClade,jplace-method}
-\alias{groupClade,phangorn-method}
+\alias{groupClade,treedata-method}
 \alias{groupClade,phylip-method}
 \alias{groupClade,phylo-method}
-\alias{groupClade,treedata-method}
+\alias{groupClade,phangorn-method}
 \title{groupClade method}
 \usage{
 groupClade(object, node, group_name = "group", ...)
-
-\S4method{groupClade}{beast}(object, node, group_name = "group")
 
 \S4method{groupClade}{codeml}(object, node, group_name = "group")
 
@@ -44,4 +41,3 @@ group index
 \description{
 group selected clade
 }
-

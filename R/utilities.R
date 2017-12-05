@@ -317,7 +317,7 @@ is.tree <- function(x) {
                         "codeml_mlc",
                         "codeml",
                         "hyphy",
-                        "beast")
+                        "treedata")
         ) {
         return(TRUE)
     }

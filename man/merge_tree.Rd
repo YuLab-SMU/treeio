@@ -20,4 +20,3 @@ merge two tree object
 \author{
 Guangchuang Yu
 }
-

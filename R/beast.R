@@ -2,6 +2,7 @@
 ##' read beast output
 ##'
 ##'
+##' @rdname beast-mrbayes-parser
 ##' @title read.beast
 ##' @param file beast file
 ##' @return \code{beast} object
@@ -29,22 +30,27 @@ read.beast <- function(file) {
 }
 
 
+##' @rdname beast-mrbayes-parser
+##' @export
+read.mrbayes <- read.beast
+
 BEAST <- function(file, treetext, translation, stats, phylo) {
     stats$node %<>% gsub("\"*'*", "", .)
 
-    fields <- sub("_lower|_upper", "", names(stats)) %>% unique
-    fields %<>% `[`(.!="node")
+    ## fields <- sub("_lower|_upper", "", names(stats)) %>% unique
+    ## fields %<>% `[`(.!="node")
 
     phylo <- remove_quote_in_tree_label(phylo)
 
-    obj <- new("beast",
-               fields      = fields,
+    obj <- new("treedata",
+               ## fields      = fields,
                treetext    = treetext,
                phylo       = phylo,
                translation = translation,
-               stats       = stats,
+               data        = stats,
                file        = filename(file)
                )
+
     return(obj)
 }
 
@@ -88,7 +94,7 @@ read.trans_beast <- function(file) {
     end <- grep(";", beast)
     j <- end[end %>% `>`(i) %>% which %>% `[`(1)]
     trans <- beast[(i+1):j]
-    trans %<>% gsub("\\t+", "", .)
+    trans %<>% gsub("^\\s+", "", .)
     trans %<>% gsub(",|;", "", .)
     trans %<>% `[`(nzchar(trans))
     ## remove quote if strings were quoted
@@ -187,10 +193,10 @@ read.stats_beast_internal <- function(beast, tree) {
 
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
-    
+
     ## BEAST1 edge stat fix
    	tree <- gsub("\\]:\\[&(.+?\\])", ",\\1:", tree)
-	tree <- gsub(":(\\[.+?\\])", "\\1:", tree)
+    tree <- gsub(":(\\[.+?\\])", "\\1:", tree)
 
     if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
         ## MrBayes output
@@ -280,7 +286,7 @@ read.stats_beast_internal <- function(beast, tree) {
     })
 
     stats3 <- do.call(rbind, stats2)
-    stats3 <- as.data.frame(stats3, stringsAsFactor = FALSE)
+    stats3 <- as_data_frame(stats3)
     idx <- grep("\\+-", colnames(stats3))
     if (length(idx)) {
         for (i in idx) {
@@ -299,6 +305,8 @@ read.stats_beast_internal <- function(beast, tree) {
     for (j in which(i==1)) {
         stats3[,j] <- unlist(stats3[,j])
     }
+    stats3$node <- as.integer(stats3$node)
+
     return(stats3)
 }
 

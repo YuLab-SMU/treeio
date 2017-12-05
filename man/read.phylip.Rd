@@ -22,4 +22,3 @@ read.phylip(phyfile)
 \author{
 Guangchuang Yu
 }
-

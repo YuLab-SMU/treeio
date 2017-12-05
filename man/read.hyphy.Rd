@@ -28,4 +28,3 @@ read.hyphy(nwk, ancseq)
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }
-

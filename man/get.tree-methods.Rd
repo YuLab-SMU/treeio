@@ -3,22 +3,21 @@
 \docType{methods}
 \name{get.tree}
 \alias{get.tree}
-\alias{get.tree,beast}
+\alias{get.tree,treedata-method}
 \alias{get.tree,codeml-method}
-\alias{get.tree,codeml_mlc-method}
-\alias{get.tree,hyphy-method}
 \alias{get.tree,jplace-method}
-\alias{get.tree,paml_rst-method}
-\alias{get.tree,phangorn-method}
 \alias{get.tree,phylip-method}
 \alias{get.tree,phylo-method}
+\alias{get.tree,hyphy-method}
+\alias{get.tree,paml_rst-method}
+\alias{get.tree,phangorn-method}
+\alias{get.tree,codeml_mlc-method}
 \alias{get.tree,r8s-method}
-\alias{get.tree,treedata-method}
 \title{get.tree method}
 \usage{
 get.tree(object, ...)
 
-get.tree(object, ...)
+\S4method{get.tree}{treedata}(object, ...)
 
 \S4method{get.tree}{codeml}(object, by = "rst", ...)
 
@@ -27,8 +26,6 @@ get.tree(object, ...)
 \S4method{get.tree}{phylip}(object, ...)
 
 \S4method{get.tree}{phylo}(object, ...)
-
-\S4method{get.tree}{treedata}(object, ...)
 
 \S4method{get.tree}{hyphy}(object)
 
@@ -41,7 +38,7 @@ get.tree(object, ...)
 \S4method{get.tree}{r8s}(object, ...)
 }
 \arguments{
-\item{object}{one of \code{phylo}, \code{jplace}, \code{nhx}, \code{phangorn}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}
+\item{object}{one of \code{phylo}, \code{jplace}, \code{nhx}, \code{phangorn}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}
 
 \item{...}{additional parameter}
 
@@ -62,4 +59,3 @@ get.tree(hy)
 \author{
 Guangchuang Yu \url{http://guangchuangyu.github.io}
 }
-

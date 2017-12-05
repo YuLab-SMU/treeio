@@ -22,4 +22,3 @@ read.paml_rst(rstfile)
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }
-

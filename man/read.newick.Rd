@@ -22,4 +22,3 @@ read newick tree
 \author{
 guangchuang yu
 }
-

@@ -23,4 +23,3 @@ Nnode(rtree(30))
 \author{
 guangchuang yu
 }
-

@@ -22,4 +22,3 @@ convert pml object to XStringSet object
 \author{
 ygc
 }
-

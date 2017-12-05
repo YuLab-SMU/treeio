@@ -15,7 +15,7 @@ as.treedata.phylo <- function(tree, boot=NULL, ...) {
                )
 
     if (!is.null(boot)) {
-        res@data = data.frame(node=nodeIds(tree), bootstrap=boot)
+        res@data = data_frame(node=nodeIds(tree), bootstrap=boot)
     }
     return(res)
 }
@@ -32,7 +32,7 @@ as.treedata.phylo4 <- function(tree, ...) {
 as.treedata.phylo4d <- function(tree, ...) {
     new("treedata",
         phylo = as.phylo.phylo4(tree),
-        data = data.frame(node=rownames(tree@data), tree@data)
+        data = data_frame(node=rownames(tree@data), tree@data)
         )
 }
 
@@ -44,6 +44,6 @@ as.treedata.ggtree <- function(tree, ...) {
     res <- new("treedata",
                phylo = as.phylo(tree))
     if (length(idx))
-        res@data <- tree$data[, idx]
+        res@data <- as_data_frame(tree$data[, idx])
     return(res)
 }

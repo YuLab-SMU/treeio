@@ -24,11 +24,11 @@ This class stores information of mlc file frm codeml output
 
 \item{\code{extraInfo}}{extra information}
 }}
-\author{
-Guangchuang Yu
-}
+
 \seealso{
 \linkS4class{paml_rst} \linkS4class{codeml}
 }
+\author{
+Guangchuang Yu
+}
 \keyword{classes}
-

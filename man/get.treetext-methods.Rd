@@ -3,6 +3,7 @@
 \docType{methods}
 \name{get.treetext}
 \alias{get.treetext}
+\alias{get.treetext}
 \alias{get.treetext,jplace,ANY-method}
 \title{get.treetext method}
 \usage{
@@ -29,4 +30,3 @@ get.treetext(jp)
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }
-

@@ -17,10 +17,9 @@ phylo object
 \description{
 parse output from phyloT
 }
-\author{
-guangchuang yu
-}
 \references{
 \url{http://phylot.biobyte.de/}
 }
-
+\author{
+guangchuang yu
+}

@@ -5,6 +5,7 @@
 ##' @param file nhx file
 ##' @return nhx object
 ##' @importFrom magrittr %<>%
+##' @importFrom tibble as_data_frame
 ##' @export
 ##' @examples
 ##' nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
@@ -64,7 +65,7 @@ read.nhx <- function(file) {
     new("treedata",
         file = filename(file),
         phylo = phylo,
-        data = nhx_tags
+        data = as_data_frame(nhx_tags)
         )
 }
 

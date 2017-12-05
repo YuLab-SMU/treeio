@@ -6,21 +6,22 @@
 ##           }
 ##           )
 
-##' get.tree method
-##'
-##'
-##' @docType methods
-##' @name get.tree
+
 ##' @rdname get.tree-methods
-##' @aliases get.tree,beast
 ##' @exportMethod get.tree
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @usage get.tree(object, ...)
-setMethod("get.tree", signature(object="beast"),
-          function(object,...) {
-              object@phylo
-          }
-          )
+setMethod("get.tree", signature(object="treedata"),
+          function(object, ...) {
+              return(object@phylo)
+          })
+
+
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object="beast"),
+##           function(object,...) {
+##               object@phylo
+##           }
+##           )
 
 
 ##' @rdname get.tree-methods
@@ -65,15 +66,6 @@ setMethod("get.tree", signature(object="phylo"),
           function(object, ...) {
               return(object)
           })
-
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="treedata"),
-          function(object, ...) {
-              return(object@phylo)
-          })
-
-
 
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree

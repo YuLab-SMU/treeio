@@ -1,26 +1,27 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.3.1
+Version: 1.3.2
 Authors@R: c(
-    person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre")),
+    person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
     person("Casey", "Dunn",         email = "casey_dunn@brown.edu",    role = "ctb"),
-    person("Bradley", "Jones",      email="brj1@sfu.ca",               role = "ctb")
+    person("Bradley", "Jones",      email = "brj1@sfu.ca",             role = "ctb")
 	  )
-Description: Base classes and functions for parsing and exporting phylogenetic
-    trees.
+Description: Base classes and functions for parsing and exporting phylogenetic trees.
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.4.0)
 Imports:
     ape,
+    dplyr,
     ggplot2,
     jsonlite,
     magrittr,
     methods,
-    rvcheck
+    rvcheck,
+    tibble
 Suggests:
     Biostrings,
-    ggtree (>= 1.7.5),
+    ggtree,
     knitr,
     prettydoc,
     testthat

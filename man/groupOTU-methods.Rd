@@ -3,21 +3,18 @@
 \docType{methods}
 \name{groupOTU}
 \alias{groupOTU}
-\alias{groupOTU,beast-method}
 \alias{groupOTU,codeml-method}
 \alias{groupOTU,codeml_mlc-method}
 \alias{groupOTU,jplace-method}
-\alias{groupOTU,paml_rst-method}
+\alias{groupOTU,treedata-method}
 \alias{groupOTU,phangorn-method}
 \alias{groupOTU,phylip-method}
+\alias{groupOTU,paml_rst-method}
 \alias{groupOTU,phylo-method}
 \alias{groupOTU,r8s-method}
-\alias{groupOTU,treedata-method}
 \title{groupOTU method}
 \usage{
 groupOTU(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{beast}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{codeml}(object, focus, group_name = "group", ...)
 
@@ -56,4 +53,3 @@ group index
 \description{
 group tree based on selected OTU, will traceback to MRCA
 }
-

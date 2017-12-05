@@ -7,6 +7,7 @@
 ##' @return tree object
 ##' @importFrom magrittr %<>%
 ##' @importFrom ggplot2 fortify
+##' @importFrom dplyr full_join
 ##' @export
 ##' @author Guangchuang Yu
 merge_tree <- function(obj1, obj2) {
@@ -76,10 +77,9 @@ merge_tree <- function(obj1, obj2) {
 
     extraInfo <- obj1@extraInfo
     if (nrow(extraInfo) == 0) {
-        obj1@extraInfo <- info2
+        obj1@extraInfo <- as_data_frame(info2)
     } else {
-        info <- merge(extraInfo, info2, by.x =c("node", "parent"), by.y = c("node", "parent"))
-        obj1@extraInfo <- info
+        obj1@extraInfo <- full_join(extraInfo, info2, by = c("node", "parent"))
     }
 
     return(obj1)

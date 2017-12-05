@@ -20,13 +20,13 @@ setMethod("get.fields", signature(object = "jplace"),
           )
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object="beast"),
-          function(object, ...) {
-              get.fields.tree(object)
-          }
-          )
+## ##' @rdname get.fields-methods
+## ##' @exportMethod get.fields
+## setMethod("get.fields", signature(object="beast"),
+##           function(object, ...) {
+##               get.fields.tree(object)
+##           }
+##           )
 
 
 ##' @rdname get.fields-methods

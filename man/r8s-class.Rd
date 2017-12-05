@@ -22,8 +22,8 @@ This class stores output info from r8s
 
 \item{\code{extraInfo}}{extra information}
 }}
+
 \author{
 Guangchuang Yu \url{http://guangchuangyu.github.io}
 }
 \keyword{classes}
-

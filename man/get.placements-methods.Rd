@@ -3,6 +3,7 @@
 \docType{methods}
 \name{get.placements}
 \alias{get.placements}
+\alias{get.placements}
 \alias{get.placements,jplace,ANY-method}
 \title{get.placements method}
 \usage{
@@ -31,4 +32,3 @@ get.placements(jp, by="all")
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }
-

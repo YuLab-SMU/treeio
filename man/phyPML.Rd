@@ -20,4 +20,3 @@ tree annotation of sequence substitution by comparing to parent node
 \author{
 Yu Guangchuang
 }
-

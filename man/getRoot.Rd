@@ -21,4 +21,3 @@ getRoot(rtree(10))
 \author{
 Guangchuang Yu
 }
-

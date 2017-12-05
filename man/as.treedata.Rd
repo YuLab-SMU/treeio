@@ -25,4 +25,3 @@ converting phylo object to treedata object
 \author{
 guangchuang yu
 }
-

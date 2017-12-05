@@ -17,7 +17,9 @@ setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
 ##' @slot data associated data
 ##' @slot extraInfo extra information, reserve for merge_tree
 ##' @slot file tree file
+##' @slot translation tip number to name translation in nexus file
 ##' @importFrom methods setClass
+##' @importFrom methods representation
 ##' @exportClass treedata
 ##' @author guangchuang yu \url{https://guangchuangyu.github.io}
 ##' @keywords classes
@@ -25,43 +27,48 @@ setClass("treedata",
          representation = representation(
              phylo = "phylo",
              treetext = "character",
-             data = "data.frame",
-             extraInfo = "data.frame",
-             file = "character"
+             data = "tbl_df",
+             extraInfo = "tbl_df",
+             file = "character",
+             translation = "matrix"
+         ),
+         prototype = prototype(
+             data = data_frame(),
+             extraInfo = data_frame()
          )
          )
 
-##' Class "beast"
-##' This class stores information of beast output
-##'
-##'
-##' @name beast-class
-##' @aliases beast-class
-##'      get.tree,beast-method
-##'
-##' @docType class
-##' @slot fields beast statistic variables
-##' @slot treetext tree text in beast file
-##' @slot phylo tree phylo object
-##' @slot translation tip number to name translation in beast file
-##' @slot stats beast statistics
-##' @slot file beast file, nexus format
-##' @slot extraInfo extra information
-##' @exportClass beast
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @seealso \code{\link{show}} \code{\link{get.fields}}
-##' @keywords classes
-setClass("beast",
-         representation  = representation(
-             fields      = "character",
-             treetext    = "character",
-             phylo       = "phylo",
-             translation = "matrix",
-             stats       = "data.frame",
-             file        = "character",
-             extraInfo   = "data.frame"
-             )
-         )
+## ##' Class "beast"
+## ##' This class stores information of beast output
+## ##'
+## ##'
+## ##' @name beast-class
+## ##' @aliases beast-class
+## ##'      get.tree,beast-method
+## ##'
+## ##' @docType class
+## ##' @slot fields beast statistic variables
+## ##' @slot treetext tree text in beast file
+## ##' @slot phylo tree phylo object
+## ##' @slot translation tip number to name translation in beast file
+## ##' @slot stats beast statistics
+## ##' @slot file beast file, nexus format
+## ##' @slot extraInfo extra information
+## ##' @exportClass beast
+## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+## ##' @seealso \code{\link{show}} \code{\link{get.fields}}
+## ##' @keywords classes
+## setClass("beast",
+##          representation  = representation(
+##              fields      = "character",
+##              treetext    = "character",
+##              phylo       = "phylo",
+##              translation = "matrix",
+##              stats       = "data.frame",
+##              file        = "character",
+##              extraInfo   = "data.frame"
+##              )
+##          )
 
 
 ##' Class "codeml_mlc"
@@ -89,8 +96,11 @@ setClass("codeml_mlc",
              ## seq_type   = "character",
              ## tip_seq    = "character",
              mlcfile    = "character",
-             extraInfo  = "data.frame"
-             )
+             extraInfo  = "tbl_df"
+         ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
          )
 
 ##' Class "paml_rst"
@@ -134,7 +144,10 @@ setClass("paml_rst",
              marginal_AA_subs = "data.frame",
              joint_AA_subs    = "data.frame",
              rstfile          = "character",
-             extraInfo        = "data.frame"
+             extraInfo        = "tbl_df"
+         ),
+         prototype = prototype(
+             extraInfo = data_frame()
          )
          )
 
@@ -154,8 +167,11 @@ setClass("codeml",
          representation = representation(
              mlc       = "codeml_mlc",
              rst       = "paml_rst",
-             extraInfo = "data.frame"
-             )
+             extraInfo = "tbl_df"
+             ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
          )
 
 
@@ -195,8 +211,11 @@ setClass("hyphy",
              tip.fasfile = "character",
              tree.file   = "character",
              ancseq.file = "character",
-             extraInfo   = "data.frame"
-             )
+             extraInfo   = "tbl_df"
+             ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
          )
 
 ##' Class "jplace"
@@ -233,8 +252,11 @@ setClass("jplace",
              version    = "numeric",
              metadata   = "list",
              file       = "character",
-             extraInfo  = "data.frame"
-             )
+             extraInfo  = "tbl_df"
+             ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
          )
 
 ##' Class "phangorn"
@@ -264,7 +286,11 @@ setClass("phangorn",
              ancseq = "character",
              subs = "data.frame",
              AA_subs = "data.frame",
-             extraInfo = "data.frame")
+             extraInfo = "tbl_df"
+         ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
          )
 
 
@@ -291,7 +317,11 @@ setClass("phylip",
              phylo = "phyloOrmultiPhylo",
              ntree = "numeric",
              sequence = "character",
-             extraInfo = "data.frame")
+             extraInfo = "tbl_df"
+         ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
          )
 
 
@@ -315,8 +345,11 @@ setClass("r8s",
              fields    = "character",
              treetext  = "character",
              phylo     = "multiPhylo",
-             extraInfo = "data.frame"
-             )
+             extraInfo = "tbl_df"
+             ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
          )
 
 

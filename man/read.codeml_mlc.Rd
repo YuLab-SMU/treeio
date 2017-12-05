@@ -22,4 +22,3 @@ read.codeml_mlc(mlcfile)
 \author{
 ygc
 }
-

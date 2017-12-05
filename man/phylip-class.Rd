@@ -24,8 +24,8 @@ This class stores phylip tree(s)
 
 \item{\code{extraInfo}}{extra information}
 }}
+
 \author{
 Guangchuang Yu
 }
 \keyword{classes}
-

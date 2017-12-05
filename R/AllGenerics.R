@@ -8,14 +8,20 @@ as.treedata <- function(tree, ...) {
     UseMethod("as.treedata")
 }
 
+##' get.tree method
+##'
+##'
 ##' @docType methods
 ##' @name get.tree
 ##' @rdname get.tree-methods
 ##' @title get.tree method
-##' @param object one of \code{phylo}, \code{jplace}, \code{nhx}, \code{phangorn}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
+##' @param object one of \code{phylo}, \code{jplace}, \code{nhx}, \code{phangorn}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
 ##' @param ... additional parameter
 ##' @return phylo object
+##' @importFrom methods setGeneric
 ##' @export
+##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+##' @usage get.tree(object, ...)
 setGeneric("get.tree", function(object, ...) standardGeneric("get.tree"))
 
 ##' @docType methods

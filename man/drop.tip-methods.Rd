@@ -3,10 +3,10 @@
 \docType{methods}
 \name{drop.tip}
 \alias{drop.tip}
-\alias{drop.tip,phylo}
-\alias{drop.tip,phylo-method}
-\alias{drop.tip,treedata}
 \alias{drop.tip,treedata-method}
+\alias{drop.tip,treedata}
+\alias{drop.tip,phylo-method}
+\alias{drop.tip,phylo}
 \title{drop.tip method}
 \source{
 drop.tip for phylo object is a wrapper method of ape::drop.tip
@@ -38,10 +38,9 @@ nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 nhx <- read.nhx(nhxfile)
 drop.tip(nhx, c("ADH2", "ADH1"))
 }
-\author{
-Casey Dunn \url{http://dunnlab.org}  and Guangchuang Yu \url{https://guangchuangyu.github.io}
-}
 \seealso{
 \link[ape]{drop.tip}
 }
-
+\author{
+Casey Dunn \url{http://dunnlab.org}  and Guangchuang Yu \url{https://guangchuangyu.github.io}
+}

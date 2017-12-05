@@ -22,4 +22,3 @@ read.raxml(raxml_file)
 \author{
 Guangchuang Yu
 }
-

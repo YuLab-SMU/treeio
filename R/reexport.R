@@ -2,6 +2,11 @@
 ##' @export
 ape::read.tree
 
+##' @importFrom ape read.nexus
+##' @export
+ape::read.nexus
+
+
 ##' @importFrom ape rtree
 ##' @export
 ape::rtree

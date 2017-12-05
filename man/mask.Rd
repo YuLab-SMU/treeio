@@ -25,4 +25,3 @@ site mask
 \author{
 Guangchuang Yu
 }
-

@@ -2,9 +2,12 @@
 % Please edit documentation in R/beast.R
 \name{read.beast}
 \alias{read.beast}
+\alias{read.mrbayes}
 \title{read.beast}
 \usage{
 read.beast(file)
+
+read.mrbayes(file)
 }
 \arguments{
 \item{file}{beast file}
@@ -22,4 +25,3 @@ read.beast(file)
 \author{
 Guangchuang Yu \url{https://guangchuangyu.github.io}
 }
-

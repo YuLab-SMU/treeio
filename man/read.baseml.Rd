@@ -25,4 +25,3 @@ read.baseml(rstfile, mlbfile)
 \author{
 Guangchuang Yu \url{http://ygc.name}
 }
-

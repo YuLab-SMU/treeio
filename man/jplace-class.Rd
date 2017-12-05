@@ -2,12 +2,12 @@
 % Please edit documentation in R/AllClasses.R
 \docType{class}
 \name{jplace-class}
-\alias{get.fields,jplace-method}
-\alias{get.placements,jplace-method}
-\alias{get.treeinfo,jplace-method}
-\alias{get.treetext,jplace-method}
 \alias{jplace-class}
 \alias{show,jplace-method}
+\alias{get.placements,jplace-method}
+\alias{get.treeinfo,jplace-method}
+\alias{get.fields,jplace-method}
+\alias{get.treetext,jplace-method}
 \title{Class "jplace"
 This class stores information of jplace file.}
 \description{
@@ -33,11 +33,11 @@ This class stores information of jplace file.
 
 \item{\code{extraInfo}}{extra information}
 }}
-\author{
-Guangchuang Yu \url{http://guangchuangyu.github.io}
-}
+
 \seealso{
 \code{\link{show}} \code{\link{get.tree}}
 }
+\author{
+Guangchuang Yu \url{http://guangchuangyu.github.io}
+}
 \keyword{classes}
-
