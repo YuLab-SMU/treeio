@@ -13,19 +13,28 @@
 read.jplace <- function(file) {
     fields <- tree <- placements <- NULL
     version <- metadata <- NULL
-    with(fromJSON(file),
-         new("jplace",
-             fields     = fields,
-             treetext   = tree,
-             phylo      = jplace_treetext_to_phylo(tree),
-             placements = placements,
-             version    = version,
-             metadata   = metadata,
-             file       = filename(file)
-             )
-         )
+    jtree <- fromJSON(file)
+    phylo <- jplace_treetext_to_phylo(jtree$tree)
+    placements <- extract.placement(jtree, phylo)
+    info <- c(jtree$metadata, version=jtree$version, parser = "read.jplace")
+    res <- new("treedata",
+        treetext   = jtree$tree,
+        phylo      = phylo,
+        placements = placements,
+        info       = info,
+        file       = filename(file)
+        )
+
+    res@data <- summarize_placement(res)
+    return(res)
 }
 
+##' @importFrom dplyr summarize
+##' @importFrom dplyr n
+summarize_placement <- function(tree) {
+    place <- get.placements(tree, by="best")
+    group_by_(place, ~node) %>% summarize(nplace=n())
+}
 
 
 ## ##' @rdname scale_color-methods
@@ -61,102 +70,77 @@ read.jplace <- function(file) {
 ##           )
 
 
-##' get.treetext method
-##'
-##'
-##' @docType methods
-##' @name get.treetext
-##' @rdname get.treetext-methods
-##' @aliases get.treetext,jplace,ANY-method
-##' @exportMethod get.treetext
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @usage get.treetext(object, ...)
-##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="treeio")
-##' jp <- read.jplace(jp)
-##' get.treetext(jp)
-setMethod("get.treetext", signature(object = "jplace"),
-          function(object, ...) {
-              get.treetext.jplace(object, ...)
-          }
-          )
+## ##' get.treetext method
+## ##'
+## ##'
+## ##' @docType methods
+## ##' @name get.treetext
+## ##' @rdname get.treetext-methods
+## ##' @aliases get.treetext,jplace,ANY-method
+## ##' @exportMethod get.treetext
+## ##' @author Guangchuang Yu \url{http://ygc.name}
+## ##' @usage get.treetext(object, ...)
+## ##' @examples
+## ##' jp <- system.file("extdata", "sample.jplace", package="treeio")
+## ##' jp <- read.jplace(jp)
+## ##' get.treetext(jp)
+## setMethod("get.treetext", signature(object = "jplace"),
+##           function(object, ...) {
+##               get.treetext.jplace(object, ...)
+##           }
+##           )
+
+##' @method get.placements treedata
+##' @param by one of 'best' and 'all'
+##' @export
+##' @rdname get-placements
+##' @importFrom dplyr group_by_
+##' @importFrom dplyr filter_
+get.placements.treedata <- function(tree, by="best", ...) {
+    if (tree@info$parser != "read.jplace") {
+        stop("tree object should be parsed from jplace file using 'read.jplace'")
+    }
+    placements <- tree@placements
+    if (by == "best") {
+        ## http://astrostatistics.psu.edu/su07/R/html/base/html/all.equal.html
+        ## due to precision, number are identical maynot be equal, so use all.equal which can test nearly equal number
+        ## if not equals, the output is a descript string of the differences
+        placements <- group_by_(placements, ~name) %>% filter_(~likelihood == min(likelihood))
+    }
+    return(placements)
+}
 
 
-##' get.placement method
-##'
-##'
-##' @docType methods
-##' @name get.placements
-##' @rdname get.placements-methods
-##' @aliases get.placements,jplace,ANY-method
-##' @exportMethod get.placements
-##' @author Guangchuang Yu \url{http://ygc.name}
-##' @usage get.placements(object, by, ...)
-##' @examples
-##' jp <- system.file("extdata", "sample.jplace", package="treeio")
-##' jp <- read.jplace(jp)
-##' get.placements(jp, by="all")
-setMethod("get.placements", signature(object = "jplace"),
-          function(object, by="best", ...) {
 
-              placements <- object@placements
-              place <- placements[,1]
+extract.placement <- function(object, phylo) {
+    placements <- object$placements
 
-              ids <- NULL
-              if (length(placements) == 2) {
-                  ids <- sapply(placements[,2], function(x) x[1])
-                  names(place) <- ids
-              }
-              if (by == "best") { ## best hit
-                  place <- lapply(place, function(x) {
-                      if (is(x, "data.frame") || is(x, "matrix")) {
-                          if (nrow(x) == 1) {
-                              return(x)
-                          }
-                          ## http://astrostatistics.psu.edu/su07/R/html/base/html/all.equal.html
-                          ## due to precision, number are identical maynot be equal, so use all.equal which can test nearly equal number
-                          ## if not equals, the output is a descript string of the differences
-                          idx <- sapply(2:nrow(x), function(i) all.equal(x[1,2], x[i,2]))
-                          if (any(idx == TRUE)) {
-                              return(x[c(1, which(idx==TRUE)+1),])
-                          } else {
-                              return(x[1,])
-                          }
+    place <- placements[,1]
 
-                      } else {
-                          ## if only 1 row, it may stored as vector
-                          ## the edge number, for example 523 can be 523.0000 due to R stored number as real number
-                          ## be careful in mapping edge number.
-                          return(x)
-                      }
-                  })
+    ids <- NULL
+    if (length(placements) == 2) {
+        ids <- sapply(placements[,2], function(x) x[1])
+        names(place) <- ids
+    }
 
-              }
-
-              place.df <- do.call("rbind", place)
-              row.names(place.df) <- NULL
-              if (!is.null(ids)) {
-                  nn <- rep(ids, sapply(place, function(x) {
-                      nr <- nrow(x)
-                      if (is.null(nr))
-                          return(1)
-                      return(nr)
-                  }))
-                  place.df <- data.frame(name=nn, place.df)
-                  colnames(place.df) <- c("name", object@fields)
-              } else {
-                  colnames(place.df) <- object@fields
-              }
-              res <- as.data.frame(place.df, stringsAsFactor=FALSE)
-
-              ## res[] <- lapply(res, as.character)
-              ## for (i in 1:ncol(res)) {
-              ##     if (all(grepl("^[0-9\\.e]+$", res[,i]))) {
-              ##         res[,i] <- as.numeric(res[,i])
-              ##     }
-              ## }
-              return(res)
-          })
+    place.df <- do.call("rbind", place)
+    row.names(place.df) <- NULL
+    if (!is.null(ids)) {
+        nn <- rep(ids, sapply(place, function(x) {
+            nr <- nrow(x)
+            if (is.null(nr))
+                return(1)
+            return(nr)
+        }))
+        place.df <- data.frame(name=nn, place.df)
+        colnames(place.df) <- c("name", object$fields)
+    } else {
+        colnames(place.df) <- object$fields
+    }
+    edgeNum.df <- attr(phylo, "edgeNum")
+    place.df <- merge(place.df, edgeNum.df, by.x = "edge_num", by.y = "edgeNum")
+    as_data_frame(place.df)
+}
 
 
 get.treetext.jplace <- function(object, ...) {

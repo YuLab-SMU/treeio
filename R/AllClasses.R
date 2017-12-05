@@ -18,6 +18,8 @@ setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
 ##' @slot extraInfo extra information, reserve for merge_tree
 ##' @slot file tree file
 ##' @slot translation tip number to name translation in nexus file
+##' @slot placements reserve for jplace file to store placement information
+##' @slot info extra information, e.g. metadata, software version etc.
 ##' @importFrom methods setClass
 ##' @importFrom methods representation
 ##' @exportClass treedata
@@ -30,9 +32,12 @@ setClass("treedata",
              data = "tbl_df",
              extraInfo = "tbl_df",
              file = "character",
-             translation = "matrix"
+             translation = "matrix",
+             placements = "tbl_df",
+             info = "list"
          ),
          prototype = prototype(
+             placements = data_frame(),
              data = data_frame(),
              extraInfo = data_frame()
          )

@@ -23,6 +23,10 @@ This class stores phylogenetic tree with associated data
 \item{\code{file}}{tree file}
 
 \item{\code{translation}}{tip number to name translation in nexus file}
+
+\item{\code{placements}}{reserve for jplace file to store placement information}
+
+\item{\code{info}}{extra information, e.g. metadata, software version etc.}
 }}
 
 \author{
