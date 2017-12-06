@@ -1,0 +1,207 @@
+
+R version 3.4.2 (2017-09-28) -- "Short Summer"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "treeio"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('treeio')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Nnode")
+> ### * Nnode
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Nnode
+> ### Title: Nnode
+> ### Aliases: Nnode
+> 
+> ### ** Examples
+> 
+> Nnode(rtree(30))
+[1] 29
+> 
+> 
+> 
+> cleanEx()
+> nameEx("Ntip")
+> ### * Ntip
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Ntip
+> ### Title: Ntip
+> ### Aliases: Ntip
+> 
+> ### ** Examples
+> 
+> Ntip(rtree(30))
+[1] 30
+> 
+> 
+> 
+> cleanEx()
+> nameEx("beast-mrbayes-parser")
+> ### * beast-mrbayes-parser
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: read.beast
+> ### Title: read.beast
+> ### Aliases: read.beast read.mrbayes
+> 
+> ### ** Examples
+> 
+> file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
+> read.beast(file)
+'treedata' S4 object that stored information of
+	 '/Volumes/HOME/github/treeio/treeio.Rcheck/treeio/extdata/BEAST/beast_mcc.tree'.
+
+...@ tree: 
+Phylogenetic tree with 15 tips and 14 internal nodes.
+
+Tip labels:
+	A_1995, B_1996, C_1995, D_1987, E_1996, F_1997, ...
+
+Rooted; includes branch lengths.
+
+with the following features available:
+	'height',	'height_0.95_HPD',	'height_median',	'height_range',	'length',
+	'length_0.95_HPD',	'length_median',	'length_range',	'posterior',	'rate',
+	'rate_0.95_HPD',	'rate_median',	'rate_range'.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("drop.tip-methods")
+> ### * drop.tip-methods
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: drop.tip
+> ### Title: drop.tip method
+> ### Aliases: drop.tip drop.tip,treedata-method drop.tip,treedata
+> ###   drop.tip,phylo-method drop.tip,phylo
+> 
+> ### ** Examples
+> 
+> nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
+> nhx <- read.nhx(nhxfile)
+> drop.tip(nhx, c("ADH2", "ADH1"))
+'treedata' S4 object that stored information of
+	 '/Volumes/HOME/github/treeio/treeio.Rcheck/treeio/extdata/NHX/ADH.nhx'.
+
+...@ tree: 
+Phylogenetic tree with 4 tips and 3 internal nodes.
+
+Tip labels:
+[1] "ADHY" "ADHX" "ADH4" "ADH3"
+Node labels:
+[1]  9 10 12
+
+Rooted; includes branch lengths.
+
+with the following features available:
+	'S',	'D',	'B'.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getNodeNum")
+> ### * getNodeNum
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getNodeNum
+> ### Title: getNodeNum
+> ### Aliases: getNodeNum Nnode2
+> 
+> ### ** Examples
+> 
+> getNodeNum(rtree(30))
+[1] 59
+> Nnode2(rtree(30))
+[1] 59
+> 
+> 
+> 
+> cleanEx()
+> nameEx("getRoot")
+> ### * getRoot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: getRoot
+> ### Title: getRoot
+> ### Aliases: getRoot
+> 
+> ### ** Examples
+> 
+> getRoot(rtree(10))
+[1] 11
+> 
+> 
+> 
+> cleanEx()
+> nameEx("is.ggtree")
+> ### * is.ggtree
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: is.ggtree
+> ### Title: is.ggtree
+> ### Aliases: is.ggtree
+> 
+> ### ** Examples
+> 
+> library(ggtree)
+Loading required package: ggplot2
+ggtree v1.11.2  For help: https://guangchuangyu.github.io/ggtree
+
+If you use ggtree in published research, please cite:
+Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution 2017, 8(1):28-36, doi:10.1111/2041-210X.12628
+> p <- ggtree(rtree(30))
+> is.ggtree(p)
+[1] TRUE
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggtree’, ‘package:ggplot2’
+
+> nameEx("read.baseml")
+> ### * read.baseml
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: read.baseml
+> ### Title: read.baseml
+> ### Aliases: read.baseml
+> 
+> ### ** Examples
+> 
+> rstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
+> mlbfile <- system.file("extdata/PAML_Baseml", "mlb", package="treeio")
+> read.baseml(rstfile, mlbfile)
+Error in get.subs_(x@phylo, seqs, translate = translate, ...) : 
+  trying to get slot "phylo" from an object (class "phylo") that is not an S4 object 
+Calls: read.baseml ... read.paml_rst -> set.paml_rst_ -> subs_paml_rst -> get.subs_
+Execution halted

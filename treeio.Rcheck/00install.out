@@ -1,0 +1,11 @@
+* installing *source* package ‘treeio’ ...
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Note: wrong number of arguments to '>' 
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (treeio)
