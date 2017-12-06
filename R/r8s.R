@@ -3,7 +3,7 @@
 ##'
 ##' @title read.r8s
 ##' @param file r8s output log file
-##' @return r8s instance
+##' @return multiPhylo object
 ##' @export
 ##' @examples
 ##' read.r8s(system.file("extdata/r8s", "H3_r8s_output.log", package="treeio"))
@@ -22,10 +22,12 @@ read.r8s <- function(file) {
     label <- gsub("^\\[(\\w+)\\s.*", "\\1", r8s[label_idx])
     names(trees) <- label
 
-    new("r8s",
-        file = filename(file),
-        fields = label,
-        phylo = trees)
+    ## new("r8s",
+    ##     file = filename(file),
+    ##     fields = label,
+    ##     phylo = trees)
+
+    return(trees)
 }
 
 

@@ -37,12 +37,12 @@ setMethod("get.tree", signature(object="codeml"),
           })
 
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="jplace"),
-          function(object) {
-              object@phylo
-          })
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object="jplace"),
+##           function(object) {
+##               object@phylo
+##           })
 
 ## ##' @rdname get.tree-methods
 ## ##' @exportMethod get.tree
@@ -117,11 +117,11 @@ setMethod("get.tree", signature(object = "codeml_mlc"),
 
 
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="r8s"),
-          function(object,...) {
-              object@phylo
-          }
-          )
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object="r8s"),
+##           function(object,...) {
+##               object@phylo
+##           }
+##           )
 

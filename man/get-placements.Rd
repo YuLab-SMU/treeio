@@ -2,12 +2,12 @@
 % Please edit documentation in R/AllGenerics.R, R/jplace.R
 \name{get.placements}
 \alias{get.placements}
-\alias{get.placements.treedata}
+\alias{get.placements.jplace}
 \title{get.placements}
 \usage{
 get.placements(tree, ...)
 
-\method{get.placements}{treedata}(tree, by = "best", ...)
+\method{get.placements}{jplace}(tree, by = "best", ...)
 }
 \arguments{
 \item{tree}{tree object}

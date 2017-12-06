@@ -37,9 +37,6 @@ read.mrbayes <- read.beast
 BEAST <- function(file, treetext, translation, stats, phylo) {
     stats$node %<>% gsub("\"*'*", "", .)
 
-    ## fields <- sub("_lower|_upper", "", names(stats)) %>% unique
-    ## fields %<>% `[`(.!="node")
-
     phylo <- remove_quote_in_tree_label(phylo)
 
     obj <- new("treedata",

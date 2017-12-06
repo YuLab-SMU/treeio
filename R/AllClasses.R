@@ -11,6 +11,8 @@ setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
 ##'
 ##'
 ##' @name treedata-class
+##' @aliases treedata-class
+##'   show,treedata-method
 ##' @docType class
 ##' @slot phylo phylo object for tree structure
 ##' @slot treetext newick tree string
@@ -18,7 +20,6 @@ setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
 ##' @slot extraInfo extra information, reserve for merge_tree
 ##' @slot file tree file
 ##' @slot translation tip number to name translation in nexus file
-##' @slot placements reserve for jplace file to store placement information
 ##' @slot info extra information, e.g. metadata, software version etc.
 ##' @importFrom methods setClass
 ##' @importFrom methods representation
@@ -33,15 +34,42 @@ setClass("treedata",
              extraInfo = "tbl_df",
              file = "character",
              translation = "matrix",
-             placements = "tbl_df",
              info = "list"
          ),
          prototype = prototype(
-             placements = data_frame(),
              data = data_frame(),
              extraInfo = data_frame()
          )
          )
+
+
+##' Class "jplace"
+##' This class stores phylogenetic placements
+##'
+##'
+##' @name jplace-class
+##' @docType class
+##' @slot phylo phylo object for tree structure
+##' @slot treetext newick tree string
+##' @slot data associated data
+##' @slot extraInfo extra information, reserve for merge_tree
+##' @slot file tree file
+##' @slot translation tip number to name translation in nexus file
+##' @slot placements reserve for jplace file to store placement information
+##' @slot info extra information, e.g. metadata, software version etc.
+##' @exportClass jplace
+##' @author guangchuang yu \url{https://guangchuangyu.github.io}
+##' @keywords classes
+setClass("jplace",
+         representation = representation(
+             placements = "tbl_df"
+         ),
+         prototype = prototype(
+             placements = data_frame()
+         ),
+         contains = "treedata"
+         )
+
 
 ## ##' Class "beast"
 ## ##' This class stores information of beast output
@@ -223,46 +251,46 @@ setClass("hyphy",
          )
          )
 
-##' Class "jplace"
-##' This class stores information of jplace file.
-##'
-##'
-##' @name jplace-class
-##' @aliases jplace-class
-##'   show,jplace-method
-##'   get.placements,jplace-method
-##'   get.treeinfo,jplace-method
-##'   get.fields,jplace-method
-##'   get.treetext,jplace-method
-##'
-##' @docType class
-##' @slot fields colnames of first variable of placements
-##' @slot treetext tree text
-##' @slot phylo tree phylo object
-##' @slot placements placement information
-##' @slot version version
-##' @slot metadata metadata
-##' @slot file jplace file
-##' @slot extraInfo extra information
-##' @exportClass jplace
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @seealso \code{\link{show}} \code{\link{get.tree}}
-##' @keywords classes
-setClass("jplace",
-         representation = representation(
-             fields     = "character",
-             treetext   = "character",
-             phylo      = "phylo",
-             placements = "data.frame",
-             version    = "numeric",
-             metadata   = "list",
-             file       = "character",
-             extraInfo  = "tbl_df"
-             ),
-         prototype = prototype(
-             extraInfo = data_frame()
-         )
-         )
+## ##' Class "jplace"
+## ##' This class stores information of jplace file.
+## ##'
+## ##'
+## ##' @name jplace-class
+## ##' @aliases jplace-class
+## ##'   show,jplace-method
+## ##'   get.placements,jplace-method
+## ##'   get.treeinfo,jplace-method
+## ##'   get.fields,jplace-method
+## ##'   get.treetext,jplace-method
+## ##'
+## ##' @docType class
+## ##' @slot fields colnames of first variable of placements
+## ##' @slot treetext tree text
+## ##' @slot phylo tree phylo object
+## ##' @slot placements placement information
+## ##' @slot version version
+## ##' @slot metadata metadata
+## ##' @slot file jplace file
+## ##' @slot extraInfo extra information
+## ##' @exportClass jplace
+## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+## ##' @seealso \code{\link{show}} \code{\link{get.tree}}
+## ##' @keywords classes
+## setClass("jplace",
+##          representation = representation(
+##              fields     = "character",
+##              treetext   = "character",
+##              phylo      = "phylo",
+##              placements = "data.frame",
+##              version    = "numeric",
+##              metadata   = "list",
+##              file       = "character",
+##              extraInfo  = "tbl_df"
+##              ),
+##          prototype = prototype(
+##              extraInfo = data_frame()
+##          )
+##          )
 
 ##' Class "phangorn"
 ##' This class stores ancestral sequences inferred from 'phangorn'
@@ -330,32 +358,32 @@ setClass("phylip",
          )
 
 
-##' Class "r8s"
-##' This class stores output info from r8s
-##'
-##'
-##' @name r8s-class
-##' @docType class
-##' @slot file input file
-##' @slot fields available feature
-##' @slot treetext tree text
-##' @slot phylo multiPhylo, time tree, rate tree and absolute substitution tree
-##' @slot extraInfo extra information
-##' @exportClass r8s
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @keywords classes
-setClass("r8s",
-         representation = representation(
-             file      = "character",
-             fields    = "character",
-             treetext  = "character",
-             phylo     = "multiPhylo",
-             extraInfo = "tbl_df"
-             ),
-         prototype = prototype(
-             extraInfo = data_frame()
-         )
-         )
+## ##' Class "r8s"
+## ##' This class stores output info from r8s
+## ##'
+## ##'
+## ##' @name r8s-class
+## ##' @docType class
+## ##' @slot file input file
+## ##' @slot fields available feature
+## ##' @slot treetext tree text
+## ##' @slot phylo multiPhylo, time tree, rate tree and absolute substitution tree
+## ##' @slot extraInfo extra information
+## ##' @exportClass r8s
+## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+## ##' @keywords classes
+## setClass("r8s",
+##          representation = representation(
+##              file      = "character",
+##              fields    = "character",
+##              treetext  = "character",
+##              phylo     = "multiPhylo",
+##              extraInfo = "tbl_df"
+##              ),
+##          prototype = prototype(
+##              extraInfo = data_frame()
+##          )
+##          )
 
 
 ## ##' Class "apeBootstrap"

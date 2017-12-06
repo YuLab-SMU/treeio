@@ -10,7 +10,7 @@ read.r8s(file)
 \item{file}{r8s output log file}
 }
 \value{
-r8s instance
+multiPhylo object
 }
 \description{
 parse output from r8s

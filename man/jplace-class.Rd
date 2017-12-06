@@ -3,41 +3,33 @@
 \docType{class}
 \name{jplace-class}
 \alias{jplace-class}
-\alias{show,jplace-method}
-\alias{get.placements,jplace-method}
-\alias{get.treeinfo,jplace-method}
-\alias{get.fields,jplace-method}
-\alias{get.treetext,jplace-method}
 \title{Class "jplace"
-This class stores information of jplace file.}
+This class stores phylogenetic placements}
 \description{
 Class "jplace"
-This class stores information of jplace file.
+This class stores phylogenetic placements
 }
 \section{Slots}{
 
 \describe{
-\item{\code{fields}}{colnames of first variable of placements}
+\item{\code{phylo}}{phylo object for tree structure}
 
-\item{\code{treetext}}{tree text}
+\item{\code{treetext}}{newick tree string}
 
-\item{\code{phylo}}{tree phylo object}
+\item{\code{data}}{associated data}
 
-\item{\code{placements}}{placement information}
+\item{\code{extraInfo}}{extra information, reserve for merge_tree}
 
-\item{\code{version}}{version}
+\item{\code{file}}{tree file}
 
-\item{\code{metadata}}{metadata}
+\item{\code{translation}}{tip number to name translation in nexus file}
 
-\item{\code{file}}{jplace file}
+\item{\code{placements}}{reserve for jplace file to store placement information}
 
-\item{\code{extraInfo}}{extra information}
+\item{\code{info}}{extra information, e.g. metadata, software version etc.}
 }}
 
-\seealso{
-\code{\link{show}} \code{\link{get.tree}}
-}
 \author{
-Guangchuang Yu \url{http://guangchuangyu.github.io}
+guangchuang yu \url{https://guangchuangyu.github.io}
 }
 \keyword{classes}

@@ -5,13 +5,11 @@
 \alias{groupOTU}
 \alias{groupOTU,codeml-method}
 \alias{groupOTU,codeml_mlc-method}
-\alias{groupOTU,jplace-method}
 \alias{groupOTU,treedata-method}
 \alias{groupOTU,phangorn-method}
 \alias{groupOTU,phylip-method}
 \alias{groupOTU,paml_rst-method}
 \alias{groupOTU,phylo-method}
-\alias{groupOTU,r8s-method}
 \title{groupOTU method}
 \usage{
 groupOTU(object, focus, group_name = "group", ...)
@@ -19,8 +17,6 @@ groupOTU(object, focus, group_name = "group", ...)
 \S4method{groupOTU}{codeml}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{codeml_mlc}(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{jplace}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{treedata}(object, focus, group_name = "group", ...)
 
@@ -31,9 +27,6 @@ groupOTU(object, focus, group_name = "group", ...)
 \S4method{groupOTU}{paml_rst}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{phylo}(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{r8s}(object, focus, group_name = "group", tree = "TREE",
-  ...)
 }
 \arguments{
 \item{object}{supported objects, including phylo, paml_rst,
@@ -44,8 +37,6 @@ codeml_mlc, codeml, jplace, beast, hyphy}
 \item{group_name}{name of the group, 'group' by default}
 
 \item{...}{additional parameter}
-
-\item{tree}{which tree selected}
 }
 \value{
 group index

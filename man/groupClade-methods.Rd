@@ -4,7 +4,6 @@
 \name{groupClade}
 \alias{groupClade}
 \alias{groupClade,codeml-method}
-\alias{groupClade,jplace-method}
 \alias{groupClade,treedata-method}
 \alias{groupClade,phylip-method}
 \alias{groupClade,phylo-method}
@@ -14,8 +13,6 @@
 groupClade(object, node, group_name = "group", ...)
 
 \S4method{groupClade}{codeml}(object, node, group_name = "group")
-
-\S4method{groupClade}{jplace}(object, node, group_name = "group")
 
 \S4method{groupClade}{treedata}(object, node, group_name = "group")
 
