@@ -1,6 +1,7 @@
 ##' @importFrom methods setOldClass
 setOldClass("phylo")
 setOldClass("multiPhylo")
+setOldClass("DNAbin")
 setOldClass("ggtree")
 
 ##' @importFrom methods setClassUnion
@@ -14,31 +15,44 @@ setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
 ##' @aliases treedata-class
 ##'   show,treedata-method
 ##' @docType class
-##' @slot phylo phylo object for tree structure
+##' @slot file tree file
 ##' @slot treetext newick tree string
+##' @slot phylo phylo object for tree structure
+##' @slot translation tip number to name translation in nexus file
 ##' @slot data associated data
 ##' @slot extraInfo extra information, reserve for merge_tree
-##' @slot file tree file
-##' @slot translation tip number to name translation in nexus file
+##' @slot tip_seq tip sequences
+##' @slot anc_seq ancestral sequences
+##' @slot seq_type sequence type, one of NT or AA
+##' @slot tipseq_file tip sequence file
+##' @slot ancseq_file ancestral sequence file
 ##' @slot info extra information, e.g. metadata, software version etc.
 ##' @importFrom methods setClass
 ##' @importFrom methods representation
+##' @importFrom ape as.DNAbin
 ##' @exportClass treedata
 ##' @author guangchuang yu \url{https://guangchuangyu.github.io}
 ##' @keywords classes
 setClass("treedata",
          representation = representation(
-             phylo = "phylo",
-             treetext = "character",
-             data = "tbl_df",
-             extraInfo = "tbl_df",
-             file = "character",
+             file        = "character",
+             treetext    = "character",
+             phylo       = "phylo",
              translation = "matrix",
-             info = "list"
+             data        = "tbl_df",
+             extraInfo   = "tbl_df",
+             tip_seq     = "DNAbin",
+             anc_seq     = "DNAbin",
+             seq_type    = "character",
+             tipseq_file = "character",
+             ancseq_file = "character",
+             info        = "list"
          ),
          prototype = prototype(
-             data = data_frame(),
-             extraInfo = data_frame()
+             data      = data_frame(),
+             extraInfo = data_frame(),
+             anc_seq = as.DNAbin(character(0)),
+             tip_seq = as.DNAbin(character(0))
          )
          )
 
@@ -69,6 +83,51 @@ setClass("jplace",
          ),
          contains = "treedata"
          )
+
+
+
+##' Class "hyphy"
+##' This class stores information of HYPHY output
+##'
+##'
+##' @name hyphy-class
+##' @docType class
+##' @slot fields available features
+##' @slot treetext tree text
+##' @slot phylo phylo object
+##' @slot seq_type one of "NT" and "AA"
+##' @slot subs sequence substitutions
+##' @slot AA_subs Amino acid sequence substitution
+##' @slot ancseq ancestral sequences
+##' @slot tip_seq tip sequences
+##' @slot tip.fasfile fasta file of tip sequences
+##' @slot tree.file tree file
+##' @slot ancseq.file ancestral sequence file, nexus format
+##' @slot extraInfo extra information
+##' @exportClass hyphy
+##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+##' @seealso \linkS4class{paml_rst}
+##' @keywords classes
+setClass("hyphy",
+         representation  = representation(
+             fields      = "character",
+             treetext    = "character",
+             phylo       = "phylo",
+             seq_type    = "character",
+             subs        = "data.frame",
+             AA_subs     = "data.frame",
+             ancseq      = "character",
+             tip_seq     = "character",
+             tip.fasfile = "character",
+             tree.file   = "character",
+             ancseq.file = "character",
+             extraInfo   = "tbl_df"
+             ),
+         prototype = prototype(
+             extraInfo = data_frame()
+         )
+         )
+
 
 
 ## ##' Class "beast"
@@ -209,47 +268,6 @@ setClass("codeml",
 
 
 
-##' Class "hyphy"
-##' This class stores information of HYPHY output
-##'
-##'
-##' @name hyphy-class
-##' @docType class
-##' @slot fields available features
-##' @slot treetext tree text
-##' @slot phylo phylo object
-##' @slot seq_type one of "NT" and "AA"
-##' @slot subs sequence substitutions
-##' @slot AA_subs Amino acid sequence substitution
-##' @slot ancseq ancestral sequences
-##' @slot tip_seq tip sequences
-##' @slot tip.fasfile fasta file of tip sequences
-##' @slot tree.file tree file
-##' @slot ancseq.file ancestral sequence file, nexus format
-##' @slot extraInfo extra information
-##' @exportClass hyphy
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @seealso \linkS4class{paml_rst}
-##' @keywords classes
-setClass("hyphy",
-         representation  = representation(
-             fields      = "character",
-             treetext    = "character",
-             phylo       = "phylo",
-             seq_type    = "character",
-             subs        = "data.frame",
-             AA_subs     = "data.frame",
-             ancseq      = "character",
-             tip_seq     = "character",
-             tip.fasfile = "character",
-             tree.file   = "character",
-             ancseq.file = "character",
-             extraInfo   = "tbl_df"
-             ),
-         prototype = prototype(
-             extraInfo = data_frame()
-         )
-         )
 
 ## ##' Class "jplace"
 ## ##' This class stores information of jplace file.

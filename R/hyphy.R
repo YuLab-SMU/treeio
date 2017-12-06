@@ -1,22 +1,16 @@
-##' read HYPHY output
+##' parse sequences from hyphy output
 ##'
 ##'
-##' @title read.hyphy
-##' @param nwk tree file in nwk format, one of hyphy output
-##' @param ancseq ancestral sequence file in nexus format,
-##'               one of hyphy output
-##' @param tip.fasfile tip sequence file
-##' @return A hyphy object
-## @importFrom Biostrings readBStringSet
-## @importFrom Biostrings toString
+##' @title read.hyphy.seq
+##' @param file output of hyphy ancestral sequence inference; nexus format
+##' @return DNAbin object
 ##' @export
-##' @author Guangchuang Yu \url{http://ygc.name}
 ##' @examples
-##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
 ##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
-##' read.hyphy(nwk, ancseq)
-read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
-    anc <- scan(ancseq, what="", sep="\n", quiet=TRUE)
+##' read.hyphy.seq(ancseq)
+##' @author guangchuang yu
+read.hyphy.seq <- function(file) {
+    anc <- scan(file, what="", sep="\n", quiet=TRUE)
     end <- grep("END;", anc, ignore.case=TRUE)
 
     seq.start <- grep("MATRIX", anc, ignore.case=TRUE)
@@ -54,7 +48,31 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
         label <- gsub("'|\"", "", label)
     }
 
-    names(seq) <- label
+    seqlist <- strsplit(seq, "")
+    names(seqlist) <- label
+    res <- as.DNAbin(seqlist)
+    attr(res, "seq_type") <- get_seqtype(seq[1])
+    return(res)
+}
+
+##' read HYPHY output
+##'
+##'
+##' @title read.hyphy
+##' @param nwk tree file in nwk format, one of hyphy output
+##' @param ancseq ancestral sequence file in nexus format,
+##'               one of hyphy output
+##' @param tip.fasfile tip sequence file
+##' @return A hyphy object
+##' @export
+##' @author Guangchuang Yu \url{http://ygc.name}
+##' @examples
+##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
+##' read.hyphy(nwk, ancseq)
+read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
+    anc_seq <- read.hyphy.seq(ancseq)
+    seq_type <- attr(x, 'seq_type')
 
     tr <- read.tree(nwk)
     nl <- tr$node.label
@@ -65,117 +83,125 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     ## I am not sure. But it's safe to use "label[!label %in% nl]" instead of just assign it to "Node1".
     ##
     ## nl[nl == ""] <- "Node1"
+    label <- labels(anc_seq)
     nl[nl == ""] <- label[!label %in% nl]
-
     tr$node.label <- nl
 
-    type <- get_seqtype(seq)
-    fields <- "subs"
-    if (type == "NT") {
-        fields <- c(fields, "AA_subs")
-    }
-
-    res <- new("hyphy",
-               fields = fields,
+    res <- new("treedata",
                treetext = scan(nwk, what='', quiet=TRUE),
                phylo = tr,
-               seq_type = type,
-               ancseq = seq,
-               tree.file = filename(nwk),
-               ancseq.file = ancseq
+               seq_type = seq_type,
+               anc_seq = anc_seq,
+               file = filename(nwk),
+               ancseq_file = ancseq,
+               info = list(parser = "read.hyphy")
                )
 
     if ( !is.null(tip.fasfile) ) {
-        readBStringSet <- get_fun_from_pkg("Biostrings", "readBStringSet")
-        toString <- get_fun_from_pkg("Biostrings", "toString")
-
-        tip_seq <- readBStringSet(tip.fasfile)
-        nn <- names(tip_seq)
-        tip_seq <- sapply(seq_along(tip_seq), function(i) {
-            toString(tip_seq[i])
-        })
-        names(tip_seq) <- nn
-        res@tip_seq <- tip_seq
-        res@tip.fasfile <- tip.fasfile
+        res@tipseq_file <- tip.fasfile
+        res@tip_seq <- read.FASTA(tip.fasfile)
     }
-    set.hyphy_(res)
+    set_substitution(res)
 }
 
-## ##' @rdname groupOTU-methods
-## ##' @exportMethod groupOTU
-## setMethod("groupOTU", signature(object="hyphy"),
-##           function(object, focus, group_name="group") {
-##               groupOTU_(object, focus, group_name)
-##           }
-##           )
-
-## ##' @rdname groupClade-methods
-## ##' @exportMethod groupClade
-## setMethod("groupClade", signature(object="hyphy"),
-##           function(object, node, group_name="group") {
-##               groupClade_(object, node, group_name)
-##           }
-##           )
-
-## ##' @rdname scale_color-methods
-## ##' @exportMethod scale_color
-## setMethod("scale_color", signature(object="hyphy"),
-##           function(object, by, ...) {
-##               scale_color_(object, by, ...)
-##           })
-
-
-## ##' @rdname gzoom-methods
-## ##' @exportMethod gzoom
-## setMethod("gzoom", signature(object="hyphy"),
-##           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-##               gzoom.phylo(get.tree(object), focus, subtree, widths)
-##           })
-
-##' @rdname get.subs-methods
-##' @exportMethod get.subs
-##' @examples
-##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
-##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
-##' tipfas <- system.file("extdata", "pa.fas", package="treeio")
-##' hy <- read.hyphy(nwk, ancseq, tipfas)
-##' get.subs(hy, type="AA_subs")
-setMethod("get.subs", signature(object="hyphy"),
-          function(object, type, ...) {
-              if (length(object@tip_seq) == 0) {
-                  stop("tip sequence not available...\n")
-              }
-              if (type == "subs") {
-                  return(object@subs)
-              } else {
-                  return(object@AA_subs)
-              }
-          })
-
-##' @importFrom methods is
-set.hyphy_ <- function(object, ...) {
-    if (!is(object, "hyphy")) {
-        stop("object should be an instance of 'hyphy'")
-    }
-
+set_substitution <- function(object, ...) {
     if (length(object@tip_seq) == 0) {
         return(object)
     }
 
-    types <- get.fields(object)
-    seqs <- c(object@tip_seq, object@ancseq)
-    for (type in types) {
-        if (type == "subs") {
-            translate <- FALSE
-        } else {
-            translate <- TRUE
-        }
-        subs <- get.subs_(object@phylo, seqs, translate, ...)
-        if (type == "subs") {
-            object@subs <- subs
-        } else {
-            object@AA_subs <- subs
-        }
+    if (length(object@anc_seq) == 0) {
+        return(object)
+    }
+
+    subs <- get.subs_(object, translate=FALSE, ...)
+
+    if (object@seq_type == "NT") {
+        AA_subs <- get.subs_(object, translate=TRUE, ...)
+        AA_subs <- rename_(AA_subs, AA_subs = ~subs)
+        subs <- full_join(subs, AA_subs, by=c("node", "parent"))
+    }
+    subs <- select_(subs, ~ -parent)
+
+    if (nrow(object@data) == 0) {
+        object@data <- subs
+    } else {
+        object@data <- full_join(object@data, subs, by='node')
     }
     return(object)
+}
+
+
+get.subs_ <- function(object, translate=TRUE, removeGap=TRUE) {
+    tree <- object@phylo
+    ancseq <- object@anc_seq
+    tipseq <- object@tip_seq
+
+
+    N <- getNodeNum(tree)
+    node <- 1:N
+    parent <- sapply(node, getParent, tr=tree)
+    label <- getNodeName(tree)
+    seqs <- c(as.list(ancseq), as.list(tipseq))
+    subs <- sapply(seq_along(node), function(i) {
+        if (i == getRoot(tree)) {
+            return(NA)
+        }
+
+        res <- getSubsLabel(seqs, label[parent[i]], label[i], translate, removeGap)
+        if (is.null(res)) {
+            return('')
+        }
+        return(res)
+    })
+
+    ## if `subs` is too long to plot, user can use `stringr::str_wrap` to format the text
+    dd <- data_frame(node=node, parent=parent, subs=subs)
+    dd <- dd[dd$parent != 0,]
+    return(dd)
+}
+
+##' @importFrom ape trans
+getSubsLabel <- function(seqs, A, B, translate, removeGap) {
+    seqA <- seqs[A]
+    seqB <- seqs[B]
+    if (translate) {
+        seqA <- trans(seqA)
+        seqB <- trans(seqB)
+    }
+
+    AA <- unlist(as.character(seqA))
+    BB <- unlist(as.character(seqB))
+
+    if (length(AA) != length(BB)) {
+        stop("seqA should have equal length to seqB")
+    }
+
+    ii <- which(AA != BB)
+
+    if (removeGap == TRUE) {
+        if (length(ii) > 0 && translate == TRUE) {
+            ii <- ii[AA[ii] != "X" & BB[ii] != "X"]
+        }
+
+        if (length(ii) > 0 && translate == FALSE) {
+            ii <- ii[AA[ii] != "-" & BB[ii] != "-"]
+        }
+    }
+
+    if (length(ii) == 0) {
+        return(NULL)
+    }
+
+    res <- paste(AA[ii], ii, BB[ii], sep="", collapse=" / ")
+    return(toupper(res))
+}
+
+
+get_seqtype <- function(seq) {
+    if (grepl("[-ACGT]+", seq[1])) {
+        seq_type = "NT" ## NucleoTide
+    } else {
+        seq_type = "AA" ## Amino Acid
+    }
+    return(seq_type)
 }

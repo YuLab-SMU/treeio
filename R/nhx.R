@@ -95,14 +95,3 @@ get_nhx_feature_internal <- function(feature, nameSET) {
     return(y)
 }
 
-
-
-
-
-## ##' @rdname get.fields-methods
-## ##' @exportMethod get.fields
-## setMethod("get.fields", signature(object="nhx"),
-##           function(object, ...) {
-##               get.fields.tree(object)
-##           }
-##           )

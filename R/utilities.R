@@ -95,102 +95,6 @@ get.fields.tree <- function(object) {
 }
 
 
-## plot.subs <- function(x, layout, show.tip.label,
-##                       tip.label.size,
-##                       tip.label.hjust,
-##                       position, annotation,
-##                       annotation.color = "black",
-##                       annotation.size=3, ...) {
-
-##     p <- ggtree(x, layout=layout, ...)
-##     if (show.tip.label) {
-##         p <- p + geom_tiplab(hjust = tip.label.hjust,
-##                              size  = tip.label.size)
-##     }
-##     if (!is.null(annotation) && !is.na(annotation)) {
-##         p <- p + geom_text(aes_string(x=position, label=annotation),
-##                            size=annotation.size,
-##                            color=annotation.color, vjust=-.5)
-##     }
-##     p + theme_tree2()
-## }
-
-.add_new_line <- function(res) {
-    ## res <- paste0(strwrap(res, 50), collapse="\n")
-    ## res %<>% gsub("\\s/\n", "\n", .) %>% gsub("\n/\\s", "\n", .)
-    if (nchar(res) > 50) {
-        idx <- gregexpr("/", res)[[1]]
-        i <- idx[floor(length(idx)/2)]
-        res <- paste0(substring(res, 1, i-1), "\n", substring(res, i+1))
-    }
-    return(res)
-}
-
-get.subs_ <- function(tree, fasta, translate=TRUE, removeGap=TRUE) {
-    N <- getNodeNum(tree)
-    node <- 1:N
-    parent <- sapply(node, getParent, tr=tree)
-    label <- getNodeName(tree)
-    subs <- sapply(seq_along(node), function(i) {
-        if (i == getRoot(tree)) {
-            return(NA)
-        }
-        res <- getSubsLabel(fasta, label[parent[i]], label[i], translate, removeGap)
-        if (is.null(res)) {
-            return('')
-        }
-        .add_new_line(res)
-    })
-
-    dd <- data.frame(node=node, parent=parent, label=label, subs=subs)
-    dd <- dd[dd$parent != 0,]
-    dd <- dd[, -c(1,2)]
-    dd[,1] <- as.character(dd[,1])
-    dd[,2] <- as.character(dd[,2])
-    return(dd)
-}
-
-getSubsLabel <- function(seqs, A, B, translate, removeGap) {
-    seqA <- seqs[A]
-    seqB <- seqs[B]
-
-    if (nchar(seqA) != nchar(seqB)) {
-        stop("seqA should have equal length to seqB")
-    }
-
-    if (translate == TRUE) {
-        AA <- seqA %>% seq2codon %>% codon2AA
-        BB <- seqB %>% seq2codon %>% codon2AA
-    } else {
-        ## strsplit is faster than substring
-        ##
-        ## n <- nchar(seqA) ## should equals to nchar(seqB)
-        ## AA <- substring(seqA, 1:n, 1:n)
-        ## BB <- substring(seqB, 1:n, 1:n)
-        AA <- strsplit(seqA, split="") %>% unlist
-        BB <- strsplit(seqB, split="") %>% unlist
-    }
-
-    ii <- which(AA != BB)
-
-    if (removeGap == TRUE) {
-        if (length(ii) > 0 && translate == TRUE) {
-            ii <- ii[AA[ii] != "X" & BB[ii] != "X"]
-        }
-
-        if (length(ii) > 0 && translate == FALSE) {
-            ii <- ii[AA[ii] != "-" & BB[ii] != "-"]
-        }
-    }
-
-    if (length(ii) == 0) {
-        return(NULL)
-    }
-
-    res <- paste(AA[ii], ii, BB[ii], sep="", collapse=" / ")
-    return(res)
-}
-
 seq2codon <- function(x) {
     substring(x, first=seq(1, nchar(x)-2, 3), last=seq(3, nchar(x), 3))
 }
@@ -212,15 +116,6 @@ getPhyInfo <- function(phy) {
     res <- res[res != ""]
 
     return(list(num=as.numeric(res[1]), width=as.numeric(res[2])))
-}
-
-get_seqtype <- function(seq) {
-    if (grepl("[-ACGT]+", seq[1])) {
-        seq_type = "NT" ## NucleoTide
-    } else {
-        seq_type = "AA" ## Amino Acid
-    }
-    return(seq_type)
 }
 
 
