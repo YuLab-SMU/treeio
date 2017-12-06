@@ -100,13 +100,13 @@ setMethod("get.tree", signature(object="phylo"),
 ##           )
 
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object = "codeml_mlc"),
-          function(object, ...) {
-              object@phylo
-          }
-          )
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object = "codeml_mlc"),
+##           function(object, ...) {
+##               object@phylo
+##           }
+##           )
 
 
 

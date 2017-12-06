@@ -163,37 +163,37 @@ setClass("jplace",
 ##          )
 
 
-##' Class "codeml_mlc"
-##' This class stores information of mlc file frm codeml output
-##'
-##'
-##' @name codeml_mlc-class
-##' @docType class
-##' @slot fields available features
-##' @slot treetext tree text
-##' @slot phylo phylo object
-##' @slot dNdS dN dS information
-##' @slot mlcfile mlc file
-##' @slot extraInfo extra information
-##' @exportClass codeml_mlc
-##' @author Guangchuang Yu
-##' @seealso \linkS4class{paml_rst} \linkS4class{codeml}
-##' @keywords classes
-setClass("codeml_mlc",
-         representation = representation(
-             fields     = "character",
-             treetext   = "character",
-             phylo      = "phylo",
-             dNdS       = "matrix",
-             ## seq_type   = "character",
-             ## tip_seq    = "character",
-             mlcfile    = "character",
-             extraInfo  = "tbl_df"
-         ),
-         prototype = prototype(
-             extraInfo = data_frame()
-         )
-         )
+## ##' Class "codeml_mlc"
+## ##' This class stores information of mlc file frm codeml output
+## ##'
+## ##'
+## ##' @name codeml_mlc-class
+## ##' @docType class
+## ##' @slot fields available features
+## ##' @slot treetext tree text
+## ##' @slot phylo phylo object
+## ##' @slot dNdS dN dS information
+## ##' @slot mlcfile mlc file
+## ##' @slot extraInfo extra information
+## ##' @exportClass codeml_mlc
+## ##' @author Guangchuang Yu
+## ##' @seealso \linkS4class{paml_rst} \linkS4class{codeml}
+## ##' @keywords classes
+## setClass("codeml_mlc",
+##          representation = representation(
+##              fields     = "character",
+##              treetext   = "character",
+##              phylo      = "phylo",
+##              dNdS       = "matrix",
+##              ## seq_type   = "character",
+##              ## tip_seq    = "character",
+##              mlcfile    = "character",
+##              extraInfo  = "tbl_df"
+##          ),
+##          prototype = prototype(
+##              extraInfo = data_frame()
+##          )
+##          )
 
 ## ##' Class "paml_rst"
 ## ##' This class stores information of rst file from PAML output

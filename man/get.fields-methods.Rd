@@ -5,15 +5,12 @@
 \name{get.fields}
 \alias{get.fields}
 \alias{get.fields,codeml-method}
-\alias{get.fields,codeml_mlc-method}
 \alias{get.fields,treedata-method}
 \title{get.fields method}
 \usage{
 get.fields(object, ...)
 
 \S4method{get.fields}{codeml}(object, ...)
-
-\S4method{get.fields}{codeml_mlc}(object)
 
 \S4method{get.fields}{treedata}(object)
 }

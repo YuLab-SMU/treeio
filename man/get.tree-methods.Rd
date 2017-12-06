@@ -6,7 +6,6 @@
 \alias{get.tree,treedata-method}
 \alias{get.tree,codeml-method}
 \alias{get.tree,phylo-method}
-\alias{get.tree,codeml_mlc-method}
 \title{get.tree method}
 \usage{
 get.tree(object, ...)
@@ -16,8 +15,6 @@ get.tree(object, ...)
 \S4method{get.tree}{codeml}(object, by = "rst", ...)
 
 \S4method{get.tree}{phylo}(object, ...)
-
-\S4method{get.tree}{codeml_mlc}(object, ...)
 }
 \arguments{
 \item{object}{one of \code{phylo}, \code{jplace}, \code{nhx}, \code{phangorn}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}

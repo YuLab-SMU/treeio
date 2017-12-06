@@ -20,14 +20,14 @@ read.codeml_mlc <- function(mlcfile) {
         fields <- colnames(dNdS)[-c(1,2)]
     }
 
-    new("codeml_mlc",
-        fields   = fields,
+    res <- new("treedata",
         treetext = read.treetext_paml_mlc(mlcfile),
         phylo    = read.phylo_paml_mlc(mlcfile),
-        dNdS     = dNdS,
-        ## seq_type = get_seqtype(tip_seq),
-        ## tip_seq  = tip_seq,
-        mlcfile  = filename(mlcfile))
+        file     = filename(mlcfile))
+    if (!is.null(dNdS)) {
+        res@data <- as_data_frame(dNdS) %>% select_(~-parent)
+    }
+    return(res)
 }
 
 

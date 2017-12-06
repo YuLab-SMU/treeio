@@ -4,14 +4,11 @@
 \name{show}
 \alias{show}
 \alias{show,codeml-method}
-\alias{show,codeml_mlc-method}
 \title{show method}
 \usage{
 show(object)
 
 \S4method{show}{codeml}(object)
-
-\S4method{show}{codeml_mlc}(object)
 }
 \arguments{
 \item{object}{\code{treedata} object}

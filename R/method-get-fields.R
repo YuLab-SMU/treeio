@@ -73,12 +73,12 @@
 
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object = "codeml_mlc"),
-          function(object) {
-              get.fields.tree(object)
-          })
+## ##' @rdname get.fields-methods
+## ##' @exportMethod get.fields
+## setMethod("get.fields", signature(object = "codeml_mlc"),
+##           function(object) {
+##               get.fields.tree(object)
+##           })
 
 ##' get.fields method
 ##'

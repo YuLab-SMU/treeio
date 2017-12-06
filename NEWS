@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.3.2
 ------------------------
+ o read.codeml_mlc output treedata object and remove codeml_mlc class <2017-12-06, Wed>
  o read.paml_rst output treedata and remove paml_rst class <2017-12-06, Wed>
  o read.phylip.tree and read.phylip.seq
  o read.phylip output treedata object and phylip class definition was removed

@@ -39,13 +39,13 @@ read.paml_rst <- function(rstfile, type = "Joint") {
 
 
     res <- new("treedata",
-               treetext        = read.treetext_paml_rst(rstfile),
-               phylo           = phylo,
+               treetext = read.treetext_paml_rst(rstfile),
+               phylo    = phylo,
                seq_type = seq_type,
-               anc_seq = anc_seq,
-               tip_seq = tip_seq,
-               file = filename(rstfile),
-               info = list(type = type)
+               anc_seq  = anc_seq,
+               tip_seq  = tip_seq,
+               file     = filename(rstfile),
+               info     = list(type = type)
                )
 
     set_substitution(res)
