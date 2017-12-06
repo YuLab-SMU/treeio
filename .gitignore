@@ -6,3 +6,4 @@
 .svn
 mkdocs/mysoftware
 __pycache__
+*.Rcheck
