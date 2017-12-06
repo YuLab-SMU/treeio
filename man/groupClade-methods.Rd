@@ -5,7 +5,6 @@
 \alias{groupClade}
 \alias{groupClade,codeml-method}
 \alias{groupClade,treedata-method}
-\alias{groupClade,phylip-method}
 \alias{groupClade,phylo-method}
 \alias{groupClade,phangorn-method}
 \title{groupClade method}
@@ -15,8 +14,6 @@ groupClade(object, node, group_name = "group", ...)
 \S4method{groupClade}{codeml}(object, node, group_name = "group")
 
 \S4method{groupClade}{treedata}(object, node, group_name = "group")
-
-\S4method{groupClade}{phylip}(object, node, group_name = "group")
 
 \S4method{groupClade}{phylo}(object, node, group_name = "group")
 

@@ -32,12 +32,12 @@ setMethod("groupClade", signature(object="treedata"),
               groupClade_(object, node, group_name)
           })
 
-##' @rdname groupClade-methods
-##' @exportMethod groupClade
-setMethod("groupClade", signature(object="phylip"),
-          function(object, node, group_name="group") {
-              groupClade_(object, node, group_name)
-          })
+## ##' @rdname groupClade-methods
+## ##' @exportMethod groupClade
+## setMethod("groupClade", signature(object="phylip"),
+##           function(object, node, group_name="group") {
+##               groupClade_(object, node, group_name)
+##           })
 
 
 ##' @rdname groupClade-methods

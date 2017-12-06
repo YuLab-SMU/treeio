@@ -115,18 +115,18 @@ setMethod("show", signature(object = "codeml_mlc"),
 ##           })
 
 
-##' @rdname show-methods
-##' @exportMethod show
-setMethod("show", signature(object = "phylip"),
-          function(object) {
-              cat("'phylip' S4 object that stored information of\n\t",
-                  paste0("'", object@file, "'.\n\n"))
-              cat("...@ tree: ")
-              print.phylo(get.tree(object))
-              msg <- paste0("\nwith sequence alignment available (", length(object@sequence),
-                            " sequences of length ", nchar(object@sequence)[1], ")\n")
-              cat(msg)
-          })
+## ##' @rdname show-methods
+## ##' @exportMethod show
+## setMethod("show", signature(object = "phylip"),
+##           function(object) {
+##               cat("'phylip' S4 object that stored information of\n\t",
+##                   paste0("'", object@file, "'.\n\n"))
+##               cat("...@ tree: ")
+##               print.phylo(get.tree(object))
+##               msg <- paste0("\nwith sequence alignment available (", length(object@sequence),
+##                             " sequences of length ", nchar(object@sequence)[1], ")\n")
+##               cat(msg)
+##           })
 
 ##' @rdname show-methods
 ##' @exportMethod show

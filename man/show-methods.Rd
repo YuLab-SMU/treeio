@@ -5,7 +5,6 @@
 \alias{show}
 \alias{show,codeml-method}
 \alias{show,codeml_mlc-method}
-\alias{show,phylip-method}
 \alias{show,paml_rst-method}
 \title{show method}
 \usage{
@@ -14,8 +13,6 @@ show(object)
 \S4method{show}{codeml}(object)
 
 \S4method{show}{codeml_mlc}(object)
-
-\S4method{show}{phylip}(object)
 
 \S4method{show}{paml_rst}(object)
 }

@@ -50,13 +50,13 @@ setMethod("groupOTU", signature(object="phangorn"),
           }
           )
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="phylip"),
-          function(object, focus, group_name="group", ...) {
-              groupOTU_(object, focus, group_name, ...)
-          }
-          )
+## ##' @rdname groupOTU-methods
+## ##' @exportMethod groupOTU
+## setMethod("groupOTU", signature(object="phylip"),
+##           function(object, focus, group_name="group", ...) {
+##               groupOTU_(object, focus, group_name, ...)
+##           }
+##           )
 
 ##' @rdname groupOTU-methods
 ##' @exportMethod groupOTU

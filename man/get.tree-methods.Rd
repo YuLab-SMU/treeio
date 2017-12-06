@@ -5,7 +5,6 @@
 \alias{get.tree}
 \alias{get.tree,treedata-method}
 \alias{get.tree,codeml-method}
-\alias{get.tree,phylip-method}
 \alias{get.tree,phylo-method}
 \alias{get.tree,paml_rst-method}
 \alias{get.tree,phangorn-method}
@@ -17,8 +16,6 @@ get.tree(object, ...)
 \S4method{get.tree}{treedata}(object, ...)
 
 \S4method{get.tree}{codeml}(object, by = "rst", ...)
-
-\S4method{get.tree}{phylip}(object, ...)
 
 \S4method{get.tree}{phylo}(object, ...)
 

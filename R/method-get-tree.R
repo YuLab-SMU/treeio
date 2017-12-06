@@ -52,13 +52,13 @@ setMethod("get.tree", signature(object="codeml"),
 ##           }
 ##           )
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="phylip"),
-          function(object,...) {
-              object@phylo
-          }
-          )
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object="phylip"),
+##           function(object,...) {
+##               object@phylo
+##           }
+##           )
 
 ##' @rdname get.tree-methods
 ##' @exportMethod get.tree

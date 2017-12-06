@@ -26,5 +26,5 @@ ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
 read.hyphy(nwk, ancseq)
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{https://guangchuangyu.github.io}
 }

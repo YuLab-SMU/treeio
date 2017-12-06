@@ -64,15 +64,16 @@ read.hyphy.seq <- function(file) {
 ##'               one of hyphy output
 ##' @param tip.fasfile tip sequence file
 ##' @return A hyphy object
+##' @importFrom ape read.FASTA
 ##' @export
-##' @author Guangchuang Yu \url{http://ygc.name}
+##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 ##' @examples
 ##' nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
 ##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
 ##' read.hyphy(nwk, ancseq)
 read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     anc_seq <- read.hyphy.seq(ancseq)
-    seq_type <- attr(x, 'seq_type')
+    seq_type <- attr(anc_seq, 'seq_type')
 
     tr <- read.tree(nwk)
     nl <- tr$node.label
@@ -104,6 +105,8 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     set_substitution(res)
 }
 
+##' @importFrom dplyr rename_
+##' @importFrom dplyr select_
 set_substitution <- function(object, ...) {
     if (length(object@tip_seq) == 0) {
         return(object)

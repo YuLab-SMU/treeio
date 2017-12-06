@@ -1,10 +1,12 @@
 CHANGES IN VERSION 1.3.2
 ------------------------
- o read.hyphy output treedata object; hyphy class definition was removed <2017-12-06, Wed>
- o remove r8s class, read.r8s now output multiPhylo object <2017-12-06, Wed>
+ o read.phylip.tree and read.phylip.seq <2017-12-06, Wed>
+ o read.phylip output treedata object and phylip class definition was removed
+ o read.hyphy output treedata object; hyphy class definition was removed
+ o remove r8s class, read.r8s now output multiPhylo object
  o jplace class inherits treedata <2017-12-05, Tue>
- o using treedata object to store beast and mrbayes tree <2017-12-05, Tue>
- o export read.mrbayes <2017-12-05, Tue>
+ o using treedata object to store beast and mrbayes tree
+ o export read.mrbayes
 
 CHANGES IN VERSION 1.3.1
 ------------------------

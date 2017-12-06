@@ -346,34 +346,34 @@ setClass("phangorn",
 
 
 
-##' Class "phylip"
-##' This class stores phylip tree(s)
-##'
-##'
-##' @name phylip-class
-##' @docType class
-##' @slot file input file
-##' @slot fields available feature
-##' @slot phylo phylo or multiPhylo
-##' @slot ntree number of trees
-##' @slot sequence sequences
-##' @slot extraInfo extra information
-##' @exportClass phylip
-##' @author Guangchuang Yu
-##' @keywords classes
-setClass("phylip",
-         representation = representation(
-             file = "character",
-             fields = "character",
-             phylo = "phyloOrmultiPhylo",
-             ntree = "numeric",
-             sequence = "character",
-             extraInfo = "tbl_df"
-         ),
-         prototype = prototype(
-             extraInfo = data_frame()
-         )
-         )
+## ##' Class "phylip"
+## ##' This class stores phylip tree(s)
+## ##'
+## ##'
+## ##' @name phylip-class
+## ##' @docType class
+## ##' @slot file input file
+## ##' @slot fields available feature
+## ##' @slot phylo phylo or multiPhylo
+## ##' @slot ntree number of trees
+## ##' @slot sequence sequences
+## ##' @slot extraInfo extra information
+## ##' @exportClass phylip
+## ##' @author Guangchuang Yu
+## ##' @keywords classes
+## setClass("phylip",
+##          representation = representation(
+##              file = "character",
+##              fields = "character",
+##              phylo = "phyloOrmultiPhylo",
+##              ntree = "numeric",
+##              sequence = "character",
+##              extraInfo = "tbl_df"
+##          ),
+##          prototype = prototype(
+##              extraInfo = data_frame()
+##          )
+##          )
 
 
 ## ##' Class "r8s"
