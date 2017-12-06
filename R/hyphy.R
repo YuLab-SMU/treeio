@@ -48,9 +48,9 @@ read.hyphy.seq <- function(file) {
         label <- gsub("'|\"", "", label)
     }
 
-    seqlist <- strsplit(seq, "")
-    names(seqlist) <- label
-    res <- as.DNAbin(seqlist)
+    names(seq) <- label
+    res <- string2DNAbin(seq)
+
     attr(res, "seq_type") <- get_seqtype(seq[1])
     return(res)
 }

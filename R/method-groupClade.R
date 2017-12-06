@@ -48,13 +48,6 @@ setMethod("groupClade", signature(object="phylo"),
           })
 
 
-##' @rdname groupClade-methods
-##' @exportMethod groupClade
-setMethod("groupClade", signature(object="phangorn"),
-          function(object, node, group_name="group") {
-              groupClade_(object, node, group_name)
-          })
-
 
 ##' @importFrom ape extract.clade
 groupClade.phylo <- function(object, node, group_name) {

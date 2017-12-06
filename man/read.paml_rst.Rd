@@ -4,21 +4,23 @@
 \alias{read.paml_rst}
 \title{read.paml_rst}
 \usage{
-read.paml_rst(rstfile)
+read.paml_rst(rstfile, type = "Joint")
 }
 \arguments{
 \item{rstfile}{rst file}
+
+\item{type}{one of 'Marginal' or 'Joint'}
 }
 \value{
-A \code{paml_rst} object
+A \code{treedata} object
 }
 \description{
-read rst file from paml output
+read rst file from paml (both baseml and codeml) output
 }
 \examples{
 rstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
 read.paml_rst(rstfile)
 }
 \author{
-Guangchuang Yu \url{http://ygc.name}
+Guangchuang Yu \url{https://guangchuangyu.github.io}
 }

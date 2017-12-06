@@ -42,13 +42,6 @@ setMethod("groupOTU", signature(object="treedata"),
           }
           )
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="phangorn"),
-          function(object, focus, group_name="group", ...) {
-              groupOTU_(object, focus, group_name, ...)
-          }
-          )
 
 ## ##' @rdname groupOTU-methods
 ## ##' @exportMethod groupOTU
@@ -58,13 +51,13 @@ setMethod("groupOTU", signature(object="phangorn"),
 ##           }
 ##           )
 
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="paml_rst"),
-          function(object, focus, group_name="group", ...) {
-              groupOTU_(object, focus, group_name, ...)
-          }
-          )
+## ##' @rdname groupOTU-methods
+## ##' @exportMethod groupOTU
+## setMethod("groupOTU", signature(object="paml_rst"),
+##           function(object, focus, group_name="group", ...) {
+##               groupOTU_(object, focus, group_name, ...)
+##           }
+##           )
 
 
 ##' group tree based on selected OTU, will traceback to MRCA

@@ -18,76 +18,30 @@ phyPML <- function(pmlTree, type = "ml") {
         n <- Ntip(tr)
         nl <- 1:(Nnode2(tr) - n) + n
         tr$node.label <- as.character(nl)
-    } else {
-        names(sequences) <- c(tr$tip.label, tr$node.label)
     }
+    names(sequences) <- c(tr$tip.label, tr$node.label)
+
 
     seq_type <- get_seqtype(sequences)
-    res <- new("phangorn",
+
+    ## seqlist <- lapply(seq_along(sequences), function(i) sequences[i])
+    ## names(seqlist) <- names(sequences)
+    ## seqs <- as.DNAbin(seqlist)
+    seqs <- string2DNAbin(sequences)
+
+    tip_seq <- seqs[labels(seqs) %in% tr$tip.label]
+    anc_seq <- seqs[!labels(seqs) %in% tr$tip.label]
+
+    res <- new("treedata",
                phylo = tr,
-               fields = "subs",
-               seq_type = seq_type,
-               ancseq = sequences)
+               tip_seq = tip_seq,
+               anc_seq = anc_seq,
+               seq_type = seq_type)
 
-
-    res@tip_seq <- sequences[names(sequences) %in% tr$tip.label]
-
-    res@subs <- get.subs_(res@phylo, sequences, translate=FALSE)
-    if (seq_type == "NT") {
-        res@AA_subs <- get.subs_(res@phylo, sequences, translate=TRUE)
-        res@fields %<>% c("AA_subs")
-    }
-
-    return(res)
+    set_substitution(res)
 }
 
 
-
-
-##' @rdname get.subs-methods
-##' @exportMethod get.subs
-setMethod("get.subs", signature(object = "phangorn"),
-          function(object, type, ...) {
-              if (type == "AA_subs")
-                  return(object@AA_subs)
-              return(object@subs)
-          }
-          )
-
-
-## ##' @rdname scale_color-methods
-## ##' @exportMethod scale_color
-## setMethod("scale_color", signature(object="phangorn"),
-##           function(object, by, ...) {
-##               scale_color_(object, by, ...)
-##           })
-
-
-## ##' @rdname gzoom-methods
-## ##' @exportMethod gzoom
-## setMethod("gzoom", signature(object="phangorn"),
-##           function(object, focus, subtree=FALSE, widths=c(.3, .7)) {
-##               gzoom.phylo(get.tree(object), focus, subtree, widths)
-##           })
-
-
-
-##' convert pml object to XStringSet object
-##'
-##'
-##' @title pmlToSeq
-##' @param pml pml object
-##' @param includeAncestor logical
-##' @param type one of "marginal", "ml", "bayes"
-##' @return XStringSet
-## @importFrom Biostrings DNAStringSet
-##' @export
-##' @author ygc
-pmlToSeq <- function(pml, type="ml", includeAncestor=TRUE) {
-    DNAStringSet <- get_fun_from_pkg("Biostrings", "DNAStringSet")
-    pmlToSeqString(pml, type, includeAncestor) %>%
-        DNAStringSet
-}
 
 ## @importFrom phangorn ancestral.pml
 pmlToSeqString <- function(pml, type, includeAncestor=TRUE) {
@@ -139,7 +93,7 @@ matrix2vector.phyDat.item <- function(y) {
             }
             ## 18 is the gap(-) index of base character defined in phangorn
             ## c("a", "c", "g", "t", "u", "m", "r", "w", "s",
-	    ##   "y", "k", "v", "h", "d", "b", "n", "?", "-")
+            ##   "y", "k", "v", "h", "d", "b", "n", "?", "-")
             18
         } else {
             jj

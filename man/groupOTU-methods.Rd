@@ -6,8 +6,6 @@
 \alias{groupOTU,codeml-method}
 \alias{groupOTU,codeml_mlc-method}
 \alias{groupOTU,treedata-method}
-\alias{groupOTU,phangorn-method}
-\alias{groupOTU,paml_rst-method}
 \alias{groupOTU,phylo-method}
 \title{groupOTU method}
 \usage{
@@ -18,10 +16,6 @@ groupOTU(object, focus, group_name = "group", ...)
 \S4method{groupOTU}{codeml_mlc}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{treedata}(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{phangorn}(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{paml_rst}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{phylo}(object, focus, group_name = "group", ...)
 }

@@ -50,17 +50,17 @@
 ##           })
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object = "paml_rst"),
-          function(object) {
-              if (length(object@tip_seq) == 0) {
-                  warning("tip sequence not available...\n")
-              } else {
-                  get.fields.tree(object)
-              }
-          }
-          )
+## ##' @rdname get.fields-methods
+## ##' @exportMethod get.fields
+## setMethod("get.fields", signature(object = "paml_rst"),
+##           function(object) {
+##               if (length(object@tip_seq) == 0) {
+##                   warning("tip sequence not available...\n")
+##               } else {
+##                   get.fields.tree(object)
+##               }
+##           }
+##           )
 
 
 ## ##' @rdname get.fields-methods
@@ -91,11 +91,11 @@ setMethod("get.fields", signature(object = "treedata"),
           })
 
 
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object="phangorn"),
-          function(object, ...) {
-              get.fields.tree(object)
-          }
-          )
+## ##' @rdname get.fields-methods
+## ##' @exportMethod get.fields
+## setMethod("get.fields", signature(object="phangorn"),
+##           function(object, ...) {
+##               get.fields.tree(object)
+##           }
+##           )
 

@@ -80,22 +80,15 @@ setMethod("get.tree", signature(object="phylo"),
 ##           }
 ##           )
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object = "paml_rst"),
-          function(object) {
-              object@phylo
-          }
-          )
+## ##' @rdname get.tree-methods
+## ##' @exportMethod get.tree
+## setMethod("get.tree", signature(object = "paml_rst"),
+##           function(object) {
+##               object@phylo
+##           }
+##           )
 
 
-##' @rdname get.tree-methods
-##' @exportMethod get.tree
-setMethod("get.tree", signature(object="phangorn"),
-          function(object,...) {
-              object@phylo
-          }
-          )
 
 
 ## ##' @rdname get.tree-methods

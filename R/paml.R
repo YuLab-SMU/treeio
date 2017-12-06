@@ -54,7 +54,7 @@ mask <- function(tree_object, field, site, mask_site=FALSE) {
             pattern <- paste0("/*\\s*[a-zA-Z]", site[j], "[a-zA-Z]\\s*")
             field_data[i] <- gsub(pattern, "",  field_data[i])
         }
-        field_data[i] <- gsub("^/\\s", "", field_data[i]) %>% .add_new_line
+        field_data[i] <- gsub("^/\\s", "", field_data[i])
     }
 
     if (has_slot) {
@@ -327,83 +327,83 @@ get_tree_edge_paml <- function(paml) {
     return(edge)
 }
 
-set.paml_rst_ <- function(object) {
-    if (!is(object, "paml_rst")) {
-        stop("object should be an instance of 'paml_rst'")
-    }
-    if (length(object@tip_seq) == 0) {
-        return(object)
-    }
+## set.paml_rst_ <- function(object) {
+##     if (!is(object, "paml_rst")) {
+##         stop("object should be an instance of 'paml_rst'")
+##     }
+##     if (length(object@tip_seq) == 0) {
+##         return(object)
+##     }
 
-    types <- get.fields(object)
-    for (type in types) {
-        value <- subs_paml_rst(object, type)
-        if (all(is.na(value)))
-            next
+##     types <- get.fields(object)
+##     for (type in types) {
+##         value <- subs_paml_rst(object, type)
+##         if (all(is.na(value)))
+##             next
 
-        if (type == "marginal_subs") {
-            object@marginal_subs <- value
-        } else if (type == "marginal_AA_subs") {
-            object@marginal_AA_subs <- value
-        } else if (type == "joint_subs") {
-            object@joint_subs <- value
-        } else if (type == "joint_AA_subs") {
-            object@joint_AA_subs <- value
-        }
-    }
-    return(object)
-}
+##         if (type == "marginal_subs") {
+##             object@marginal_subs <- value
+##         } else if (type == "marginal_AA_subs") {
+##             object@marginal_AA_subs <- value
+##         } else if (type == "joint_subs") {
+##             object@joint_subs <- value
+##         } else if (type == "joint_AA_subs") {
+##             object@joint_AA_subs <- value
+##         }
+##     }
+##     return(object)
+## }
 
 
-get.subs_paml_rst <- function(object, type) {
-    if (!is(object, "paml_rst")) {
-        stop("object should be an instance of 'paml_rst'")
-    }
-    if (type == "marginal_subs") {
-        res <- object@marginal_subs
-    } else if (type == "marginal_AA_subs") {
-        res <- object@marginal_AA_subs
-    } else if (type == "joint_subs") {
-        res <- object@joint_subs
-    } else if (type == "joint_AA_subs") {
-        res <- object@joint_AA_subs
-    } else {
-        stop("type should be one of 'marginal_subs',
-                             'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
-    }
-    return(res)
-}
+## get.subs_paml_rst <- function(object, type) {
+##     if (!is(object, "paml_rst")) {
+##         stop("object should be an instance of 'paml_rst'")
+##     }
+##     if (type == "marginal_subs") {
+##         res <- object@marginal_subs
+##     } else if (type == "marginal_AA_subs") {
+##         res <- object@marginal_AA_subs
+##     } else if (type == "joint_subs") {
+##         res <- object@joint_subs
+##     } else if (type == "joint_AA_subs") {
+##         res <- object@joint_AA_subs
+##     } else {
+##         stop("type should be one of 'marginal_subs',
+##                              'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
+##     }
+##     return(res)
+## }
 
-subs_paml_rst <- function(x, type, ...) {
-    if (class(x) != "paml_rst") {
-        stop("x should be an object of paml_rst...")
-    }
-    seqs <- x@tip_seq
-    if (length(seqs) == 0) {
-        stop("tip sequences is not available...")
-    }
-    if (type %in% c("marginal_subs", "marginal_AA_subs")) {
-        ancseq <- x@marginal_ancseq
-        ## seqs <- c(seqs, x@marginal_ancseq)
-    } else if (type %in% c("joint_subs", "joint_AA_subs")){
-        ancseq <- x@joint_ancseq
-        ## seqs <- c(seqs, x@joint_ancseq)
-    } else {
-        stop("type should be one of 'marginal_subs',
-                             'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
-    }
-    if( type %in% c("marginal_subs", "joint_subs")) {
-        translate <- FALSE
-    } else {
-        translate <- TRUE
-    }
+## subs_paml_rst <- function(x, type, ...) {
+##     if (class(x) != "paml_rst") {
+##         stop("x should be an object of paml_rst...")
+##     }
+##     seqs <- x@tip_seq
+##     if (length(seqs) == 0) {
+##         stop("tip sequences is not available...")
+##     }
+##     if (type %in% c("marginal_subs", "marginal_AA_subs")) {
+##         ancseq <- x@marginal_ancseq
+##         ## seqs <- c(seqs, x@marginal_ancseq)
+##     } else if (type %in% c("joint_subs", "joint_AA_subs")){
+##         ancseq <- x@joint_ancseq
+##         ## seqs <- c(seqs, x@joint_ancseq)
+##     } else {
+##         stop("type should be one of 'marginal_subs',
+##                              'marginal_AA_subs', 'joint_subs' or 'joint_AA_subs'. ")
+##     }
+##     if( type %in% c("marginal_subs", "joint_subs")) {
+##         translate <- FALSE
+##     } else {
+##         translate <- TRUE
+##     }
 
-    if (all(ancseq == "")) {
-        return(NA)
-    }
-    seqs <- c(seqs, ancseq)
-    get.subs_(x@phylo, seqs, translate=translate, ...)
-}
+##     if (all(ancseq == "")) {
+##         return(NA)
+##     }
+##     seqs <- c(seqs, ancseq)
+##     get.subs_(x@phylo, seqs, translate=translate, ...)
+## }
 
 
 ##' label branch for PAML to infer selection pressure using branch model

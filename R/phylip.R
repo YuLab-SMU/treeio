@@ -35,21 +35,24 @@ read.phylip.seq <- function(file) {
     phylipInfo <- strsplit(phylip[1], split="\\s") %>% unlist
     nseq <- phylipInfo[1]
     seqLen <- phylipInfo[2]
-    if (nseq != i-2) {
+
+    if (nchar(sub('.+\\s+', "", phylip[2])) != phylipInfo[2]) {
         stop("only sequential format is supported...\n-> see http://evolution.genetics.washington.edu/phylip/doc/sequence.html")
     }
-    seqlines <- phylip[2:(i-1)]
+    seqlines <- phylip[1+(1:phylipInfo[1])]
     seq_with_name <- lapply(seqlines, function(x) unlist(strsplit(x, "\\s+")))
-    seqs <- lapply(seq_with_name, function(x) x[2])
+    seqs <- sapply(seq_with_name, function(x) x[2])
     names(seqs) <- sapply(seq_with_name, function(x) x[1])
 
     if (any(nchar(seqs) != seqLen)) {
         stop(paste("sequence length not consistent...\n->", paste0(nchar(seqs), collapse=" ")))
     }
-    res <- as.DNAbin(seqs)
-    attr(res, "seq_type") <- get_seqtype(seqs[[1]])
+
+    res <- string2DNAbin(seqs)
+    attr(res, "seq_type") <- get_seqtype(seqs[1])
     return(res)
 }
+
 
 ##' parse tree from phylip file
 ##'

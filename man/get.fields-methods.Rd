@@ -5,23 +5,17 @@
 \name{get.fields}
 \alias{get.fields}
 \alias{get.fields,codeml-method}
-\alias{get.fields,paml_rst-method}
 \alias{get.fields,codeml_mlc-method}
 \alias{get.fields,treedata-method}
-\alias{get.fields,phangorn-method}
 \title{get.fields method}
 \usage{
 get.fields(object, ...)
 
 \S4method{get.fields}{codeml}(object, ...)
 
-\S4method{get.fields}{paml_rst}(object)
-
 \S4method{get.fields}{codeml_mlc}(object)
 
 \S4method{get.fields}{treedata}(object)
-
-\S4method{get.fields}{phangorn}(object, ...)
 }
 \arguments{
 \item{object}{one of \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}

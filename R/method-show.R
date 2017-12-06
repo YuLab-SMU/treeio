@@ -128,60 +128,23 @@ setMethod("show", signature(object = "codeml_mlc"),
 ##               cat(msg)
 ##           })
 
-##' @rdname show-methods
-##' @exportMethod show
-setMethod("show", signature(object = "paml_rst"),
-          function(object) {
-              cat("'paml_rst' S4 object that stored information of\n\t",
-                  paste0("'", object@rstfile, "'.\n\n"))
-              ## if (length(object@tip.fasfile) != 0) {
-              ##     cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
-              ## } else {
-              ##     cat(".\n\n")
-              ## }
-              fields <- get.fields(object)
-
-              cat("...@ tree:")
-              print.phylo(get.tree(object))
-              print_fields(object)
-          })
-
-
-
 ## ##' @rdname show-methods
 ## ##' @exportMethod show
-## setMethod("show", signature(object = "r8s"),
+## setMethod("show", signature(object = "paml_rst"),
 ##           function(object) {
-##               cat("'r8s' S4 object that stored information of\n\t",
-##                   paste0("'", object@file, "'.\n\n"))
-##               cat("...@ trees: \n")
-##               ## cat("\nwith the following features available:\n")
-##               print_fields(object)
-##           })
+##               cat("'paml_rst' S4 object that stored information of\n\t",
+##                   paste0("'", object@rstfile, "'.\n\n"))
+##               ## if (length(object@tip.fasfile) != 0) {
+##               ##     cat(paste0(" and \n\t'", object@tip.fasfile, "'.\n\n"))
+##               ## } else {
+##               ##     cat(".\n\n")
+##               ## }
+##               fields <- get.fields(object)
 
-
-
-## ##' @rdname show-methods
-## ##' @importFrom ape print.phylo
-## ##' @exportMethod show
-## setMethod("show", signature(object = "hyphy"),
-##           function(object) {
-##               cat("'hyphy' S4 object that stored information of \n\t",
-##                   paste0("'", object@tree.file, "'"))
-##               if (length(object@tip_seq) == 0) {
-##                   cat(paste0("and '", object@ancseq.file, "'"), ".\n")
-##               } else {
-##                   cat(paste0(", \n\t'", object@ancseq.file, "'"),
-##                       paste0("and \n\t'", object@tip.fasfile, "'."),
-##                       "\n\n")
-##               }
 ##               cat("...@ tree:")
 ##               print.phylo(get.tree(object))
 ##               print_fields(object)
 ##           })
-
-
-
 
 
 print_fields <- function(object) {

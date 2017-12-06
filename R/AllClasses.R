@@ -195,53 +195,53 @@ setClass("codeml_mlc",
          )
          )
 
-##' Class "paml_rst"
-##' This class stores information of rst file from PAML output
-##'
-##'
-##' @name paml_rst-class
-##' @aliases paml_rst-class
-##'   set.subs,paml_rst-method
-##'   set.subs<-,paml_rst-method
-##'
-##' @docType class
-##' @slot fields availabel attributes
-##' @slot treetext tree text
-##' @slot phylo phylo object
-##' @slot seq_type one of "NT" and "AA"
-##' @slot tip_seq sequences of tips
-##' @slot marginal_ancseq Marginal reconstruction of ancestral sequences
-##' @slot joint_ancseq Joint reconstruction of ancestral sequences
-##' @slot marginal_subs sequence substitutions based on marginal_ancseq
-##' @slot joint_subs sequence substitutions based on joint_ancseq
-##' @slot marginal_AA_subs Amino acid sequence substitutions based on marginal_ancseq
-##' @slot joint_AA_subs Amino acid sequence substitutions based on joint_ancseq
-##' @slot rstfile rst file
-##' @slot extraInfo extra information
-##' @exportClass paml_rst
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @seealso \linkS4class{codeml} \linkS4class{codeml_mlc}
-##' @keywords classes
-setClass("paml_rst",
-         representation       = representation(
-             fields           = "character",
-             treetext         = "character",
-             phylo            = "phylo",
-             seq_type         = "character",
-             tip_seq          = "character",
-             marginal_ancseq  = "character",
-             joint_ancseq     = "character",
-             marginal_subs    = "data.frame",
-             joint_subs       = "data.frame",
-             marginal_AA_subs = "data.frame",
-             joint_AA_subs    = "data.frame",
-             rstfile          = "character",
-             extraInfo        = "tbl_df"
-         ),
-         prototype = prototype(
-             extraInfo = data_frame()
-         )
-         )
+## ##' Class "paml_rst"
+## ##' This class stores information of rst file from PAML output
+## ##'
+## ##'
+## ##' @name paml_rst-class
+## ##' @aliases paml_rst-class
+## ##'   set.subs,paml_rst-method
+## ##'   set.subs<-,paml_rst-method
+## ##'
+## ##' @docType class
+## ##' @slot fields availabel attributes
+## ##' @slot treetext tree text
+## ##' @slot phylo phylo object
+## ##' @slot seq_type one of "NT" and "AA"
+## ##' @slot tip_seq sequences of tips
+## ##' @slot marginal_ancseq Marginal reconstruction of ancestral sequences
+## ##' @slot joint_ancseq Joint reconstruction of ancestral sequences
+## ##' @slot marginal_subs sequence substitutions based on marginal_ancseq
+## ##' @slot joint_subs sequence substitutions based on joint_ancseq
+## ##' @slot marginal_AA_subs Amino acid sequence substitutions based on marginal_ancseq
+## ##' @slot joint_AA_subs Amino acid sequence substitutions based on joint_ancseq
+## ##' @slot rstfile rst file
+## ##' @slot extraInfo extra information
+## ##' @exportClass paml_rst
+## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
+## ##' @seealso \linkS4class{codeml} \linkS4class{codeml_mlc}
+## ##' @keywords classes
+## setClass("paml_rst",
+##          representation       = representation(
+##              fields           = "character",
+##              treetext         = "character",
+##              phylo            = "phylo",
+##              seq_type         = "character",
+##              tip_seq          = "character",
+##              marginal_ancseq  = "character",
+##              joint_ancseq     = "character",
+##              marginal_subs    = "data.frame",
+##              joint_subs       = "data.frame",
+##              marginal_AA_subs = "data.frame",
+##              joint_AA_subs    = "data.frame",
+##              rstfile          = "character",
+##              extraInfo        = "tbl_df"
+##          ),
+##          prototype = prototype(
+##              extraInfo = data_frame()
+##          )
+##          )
 
 ##' Class "codeml"
 ##' This class stores information of output from codeml
@@ -266,188 +266,5 @@ setClass("codeml",
          )
          )
 
-
-
-
-## ##' Class "jplace"
-## ##' This class stores information of jplace file.
-## ##'
-## ##'
-## ##' @name jplace-class
-## ##' @aliases jplace-class
-## ##'   show,jplace-method
-## ##'   get.placements,jplace-method
-## ##'   get.treeinfo,jplace-method
-## ##'   get.fields,jplace-method
-## ##'   get.treetext,jplace-method
-## ##'
-## ##' @docType class
-## ##' @slot fields colnames of first variable of placements
-## ##' @slot treetext tree text
-## ##' @slot phylo tree phylo object
-## ##' @slot placements placement information
-## ##' @slot version version
-## ##' @slot metadata metadata
-## ##' @slot file jplace file
-## ##' @slot extraInfo extra information
-## ##' @exportClass jplace
-## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-## ##' @seealso \code{\link{show}} \code{\link{get.tree}}
-## ##' @keywords classes
-## setClass("jplace",
-##          representation = representation(
-##              fields     = "character",
-##              treetext   = "character",
-##              phylo      = "phylo",
-##              placements = "data.frame",
-##              version    = "numeric",
-##              metadata   = "list",
-##              file       = "character",
-##              extraInfo  = "tbl_df"
-##              ),
-##          prototype = prototype(
-##              extraInfo = data_frame()
-##          )
-##          )
-
-##' Class "phangorn"
-##' This class stores ancestral sequences inferred from 'phangorn'
-##'
-##'
-##' @name phangorn-class
-##' @docType class
-##' @slot fields available attributes
-##' @slot phylo phylo object
-##' @slot seq_type one of "NT" and "AA"
-##' @slot tip_seq sequences of tips
-##' @slot ancseq ancenstral sequences
-##' @slot subs sequence substitution
-##' @slot AA_subs Amino acid sequence substitution
-##' @slot extraInfo extra information
-##' @exportClass phangorn
-##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-##' @seealso \linkS4class{paml_rst}
-##' @keywords classes
-setClass("phangorn",
-         representation = representation(
-             fields = "character",
-             phylo = "phylo",
-             seq_type = "character",
-             tip_seq = "character",
-             ancseq = "character",
-             subs = "data.frame",
-             AA_subs = "data.frame",
-             extraInfo = "tbl_df"
-         ),
-         prototype = prototype(
-             extraInfo = data_frame()
-         )
-         )
-
-
-
-## ##' Class "phylip"
-## ##' This class stores phylip tree(s)
-## ##'
-## ##'
-## ##' @name phylip-class
-## ##' @docType class
-## ##' @slot file input file
-## ##' @slot fields available feature
-## ##' @slot phylo phylo or multiPhylo
-## ##' @slot ntree number of trees
-## ##' @slot sequence sequences
-## ##' @slot extraInfo extra information
-## ##' @exportClass phylip
-## ##' @author Guangchuang Yu
-## ##' @keywords classes
-## setClass("phylip",
-##          representation = representation(
-##              file = "character",
-##              fields = "character",
-##              phylo = "phyloOrmultiPhylo",
-##              ntree = "numeric",
-##              sequence = "character",
-##              extraInfo = "tbl_df"
-##          ),
-##          prototype = prototype(
-##              extraInfo = data_frame()
-##          )
-##          )
-
-
-## ##' Class "r8s"
-## ##' This class stores output info from r8s
-## ##'
-## ##'
-## ##' @name r8s-class
-## ##' @docType class
-## ##' @slot file input file
-## ##' @slot fields available feature
-## ##' @slot treetext tree text
-## ##' @slot phylo multiPhylo, time tree, rate tree and absolute substitution tree
-## ##' @slot extraInfo extra information
-## ##' @exportClass r8s
-## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-## ##' @keywords classes
-## setClass("r8s",
-##          representation = representation(
-##              file      = "character",
-##              fields    = "character",
-##              treetext  = "character",
-##              phylo     = "multiPhylo",
-##              extraInfo = "tbl_df"
-##              ),
-##          prototype = prototype(
-##              extraInfo = data_frame()
-##          )
-##          )
-
-
-## ##' Class "apeBootstrap"
-## ##' This class stores ape bootstrapping analysis result
-## ##'
-## ##'
-## ##' @name apeBootstrap-class
-## ##' @docType class
-## ##' @slot phylo phylo object of treetext
-## ##' @slot fields available features
-## ##' @slot bootstrap bootstrap value
-## ##' @slot extraInfo extra information
-## ##' @exportClass apeBootstrap
-## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-## ##' @keywords classes
-## setClass("apeBootstrap",
-##          representation = representation(
-##              phylo = "phylo",
-##              fields = "character",
-##              bootstrap = "data.frame",
-##              extraInfo = "data.frame"
-##          )
-##          )
-
-
-## ##' Class "raxml"
-## ##' This class stores RAxML bootstrapping analysis result
-## ##'
-## ##'
-## ##' @name raxml-class
-## ##' @docType class
-## ##' @slot file input file
-## ##' @slot fields available features
-## ##' @slot treetext tree text
-## ##' @slot phylo phylo object of treetext
-## ##' @slot bootstrap bootstrap value
-## ##' @slot extraInfo extra information
-## ##' @exportClass raxml
-## ##' @author Guangchuang Yu \url{http://guangchuangyu.github.io}
-## ##' @keywords classes
-## setClass("raxml",
-##          representation = representation(
-##              file       = "character",
-##              treetext   = "character"
-##          ),
-##          contains = "apeBootstrap"
-##          )
 
 
