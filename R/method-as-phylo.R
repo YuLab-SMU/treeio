@@ -34,10 +34,11 @@ as.phylo.phylo4 <- function(x, ...) {
     return(phylo)
 }
 
-##' @method as.phylo tbl_df
+
+##' @method as.phylo tree_tbl
 ##' @export
 ## original contributed by Bradley Jones and modified by Guangchuang Yu
-as.phylo.tbl_df <- function(x, ...) {
+as.phylo.tree_tbl <- function(x, ...) {
     edge <- x[, c("parent", "node")]
     i <- which(edge[,1] != 0 & edge[,1] != edge[,2])
     edge <- edge[i, ]
@@ -62,6 +63,7 @@ as.phylo.ggtree <- function(x, ...) {
     as.phylo(as_data_frame(x$data))
 }
 
+
 ##' access phylo slot
 ##'
 ##'
@@ -74,3 +76,4 @@ as.phylo.ggtree <- function(x, ...) {
 get.tree <- function(x, ...) {
     as.phylo(x, ...)
 }
+

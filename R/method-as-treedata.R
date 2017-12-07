@@ -36,9 +36,9 @@ as.treedata.phylo4d <- function(tree, ...) {
         )
 }
 
-##' @method as.treedata tbl_df
+##' @method as.treedata tree_tbl
 ##' @export
-as.treedata.tbl_df <- function(tree, ...) {
+as.treedata.tree_tbl <- function(tree, ...) {
     data <- tree
     cn <- colnames(data)
     idx <- cn[!cn %in% c("parent", "branch.length", "label", "isTip", "x", "y", "branch", "angle")]
