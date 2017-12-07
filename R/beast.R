@@ -303,7 +303,6 @@ read.stats_beast_internal <- function(beast, tree) {
         stats3[,j] <- unlist(stats3[,j])
     }
     stats3$node <- as.integer(stats3$node)
-
     return(stats3)
 }
 
