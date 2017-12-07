@@ -3,14 +3,11 @@
 \docType{methods}
 \name{groupClade}
 \alias{groupClade}
-\alias{groupClade,codeml-method}
 \alias{groupClade,treedata-method}
 \alias{groupClade,phylo-method}
 \title{groupClade method}
 \usage{
 groupClade(object, node, group_name = "group", ...)
-
-\S4method{groupClade}{codeml}(object, node, group_name = "group")
 
 \S4method{groupClade}{treedata}(object, node, group_name = "group")
 

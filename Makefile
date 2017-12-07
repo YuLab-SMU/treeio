@@ -36,7 +36,7 @@ check2: rd build
 	cd ..;\
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz
 
-check3: build2
+check3: rd build2
 	cd ..;\
 	R CMD check --ignore-vignettes $(PKGNAME)_$(PKGVERS).tar.gz
 

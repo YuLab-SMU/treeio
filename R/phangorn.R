@@ -44,6 +44,7 @@ phyPML <- function(pmlTree, type = "ml") {
 
 
 ## @importFrom phangorn ancestral.pml
+##' @importFrom rvcheck get_fun_from_pkg
 pmlToSeqString <- function(pml, type, includeAncestor=TRUE) {
     if (includeAncestor == FALSE) {
         phyDat <- pml$data

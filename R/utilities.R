@@ -1,6 +1,5 @@
 is_numeric <- function(x) !anyNA(suppressWarnings(as.numeric(as.character(x))))
 
-
 filename <- function(file) {
     ## textConnection(text_string) will work just like a file
     ## in this case, just set the filename as ""
@@ -66,57 +65,10 @@ append_extraInfo <- function(df, object) {
     return(res)
 }
 
-get.fields.tree <- function(object) {
-    if (is(object, "codeml")) {
-        fields <- c(get.fields(object@rst),
-                    get.fields(object@mlc))
-        fields <- unique(fields)
-    } else if (is(object, "treedata")) {
-        if (nrow(object@data) > 0) {
-            fields <- colnames(object@data)
-            fields <- fields[fields != "node"]
-        } else {
-            fields <- ""
-        }
-    } else {
-        fields <- object@fields
-    }
-
-    if (has.slot(object, "extraInfo")) {
-        extraInfo <- object@extraInfo
-        if (nrow(extraInfo) > 0) {
-            cn <- colnames(extraInfo)
-            i <- match(c("x", "y", "isTip", "node", "parent", "label", "branch", "branch.length"), cn)
-            i <- i[!is.na(i)]
-            fields %<>% c(cn[-i])
-        }
-    }
-    return(fields)
-}
 
 
-seq2codon <- function(x) {
-    substring(x, first=seq(1, nchar(x)-2, 3), last=seq(3, nchar(x), 3))
-}
-
-## @importFrom Biostrings GENETIC_CODE
-##' @importFrom rvcheck get_fun_from_pkg
-codon2AA <- function(codon) {
-    ## a genetic code name vector
-    GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE")
-    aa <- GENETIC_CODE[codon]
-    aa[is.na(aa)] <- "X"
-    return(aa)
-}
 
 
-getPhyInfo <- function(phy) {
-    line1 <- readLines(phy, n=1)
-    res <- strsplit(line1, split="\\s")[[1]]
-    res <- res[res != ""]
-
-    return(list(num=as.numeric(res[1]), width=as.numeric(res[2])))
-}
 
 
 jplace_treetext_to_phylo <- function(tree.text) {
@@ -187,31 +139,25 @@ edgeNum2nodeNum <- function(jp, edgeNum) {
     edges[idx, "node"]
 }
 
-is.character_beast <- function(stats3, cn) {
-    for (i in 1:nrow(stats3)) {
-        if ( is.na(stats3[i,cn]) ) {
-            next
-        } else {
-            ## res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
-            ## return(all(res == TRUE))
-            res <- grepl("^[0-9\\.eE-]+$", unlist(stats3[i, cn]))
-            return(all(res == FALSE))
-        }
-    }
-    return(FALSE)
-}
+## is.character_beast <- function(stats3, cn) {
+##     for (i in 1:nrow(stats3)) {
+##         if ( is.na(stats3[i,cn]) ) {
+##             next
+##         } else {
+##             ## res <- grepl("[a-df-zA-DF-Z]+", unlist(stats3[i, cn]))
+##             ## return(all(res == TRUE))
+##             res <- grepl("^[0-9\\.eE-]+$", unlist(stats3[i, cn]))
+##             return(all(res == FALSE))
+##         }
+##     }
+##     return(FALSE)
+## }
 
 
 is.tree <- function(x) {
     if (class(x) %in% c("phylo",
                         "phylo4",
                         "jplace",
-                        "baseml",
-                        "paml_rst",
-                        "baseml_mlc",
-                        "codeml_mlc",
-                        "codeml",
-                        "hyphy",
                         "treedata")
         ) {
         return(TRUE)
@@ -257,8 +203,6 @@ has.slot <- function(object, slotName) {
         return(FALSE)
     }
     .hasSlot(object, slotName)
-    ## slot <- tryCatch(slot(object, slotName), error=function(e) NULL)
-    ## ! is.null(slot)
 }
 
 

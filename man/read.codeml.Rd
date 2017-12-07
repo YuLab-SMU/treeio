@@ -4,15 +4,19 @@
 \alias{read.codeml}
 \title{read.codeml}
 \usage{
-read.codeml(rstfile, mlcfile)
+read.codeml(rstfile, mlcfile, tree = "mlc", type = "Joint")
 }
 \arguments{
 \item{rstfile}{rst file}
 
 \item{mlcfile}{mlc file}
+
+\item{tree}{one of 'mlc' or 'rst'}
+
+\item{type}{one of 'Marginal' or 'Joint'}
 }
 \value{
-A \code{codeml} object
+A \code{treedata} object
 }
 \description{
 read baseml output
@@ -20,8 +24,8 @@ read baseml output
 \examples{
 rstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
-read.codeml(rstfile, mlcfile) 
+read.codeml(rstfile, mlcfile)
 }
 \author{
-ygc
+Guangchuang Yu
 }

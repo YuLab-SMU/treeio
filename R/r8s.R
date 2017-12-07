@@ -33,29 +33,3 @@ read.r8s <- function(file) {
 
 
 
-## ##' @rdname groupClade-methods
-## ##' @exportMethod groupClade
-## ##' @param tree which tree selected
-## setMethod("groupClade", signature(object="r8s"),
-##           function(object, node, group_name="group", tree="TREE") {
-##               groupClade_(get.tree(object)[[tree]], node, group_name)
-##           })
-
-## ##' @rdname scale_color-methods
-## ##' @exportMethod scale_color
-## ##' @param tree which tree selected
-## setMethod("scale_color", signature(object="r8s"),
-##           function(object, by="bootstrap", tree="TREE") {
-##               scale_color_(get.tree(object)[[tree]], by)
-##           })
-
-
-## ##' @rdname gzoom-methods
-## ##' @exportMethod gzoom
-## ##' @param tree which tree selected
-## setMethod("gzoom", signature(object="r8s"),
-##           function(object, focus, subtree=FALSE, widths=c(.3, .7), tree="TREE") {
-##               gzoom.phylo(get.tree(object)[[tree]], focus, subtree, widths)
-##           })
-
-

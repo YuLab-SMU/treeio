@@ -25,39 +25,27 @@ taxa_rename <- function(tree, name) {
 }
 
 
-##' number of tips
+##' label branch for PAML to infer selection pressure using branch model
 ##'
 ##'
-##' @title Ntip
-##' @param tree tree object
-##' @return number of tips
+##' @title label_branch_paml
+##' @param tree phylo object
+##' @param node node number
+##' @param label label of branch, e.g. #1
+##' @return updated phylo object
 ##' @export
 ##' @author guangchuang yu
-##' @examples
-##' Ntip(rtree(30))
-##' @author guangchuang yu
-Ntip <- function(tree) {
-    phylo <- as.phylo(tree)
-    length(phylo$tip.label)
-}
-
-##' number of nodes
-##'
-##'
-##' @title Nnode
-##' @param tree tree object
-##' @param internal.only whether only count internal nodes
-##' @return number of nodes
-##' @export
-##' @examples
-##' Nnode(rtree(30))
-##' @author guangchuang yu
-Nnode <- function(tree, internal.only=TRUE) {
-    phylo <- as.phylo(tree)
-    if (internal.only)
-        return(phylo$Nnode)
-
-    Ntip(phylo) + phylo$Nnode
+label_branch_paml <- function(tree, node, label) {
+    sp_id <- get.offspring(tree, node)
+    tip_id <- sp_id[sp_id <= Ntip(tree)]
+    node_id <- c(node, sp_id[sp_id > Ntip(tree)])
+    tree$tip.label[tip_id] <- paste(tree$tip.label[tip_id], label)
+    if (is.null(tree$node.label)) {
+        tree$node.label <- rep("", Nnode(tree))
+    }
+    node_index <- node_id - Ntip(tree)
+    tree$node.label[node_index] <- paste(tree$node.label[node_index], label)
+    return(tree)
 }
 
 

@@ -3,14 +3,11 @@
 \docType{methods}
 \name{groupOTU}
 \alias{groupOTU}
-\alias{groupOTU,codeml-method}
 \alias{groupOTU,treedata-method}
 \alias{groupOTU,phylo-method}
 \title{groupOTU method}
 \usage{
 groupOTU(object, focus, group_name = "group", ...)
-
-\S4method{groupOTU}{codeml}(object, focus, group_name = "group", ...)
 
 \S4method{groupOTU}{treedata}(object, focus, group_name = "group", ...)
 

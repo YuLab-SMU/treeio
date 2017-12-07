@@ -61,15 +61,15 @@ as.phylo.ggtree <- function(x, ...) {
     as.phylo(x$data)
 }
 
-## ##' access phylo slot
-## ##'
-## ##'
-## ##' @title get.tree
-## ##' @param x tree object
-## ##' @param ... additional parameters
-## ##' @return phylo object
-## ##' @export
-## ##' @author guangchuang yu
-## get.tree <- function(x, ...) {
-##     as.phylo(x, ...)
-## }
+##' access phylo slot
+##'
+##'
+##' @title get.tree
+##' @param x tree object
+##' @param ... additional parameters
+##' @return phylo object
+##' @export
+##' @author guangchuang yu
+get.tree <- function(x, ...) {
+    as.phylo(x, ...)
+}

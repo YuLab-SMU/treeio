@@ -1,62 +1,46 @@
 ##' read baseml output
 ##'
-##' 
-##' @title read.codeml 
+##'
+##' @title read.codeml
 ##' @param rstfile rst file
 ##' @param mlcfile mlc file
-##' @return A \code{codeml} object
+##' @param tree one of 'mlc' or 'rst'
+##' @param type one of 'Marginal' or 'Joint'
+##' @return A \code{treedata} object
 ##' @export
-##' @author ygc
+##' @author Guangchuang Yu
 ##' @examples
 ##' rstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
 ##' mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
-##' read.codeml(rstfile, mlcfile) 
-read.codeml <- function(rstfile, mlcfile) {
-    rst <- read.paml_rst(rstfile)
+##' read.codeml(rstfile, mlcfile)
+read.codeml <- function(rstfile, mlcfile, tree = "mlc", type = "Joint") {
+    tree <- match.arg(tree, c("mlc", "rst"))
+
+    rst <- read.paml_rst(rstfile, type=type)
     mlc <- read.codeml_mlc(mlcfile)
-    ## rst@tip_seq <- mlc@tip_seq
-    new("codeml",
-        rst = set.paml_rst_(rst),
-        mlc = mlc
-        )
+
+    res <- rst
+    if (tree == 'mlc') {
+        res@phylo <- as.phylo(mlc)
+        res@treetext <- mlc@treetext
+    }
+
+    res@file <- paste(res@file, mlc@file, sep=", ")
+    if (nrow(res@data) == 0) {
+        res@data <- mlc@data
+    } else {
+        res@data <- full_join(res@data, mlc@data, by = 'node')
+    }
+
+    if (nrow(res@extraInfo) == 0) {
+        res@extraInfo <- mlc@extraInfo
+    } else {
+        res@extraInfo <- full_join(res@extraInfo, mlc@extraInfo, by = "node")
+    }
+
+    res@info <- c(res@info, mlc@info)
+    return(res)
 }
 
 
 
-
-## ##' @rdname scale_color-methods
-## ##' @exportMethod scale_color
-## setMethod("scale_color", signature(object="codeml"),
-##           function(object, by, ...) {
-##               scale_color_(object, by, ...)
-##           })
-
-
-
-
-##' @rdname get.tipseq-methods
-##' @exportMethod get.tipseq
-setMethod("get.tipseq", signature(object = "codeml"),
-          function(object, ...) {
-              return(object@rst@tip_seq)
-          })
-
-
-##' @rdname get.subs-methods
-##' @exportMethod get.subs
-setMethod("get.subs", signature(object = "codeml"),
-          function(object, type, ...) {
-              get.subs(object@rst, type, ...)
-          }
-          )
-
-
-##' @rdname get.fields-methods
-##' @exportMethod get.fields
-setMethod("get.fields", signature(object="codeml"),
-          function(object, ...) {
-              get.fields.tree(object)
-          }
-          )
-
-                        
