@@ -34,19 +34,20 @@ as.phylo.phylo4 <- function(x, ...) {
     return(phylo)
 }
 
-##' @method as.phylo data.frame
-## contributed by Bradley Jones and modified by Guangchuang Yu
-as.phylo.data.frame <- function(x, ...) {
+##' @method as.phylo tbl_df
+##' @export
+## original contributed by Bradley Jones and modified by Guangchuang Yu
+as.phylo.tbl_df <- function(x, ...) {
     edge <- x[, c("parent", "node")]
     i <- which(edge[,1] != 0 & edge[,1] != edge[,2])
     edge <- edge[i, ]
-    edge.length <- x[i, "branch.length"]
-    tip.label <- as.character(x[x[, "isTip"], "label"])
+    edge.length <- x$branch.length[i]
+    tip.label <- as.character(x$label[x$isTip])
     phylo <- list(edge = as.matrix(edge),
                   edge.length = edge.length,
                   tip.label = tip.label)
 
-    node.label <- as.character(x[!x[, "isTip"], "label"])
+    node.label <- as.character(x$label[!x$isTip])
     if (!all(is.na(node.label))) {
         phylo$node.label <- node.label
     }
@@ -58,7 +59,7 @@ as.phylo.data.frame <- function(x, ...) {
 ##' @method as.phylo ggtree
 ##' @export
 as.phylo.ggtree <- function(x, ...) {
-    as.phylo(x$data)
+    as.phylo(as_data_frame(x$data))
 }
 
 ##' access phylo slot

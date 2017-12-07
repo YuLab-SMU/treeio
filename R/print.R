@@ -1,3 +1,26 @@
+##' show method for \code{treedata} instance
+##'
+##'
+##' @name show
+##' @docType methods
+##' @rdname show-methods
+##'
+##' @title show method
+##' @param object \code{treedata} object
+##' @return print info
+##' @importFrom methods show
+##' @exportMethod show
+##' @usage show(object)
+##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
+##' @examples
+##' jp <- system.file("extdata", "sample.jplace", package="treeio")
+##' jp <- read.jplace(jp)
+##' show(jp)
+setMethod("show", signature(object = "treedata"),
+          function(object) {
+              print.treedata(object)
+          })
+
 ##' @method print treedata
 ##' @importFrom ape print.phylo
 ##' @export
@@ -36,3 +59,17 @@ fields_wrap <- function(ff) {
     return(ff)
 }
 
+##' print information of a list of beast trees
+##'
+##'
+##' @title print
+##' @param x a list of beast object
+##' @param ... no used
+##' @return message
+##' @method print beastList
+##' @export
+##' @author Guangchuang Yu
+print.beastList <- function(x, ...) {
+    msg <- paste(length(x), "beast trees")
+    cat(msg, "\n")
+}
