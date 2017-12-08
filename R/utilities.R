@@ -48,22 +48,22 @@ has.field <- function(tree_object, field) {
     return(res)
 }
 
-append_extraInfo <- function(df, object) {
-    if (has.extraInfo(object)) {
-        info <- object@extraInfo
-        if ("parent" %in% colnames(info)) {
-            res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
-        } else {
-            res <- merge(df, info, by.x="node", by.y="node")
-        }
-    } else {
-        return(df)
-    }
+## append_extraInfo <- function(df, object) {
+##     if (has.extraInfo(object)) {
+##         info <- object@extraInfo
+##         if ("parent" %in% colnames(info)) {
+##             res <- merge(df, info, by.x=c("node", "parent"), by.y=c("node", "parent"))
+##         } else {
+##             res <- merge(df, info, by.x="node", by.y="node")
+##         }
+##     } else {
+##         return(df)
+##     }
 
-    i <- order(res$node, decreasing = FALSE)
-    res <- res[i,]
-    return(res)
-}
+##     i <- order(res$node, decreasing = FALSE)
+##     res <- res[i,]
+##     return(res)
+## }
 
 
 
