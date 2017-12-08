@@ -54,5 +54,5 @@ as.treedata.tbl_tree <- function(tree, ...) {
 ##' @method as.treedata ggtree
 ##' @export
 as.treedata.ggtree <- function(tree, ...) {
-    as.treedata(tree, ...)
+    as.treedata(tree$data, ...)
 }
