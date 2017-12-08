@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.3.4
+------------------------
+ o support tbl_tree object defined in tidytree <2017-12-08, Fri>
+
 CHANGES IN VERSION 1.3.3
 ------------------------
  o read.codeml output treedata, remove codeml class and clean up code <2017-12-07, Thu>

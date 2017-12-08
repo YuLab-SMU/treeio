@@ -35,10 +35,10 @@ as.phylo.phylo4 <- function(x, ...) {
 }
 
 
-##' @method as.phylo tree_tbl
+##' @method as.phylo tbl_tree
 ##' @export
 ## original contributed by Bradley Jones and modified by Guangchuang Yu
-as.phylo.tree_tbl <- function(x, ...) {
+as.phylo.tbl_tree <- function(x, ...) {
     edge <- x[, c("parent", "node")]
     i <- which(edge[,1] != 0 & edge[,1] != edge[,2])
     edge <- edge[i, ]
