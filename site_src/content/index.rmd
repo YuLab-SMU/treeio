@@ -112,9 +112,9 @@ biocLite("treeio")
 
 ## <i class="fa fa-code-fork"></i> Projects that depend on _treeio_
 
-`r pkg_depend_info("ggtree", "CRAN")`
+`r pkg_depend_info("treeio", "CRAN")`
 
-`r pkg_depend_info("ggtree", "BioC")`
+`r pkg_depend_info("treeio", "BioC")`
 
 
 ## <i class="fa fa-comments"></i> Feedback
