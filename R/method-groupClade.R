@@ -1,6 +1,7 @@
 
 ##' @importFrom ape extract.clade
 ##' @method groupClade phylo
+##' @export
 groupClade.phylo <- function(.data, .node, group_name = "group", ...) {
     if (length(.node) == 1) {
         clade <- extract.clade(.data, .node)
