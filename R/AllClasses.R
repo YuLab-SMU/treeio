@@ -1,11 +1,11 @@
 ##' @importFrom methods setOldClass
 setOldClass("phylo")
-setOldClass("multiPhylo")
+## setOldClass("multiPhylo")
 setOldClass("DNAbin")
 setOldClass("ggtree")
 
-##' @importFrom methods setClassUnion
-setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
+## @importFrom methods setClassUnion
+## setClassUnion("phyloOrmultiPhylo", c("phylo", "multiPhylo"))
 
 ##' Class "treedata"
 ##' This class stores phylogenetic tree with associated data

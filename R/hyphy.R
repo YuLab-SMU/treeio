@@ -135,22 +135,22 @@ set_substitution <- function(object, ...) {
 
 
 get.subs_ <- function(object, translate=TRUE, removeGap=TRUE) {
-    tree <- object@phylo
+    tree <- as.phylo(object)
     ancseq <- object@anc_seq
     tipseq <- object@tip_seq
 
 
     N <- getNodeNum(tree)
     node <- 1:N
-    parent <- sapply(node, getParent, tr=tree)
+    pp <- sapply(node, parent, .data=tree)
     label <- getNodeName(tree)
     seqs <- c(as.list(ancseq), as.list(tipseq))
     subs <- sapply(seq_along(node), function(i) {
-        if (i == getRoot(tree)) {
+        if (i == rootnode(tree)) {
             return(NA)
         }
 
-        res <- getSubsLabel(seqs, label[parent[i]], label[i], translate, removeGap)
+        res <- getSubsLabel(seqs, label[pp[i]], label[i], translate, removeGap)
         if (is.null(res)) {
             return('')
         }
@@ -158,7 +158,7 @@ get.subs_ <- function(object, translate=TRUE, removeGap=TRUE) {
     })
 
     ## if `subs` is too long to plot, user can use `stringr::str_wrap` to format the text
-    dd <- data_frame(node=node, parent=parent, subs=subs)
+    dd <- data_frame(node=node, parent=pp, subs=subs)
     dd <- dd[dd$parent != 0,]
     return(dd)
 }

@@ -6,7 +6,6 @@
 ##' @param obj2 tree object 2
 ##' @return tree object
 ##' @importFrom magrittr %<>%
-##' @importFrom ggplot2 fortify
 ##' @importFrom dplyr full_join
 ##' @export
 ##' @author Guangchuang Yu
@@ -24,8 +23,12 @@ merge_tree <- function(obj1, obj2) {
         stop("input should be tree objects...")
     }
 
-    tr1 <- get.tree(obj1)
-    tr2 <- get.tree(obj2)
+    if (nrow(obj2@data) == 0 && nrow(obj2@extraInfo) == 0)
+        return(obj1)
+
+
+    tr1 <- as.phylo(obj1)
+    tr2 <- as.phylo(obj2)
 
     if (getNodeNum(tr1) != getNodeNum(tr2)) {
         stop("number of nodes not equals...")
@@ -48,8 +51,8 @@ merge_tree <- function(obj1, obj2) {
     node2 <- node_map$from
 
     while(length(node1) > 0) {
-        p1 = sapply(node1, getParent, tr = tr1)
-        p2 = sapply(node2, getParent, tr = tr2)
+        p1 = sapply(node1, parent, .data = tr1)
+        p2 = sapply(node2, parent, .data = tr2)
         if (!all(duplicated(p1) == duplicated(p2))) {
             stop("tree structure not identical...")
         }
@@ -66,20 +69,21 @@ merge_tree <- function(obj1, obj2) {
     i <- order(node_map.df[,1], decreasing = FALSE)
     node_map.df <- node_map.df[i,]
 
-    info2 <- fortify(obj2)
-    info2$node <- node_map.df[info2$node, 2]
-    info2$parent <- node_map.df[info2$parent, 2]
+    if (nrow(obj2@data) == 0) {
+        info2 <- obj2@extraInfo
+    } else if (nrow(obj2@extraInfo) == 0) {
+        info2 <- obj2@data
+    } else {
+        info2 <- full_join(obj2@data, obj2@extraInfo, by = "node")
+    }
 
-    cn <- colnames(info2)
-    i <- match(c("x", "y", "isTip", "label", "branch", "branch.length", "angle"), cn)
-    i <- i[!is.na(i)]
-    info2 <- info2[, -i]
+    info2$node <- node_map.df[match(info2$node, node_map.df[,1]),2]
 
     extraInfo <- obj1@extraInfo
     if (nrow(extraInfo) == 0) {
-        obj1@extraInfo <- as_data_frame(info2)
+        obj1@extraInfo <- info2
     } else {
-        obj1@extraInfo <- full_join(extraInfo, info2, by = c("node", "parent"))
+        obj1@extraInfo <- full_join(extraInfo, info2, by = "node")
     }
 
     return(obj1)

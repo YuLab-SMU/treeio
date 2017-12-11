@@ -22,11 +22,6 @@ read.r8s <- function(file) {
     label <- gsub("^\\[(\\w+)\\s.*", "\\1", r8s[label_idx])
     names(trees) <- label
 
-    ## new("r8s",
-    ##     file = filename(file),
-    ##     fields = label,
-    ##     phylo = trees)
-
     return(trees)
 }
 

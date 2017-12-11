@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.3.5
+------------------------
+ o parent, ancestor, child, offspring, rootnode and sibling generic and method for phylo <2017-12-11, Mon>
+ o update mask and merge_tree function according to the treedata object <2017-12-11, Mon>
+
 CHANGES IN VERSION 1.3.4
 ------------------------
  o support tbl_tree object defined in tidytree <2017-12-08, Fri>

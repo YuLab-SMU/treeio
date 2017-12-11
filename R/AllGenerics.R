@@ -89,3 +89,100 @@ setGeneric("groupOTU", function(object, focus, group_name="group", ...) standard
 ##' @export
 setGeneric("groupClade", function(object, node, group_name="group", ...) standardGeneric("groupClade"))
 
+
+
+##' access child data
+##'
+##'
+##' @title child
+##' @rdname child
+##' @param .data A tbl_tree data frame
+##' @param ... additional parameters
+##' @return child data
+##' @export
+##' @author guangchuang yu
+child <- function(.data, ...) {
+    UseMethod("child")
+}
+
+##' access offspring data
+##'
+##'
+##' @title offspring
+##' @rdname offspring
+##' @inheritParams child
+##' @return offspring data
+##' @export
+##' @author guangchuang yu
+offspring <- function(.data, ...) {
+    UseMethod("offspring")
+}
+
+
+##' access parent data
+##'
+##'
+##' @title parent
+##' @rdname parent
+##' @inheritParams child
+##' @return parent data
+##' @export
+##' @author guangchuang yu
+parent <- function(.data, ...) {
+    UseMethod("parent")
+}
+
+
+##' access ancestor data
+##'
+##'
+##' @title ancestor
+##' @rdname ancestor
+##' @inheritParams child
+##' @return ancestor data
+##' @export
+##' @author guangchuang yu
+ancestor <- function(.data, ...) {
+    UseMethod("ancestor")
+}
+
+##' access most recent common ancestor data
+##'
+##'
+##' @title mrca
+##' @rdname mrca
+##' @inheritParams child
+##' @return mrca data
+##' @export
+##' @author guangchuang yu
+mrca <- function(.data, ...) {
+    UseMethod("mrca")
+}
+
+
+##' access root node data
+##'
+##'
+##' @title rootnode
+##' @rdname rootnode
+##' @inheritParams child
+##' @return root node data
+##' @export
+##' @author guangchuang yu
+rootnode <- function(.data, ...) {
+    UseMethod("rootnode")
+}
+
+##' access sibling data
+##'
+##'
+##' @title sibling
+##' @rdname sibling
+##' @inheritParams child
+##' @return sibling
+##' @export
+##' @author guangchuang yu
+sibling <- function(.data, ...) {
+    UseMethod("sibling")
+}
+

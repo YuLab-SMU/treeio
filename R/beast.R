@@ -128,7 +128,7 @@ read.stats_beast_internal <- function(beast, tree) {
         gsub("[:;].*", "", .)
 
     phylo <- read.tree(text = tree2)
-    root <- getRoot(phylo)
+    root <- rootnode(phylo)
     nnode <- phylo$Nnode
 
     ## phylo2 <- read.nexus(file)
