@@ -1,20 +1,3 @@
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="treedata"),
-          function(object, focus, group_name="group", ...) {
-              groupOTU_(object, focus, group_name, ...)
-          }
-          )
-
-##' group tree based on selected OTU, will traceback to MRCA
-##'
-##'
-##' @rdname groupOTU-methods
-##' @exportMethod groupOTU
-setMethod("groupOTU", signature(object="phylo"),
-          function(object, focus, group_name="group", ...) {
-              groupOTU.phylo(object, focus, group_name, ...)
-          })
 
 ##' @importFrom ape which.edge
 gfocus <- function(phy, focus, group_name, focus_label=NULL, overlap="overwrite") {
@@ -56,17 +39,11 @@ gfocus <- function(phy, focus, group_name, focus_label=NULL, overlap="overwrite"
 }
 
 
-##' group OTU
-##'
-##'
-##' @title groupOTU.phylo
-##' @param phy tree object
-##' @param focus tip list
-##' @param group_name name of the group
-##' @param ... additional parameters
-##' @return phylo object
-##' @author ygc
-groupOTU.phylo <- function(phy, focus, group_name="group", ...) {
+##' @method groupOTU phylo
+##' @export
+groupOTU.phylo <- function(.data, .node, group_name="group", ...) {
+    phy <- .data
+    focus <- .node
     attr(phy, group_name) <- NULL
     if ( is(focus, "list") ) {
         for (i in 1:length(focus)) {
@@ -81,13 +58,8 @@ groupOTU.phylo <- function(phy, focus, group_name="group", ...) {
     return(phy)
 }
 
-groupOTU_ <- function(object, focus, group_name, ...) {
-    if (is(object, "phylo")) {
-        object <- groupOTU.phylo(object, focus, group_name, ...)
-    } else {
-        object@phylo <- groupOTU.phylo(get.tree(object), focus, group_name, ...)
-    }
-    return(object)
+##' @method groupOTU treedata
+##' @export
+groupOTU.treedata <- function(.data, .node, group_name = "group", ...) {
+    .data@phylo <- groupOTU(as.phylo(.data), .node, group_name, ...)
 }
-
-

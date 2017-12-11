@@ -15,11 +15,6 @@ TRUE or FALSE
 \description{
 test whether input object is produced by ggtree function
 }
-\examples{
-library(ggtree)
-p <- ggtree(rtree(30))
-is.ggtree(p)
-}
 \author{
 guangchuang yu
 }

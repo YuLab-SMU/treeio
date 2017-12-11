@@ -7,7 +7,7 @@
 rootnode(.data, ...)
 }
 \arguments{
-\item{.data}{A tbl_tree data frame}
+\item{.data}{phylo or tbl_tree object}
 
 \item{...}{additional parameters}
 }

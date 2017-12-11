@@ -11,7 +11,7 @@ get.fields(object, ...)
 \S4method{get.fields}{treedata}(object)
 }
 \arguments{
-\item{object}{one of \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object}
+\item{object}{\code{treedata} object}
 
 \item{...}{additional parameter}
 }

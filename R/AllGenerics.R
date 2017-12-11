@@ -39,7 +39,7 @@ setGeneric("get.treetext", function(object, ...) standardGeneric("get.treetext")
 ##' @name get.fields
 ##' @rdname get.fields-methods
 ##' @title get.fields method
-##' @param object one of \code{jplace}, \code{beast}, \code{hyphy}, \code{codeml}, \code{codeml_mlc}, \code{paml_rst} object
+##' @param object \code{treedata} object
 ##' @param ... additional parameter
 ##' @return available annotation variables
 ##' @export
@@ -62,41 +62,38 @@ setGeneric (
   }
 )
 
-
-##' @docType methods
-##' @name groupOTU
-##' @rdname groupOTU-methods
-##' @title groupOTU method
-##' @param object supported objects, including phylo, paml_rst,
-##'               codeml_mlc, codeml, jplace, beast, hyphy
-##' @param focus a vector of tip (label or number) or a list of tips.
-##' @param group_name name of the group, 'group' by default
+##' grouping OTUs
+##'
+##'
+##' @title groupOTU
+##' @param .data tree object (phylo, treedata, tbl_tree, ggtree etc.)
+##' @param .node selected nodes
 ##' @param ... additional parameter
-##' @return group index
+##' @return updated tree with group information or group index
+##' @author guangchuang yu
 ##' @export
-setGeneric("groupOTU", function(object, focus, group_name="group", ...) standardGeneric("groupOTU"))
+groupOTU <- function(.data, .node, ...) {
+    UseMethod("groupOTU")
+}
 
-##' @docType methods
-##' @name groupClade
-##' @rdname groupClade-methods
-##' @title groupClade method
-##' @param object supported objects, including phylo, paml_rst,
-##'               codeml_mlc, codeml, jplace, beast, hyphy
-##' @param node a internal node or a vector of internal nodes
-##' @param group_name name of the group, 'group' by default
-##' @param ... additional parameter
-##' @return group index
+##' grouping clades
+##'
+##'
+##' @title groupClade
+##' @inheritParams groupOTU
+##' @return updated tree with group information or group index
+##' @author Guangchuang Yu
 ##' @export
-setGeneric("groupClade", function(object, node, group_name="group", ...) standardGeneric("groupClade"))
-
-
+groupClade <- function(.data, .node, ...) {
+    UseMethod("groupClade")
+}
 
 ##' access child data
 ##'
 ##'
 ##' @title child
 ##' @rdname child
-##' @param .data A tbl_tree data frame
+##' @param .data phylo or tbl_tree object
 ##' @param ... additional parameters
 ##' @return child data
 ##' @export

@@ -1,6 +1,6 @@
 context("as.phylo")
 
-library(ggtree)
+## library(ggtree)
 
 ## in tree 1.3.4 and ggtree 1.11.4, converting tree to data.frame is deprecated.
 ## new treeio and ggtree supports tbl_tree object

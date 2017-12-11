@@ -89,10 +89,6 @@ Nnode2 <- getNodeNum
 ##' @param x object
 ##' @return TRUE or FALSE
 ##' @export
-##' @examples
-##' library(ggtree)
-##' p <- ggtree(rtree(30))
-##' is.ggtree(p)
 ##' @author guangchuang yu
 is.ggtree <- function(x) inherits(x, 'ggtree')
 
