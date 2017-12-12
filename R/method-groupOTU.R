@@ -1,6 +1,11 @@
 
 ##' @importFrom ape which.edge
-gfocus <- function(phy, focus, group_name, focus_label=NULL, overlap="overwrite") {
+gfocus <- function(phy, focus, group_name, focus_label=NULL,
+                   overlap="overwrite", connect = FALSE) {
+
+    ## see https://groups.google.com/forum/#!msg/bioc-ggtree/Q4LnwoTf1DM/yEe95OFfCwAJ
+    ## for connect parameter
+
     overlap <- match.arg(overlap, c("origin", "overwrite", "abandon"))
 
     if (is.character(focus)) {
@@ -18,8 +23,9 @@ gfocus <- function(phy, focus, group_name, focus_label=NULL, overlap="overwrite"
         focus_label <- i
     }
 
-    ## sn <- phy$edge[which.edge(phy, focus),] %>% as.vector %>% unique
-    hit <- unique(as.vector(phy$edge[which.edge(phy, focus),]))
+    induced_edge <- phy$edge[which.edge(phy, focus),]
+
+    hit <- unique(as.vector(induced_edge))
     if (overlap == "origin") {
         sn <- hit[is.na(foc[hit]) | foc[hit] == 0]
     } else if (overlap == "abandon") {
@@ -28,6 +34,12 @@ gfocus <- function(phy, focus, group_name, focus_label=NULL, overlap="overwrite"
         sn <- hit[!idx]
     } else {
         sn <- hit
+    }
+
+    if (length(sn) > 0 && connect) {
+        if (sum(table(induced_edge[,1]) > 1) == 1) {
+            sn <- focus
+        }
     }
 
     if (length(sn) > 0) {

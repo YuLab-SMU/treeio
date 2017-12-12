@@ -48,3 +48,9 @@ Nnode.treedata <- function(phy, internal.only=TRUE, ...) {
     Nnode(as.phylo(phy), internal.only = internal.only, ...)
 }
 
+##' @method is.rooted treedata
+##' @importFrom ape is.rooted
+##' @export
+is.rooted.treedata <- function(phy) {
+    is.rooted(as.phylo(phy))
+}
