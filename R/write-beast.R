@@ -68,6 +68,8 @@ write_beast_newick <- function(treedata, file = "", append = FALSE, digits = 10,
     phy <- as.phylo(treedata)
 
     anno <- get_tree_data(treedata)
+    anno <- anno[!colnames(anno) %in% c('subs', "AA_subs")] ## currently substitution is not supported
+
     cn <- colnames(anno)
     col_type <- sapply(anno, class)
     yy <- lapply(which(!cn %in% c('node', 'label')), function(i) {

@@ -1,0 +1,108 @@
+---
+title: "Exporting trees with data"
+author: "Guangchuang Yu\\
+
+        School of Public Health, The University of Hong Kong"
+date: "`r Sys.Date()`"
+bibliography: treeio.bib
+biblio-style: apalike
+output:
+  prettydoc::html_pretty:
+    toc: true
+    theme: cayman
+    highlight: github
+  pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Exporting trees with data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis", message=FALSE}
+knitr::opts_chunk$set(tidy = FALSE,
+		   message = FALSE)
+```
+
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("treeio")
+```
+
+# Introduction
+
+The [treeio](https://bioconductor.org/packages/treeio/) package supports parsing
+various phylogenetic tree file formats including software outputs that contain
+evolutionary evidences. Some of the formats are just log file
+(*e.g.* [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html)
+and [r8s](http://ginger.ucdavis.edu/r8s) outputs), while some of the others are
+non-standard formats (*e.g.* [BEAST](http://beast2.org/)
+and [MrBayes](http://nbisweden.github.io/MrBayes/) outputs that introduce square
+bracket, which was reserved to store comment in standard Nexus format, to store
+inferences). With [treeio](https://bioconductor.org/packages/treeio/), we are
+now able to parse these files to extract phylogenetic tree and map associated
+data on the tree structure. Exporting the tree structure is easy, user can use
+`as.phyo` method defined [treeio](https://bioconductor.org/packages/treeio/) to
+convert `treedata` object to `phylo` object then using `write.tree` or
+`write.nexus` implemented
+in [ape](https://cran.r-project.org/web/packages/ape/index.html) package
+[@paradis_ape_2004] to export the tree structure as Newick text or Nexus file.
+This is quite useful for converting non-standard formats to standard format and
+for extracting tree from software outputs, such as log file, to standard tree format.
+
+
+However, exporting tree with associated data is still challenging. These
+associated data can be parsed from analysis programs or obtained from external
+sources (*e.g.* phenotypic data, experimental data and clinical data). The major
+obstacle here is that there is no standard format that designed for storing
+tree with data. [NeXML](http://www.nexml.org/) [@vos_nexml:_2012] maybe the most
+flexible format, however it is currently not widely supported. Most of the
+analysis programs in this field rely extensively on Newick string and Nexus
+format. In my opinion, although BEAST Nexus
+format^[http://beast.community/nexus_metacomments] may not be the best solution,
+it is currently a good approach for storing heterogeneous associated data. The
+beauty of the format is that all the annotate elements are stored within square
+bracket, which is reserved for comments. So that the file can be parsed as
+standard Nexus by ignoring annotate elements and existing programs should be
+able to read them.
+
+# Exporting tree data
+
+
+## Exporting software output to BEAST Nexus format
+
+The [treeio](https://bioconductor.org/packages/treeio/) package provides
+`write.beast` to export `treedata` object as BEAST Nexus file.
+With [treeio](https://bioconductor.org/packages/treeio/), it is easy to convert
+software output to BEAST format if the output can be parsed
+by [treeio](https://bioconductor.org/packages/treeio/). For example, we can
+convert NHX file to BEAST file and use NHX tags to color the tree using
+FigTree^[http://beast.community/figtree] or convert CODEML output and use
+*d~N~/d~S~*, *d~N~* or *d~S~* to color the tree in FigTree.
+
+```{r comment=NA}
+nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
+nhx <- read.nhx(nhxfile)
+# write.beast(nhx, file = "phyldog.tree")
+write.beast(nhx)
+```
+
+![](figures/phyldog.png)
+
+
+```{r comment=NA}
+rstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
+ml <- read.codeml(rstfile, mlcfile)
+# write.beast(ml, file = "codeml.tree")
+write.beast(ml)
+```
+
+![](figures/codeml.png)
+
+
+
+# References
+
+
+

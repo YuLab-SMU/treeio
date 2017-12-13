@@ -46,8 +46,6 @@ library("yyplot")
 For details, please visit our project website, <https://guangchuangyu.github.io/treeio>.
 
 + [Documentation](https://guangchuangyu.github.io/treeio/documentation/)
-+ [FAQ](https://guangchuangyu.github.io/treeio/faq/)
-+ [Featured Articles](https://guangchuangyu.github.io/treeio/featuredArticles/)
 + [Feedback](https://guangchuangyu.github.io/treeio/#feedback)
 
 ### Download stats
