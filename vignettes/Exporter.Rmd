@@ -14,7 +14,7 @@ output:
   pdf_document:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Exporting trees with data}
+  %\VignetteIndexEntry{02 Exporting trees with data}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
