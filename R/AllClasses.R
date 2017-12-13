@@ -18,7 +18,6 @@ setOldClass("ggtree")
 ##' @slot file tree file
 ##' @slot treetext newick tree string
 ##' @slot phylo phylo object for tree structure
-##' @slot translation tip number to name translation in nexus file
 ##' @slot data associated data
 ##' @slot extraInfo extra information, reserve for merge_tree
 ##' @slot tip_seq tip sequences
@@ -38,7 +37,6 @@ setClass("treedata",
              file        = "character",
              treetext    = "character",
              phylo       = "phylo",
-             translation = "matrix",
              data        = "tbl_df",
              extraInfo   = "tbl_df",
              tip_seq     = "DNAbin",
@@ -68,7 +66,6 @@ setClass("treedata",
 ##' @slot data associated data
 ##' @slot extraInfo extra information, reserve for merge_tree
 ##' @slot file tree file
-##' @slot translation tip number to name translation in nexus file
 ##' @slot placements reserve for jplace file to store placement information
 ##' @slot info extra information, e.g. metadata, software version etc.
 ##' @exportClass jplace

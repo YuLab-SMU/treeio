@@ -11,7 +11,7 @@
 ##' @importFrom ape .uncompressTipLabel
 ##' @export
 ##' @examples
-##' nhxfile <- system.file("extdata/NHX", "phylodog.nhx", package="treeio")
+##' nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 ##' nhx <- read.nhx(nhxfile)
 ##' write.beast(nhx)
 ##' @author guangchuang yu

@@ -22,7 +22,7 @@ output file or file content on screen
 Export \code{treedata} object to BEAST NEXUS file. This function was adopted and modified from ape::write.nexus
 }
 \examples{
-nhxfile <- system.file("extdata/NHX", "phylodog.nhx", package="treeio")
+nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 nhx <- read.nhx(nhxfile)
 write.beast(nhx)
 }

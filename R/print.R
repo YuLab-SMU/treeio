@@ -34,8 +34,12 @@ print.treedata <- function(x, ...) {
 
 
 print_fields <- function(object) {
+    fields <- get.fields(object)
+    if (length(fields) == 1 && fields == "") {
+        return()
+    }
     cat("\nwith the following features available:\n")
-    ff <- paste0("\t'",paste(get.fields(object), collapse="',\t'"), "'.\n")
+    ff <- paste0("\t'",paste(fields, collapse="',\t'"), "'.\n")
     cat(fields_wrap(ff))
 }
 

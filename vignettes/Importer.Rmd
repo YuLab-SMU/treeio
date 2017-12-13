@@ -1,0 +1,340 @@
+---
+title: "Importing trees with data"
+author: "Guangchuang Yu\\
+
+        School of Public Health, The University of Hong Kong"
+date: "`r Sys.Date()`"
+bibliography: treeio.bib
+biblio-style: apalike
+output:
+  prettydoc::html_pretty:
+    toc: true
+    theme: cayman
+    highlight: github
+  pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Importing trees with data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r style, echo=FALSE, results="asis", message=FALSE}
+knitr::opts_chunk$set(tidy = FALSE,
+		   message = FALSE)
+```
+
+
+```{r echo=FALSE, results="hide", message=FALSE}
+library("treeio")
+```
+
+# Introduction
+
+Phylogenetic trees are commonly used to present evolutionary relationships of
+species. Information associated with taxon species/strains may be further
+analyzed in the context of the evolutionary history depicted by the phylogenetic
+tree. For example, host information of the influenza virus strains in the tree
+could be studied to understand host range of a virus linage. Moreover, such
+meta-data (*e.g.*, isolation host, time, location, *etc.*) directly associated
+with taxon strains are also often subjected to further evolutionary or
+comparative phylogenetic models and analyses, to infer their dynamics associated
+with the evolutionary or transmission processes of the virus. All these
+meta-data or other phenotypic or experimental data are stored either as the
+annotation data associated with the nodes or branches, and are often produced in
+inconsistent format by different analysis programs. Getting analysis results
+from widely used software packages in this field is quite challenging and generally
+requires programming expertise. Linking external data, including experimental
+and clinical data, to phylogeny is another obstacle for evolution biologists.
+
+
+The [treeio](https://bioconductor.org/packages/treeio/) package defines base
+classes and functions for phylogenetic tree input and output. It is an
+infrastructure that enables evolutionary evidences that inferred by commonly
+used software packages to be used in `R`. For instance, *d~N~/d~S~* values or
+ancestral sequences inferred
+by [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) [@yang_paml_2007],
+clade support values (posterior) inferred
+by [BEAST](http://beast2.org/) [@bouckaert_beast_2014] and short read placement
+by
+[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) [@berger_EPA_2011]
+and [pplacer](http://matsen.fhcrc.org/pplacer/) [@matsen_pplacer_2010]. These
+evolutionary evidences can be further analyzed in `R` and used to annotate
+phylogenetic tree using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017]. The
+growth of analysis tools and models available introduces a challenge to
+integrate different varieties of data and analysis results from different
+sources for an integral analysis on the the same phylogenetic tree background.
+The [treeio](https://bioconductor.org/packages/treeio/) package provides a
+`merge_tree` function to allow combining tree data obtained from different
+sources. In addition, [treeio](https://bioconductor.org/packages/treeio/) also
+enables external data to be linked to phylogenetic tree structure.
+
+
+# Getting tree data into R
+
+To fill the gap that most of the tree formats or software outputs cannot be
+easily parsed with the same
+software/platform, [treeio](https://bioconductor.org/packages/treeio/)
+implemented several functions for parsing various tree file formats and outputs
+of common evolutionary analysis software. Not only the tree structure can be
+parsed but also the associated data and evolutionary inferences, including NHX
+annotation, clock rate inferences (from [BEAST](http://beast2.org/)
+or [r8s](http://ginger.ucdavis.edu/r8s) [@sanderson_r8s:_2003] programs),
+snynonymous and non-synonymous substitutions (from CodeML), and ancestral
+sequence construction (from
+[HyPhy](https://veg.github.io/hyphy-site/),
+[BaseML](http://abacus.gene.ucl.ac.uk/software/paml.html)
+or [CodeML](http://abacus.gene.ucl.ac.uk/software/paml.html)), *etc.*.
+
+Currently, [treeio](https://bioconductor.org/packages/treeio/) is able to read the following file formats: Newick, Nexus, New
+Hampshire eXtended format (NHX), jplace and Phylip as well as the data outputs
+from the following analysis
+programs:
+[BEAST](http://beast2.org/),
+[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html),
+[HyPhy](https://veg.github.io/hyphy-site/),
+[MrBayes](http://nbisweden.github.io/MrBayes/),
+[PAML](http://abacus.gene.ucl.ac.uk/software/paml.html),
+[PHYLDOG](https://pbil.univ-lyon1.fr/software/phyldog/),
+[phyloT](http://phylot.biobyte.de/)^[https://www.biostars.org/p/210401/],
+[pplacer](http://matsen.fhcrc.org/pplacer/),
+[r8s](http://ginger.ucdavis.edu/r8s),
+[RAxML](http://evomics.org/learning/phylogenetics/raxml/) and
+[RevBayes](https://revbayes.github.io/intro.html).
+
+
+```{r treeio-function, echo=F, message=FALSE}
+ff <- matrix(c(
+  "read.beast"      , "parsing output of BEAST",
+  "read.codeml"     , "parsing output of CodeML (rst and mlc files)",
+  "read.codeml_mlc" , "parsing mlc file (output of CodeML)",
+  "read.hyphy"      , "parsing output of HYPHY",
+  "read.jplace"     , "parsing jplace file including output of EPA and pplacer",
+  "read.mrbayes"    , "parsing output of MrBayes",
+  "read.newick"     , "parsing newick string, with ability to parse node label as support values",
+  "read.nhx"        , "parsing NHX file including output of PHYLDOG and RevBayes",
+  "read.paml_rst"   , "parsing rst file (output of BaseML or CodeML)",
+  "read.phylip"     , "parsing phylip file (phylip alignment + newick string)",
+  "read.phyloT"     , "parsing output of phyloT",
+  "read.r8s"        , "parsing output of r8s",
+  "read.raxml"      , "parsing output of RAxML"
+  ), ncol=2, byrow=TRUE)
+ff <- as.data.frame(ff)
+colnames(ff) <- c("Parser function", "Description")
+knitr::kable(ff, caption = "Parser functions defined in treeio", booktabs = T)
+```
+
+After parsing, storage of the tree structure with associated data is made
+through a S4 class, treedata, defined in the [treeio](https://bioconductor.org/packages/treeio/) package. These parsed data
+are mapped to the tree branches and nodes inside `treedata` object, so that they
+can be efficiently used to visually annotate the tree
+using [ggtree](https://bioconductor.org/packages/ggtree/) package [@yu_ggtree:_2017].
+[treeio](https://bioconductor.org/packages/treeio/) provides functions to merge these phylogeny-associated data for
+comparison and further analysis.
+
+
+## Parsing BEAST output
+
+```{r}
+file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
+beast <- read.beast(file)
+beast
+```
+
+Since _`%`_ is not a valid character in _`names`_, all the feature names that contain _`x%`_ will convert to _`0.x`_. For example, _`length_95%_HPD`_ will be changed to _`length_0.95_HPD`_.
+
+The _`get.fields`_ method return all available features that can be used for
+annotation.
+
+```{r}
+get.fields(beast)
+```
+
+
+## Parsing MrBayes output
+
+```{r}
+file <- system.file("extdata/MrBayes", "Gq_nxs.tre", package="treeio")
+read.mrbayes(file)
+```
+
+## Parsing PAML output
+
+The `read.paml_rst` function can parse *rst* file
+from [BASEML](http://abacus.gene.ucl.ac.uk/software/paml.html)
+and [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html). The only
+difference is the space in the sequences.
+For [BASEML](http://abacus.gene.ucl.ac.uk/software/paml.html), each ten bases
+are separated by one space, while
+for [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html), each three bases
+(triplet) are separated by one space.
+
+```{r fig.width=12, fig.height=10, warning=FALSE, fig.align="center"}
+brstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
+brst <- read.paml_rst(brstfile)
+brst
+```
+
+Similarly, we can parse the *rst* file from [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html).
+
+```{r}
+crstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
+## type can be one of "Marginal" or "Joint"
+crst <- read.paml_rst(crstfile, type = "Joint")
+crst
+```
+
+Ancestral sequences inferred by [BASEML](http://abacus.gene.ucl.ac.uk/software/paml.html)
+or [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) via marginal or
+joint ML reconstruction methods will be stored in the S4 object and mapped to
+tree nodes. [treeio](https://bioconductor.org/packages/treeio/) will automatically determine the substitutions between the
+sequences at the both ends of each branch. Amino acid substitution will also be
+determined by translating nucleotide sequences to amino acid sequences. These
+computed substitutions will also be stored in the S4 object.
+
+
+[CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) infers selection
+pressure and estimated *d~N~/d~S~*, *d~N~* and *d~S~*. These information are
+stored in output file *mlc*, which can be parsed by `read.codeml_mlc` function.
+
+
+```{r}
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
+mlc <- read.codeml_mlc(mlcfile)
+mlc
+```
+
+
+In previous session, we separately parsed *rst* and *mlc* files. However, they
+can also be parsed together using `read.codeml` function.
+
+
+```{r}
+## tree can be one of "rst" or "mlc" to specify
+## using tree from which file as base tree in the object
+ml <- read.codeml(crstfile, mlcfile, tree = "mlc")
+ml
+```
+
+
+All the features in both *rst* and *mlc* files were imported into a single S4
+object and hence are available for further annotation and visualization. For
+example, we can annotate and display both *d~N~/d~S~* (from *mlc* file) and
+amino acid substitutions (derived from *rst* file) on the same phylogenetic tree.
+
+
+## Parsing HyPhy output
+
+
+Ancestral sequences inferred by [HyPhy](https://veg.github.io/hyphy-site/) are
+stored in the Nexus output file, which contains the tree topology and ancestral
+sequences. To parse this data file, users can use the `read.hyphy.seq` function.
+
+
+```{r warning=FALSE}
+ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
+read.hyphy.seq(ancseq)
+```
+
+To map the sequences on the tree, user shall also provide an
+internal-node-labelled tree. If users want to determine substitution, they need
+also provide tip sequences.
+
+```{r warning=FALSE}
+nwk <- system.file("extdata/HYPHY", "labelledtree.tree", package="treeio")
+tipfas <- system.file("extdata", "pa.fas", package="treeio")
+hy <- read.hyphy(nwk, ancseq, tipfas)
+hy
+```
+
+
+
+
+## Parsing r8s output
+
+[r8s](http://loco.biosci.arizona.edu/r8s/) uses parametric, semiparametric and
+nonparametric methods to relax molecular clock to allow better estimations of
+divergence times and evolution rates [@@sanderson_r8s:_2003]. It outputs three
+trees in log file, namely *TREE*, *RATO* and *PHYLO* for time tree, rate tree
+and absolute substitution tree respectively.
+
+
+Time tree is scaled by divergence time, rate tree is scaled by substitution rate
+and absolute substitution tree is scaled by absolute number of substitution.
+After parsing the file, all these three trees are stored in a *multiPhylo* object.
+
+
+```{r fig.width=4, fig.height=6, width=60, warning=FALSE, fig.align="center"}
+r8s <- read.r8s(system.file("extdata/r8s", "H3_r8s_output.log", package="treeio"))
+r8s
+```
+
+
+## Parsing output of RAxML bootstraping analysis
+
+
+[RAxML](http://evomics.org/learning/phylogenetics/raxml/) bootstraping analysis
+output a Newick tree text that is not standard as it stores bootstrap values
+inside square brackets after branch lengths. This file usually cannot be parsed
+by traditional Newick parser, such as `ape::read.tree`. The function
+`read.raxml` can read such file and stored the bootstrap as an additional
+features, which can be used to display on the tree or used to color tree
+branches, *etc.*.
+
+```{r fig.width=12, fig.height=10, width=60, warning=FALSE, fig.align="center"}
+raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio")
+raxml <- read.raxml(raxml_file)
+raxml
+```
+
+
+## Parsing NHX tree
+
+NHX (New Hampshire eXtended) format is an extension of Newick by introducing NHX
+tags. NHX is commonly used in phylogenetics software
+(including
+[PHYLDOG](http://pbil.univ-lyon1.fr/software/phyldog/) [@boussau_genome-scale_2013],
+[RevBayes](http://revbayes.github.io/intro.html) [@hohna_probabilistic_2014])
+for storing statistical inferences. The following codes imported a NHX tree with
+associated data inferred by PHYLDOG.
+
+```{r}
+nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
+nhx <- read.nhx(nhxfile)
+nhx
+```
+
+## Parsing Phylip tree
+
+Phylip format contains multiple sequence alignment of taxa in Phylip sequence
+format with corresponding Newick tree text that was built from taxon sequences.
+Sequence alignment can be sorted based on the tree structure and displayed at
+the right hand side of the tree using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
+
+```{r}
+phyfile <- system.file("extdata", "sample.phy", package="treeio")
+phylip <- read.phylip(phyfile)
+phylip
+```
+
+## Parsing EPA and pplacer output
+
+[EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html)
+[@berger_EPA_2011] and [PPLACER](http://matsen.fhcrc.org/pplacer/)
+[@matsen_pplacer_2010] have common output file format, `jplace`, which can be
+parsed by `read.jplace()` function.
+
+```{r}
+jpf <- system.file("extdata/EPA.jplace",  package="treeio")
+jp <- read.jplace(jpf)
+print(jp)
+```
+
+The number of evolutionary placement on each branch will be calculated and
+stored as the *nplace* feature, which can be mapped to line size and/or color
+using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
+
+
+
+
+# References

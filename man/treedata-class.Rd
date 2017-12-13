@@ -19,8 +19,6 @@ This class stores phylogenetic tree with associated data
 
 \item{\code{phylo}}{phylo object for tree structure}
 
-\item{\code{translation}}{tip number to name translation in nexus file}
-
 \item{\code{data}}{associated data}
 
 \item{\code{extraInfo}}{extra information, reserve for merge_tree}

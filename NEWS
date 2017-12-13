@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.3.8
 ------------------------
+ o mv treeio.Rmd vignette to Importer.Rmd and update the contents <2017-12-13, Wed>
  o write.beast for treedata object <2017-12-12, Tue>
  o add "connect" parameter in groupOTU <2017-12-12, Tue>
    + https://groups.google.com/forum/#!msg/bioc-ggtree/Q4LnwoTf1DM/yEe95OFfCwAJ

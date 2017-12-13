@@ -30,6 +30,6 @@ URL: https://guangchuangyu.github.io/treeio
 BugReports: https://github.com/GuangchuangYu/treeio/issues
 Encoding: UTF-8
 LazyData: true
-biocViews: Alignment, Annotation, Clustering, DataImport,
-    MultipleSequenceAlignment, Software
+biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
+    Alignment, MultipleSequenceAlignment
 RoxygenNote: 6.0.1

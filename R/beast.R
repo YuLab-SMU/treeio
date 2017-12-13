@@ -13,16 +13,15 @@
 ##' file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
 ##' read.beast(file)
 read.beast <- function(file) {
-    translation <- read.trans_beast(file)
     treetext <- read.treetext_beast(file)
     stats <- read.stats_beast(file)
     phylo <- read.nexus(file)
 
     if (length(treetext) == 1) {
-        obj <- BEAST(file, treetext, translation, stats, phylo)
+        obj <- BEAST(file, treetext, stats, phylo)
     } else {
         obj <- lapply(seq_along(treetext), function(i) {
-            BEAST(file, treetext[i], translation, stats[[i]], phylo[[i]])
+            BEAST(file, treetext[i], stats[[i]], phylo[[i]])
         })
         class(obj) <- "beastList"
     }
@@ -34,7 +33,7 @@ read.beast <- function(file) {
 ##' @export
 read.mrbayes <- read.beast
 
-BEAST <- function(file, treetext, translation, stats, phylo) {
+BEAST <- function(file, treetext, stats, phylo) {
     stats$node %<>% gsub("\"*'*", "", .)
 
     phylo <- remove_quote_in_tree_label(phylo)
@@ -43,7 +42,6 @@ BEAST <- function(file, treetext, translation, stats, phylo) {
                ## fields      = fields,
                treetext    = treetext,
                phylo       = phylo,
-               translation = translation,
                data        = stats,
                file        = filename(file)
                )
@@ -284,16 +282,24 @@ read.stats_beast_internal <- function(beast, tree) {
 
     stats3 <- do.call(rbind, stats2)
     stats3 <- as_data_frame(stats3)
-    idx <- grep("\\+-", colnames(stats3))
-    if (length(idx)) {
-        for (i in idx) {
-            stats3[,i] <- as.numeric(gsub("\\d+\\+-", "", stats3[,i]))
-        }
-    }
+
+    ## no need to extract sd from prob+-sd
+    ## as the sd is stored in prob_stddev
+    ##
+    ## "prob_stddev"   "prob(percent)" "prob+-sd"
+    ##
+    ##
+    ##
+    ## idx <- grep("\\+-", colnames(stats3))
+    ## if (length(idx)) {
+    ##     for (i in idx) {
+    ##         stats3[,i] <- as.numeric(gsub("\\d+\\+-", "", stats3[,i]))
+    ##     }
+    ## }
 
     cn <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
     cn <- gsub("\\(([^\\)]+)\\)", "_\\1", cn)
-    cn <- gsub("\\+-", "_", cn)
+    ## cn <- gsub("\\+-", "_", cn)
 
     colnames(stats3) <- cn
     stats3$node <- names(stats)
