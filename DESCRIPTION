@@ -18,7 +18,7 @@ Imports:
     methods,
     rvcheck,
     tibble,
-    tidytree (>= 0.99.5)
+    tidytree (>= 0.1.5)
 Suggests:
     ggtree,
     knitr,
