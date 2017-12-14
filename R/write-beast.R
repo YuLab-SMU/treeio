@@ -9,6 +9,7 @@
 ##' @return output file or file content on screen
 ##' @importFrom ape .compressTipLabel
 ##' @importFrom ape .uncompressTipLabel
+##' @importFrom tidytree get_tree_data
 ##' @export
 ##' @examples
 ##' nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
