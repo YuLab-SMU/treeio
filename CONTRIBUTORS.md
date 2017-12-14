@@ -1,7 +1,5 @@
 Bradley Jones
 -------------
-+ as.phylo method for data.frame
-  - <https://github.com/GuangchuangYu/ggtree/pull/102>
 + beast1 tree support
   - <https://github.com/GuangchuangYu/treeio/pull/4>
 

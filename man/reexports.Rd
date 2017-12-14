@@ -18,6 +18,10 @@
 \alias{as.phylo}
 \alias{reexports}
 \alias{\%>\%}
+\alias{reexports}
+\alias{get.fields}
+\alias{reexports}
+\alias{as.treedata}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -28,5 +32,7 @@ below to see their documentation.
   \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{as.phylo}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+
+  \item{tidytree}{\code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{as.treedata}}}
 }}
 

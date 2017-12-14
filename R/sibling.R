@@ -1,3 +1,4 @@
+##' @importFrom tidytree sibling
 ##' @method sibling phylo
 ##' @export
 sibling.phylo <- function(.data, .node, ...) {

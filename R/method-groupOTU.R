@@ -50,7 +50,7 @@ gfocus <- function(phy, focus, group_name, focus_label=NULL,
     phy
 }
 
-
+##' @importFrom tidytree groupOTU
 ##' @method groupOTU phylo
 ##' @export
 groupOTU.phylo <- function(.data, .node, group_name="group", ...) {

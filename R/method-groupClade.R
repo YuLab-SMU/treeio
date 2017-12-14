@@ -1,4 +1,4 @@
-
+##' @importFrom tidytree groupClade
 ##' @importFrom ape extract.clade
 ##' @method groupClade phylo
 ##' @export

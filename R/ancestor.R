@@ -1,3 +1,4 @@
+##' @importFrom tidytree parent
 ##' @method parent phylo
 ##' @export
 parent.phylo <- function(.data, .node, ...) {
@@ -16,6 +17,7 @@ parent.phylo <- function(.data, .node, ...) {
     return(res)
 }
 
+##' @importFrom tidytree ancestor
 ##' @method ancestor phylo
 ##' @export
 ancestor.phylo <- function(.data, .node, ...) {
@@ -32,7 +34,7 @@ ancestor.phylo <- function(.data, .node, ...) {
     return(res)
 }
 
-
+##' @importFrom tidytree rootnode
 ##' @method rootnode phylo
 ##' @export
 rootnode.phylo <- function(.data, ...) {

@@ -91,9 +91,8 @@ write.beast(nhx)
 
 
 ```{r comment=NA}
-rstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
-ml <- read.codeml(rstfile, mlcfile)
+ml <- read.codeml_mlc(mlcfile)
 # write.beast(ml, file = "codeml.tree")
 write.beast(ml)
 ```
