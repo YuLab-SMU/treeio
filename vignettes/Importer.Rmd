@@ -60,14 +60,14 @@ by
 [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html) [@berger_EPA_2011]
 and [pplacer](http://matsen.fhcrc.org/pplacer/) [@matsen_pplacer_2010]. These
 evolutionary evidences can be further analyzed in `R` and used to annotate
-phylogenetic tree using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017]. The
-growth of analysis tools and models available introduces a challenge to
-integrate different varieties of data and analysis results from different
-sources for an integral analysis on the the same phylogenetic tree background.
-The [treeio](https://bioconductor.org/packages/treeio/) package provides a
-`merge_tree` function to allow combining tree data obtained from different
-sources. In addition, [treeio](https://bioconductor.org/packages/treeio/) also
-enables external data to be linked to phylogenetic tree structure.
+phylogenetic tree using [ggtree](https://bioconductor.org/packages/ggtree/)
+[@yu_ggtree:_2017]. The growth of analysis tools and models available introduces
+a challenge to integrate different varieties of data and analysis results from
+different sources for an integral analysis on the the same phylogenetic tree
+background. The [treeio](https://bioconductor.org/packages/treeio/) package
+provides a `merge_tree` function to allow combining tree data obtained from
+different sources. In addition, [treeio](https://bioconductor.org/packages/treeio/)
+also enables external data to be linked to phylogenetic tree structure.
 
 
 # Getting tree data from evolutionary analysis result
@@ -86,17 +86,16 @@ sequence construction (from
 [BaseML](http://abacus.gene.ucl.ac.uk/software/paml.html)
 or [CodeML](http://abacus.gene.ucl.ac.uk/software/paml.html)), *etc.*.
 
-Currently, [treeio](https://bioconductor.org/packages/treeio/) is able to read the following file formats: Newick, Nexus, New
-Hampshire eXtended format (NHX), jplace and Phylip as well as the data outputs
-from the following analysis
-programs:
+Currently, [treeio](https://bioconductor.org/packages/treeio/) is able to read
+the following file formats: Newick, Nexus, New Hampshire eXtended format (NHX),
+jplace and Phylip as well as the data outputs from the following analysis programs:
 [BEAST](http://beast2.org/),
 [EPA](http://sco.h-its.org/exelixis/web/software/epa/index.html),
 [HyPhy](https://veg.github.io/hyphy-site/),
 [MrBayes](http://nbisweden.github.io/MrBayes/),
 [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html),
 [PHYLDOG](https://pbil.univ-lyon1.fr/software/phyldog/),
-[phyloT](http://phylot.biobyte.de/)^[https://www.biostars.org/p/210401/],
+[phyloT](http://phylot.biobyte.de/)^[https://www.biostars.org/p/210401/#216128],
 [pplacer](http://matsen.fhcrc.org/pplacer/),
 [r8s](http://ginger.ucdavis.edu/r8s),
 [RAxML](http://evomics.org/learning/phylogenetics/raxml/) and
@@ -347,6 +346,15 @@ Functional annotations may need to be mapped on gene trees for comparative
 genomics studies. To facilitate data
 integration, [treeio](https://bioconductor.org/packages/treeio) provides
 `full_join` method to link external data to phylogeny and stored in `treedata` object.
+
+
+Here are examples of linking external data to a phylogenetic tree. After that,
+we can use [exporter](Exporter.html) to combine the tree and the data to a
+single tree file.
+
+The data that mapped on the phylogenetic tree can also be used to visualize or
+annotate the tree using [ggtree](https://bioconductor.org/packages/ggtree/)
+[@yu_ggtree:_2017].
 
 
 ```{r}
