@@ -70,7 +70,7 @@ sources. In addition, [treeio](https://bioconductor.org/packages/treeio/) also
 enables external data to be linked to phylogenetic tree structure.
 
 
-# Getting tree data into R
+# Getting tree data from evolutionary analysis result
 
 To fill the gap that most of the tree formats or software outputs cannot be
 easily parsed with the same
@@ -334,6 +334,29 @@ The number of evolutionary placement on each branch will be calculated and
 stored as the *nplace* feature, which can be mapped to line size and/or color
 using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
 
+
+
+# Linking external data to phylogeny
+
+In addition to analysis findings that are associated with the tree as we showed
+above, there is a wide range of heterogeneous data, including phenotypic data,
+experimental data and clinical data *etc.*, that need to be integrated and
+linked to phylogeny. For example, in study of viral evolution, tree nodes may
+associated with epidemiological information, such as location, age and subtype.
+Functional annotations may need to be mapped on gene trees for comparative
+genomics studies. To facilitate data
+integration, [treeio](https://bioconductor.org/packages/treeio) provides
+`full_join` method to link external data to phylogeny and stored in `treedata` object.
+
+
+```{r}
+x <- data_frame(label = as.phylo(beast)$tip.label, trait = rnorm(Ntip(beast)))
+full_join(beast, x, by="label")
+
+N <- Nnode2(beast)
+y <- data_frame(node = 1:N, fake_trait = rnorm(N), another_trait = runif(N))
+full_join(beast, y, by="node")
+```
 
 
 
