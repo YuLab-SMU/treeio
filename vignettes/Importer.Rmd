@@ -339,6 +339,25 @@ stored as the *nplace* feature, which can be mapped to line size and/or color
 using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
 
 
+## Parsing jtree format
+
+The *jtree* is a JSON based format that was defined in
+this [treeio](https://bioconductor.org/packages/treeio/) package to support [tree
+data inter change](Exporter.html#exporting-tree-data-to-json-format).
+Phylogenetic tree with associated data can be exported to a single *jtree*
+file using `write.jtree` function. The *jtree* can be easily parsed using any
+JSON parser. The *jtree* format contains three keys: tree, data and metadata.
+The tree value contains tree text extended from Newick tree format by putting
+the edge number in curly braces after branch length. The data value contains
+node/branch-specific data, while metadata value contains additional meta information.
+
+
+```{r}
+jtree_file <- tempfile(fileext = '.jtree')
+write.jtree(beast, file = jtree_file)
+read.jtree(file = jtree_file)
+```
+
 
 # Linking external data to phylogeny
 

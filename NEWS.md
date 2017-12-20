@@ -1,9 +1,11 @@
 # treeio 1.3.10
 
-* `read.jtree` and `write.jtree` functions <2017-12-20, Wed>
+* added 'Parsing jtree format' session in Importer vignette <2017-12-20, Wed>
+* added 'Exporting tree data to JSON format' in Exporter vignette
+* `read.jtree` and `write.jtree` functions
 * added 'Combining tree with external data' and 'Merging tree data from
-  different sources' sessions in Exporter vignette <2017-12-20, Wed>
-* added 'Combining tree data' and 'Manipulating tree data using tidytree' sessions in Importer vignette <2017-12-20, Wed>
+  different sources' sessions in Exporter vignette
+* added 'Combining tree data' and 'Manipulating tree data using tidytree' sessions in Importer vignette
 * full_join method for treedata object and added 'Linking external data to phylogeny' session in Importer vignette <2017-12-15, Fri>
 
 # treeio 1.3.9

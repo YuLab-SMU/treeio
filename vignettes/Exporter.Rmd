@@ -26,6 +26,7 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 
 ```{r echo=FALSE, results="hide", message=FALSE}
+library('jsonlite')
 library("treeio")
 ```
 
@@ -72,7 +73,7 @@ able to read them.
 ## Exporting/converting software output
 
 The [treeio](https://bioconductor.org/packages/treeio/) package provides
-`write.beast` to export `treedata` object as BEAST Nexus file.
+`write.beast` to export `treedata` object as BEAST Nexus file [@bouckaert_beast_2014].
 With [treeio](https://bioconductor.org/packages/treeio/), it is easy to convert
 software output to BEAST format if the output can be parsed
 by [treeio](https://bioconductor.org/packages/treeio/). For example, we can
@@ -148,7 +149,10 @@ be exported into a single file.
 write.beast(tree2)
 ```
 
-The output BEAST Nexus file can be imported into R using the `read.beast` function.
+The output BEAST Nexus file can be imported into R using the `read.beast`
+function and all the associated data can be used to annotate the tree
+using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
+
 
 ```{r}
 outfile <- tempfile(fileext = ".tree")
@@ -156,6 +160,46 @@ write.beast(tree2, file = outfile)
 read.beast(outfile)
 ```
 
+# Exporting tree data to JSON format
+
+The [treeio](https://bioconductor.org/packages/treeio/) package provides
+`write.beast` to export `treedata` to BEAST Nexus file. This is quite useful
+to convert file format, combine tree with data and merging tree data from
+different sources as we demonstrated in
+[Exporting tree data to BEAST Nexus format](#exporting-tree-data-to-beast-nexus-format) session.
+The [treeio](https://bioconductor.org/packages/treeio/) package also supplies
+`read.beast` function to parse output file of `write.beast`. Although
+with [treeio](https://bioconductor.org/packages/treeio/), the R community has the ability to
+manipulate BEAST Nexus format and process tree data, there is still lacking
+library/package for parsing BEAST file in other programming language.
+
+JSON (JavaScript Object Notation)^[https://www.json.org/] is a lightweight data-interchange format and
+widely supported in almost all modern programming languages. To make it easy
+to import tree with data in other programming
+languages, [treeio](https://bioconductor.org/packages/treeio/) supports
+exporting tree with data in JSON format, which can be easy to parse using any
+languages that supports JSON.
+
+```{r comment=NA}
+write.jtree(tree2)
+```
+
+Such JSON based tree file can be easy to parse using JSON parser.
+
+```{r comment=NA}
+jtree_file <- tempfile(fileext = '.jtree')
+write.jtree(tree2, file = jtree_file)
+jsonlite::fromJSON(jtree_file)
+```
+
+
+The *jtree* file can be directly imported as a `treedata` object using
+`read.jtree` provided also
+in [treeio](https://bioconductor.org/packages/treeio/) package.
+
+```{r}
+read.jtree(jtree_file)
+```
 
 # References
 
