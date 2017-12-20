@@ -86,5 +86,7 @@ merge_tree <- function(obj1, obj2) {
         obj1@extraInfo <- full_join(extraInfo, info2, by = "node")
     }
 
+    obj1@file <- c(obj1@file, obj2@file)
+    obj1@file <- obj1@file[obj1@file != ""]
     return(obj1)
 }

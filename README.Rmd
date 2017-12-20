@@ -8,7 +8,7 @@ html_preview: false
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-#  treeio: Base classes and functions for parsing and exporting phylogenetic tree
+#  treeio: Base classes and functions for phylogenetic tree input and output
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 #library("txtplot")
@@ -40,6 +40,12 @@ library("yyplot")
 [![Linux/Mac Travis Build Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/GuangchuangYu/treeio)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/Guangchuangyu/treeio/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/treeio)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/treeio.svg?style=social)](https://twitter.com/intent/tweet?hashtags=treeio&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
+
+
+```{r comment="", echo=FALSE, results='asis'}
+cat(packageDescription('treeio')$Description)
+```
+
 
 -----------------------------------------------------
 

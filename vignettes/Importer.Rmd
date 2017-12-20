@@ -26,6 +26,11 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 
 ```{r echo=FALSE, results="hide", message=FALSE}
+library(tidyr)
+library(dplyr)
+library(tidytree)
+library(ggplot2)
+
 library("treeio")
 ```
 
@@ -350,9 +355,7 @@ integration, [treeio](https://bioconductor.org/packages/treeio) provides
 
 Here are examples of linking external data to a phylogenetic tree. After that,
 we can use [exporter](Exporter.html) to combine the tree and the data to a
-single tree file.
-
-The data that mapped on the phylogenetic tree can also be used to visualize or
+single tree file. The data that mapped on the phylogenetic tree can also be used to visualize or
 annotate the tree using [ggtree](https://bioconductor.org/packages/ggtree/)
 [@yu_ggtree:_2017].
 
@@ -366,6 +369,114 @@ y <- data_frame(node = 1:N, fake_trait = rnorm(N), another_trait = runif(N))
 full_join(beast, y, by="node")
 ```
 
+
+# Combining tree data
+
+The [treeio](https://bioconductor.org/packages/treeio/) package serves as an
+infrastructure that enables various types of phylogenetic data inferred from
+common analysis programs to be imported and used in R. For instance *d~N~/d~S~*
+or ancestral sequences estimated
+by [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html),
+and clade support values (posterior) inferred
+by [BEAST](http://beast2.org/)/[MrBayes](http://nbisweden.github.io/MrBayes/).
+In addition, [treeio](https://bioconductor.org/packages/treeio/) package
+supports linking external data to phylogeny. It brings these external
+phylogenetic data (either from software output or exteranl sources) to the R
+community and make it available for further analysis in R.
+Furthermore, [treeio](https://bioconductor.org/packages/treeio/) can combine
+multiple phylogenetic trees together into one with their node/branch-specific
+attribute data. Essentially, as a result, one such attribute (*e.g.*,
+substitution rate) can be mapped to another attribute (*e.g.*, *d~N~/d~S~*) of
+the same node/branch for comparison and further computations.
+
+
+A previously published data set, seventy-six H3 hemagglutinin gene sequences of
+a lineage containing swine and human influenza A viruses
+[@liang_expansion_2014], was here to demonstrate the utilities of comparing
+evolutionary statistics inferred by different software. The dataset was
+re-analyzed by [BEAST](http://beast2.org/) for timescale estimation
+and [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) for synonymous and
+non-synonymous substitution estimation. In this example, we first parsed the
+outputs from [BEAST](http://beast2.org/) using `read.beast` and
+from [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) using
+`read.codeml` into two `treedata` objects. Then the two objects containing
+separate sets of node/branch-specific data were merged via the `merge_tree` function.
+
+
+
+```{r}
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+rst_file <- system.file("examples/rst", package="ggtree")
+mlc_file <- system.file("examples/mlc", package="ggtree")
+beast_tree <- read.beast(beast_file)
+codeml_tree <- read.codeml(rst_file, mlc_file)
+
+merged_tree <- merge_tree(beast_tree, codeml_tree)
+merged_tree
+```
+
+After merging the `beast_tree` and `codeml_tree` objects, all
+node/branch-specific data imported from [BEAST](http://beast2.org/)
+and [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) output files are
+all available in the `merged_tree` object. The tree object was converted to
+tidy data frame using [tidytree](https://cran.r-project.org/package=tidytree)
+package and visualized as hexbin scatterplot of *d~N~/d~S~*, *d~N~* and *d~S~* inferred
+by [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html) versus *rate*
+(substitution rate in unit of substitutions/site/year) inferred
+by [BEAST](http://beast2.org/) on the same branches.
+
+```{r warning=FALSE, fig.width=9, fig.height=3}
+library(tidytree)
+library(ggplot2)
+
+as_data_frame(merged_tree) %>%
+    dplyr::select(dN_vs_dS, dN, dS, rate) %>%
+    subset(dN_vs_dS >=0 & dN_vs_dS <= 1.5) %>%
+    tidyr::gather(type, value, dN_vs_dS:dS) %>%
+    ggplot(aes(rate, value)) + geom_hex() +
+    facet_wrap(~factor(type, levels = c('dN_vs_dS', 'dN', 'dS')),
+               scale='free_y') +
+    ylab(NULL)
+```
+
+Using `merge_tree`, we are able to compare analysis results using identical
+model from different software packages or different models using different or
+identical software. It also allows users to integrate different analysis finding
+from different software packages. Merging tree data is not restricted to
+software findings, associating external data to analysis findings is also
+granted. The `merge_tree` function is chainable and allows several tree objects
+to be merged into one.
+
+
+```{r}
+phylo <- as.phylo(beast_tree)
+N <- Nnode2(phylo)
+d <- data_frame(node = 1:N, fake_trait = rnorm(N), another_trait = runif(N))
+fake_tree <- treedata(phylo = phylo, data = d)
+triple_tree <- merge_tree(merged_tree, fake_tree)
+triple_tree
+```
+
+The `triple_tree` object showed above contains analysis results obtained from [BEAST](http://beast2.org/)
+and [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html), and evolutionary
+trait from external sources. All these information can be used to annotate the
+tree using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
+
+
+# Manipulating tree data using *tidytree*
+
+All the tree data parsed/merged
+by [treeio](https://bioconductor.org/packages/treeio/) can be converted to tidy
+data frame using the [tidytree](https://cran.r-project.org/package=tidytree)
+package. The [tidytree](https://cran.r-project.org/package=tidytree) package
+provides tidy interfaces to manipulate tree with associated data. For instances,
+external data can be linked to phylogeny or evolutionary data obtained from
+different sources can be merged using tidyverse verbs. After the tree data was
+manipulated, it can be converted back to `treedata` object and [exported to a
+single tree file](Exporter.html), further analyzed in R or visualized using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
+
+
+For more details, please refer to the [tidytree package vignette](https://cran.r-project.org/web/packages/tidytree/vignettes/tidytree.html).
 
 
 # References

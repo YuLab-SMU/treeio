@@ -20,12 +20,12 @@ read.codeml <- function(rstfile, mlcfile, tree = "mlc", type = "Joint") {
     mlc <- read.codeml_mlc(mlcfile)
 
     res <- rst
+    res@file <- c(res@file, mlc@file)
     if (tree == 'mlc') {
         res@phylo <- as.phylo(mlc)
         res@treetext <- mlc@treetext
     }
 
-    res@file <- paste(res@file, mlc@file, sep=", ")
     if (nrow(res@data) == 0) {
         res@data <- mlc@data
     } else {
