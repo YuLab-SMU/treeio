@@ -1,7 +1,10 @@
 # treeio 1.3.10
 
+* `read.jtree` and `write.jtree` functions <2017-12-20, Wed>
+* added 'Combining tree with external data' and 'Merging tree data from
+  different sources' sessions in Exporter vignette <2017-12-20, Wed>
 * added 'Combining tree data' and 'Manipulating tree data using tidytree' sessions in Importer vignette <2017-12-20, Wed>
-* full_join method for treedata*bject and added 'Linking external data to phylogeny' session in Importer vignette <2017-12-15, Fri>
+* full_join method for treedata object and added 'Linking external data to phylogeny' session in Importer vignette <2017-12-15, Fri>
 
 # treeio 1.3.9
 
@@ -11,7 +14,7 @@
 # treeio 1.3.8
 
 * mv treeio.Rmd vignette to Importer.Rmd and update the contents <2017-12-13, Wed>
-* write.beast for treedata*bject <2017-12-12, Tue>
+* write.beast for treedata object <2017-12-12, Tue>
 * add "connect" parameter in groupOTU <2017-12-12, Tue>
    + <https://groups.google.com/forum/#!msg/bioc-ggtree/Q4LnwoTf1DM/yEe95OFfCwAJ>
 
@@ -25,32 +28,32 @@
 
 # treeio 1.3.5
 
-* parent, ancestor, child,*ffspring, rootnode and sibling generic and method for phylo <2017-12-11, Mon>
-* update mask and merge_tree function according to the treedata*bject <2017-12-11, Mon>
+* parent, ancestor, child, offspring, rootnode and sibling generic and method for phylo <2017-12-11, Mon>
+* update mask and merge_tree function according to the treedata object <2017-12-11, Mon>
 
 # treeio 1.3.4
 
-* support tbl_tree*bject defined in tidytree <2017-12-08, Fri>
+* support tbl_tree object defined in tidytree <2017-12-08, Fri>
 
 # treeio 1.3.3
 
-* read.codeml*utput treedata, remove codeml class and clean up code <2017-12-07, Thu>
+* read.codeml output treedata, remove codeml class and clean up code <2017-12-07, Thu>
 
 # treeio 1.3.2
 
-* read.codeml_mlc*utput treedata*bject and remove codeml_mlc class <2017-12-06, Wed>
-* read.paml_rst*utput treedata and remove paml_rst class <2017-12-06, Wed>
+* read.codeml_mlc output treedata object and remove codeml_mlc class <2017-12-06, Wed>
+* read.paml_rst output treedata and remove paml_rst class <2017-12-06, Wed>
 * read.phylip.tree and read.phylip.seq
-* read.phylip*utput treedata*bject and phylip class definition was removed
-* read.hyphy*utput treedata*bject; hyphy class definition was removed
-* remove r8s class, read.r8s now*utput multiPhylo*bject
+* read.phylip output treedata object and phylip class definition was removed
+* read.hyphy output treedata object; hyphy class definition was removed
+* remove r8s class, read.r8s now output multiPhylo object
 * jplace class inherits treedata <2017-12-05, Tue>
-* using treedata*bject to store beast and mrbayes tree
+* using treedata object to store beast and mrbayes tree
 * export read.mrbayes
 
 # treeio 1.3.1
 
-* compatible to parse beast*utput that*nly contains HPD range <2017-11-01, Wed>
+* compatible to parse beast output that only contains HPD range <2017-11-01, Wed>
    + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/bioc-ggtree/RF2Ly52U_gc/jEP97nNPAwAJ
 
 # treeio 1.2.0
@@ -65,24 +68,24 @@
 
 * parse mlc file without dNdS <2017-08-31, Thu>
    + https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/bioc-ggtree/hTRj-uldgAg
-* better implementation*f merge_tree <2017-08-31, Thu>
+* better implementation of merge_tree <2017-08-31, Thu>
 
 # treeio 0.99.11
 
 * bug fixed in get.fields method for paml_rst <2017-03-20, Mon>
-* fixed raxml2nwk for using treedata as*utput*f read.raxml <2017-03-17, Fri>
+* fixed raxml2nwk for using treedata as output of read.raxml <2017-03-17, Fri>
 * taxa_rename function <2017-03-15, Wed>
 * phyPML method moved from ggtree <2017-03-06, Mon>
 
 # treeio 0.99.10
 
-* remove raxml class, now read.raxml*utput treedata*bject <2017-02-28, Tue>
-* bug fixed*f read.beast <2017-02-27, Mon>
+* remove raxml class, now read.raxml output treedata object <2017-02-28, Tue>
+* bug fixed of read.beast <2017-02-27, Mon>
 
 # treeio 0.99.9
 
 * read.newick for parsing node.label as support values <2017-01-03, Tue>
-* read.beast support MrBayes*utput <2016-12-30, Fri>
+* read.beast support MrBayes output <2016-12-30, Fri>
 * export as.phylo.ggtree <2016-12-30, Fri>
 
 # treeio 0.99.8
@@ -96,7 +99,7 @@
 
 # treeio 0.99.6
 
-* add unit test*f NHX (move from ggtree) <2016-12-14, Wed>
+* add unit test of NHX (move from ggtree) <2016-12-14, Wed>
 
 # treeio 0.99.3
 
@@ -114,6 +117,6 @@
 # treeio 0.0.1
 
 * read.nhx from ggtree <2016-12-06, Tue>
-* as.phylo.treedata to access phylo from treedata*bject <2016-12-06, Tue>
-* as.treedata.phylo to convert phylo to tree data*bject <2016-12-06, Tue>
+* as.phylo.treedata to access phylo from treedata object <2016-12-06, Tue>
+* as.treedata.phylo to convert phylo to tree data object <2016-12-06, Tue>
 * treedata class definition <2016-12-06, Tue>

@@ -56,7 +56,7 @@ read.nhx <- function(file) {
                 nhx_tags[,i] <- as.numeric(nhx_tags[,i])
             }
         }
-        nhx_tags$node <- as.numeric(node)
+        nhx_tags$node <- as.integer(node)
     }
 
     # Order rows by row number to facilitate downstream manipulations

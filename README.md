@@ -10,7 +10,7 @@ treeio: Base classes and functions for phylogenetic tree input and output
 
 [![platform](http://www.bioconductor.org/shields/availability/devel/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#archives) [![Build Status](http://www.bioconductor.org/shields/build/devel/bioc/treeio.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/treeio/) [![Linux/Mac Travis Build Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/GuangchuangYu/treeio) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/Guangchuangyu/treeio/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/treeio) [![Twitter](https://img.shields.io/twitter/url/https/github.com/GuangchuangYu/treeio.svg?style=social)](https://twitter.com/intent/tweet?hashtags=treeio&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 
-Base classes and functions for parsing and exporting phylogenetic trees.
+Base classes and functions for parsing and exporting phylogenetic trees. 'treeio' supports parsing analysis findings from commonly used software packages, allows linking exteranl data to phylogeny and merging tree data obtained from different sources. It also supports exporting phylogenetic tree with heterogeneous associated data to a single tree file.
 
 ------------------------------------------------------------------------
 

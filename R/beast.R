@@ -63,14 +63,14 @@ remove_quote_in_tree_label <- function(phylo) {
 read.treetext_beast <- function(file) {
     beast <- readLines(file)
 
-    ii <- grep("[Bb]egin trees;", beast)
-    jj <- grep("[Ee]nd;", beast)
+    ii <- grep("begin trees;", beast, ignore.case = TRUE)
+    jj <- grep("end;", beast, ignore.case = TRUE)
     jj <- jj[jj > max(ii)][1]
     jj <- c(ii[-1], jj)
 
     trees <- sapply(seq_along(ii), function(i) {
         tree <- beast[(ii[i]+1):(jj[i]-1)]
-        tree <- tree[grep("^\\s*[Tt]ree", tree)]
+        tree <- tree[grep("^\\s*tree", tree, ignore.case = TRUE)]
         ## if (length(tree) > 1) {
         ##     tree <- paste0(tree, collapse='')
         ## }

@@ -11,15 +11,15 @@ filename <- function(file) {
 }
 
 jplace_treetext_to_phylo <- function(tree.text) {
-    ## move edge label to node label separate by @
-    tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@\\2\\1', tree.text)
+    ## move edge label to node label separate by @@
+    tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@@\\2\\1', tree.text)
     phylo <- read.tree(text=tr)
-    if (length(grep('@', phylo$tip.label)) > 0) {
-        phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@\\2", .)
-        tip.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$tip.label))
-        node.edgeNum <- as.numeric(gsub("[^@]*@(\\d*)", "\\1",phylo$node.label))
-        phylo$tip.label %<>% gsub("@\\d+", "", .)
-        phylo$node.label %<>% gsub("@\\d+", "", .)
+    if (length(grep('@@', phylo$tip.label)) > 0) {
+        phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@@\\2", .)
+        tip.edgeNum <- as.numeric(gsub(".*@@(\\d*)", "\\1",phylo$tip.label))
+        node.edgeNum <- as.numeric(gsub(".*@@(\\d*)", "\\1",phylo$node.label))
+        phylo$tip.label %<>% gsub("@@\\d+", "", .)
+        phylo$node.label %<>% gsub("@@\\d+", "", .)
         if (all(phylo$node.label == "")) {
             phylo$node.label <- NULL
         }

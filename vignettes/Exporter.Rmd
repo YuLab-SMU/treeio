@@ -48,7 +48,7 @@ convert `treedata` object to `phylo` object then using `write.tree` or
 in [ape](https://cran.r-project.org/web/packages/ape/index.html) package
 [@paradis_ape_2004] to export the tree structure as Newick text or Nexus file.
 This is quite useful for converting non-standard formats to standard format and
-for extracting tree from software outputs, such as log file, to standard tree format.
+for extracting tree from software outputs, such as log file.
 
 
 However, exporting tree with associated data is still challenging. These
@@ -66,10 +66,10 @@ bracket, which is reserved for comments. So that the file can be parsed as
 standard Nexus by ignoring annotate elements and existing programs should be
 able to read them.
 
-# Exporting tree data
+# Exporting tree data to BEAST Nexus format
 
 
-## Exporting software output to BEAST Nexus format
+## Exporting/converting software output
 
 The [treeio](https://bioconductor.org/packages/treeio/) package provides
 `write.beast` to export `treedata` object as BEAST Nexus file.
@@ -99,6 +99,62 @@ write.beast(ml)
 
 ![](figures/codeml.png)
 
+
+## Combining tree with external data
+
+Using the utilities provided
+by [treeio](https://bioconductor.org/packages/treeio/), it is easy to link
+external data onto the corresponding phylogeny. The `write.beast` function enable users
+to combine the tree with external data to a single tree file.
+
+
+
+```{r comment=NA}
+phylo <- as.phylo(nhx)
+## print the newick text
+write.tree(phylo)
+
+N <- Nnode2(phylo)
+fake_data <- data_frame(node = 1:N, fake_trait = rnorm(N), another_trait = runif(N))
+fake_tree <- treedata(phylo = phylo, data = fake_data)
+write.beast(fake_tree)
+```
+
+
+## Merging tree data from different sources
+
+Not only Newick tree text can be combined with associated data, but also tree
+data obtained from software output can be combined with external data, as well
+as different tree objects can be merged together. For details, please refer to
+the [Importer](Importer.html) vignette.
+
+
+```{r}
+## combine tree object with data
+tree_with_data <- full_join(nhx, fake_data, by = "node")
+tree_with_data
+
+## merge two tree object
+tree2 <- merge_tree(nhx, fake_tree)
+tree2
+
+identical(tree_with_data, tree2)
+```
+
+After merging data from different sources, the tree with the associated data can
+be exported into a single file.
+
+```{r comment=NA}
+write.beast(tree2)
+```
+
+The output BEAST Nexus file can be imported into R using the `read.beast` function.
+
+```{r}
+outfile <- tempfile(fileext = ".tree")
+write.beast(tree2, file = outfile)
+read.beast(outfile)
+```
 
 
 # References
