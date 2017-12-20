@@ -160,7 +160,7 @@ write.beast(tree2, file = outfile)
 read.beast(outfile)
 ```
 
-# Exporting tree data to JSON format
+# Exporting tree data to *jtree* format {#jtree}
 
 The [treeio](https://bioconductor.org/packages/treeio/) package provides
 `write.beast` to export `treedata` to BEAST Nexus file. This is quite useful
@@ -177,14 +177,14 @@ JSON (JavaScript Object Notation)^[https://www.json.org/] is a lightweight data-
 widely supported in almost all modern programming languages. To make it easy
 to import tree with data in other programming
 languages, [treeio](https://bioconductor.org/packages/treeio/) supports
-exporting tree with data in JSON format, which can be easy to parse using any
+exporting tree with data in [jtree format](Importer.html#jtree), which is JSON-based and can be easy to parse using any
 languages that supports JSON.
 
 ```{r comment=NA}
 write.jtree(tree2)
 ```
 
-Such JSON based tree file can be easy to parse using JSON parser.
+The *jtree* format is based on JSON and can be parsed using JSON parser.
 
 ```{r comment=NA}
 jtree_file <- tempfile(fileext = '.jtree')
