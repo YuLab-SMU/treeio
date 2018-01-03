@@ -47,6 +47,33 @@ cat(packageDescription('treeio')$Description)
 ```
 
 
+## Authors
+
+Guangchuang YU <https://guangchuangyu.github.io>
+
+School of Public Health, The University of Hong Kong
+
+## Installation
+
+Get the released version from Bioconductor:
+
+```r
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+## biocLite("BiocUpgrade") ## you may need this
+biocLite("treeio")
+
+```
+
+Or the development version from github:
+
+```r
+setRepositories(ind=1:2)
+## install.packages("devtools")
+devtools::install_github("GuangchuangYu/treeio")
+```
+
+
 -----------------------------------------------------
 
 For details, please visit our project website, <https://guangchuangyu.github.io/treeio>.
