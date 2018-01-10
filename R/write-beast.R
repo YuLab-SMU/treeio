@@ -151,7 +151,7 @@ write_beast_newick <- function(treedata, file = "",
 
     add.terminal <- function(i) {
         ii <- phy$edge[i, 2]
-        if (is.null(node_anno) && !is.na(node_anno[ii])) {
+        if (is.null(node_anno) || !is.na(node_anno[ii])) {
             tl <- phy$tip.label[ii]
         } else {
             tl <- paste0(phy$tip.label[ii], node_anno[ii])

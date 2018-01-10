@@ -23,6 +23,10 @@ ape::Nnode
 ##' @export
 ape::Ntip
 
+##' @importFrom ape is.rooted
+##' @export
+ape::is.rooted
+
 
 ##' @method Ntip treedata
 ##' @importFrom ape Ntip

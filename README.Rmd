@@ -61,13 +61,11 @@ Get the released version from Bioconductor:
 source("https://bioconductor.org/biocLite.R")
 ## biocLite("BiocUpgrade") ## you may need this
 biocLite("treeio")
-
 ```
 
 Or the development version from github:
 
 ```r
-setRepositories(ind=1:2)
 ## install.packages("devtools")
 devtools::install_github("GuangchuangYu/treeio")
 ```

@@ -34,7 +34,6 @@ biocLite("treeio")
 Or the development version from github:
 
 ``` r
-setRepositories(ind=1:2)
 ## install.packages("devtools")
 devtools::install_github("GuangchuangYu/treeio")
 ```

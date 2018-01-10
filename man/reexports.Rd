@@ -18,6 +18,8 @@
 \alias{reexports}
 \alias{Ntip}
 \alias{reexports}
+\alias{is.rooted}
+\alias{reexports}
 \alias{as.phylo}
 \alias{reexports}
 \alias{\%>\%}
@@ -25,6 +27,16 @@
 \alias{get.fields}
 \alias{reexports}
 \alias{as.treedata}
+\alias{reexports}
+\alias{ancestor}
+\alias{reexports}
+\alias{parent}
+\alias{reexports}
+\alias{child}
+\alias{reexports}
+\alias{offspring}
+\alias{reexports}
+\alias{rootnode}
 \alias{reexports}
 \alias{full_join}
 \alias{reexports}
@@ -36,7 +48,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{as.phylo}}}
+  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{as.phylo}}}
 
   \item{dplyr}{\code{\link[dplyr]{full_join}}}
 
@@ -44,6 +56,6 @@ below to see their documentation.
 
   \item{tibble}{\code{\link[tibble]{data_frame}}}
 
-  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{as.treedata}}}
+  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}}
 }}
 

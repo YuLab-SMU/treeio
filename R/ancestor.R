@@ -51,7 +51,7 @@ rootnode.phylo <- function(.data, ...) {
     ## the node that has no parent should be the root
     root <- parent[ ! parent %in% child ]
     if (length(root) > 1) {
-        stop("multiple roots founded...")
+        stop("multiple roots found...")
     }
     return(root)
 }
