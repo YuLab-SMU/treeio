@@ -15,6 +15,9 @@ DNAbin object
 \description{
 read aligned sequences from phylip format
 }
+\references{
+\url{http://evolution.genetics.washington.edu/phylip/doc/sequence.html}
+}
 \author{
 guangchuang yu
 }

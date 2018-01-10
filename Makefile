@@ -44,6 +44,9 @@ bioccheck:
 	cd ..;\
 	Rscript -e 'BiocCheck::BiocCheck("$(PKGNAME)_$(PKGVERS).tar.gz")'
 
+gpcheck:
+	Rscript -e 'goodpractice::gp()'
+
 clean:
 	cd ..;\
 	$(RM) -r $(PKGNAME).Rcheck/

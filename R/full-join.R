@@ -3,7 +3,9 @@
 ##' @importFrom dplyr select_
 ##' @method full_join treedata
 ##' @export
-full_join.treedata <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
+full_join.treedata <- function(x, y, by = NULL,
+                               copy = FALSE, suffix = c(".x", ".y"), ...) {
+
     by <- match.arg(by, c("node", "label"))
     y <- as_data_frame(y)
     if (by == "label") {

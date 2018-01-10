@@ -23,7 +23,12 @@ get.placements <- function(tree, ...) {
 ##' @param ... additional parameter
 ##' @return phylo object
 ##' @export
-setGeneric("get.treetext", function(object, ...) standardGeneric("get.treetext"))
+setGeneric(
+    name = "get.treetext",
+    def = function(object, ...) {
+        standardGeneric("get.treetext")
+    }
+)
 
 
 
@@ -37,10 +42,10 @@ setGeneric("get.treetext", function(object, ...) standardGeneric("get.treetext")
 ##' @return updated object
 ##' @export
 setGeneric (
-	name = "drop.tip",
-	def = function( object, tip, ... ) {
-      standardGeneric("drop.tip")
-  }
+    name = "drop.tip",
+    def = function( object, tip, ... ) {
+        standardGeneric("drop.tip")
+    }
 )
 
 

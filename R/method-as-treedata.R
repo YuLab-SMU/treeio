@@ -19,7 +19,7 @@ as.treedata.phylo <- function(tree, boot=NULL, ...) {
                )
 
     if (!is.null(boot)) {
-        res@data = data_frame(node=nodeIds(tree), bootstrap=boot)
+        res@data <- data_frame(node=nodeIds(tree), bootstrap=boot)
     }
     return(res)
 }

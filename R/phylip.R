@@ -12,7 +12,9 @@
 read.phylip <- function(file) {
     tree <- read.phylip.tree(file)
     if (is(tree, 'multiPhylo')) {
-        stop("input file contains multiple trees and it is currently not supported ...")
+        msg <- paste("input file contains multiple trees and",
+                     "it is currently not supported ...")
+        stop(msg)
     }
     new("treedata",
         file = filename(file),
@@ -29,6 +31,7 @@ read.phylip <- function(file) {
 ##' @return DNAbin object
 ##' @export
 ##' @author guangchuang yu
+##' @references \url{http://evolution.genetics.washington.edu/phylip/doc/sequence.html}
 read.phylip.seq <- function(file) {
     phylip <- readLines(file)
 
@@ -37,15 +40,16 @@ read.phylip.seq <- function(file) {
     seqLen <- phylipInfo[2]
 
     if (nchar(sub('.+\\s+', "", phylip[2])) != phylipInfo[2]) {
-        stop("only sequential format is supported...\n-> see http://evolution.genetics.washington.edu/phylip/doc/sequence.html")
+        stop("only sequential format is supported...")
     }
     seqlines <- phylip[1+(1:phylipInfo[1])]
     seq_with_name <- lapply(seqlines, function(x) unlist(strsplit(x, "\\s+")))
-    seqs <- sapply(seq_with_name, function(x) x[2])
-    names(seqs) <- sapply(seq_with_name, function(x) x[1])
+    seqs <- vapply(seq_with_name, function(x) x[2], character(1))
+    names(seqs) <- vapply(seq_with_name, function(x) x[1], character(1))
 
     if (any(nchar(seqs) != seqLen)) {
-        stop(paste("sequence length not consistent...\n->", paste0(nchar(seqs), collapse=" ")))
+        stop(paste("sequence length not consistent...\n->",
+                   paste0(nchar(seqs), collapse=" ")))
     }
 
     res <- string2DNAbin(seqs)

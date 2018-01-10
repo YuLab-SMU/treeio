@@ -14,7 +14,9 @@ read.newick <- function(file, node.label = "label", ...) {
     if (node.label == "label")
         return(tree)
 
-    df <- data_frame(node = nodeIds(tree), support = as.numeric(tree$node.label))
+    df <- data_frame(node = nodeIds(tree),
+                     support = as.numeric(tree$node.label))
+
     tree$node.label <- NULL
     new("treedata",
         phylo = tree,

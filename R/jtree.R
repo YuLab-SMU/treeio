@@ -63,16 +63,17 @@ write.jtree <- function(treedata, file = "") {
     }
 
     label.df <- data_frame(node=1:N, label=label)
-    label.df$label = paste0(label.df$label, '@@', label.df$node)
+    label.df$label <- paste0(label.df$label, '@@', label.df$node)
 
-    phylo$tip.label = label.df$label[label.df$node <= ntip]
-    phylo$node.label = label.df$label[label.df$node > ntip]
+    phylo$tip.label <- label.df$label[label.df$node <= ntip]
+    phylo$node.label <- label.df$label[label.df$node > ntip]
 
     tt <- write.tree(phylo)
     if (is.null(phylo$edge.length)) {
         tree_text <- gsub("@@(\\d+)\\D", "{\\1}", tt)
     } else {
-        tree_text <- gsub("@@(\\d+)(:[\\.0-9]+)", "\\2{\\1}", tt) %>% sub("@@(\\d+)", "{\\1}", .)
+        tree_text <- gsub("@@(\\d+)(:[\\.0-9]+)", "\\2{\\1}", tt) %>%
+            sub("@@(\\d+)", "{\\1}", .)
     }
 
     cat("{\n", file = file)

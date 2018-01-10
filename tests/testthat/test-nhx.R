@@ -1,14 +1,18 @@
 context('nhx')
 
 ## Some sample NHX tree strings
-test_nhx_text <- readLines(system.file("extdata/NHX", "ADH.nhx", package="treeio"))
+test_nhx_text <- readLines(system.file("extdata/NHX", "ADH.nhx",
+                                       package="treeio"))
 
-test_phyldog_nhx_text = readLines(system.file("extdata/NHX", "phyldog.nhx", package="treeio"))
+test_phyldog_nhx_text <- readLines(system.file("extdata/NHX", "phyldog.nhx",
+                                               package="treeio"))
 
-test_compra_nhx_text = readLines(system.file("extdata/NHX", "compra.nhx", package="treeio"))
+test_compra_nhx_text <- readLines(system.file("extdata/NHX", "compra.nhx",
+                                              package="treeio"))
 
 
-test_notung_nhx_text = readLines(system.file("extdata/NHX", "notung.nhx", package="treeio"))
+test_notung_nhx_text <- readLines(system.file("extdata/NHX", "notung.nhx",
+                                              package="treeio"))
 
 # A function to simplify NHX text so that it can be parsed by
 # ape::read.tree(). Discards much useful information. Intent is to
@@ -17,19 +21,19 @@ test_notung_nhx_text = readLines(system.file("extdata/NHX", "notung.nhx", packag
 simplify_nhx_string <- function( text ){
 	# Remove branch lengths so NHX tags are adjacent to nodes
 	# Accommodate lengths in scientific notation, eg 1e-6
-	text = gsub( "\\:[\\d\\.]+e[\\d\\-]+","", text, perl=TRUE )
-	text = gsub( "\\:[\\d\\.]+","", text, perl=TRUE )
+	text <- gsub( "\\:[\\d\\.]+e[\\d\\-]+","", text, perl=TRUE )
+	text <- gsub( "\\:[\\d\\.]+","", text, perl=TRUE )
 
 	# Remove NHX tags at tips
-	text = gsub( "([^\\)])\\[.+?\\]","\\1", text, perl=TRUE )
+	text <- gsub( "([^\\)])\\[.+?\\]","\\1", text, perl=TRUE )
 
 	# Remove brackets
-	text = gsub( "\\[&&NHX:","", text, perl=TRUE )
-	text = gsub( "\\]","", text, perl=TRUE )
+	text <- gsub( "\\[&&NHX:","", text, perl=TRUE )
+	text <- gsub( "\\]","", text, perl=TRUE )
 
 	# Replace NHX tag formatting characters that aren't allowed
-	text = gsub( ":","_", text, perl=TRUE )
-	text = gsub( "=","-", text, perl=TRUE )
+	text <- gsub( ":","_", text, perl=TRUE )
+	text <- gsub( "=","-", text, perl=TRUE )
 
 	return(text)
 }
@@ -37,7 +41,7 @@ simplify_nhx_string <- function( text ){
 
 test_that("can parse example ggtree nhx tree string", {
 	nhx <- read.nhx( textConnection(test_nhx_text) )
-	ntips = length(nhx@phylo$tip.label)
+	ntips <- length(nhx@phylo$tip.label)
 
 	# Correct number of tips
 	expect_equal( ntips , 8 )
@@ -48,7 +52,7 @@ test_that("can parse example ggtree nhx tree string", {
 
 test_that("can parse phyldog nhx tree string", {
 	nhx <- read.nhx( textConnection(test_phyldog_nhx_text) )
-	ntips = length(nhx@phylo$tip.label)
+	ntips <- length(nhx@phylo$tip.label)
 
 	# Correct number of tips
 	expect_equal( ntips , 16 )
@@ -58,40 +62,55 @@ test_that("can parse phyldog nhx tree string", {
 
 	# Verify that the S field of internal nodes was correctly parsed
 	# Assumes that node identity order is the same between phy and nhx@phylo
-	tags = nhx@data
-	tags$node = as.numeric(tags$node)
-	tags = tags[order(tags$node),]
-	internal_tags = tags[ tags$node > length(nhx@phylo$tip.label), ] # Consider internal nodes only
+	tags <- nhx@data
+	tags$node <- as.numeric(tags$node)
+	tags <- tags[order(tags$node),]
+  ## Consider internal nodes only
+	internal_tags <- tags[ tags$node > length(nhx@phylo$tip.label), ]
 
 
-	phy = read.tree(text=simplify_nhx_string(test_phyldog_nhx_text))
-	phy_S=unlist(lapply(strsplit(phy$node.label, "_"), function(x) x[[2]])) # Get the S field
-	phy_S=unlist(lapply(strsplit(phy_S, "-"), function(x) x[[2]])) # Get the value
-	phy_S=as.numeric(phy_S)
+	phy <- read.tree(text=simplify_nhx_string(test_phyldog_nhx_text))
+  ## Get the S field
+	phy_S <- unlist(lapply(strsplit(phy$node.label, "_"), function(x) x[[2]]))
+  ## Get the value
+	phy_S <- unlist(lapply(strsplit(phy_S, "-"), function(x) x[[2]]))
+	phy_S <- as.numeric(phy_S)
 	expect_equal( phy_S, as.numeric(internal_tags$S) )
 
 	# Verify that S fild of tips was correctly parsed
 	# by comparison against expected values
-	tip_tags = tags[1:length(nhx@phylo$tip.label),]
-	tip.labels = c("Prayidae_D27SS7@2825365", "Kephyes_ovata@2606431", "Chuniphyes_multidentata@1277217", "Apolemia_sp_@1353964", "Bargmannia_amoena@263997", "Bargmannia_elongata@946788", "Physonect_sp_@2066767", "Stephalia_dilata@2960089", "Frillagalma_vityazi@1155031", "Resomia_ornicephala@3111757", "Lychnagalma_utricularia@2253871", "Nanomia_bijuga@717864", "Cordagalma_sp_@1525873", "Rhizophysa_filiformis@3073669", "Hydra_magnipapillata@52244", "Ectopleura_larynx@3556167")
-	S.tip.values = c(58, 69, 70, 31, 37, 38, 61, 52, 53, 54, 65, 71, 64, 26, 16, 15)
-	expect_equal( S.tip.values[match(nhx@phylo$tip.label, tip.labels)], as.numeric(tip_tags$S))
+	tip_tags <- tags[seq_along(nhx@phylo$tip.label),]
+	tip.labels <- c("Prayidae_D27SS7@2825365", "Kephyes_ovata@2606431",
+                  "Chuniphyes_multidentata@1277217", "Apolemia_sp_@1353964",
+                  "Bargmannia_amoena@263997", "Bargmannia_elongata@946788",
+                  "Physonect_sp_@2066767", "Stephalia_dilata@2960089",
+                  "Frillagalma_vityazi@1155031", "Resomia_ornicephala@3111757",
+                  "Lychnagalma_utricularia@2253871", "Nanomia_bijuga@717864",
+                  "Cordagalma_sp_@1525873", "Rhizophysa_filiformis@3073669",
+                  "Hydra_magnipapillata@52244", "Ectopleura_larynx@3556167")
+	S.tip.values <- c(58, 69, 70, 31, 37, 38, 61, 52, 53,
+                    54, 65, 71, 64, 26, 16, 15)
+
+	expect_equal( S.tip.values[match(nhx@phylo$tip.label, tip.labels)],
+               as.numeric(tip_tags$S))
 
 })
 
 test_that("can drop tips", {
 	nhx <- read.nhx( textConnection(test_phyldog_nhx_text) )
-	to_drop = c("Physonect_sp_@2066767", "Lychnagalma_utricularia@2253871", "Kephyes_ovata@2606431")
+	to_drop <- c("Physonect_sp_@2066767",
+               "Lychnagalma_utricularia@2253871",
+               "Kephyes_ovata@2606431")
 
-	nhx_reduced = drop.tip(nhx, to_drop)
+	nhx_reduced <- drop.tip(nhx, to_drop)
 
 	# Make sure node numbers unique
 	expect_false( any(duplicated(nhx_reduced@data$node)) )
 
 	# Make sure the same node numbers are present in @nhx_tag and @phylo
-	edge = nhx_reduced@phylo$edge
-	dim(edge) = NULL
-	edge = unique(edge)
+	edge <- nhx_reduced@phylo$edge
+	dim(edge) <- NULL
+	edge <- unique(edge)
 	expect_true( setequal( edge, nhx_reduced@data$node ) )
 
 	# Check the expected number of tips after dropping
@@ -104,7 +123,7 @@ test_that("can drop tips", {
 
 test_that("can drop tips from ensembl compra tree", {
 	nhx <- read.nhx( textConnection( test_compra_nhx_text ) )
-	to_drop =
+	to_drop <-
 		c(1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15, 16, 18,
 		19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
 		32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46,
@@ -137,19 +156,22 @@ test_that("can drop tips from ensembl compra tree", {
 		384, 385, 387, 388, 389, 390, 391, 392, 393, 394, 395,
 		396, 397, 398, 399)
 
-		nhx_reduced = drop.tip(nhx, to_drop)
+		nhx_reduced <- drop.tip(nhx, to_drop)
 
 		# Make sure node numbers unique
 		expect_false( any(duplicated(nhx_reduced@data$node)) )
 
 		# Make sure the same node numbers are present in @nhx_tag and @phylo
-		edge = nhx_reduced@phylo$edge
-		dim(edge) = NULL
-		edge = unique(edge)
+		edge <- nhx_reduced@phylo$edge
+		dim(edge) <- NULL
+		edge <- unique(edge)
 		expect_true( setequal( edge, nhx_reduced@data$node ) )
 
-		# Check the expected number of tips after dropping
-		expect_equal( length(nhx_reduced@phylo$tip.label), ( length(nhx@phylo$tip.label) - length(to_drop) ) )
+  ## Check the expected number of tips after dropping
+  expect_equal(length(nhx_reduced@phylo$tip.label),
+               length(nhx@phylo$tip.label) - length(to_drop)
+               )
+
 		expect_true( all(nhx_reduced@data$node %in% 1:Nnode2(nhx_reduced)) )
 
 		# Check that node labels are still there

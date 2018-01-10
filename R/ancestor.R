@@ -2,19 +2,21 @@
 ##' @method parent phylo
 ##' @export
 parent.phylo <- function(.data, .node, ...) {
-    if ( .node == rootnode(.data) )
-        return(0)
-    edge <- .data[["edge"]]
-    parent <- edge[,1]
-    child <- edge[,2]
-    res <- parent[child == .node]
-    if (length(res) == 0) {
-        stop("cannot found parent node...")
-    }
-    if (length(res) > 1) {
-        stop("multiple parent found...")
-    }
-    return(res)
+    vapply(.node, function(nn) {
+        if ( nn == rootnode(.data) )
+            return(0)
+        edge <- .data[["edge"]]
+        parent <- edge[,1]
+        child <- edge[,2]
+        res <- parent[child == nn]
+        if (length(res) == 0) {
+            stop("cannot found parent node...")
+        }
+        if (length(res) > 1) {
+            stop("multiple parent found...")
+        }
+        return(res)
+    }, numeric(1))
 }
 
 ##' @importFrom tidytree ancestor

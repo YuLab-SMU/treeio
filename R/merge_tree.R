@@ -51,8 +51,10 @@ merge_tree <- function(obj1, obj2) {
     node2 <- node_map$from
 
     while(length(node1) > 0) {
-        p1 = sapply(node1, parent, .data = tr1)
-        p2 = sapply(node2, parent, .data = tr2)
+        ## p1 <- vapply(node1, function(n) parent(tr1, n), numeric(1))
+        ## p2 <- vapply(node2, function(n) parent(tr2, n), numeric(1))
+        p1 <- parent(tr1, node1)
+        p2 <- parent(tr2, node2)
         if (!all(duplicated(p1) == duplicated(p2))) {
             stop("tree structure not identical...")
         }

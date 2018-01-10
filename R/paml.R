@@ -12,8 +12,11 @@ read.tip_seq_mlc <- function(mlcfile) {
     seqs <- mlc[2:(info$num+1)]
     seqs <- gsub("\\s+", "", seqs)
     wd <- info$width
-    res <- sapply(seqs, function(x) substring(x, (base::nchar(x) - wd + 1), base::nchar(x)))
-    nn <- sapply(seqs, function(x) substring(x, 1, (base::nchar(x) - wd)))
+    ## nchar <- base::nchar
+    res <- vapply(seqs, function(x) substring(x, (nchar(x) - wd + 1), nchar(x)),
+                  character(1))
+    nn <- vapply(seqs, function(x) substring(x, 1, (nchar(x) - wd)),
+                 character(1))
     names(res) <- nn
     return(res)
 }
@@ -36,12 +39,13 @@ read.dnds_mlc <- function(mlcfile) {
     info <- mlc[ii]
     info %<>% sub("^\\s+", "", .)
     info %<>% sub("\\s+$", "", .)
-    res <- t(sapply(info, function(x) {
+
+    res <- lapply(info, function(x) {
         y <- unlist(strsplit(x, "\\s+"))
         edge <- unlist(strsplit(y[1], "\\.\\."))
         yy <- c(edge, y[-1])
         as.numeric(yy)
-    }))
+    }) %>% do.call('rbind', .)
 
     row.names(res) <- NULL
     colnames(res) <- c("parent", "node", cn[-1])
@@ -115,16 +119,11 @@ read.phylo_paml_mlc <- function(mlcfile) {
             if (ip != root) {
                 ii <- which(treeinfo[, "node"] == ip)
                 if (treeinfo$visited[ii] == FALSE) {
-                    ## jp <- treeinfo.tr3[j, "parent"]
                     jp <- tr3_edge[tr3_edge$node == j, "parent"]
-
-                    ## jj <- which(treeinfo.tr3[, "node"] == jp)
-                    ## jj <- jp
                     treeinfo[ii, "label"] <- as.character(ip)
-                    ## treeinfo.tr3[jj, "label"] <- as.character(ip)
                     tr3_label[jp] <- as.character(ip)
-                    treeinfo[ii, "length"] <- tr3$edge.length[tr3_edge$node == jp]
-                    ## treeinfo.tr3[jj, "branch.length"]
+                    jj <- tr3_edge$node == jp
+                    treeinfo[ii, "length"] <- tr3$edge.length[jj]
                     pNode <- c(pNode, ip)
                 }
                 treeinfo[ii, "visited"] <- TRUE
@@ -161,7 +160,7 @@ read.phylo_paml_rst <- function(rstfile) {
 
     edge <- get_tree_edge_paml(rst)
 
-    label=c(tr3$tip.label, tr3$node.label)
+    label <- c(tr3$tip.label, tr3$node.label)
     root <- rootnode(tr3)
     label %<>% `[`(. != root)
 

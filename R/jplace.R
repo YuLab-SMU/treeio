@@ -50,9 +50,11 @@ get.placements.jplace <- function(tree, by="best", ...) {
     placements <- tree@placements
     if (by == "best") {
         ## http://astrostatistics.psu.edu/su07/R/html/base/html/all.equal.html
-        ## due to precision, number are identical maynot be equal, so use all.equal which can test nearly equal number
+        ## due to precision, number are identical maynot be equal,
+        ## so use all.equal which can test nearly equal number
         ## if not equals, the output is a descript string of the differences
-        placements <- group_by_(placements, ~name) %>% filter_(~likelihood == min(likelihood))
+        placements <- group_by_(placements, ~name) %>%
+            filter_(~likelihood == min(likelihood))
     }
     return(placements)
 }
@@ -66,19 +68,19 @@ extract.placement <- function(object, phylo) {
 
     ids <- NULL
     if (length(placements) == 2) {
-        ids <- sapply(placements[,2], function(x) x[1])
+        ids <- vapply(placements[,2], function(x) x[1], character(1))
         names(place) <- ids
     }
 
     place.df <- do.call("rbind", place)
     row.names(place.df) <- NULL
     if (!is.null(ids)) {
-        nn <- rep(ids, sapply(place, function(x) {
+        nn <- rep(ids, vapply(place, function(x) {
             nr <- nrow(x)
             if (is.null(nr))
                 return(1)
             return(nr)
-        }))
+        }, numeric(1)))
         place.df <- data.frame(name=nn, place.df)
         colnames(place.df) <- c("name", object$fields)
     } else {

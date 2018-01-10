@@ -3,8 +3,7 @@
 gfocus <- function(phy, focus, group_name, focus_label=NULL,
                    overlap="overwrite", connect = FALSE) {
 
-    ## see https://groups.google.com/forum/#!msg/bioc-ggtree/Q4LnwoTf1DM/yEe95OFfCwAJ
-    ## for connect parameter
+    ## see https://goo.gl/VMMVhi for connect parameter
 
     overlap <- match.arg(overlap, c("origin", "overwrite", "abandon"))
 
@@ -58,7 +57,7 @@ groupOTU.phylo <- function(.data, .node, group_name="group", ...) {
     focus <- .node
     attr(phy, group_name) <- NULL
     if ( is(focus, "list") ) {
-        for (i in 1:length(focus)) {
+        for (i in seq_along(focus)) {
             phy <- gfocus(phy, focus[[i]], group_name, names(focus)[i], ...)
         }
     } else {

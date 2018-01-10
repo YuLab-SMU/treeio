@@ -21,8 +21,10 @@ read.hyphy.seq <- function(file) {
     seq       <- gsub(" ", "", seq)
     seq       <- gsub(";", "", seq)
 
-    ## some files may only contains sequences (should have TAXALABELS block that contains seq names).
-    ## some may contains sequence name like phylip format in MATRIX block (no need to have TAXALABELS block).
+    ## some files may only contains sequences
+    ## (should have TAXALABELS block that contains seq names).
+    ## some may contains sequence name like phylip format in
+    ## MATRIX block (no need to have TAXALABELS block).
     ##
     ## extract sequence name if available
     if (all(grepl("\\s+", seq))) {
@@ -79,9 +81,11 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     nl <- tr$node.label
     ## root node may missing, which was supposed to be 'Node1'
     ##
-    ## from a user's file, which is 'Node0', but it seems the file is not from the output of HYPHY.
+    ## from a user's file, which is 'Node0', but it seems
+    ## the file is not from the output of HYPHY.
     ##
-    ## I am not sure. But it's safe to use "label[!label %in% nl]" instead of just assign it to "Node1".
+    ## I am not sure. But it's safe to use "label[!label %in% nl]"
+    ## instead of just assign it to "Node1".
     ##
     ## nl[nl == ""] <- "Node1"
     label <- labels(anc_seq)
@@ -142,12 +146,14 @@ get.subs_ <- function(object, translate=TRUE, removeGap=TRUE) {
 
     N <- getNodeNum(tree)
     node <- 1:N
-    pp <- sapply(node, parent, .data=tree)
+    ## pp <- vapply(node, function(n) parent(tree, n), numeric(1))
+    pp <- parent(tree, node)
+
     label <- getNodeName(tree)
     seqs <- c(as.list(ancseq), as.list(tipseq))
-    subs <- sapply(seq_along(node), function(i) {
+    subs <- vapply(seq_along(node), function(i) {
         if (i == rootnode(tree)) {
-            return(NA)
+            return('')
         }
 
         res <- getSubsLabel(seqs, label[pp[i]], label[i], translate, removeGap)
@@ -155,9 +161,10 @@ get.subs_ <- function(object, translate=TRUE, removeGap=TRUE) {
             return('')
         }
         return(res)
-    })
+    }, character(1))
 
-    ## if `subs` is too long to plot, user can use `stringr::str_wrap` to format the text
+    ## if `subs` is too long to plot, user can use
+    ## `stringr::str_wrap` to format the text
     dd <- data_frame(node=node, parent=pp, subs=subs)
     dd <- dd[dd$parent != 0,]
     return(dd)
@@ -202,9 +209,9 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
 
 get_seqtype <- function(seq) {
     if (grepl("[-ACGT]+", seq[1])) {
-        seq_type = "NT" ## NucleoTide
+        seq_type <- "NT" ## NucleoTide
     } else {
-        seq_type = "AA" ## Amino Acid
+        seq_type <- "AA" ## Amino Acid
     }
     return(seq_type)
 }
