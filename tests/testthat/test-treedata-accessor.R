@@ -13,14 +13,15 @@ test_that("access placements slot for jplace object", {
     expect_true('likelihood' %in% names(pp))
 })
 
-file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
-beast <- read.beast(file)
-tree <- read.tree(text = get.treetext(beast))
+mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
+mlc <- read.codeml_mlc(mlcfile)
+
+tree <- read.tree(text = get.treetext(mlc))
 
 test_that("access treetext slot for treedata object", {
-    expect_true(ape::all.equal.phylo(beast@phylo, tree, use.tip.label=FALSE))
+    expect_true(ape::all.equal.phylo(mlc@phylo, tree, use.tip.label=FALSE))
 })
 
 test_that("is.rooted method for treedata object", {
-    expect_equal(is.rooted(beast), ape::is.rooted(as.phylo(beast)))
+    expect_equal(is.rooted(mlc), ape::is.rooted(as.phylo(mlc)))
 })

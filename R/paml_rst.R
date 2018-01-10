@@ -1,20 +1,3 @@
-## ##' read rst from baseml output
-## ##'
-## ##'
-## ##' @title read.baseml
-## ##' @param rstfile rst file
-## ##' @param mlbfile mlb file
-## ##' @return A \code{paml_rst} object
-## ##' @export
-## ##' @author Guangchuang Yu \url{http://ygc.name}
-## ##' @examples
-## ##' rstfile <- system.file("extdata/PAML_Baseml", "rst", package="treeio")
-## ##' read.baseml(rstfile)
-## read.baseml <- function(rstfile, mlbfile) {
-##     res <- read.paml_rst(rstfile)
-##     ## res@tip_seq <- read.tip_seq_mlb(mlbfile)
-##     return(res)
-## }
 
 ##' read rst file from paml (both baseml and codeml) output
 ##'

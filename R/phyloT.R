@@ -9,16 +9,20 @@
 ##' @export
 ##' @author guangchuang yu
 read.phyloT <- function(file, ...) {
-  x <- readLines(file)
-  x <- paste0(gsub("\\s+", "", x), collapse="")
-  x <- sub("^\\(", "", x) %>% sub("\\);", ";", .)
-  res <- tryCatch(read.tree(text=x, ...), error=function(e) NULL)
-  if (is.null(res)) {
-      msg <- paste("`read.phyloT` only supports newick format with setting of",
-                   "`Internal nodes` to `collapsed`, and `Polytomy` to `No`.",
-                   "\nURL: http://phylot.biobyte.de/")
-      stop(msg)
-  }
-  return(res)
+    x <- readLines(file)
+    x <- paste0(gsub("\\s+", "", x), collapse="")
+    x <- sub("^\\(", "", x) %>% sub("\\);", ";", .)
+    res <- tryCatch(read.tree(text=x, ...), error=function(e) NULL)
+    return(res)
+
+    ## it seems not ape::read.tree is capable to handle phyloT output
+    ## since it supports singleton.
+
+    ## if (is.null(res)) {
+    ## msg <- paste("`read.phyloT` only supports newick format with setting of",
+    ##              "`Internal nodes` to `collapsed`, and `Polytomy` to `No`.",
+    ##              "\nURL: http://phylot.biobyte.de/")
+    ## stop(msg)
+    ## }
 }
 
