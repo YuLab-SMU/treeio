@@ -31,3 +31,19 @@ test_that("convert edgeNum to nodeNum", {
     expect_true(is.na(treeio:::edgeNum2nodeNum(x, 100)))
 })
 
+p <- ggtree::ggtree(mlc)
+
+test_that("access phylo slot", {
+    expect_true(is(get.tree(mlc), "phylo"))
+    expect_true(is(as.phylo(p), "phylo"))
+    expect_true(is.ggtree(p))
+})
+
+phy <- rtree(30)
+nn <- treeio:::getNodeName(phy)
+test_that("access node name", {
+    expect_equal(nn[1:Ntip(phy)], phy$tip.label)
+    expect_equal(nn[1:Nnode(phy) + Ntip(phy)],
+                 as.character(1:Nnode(phy) + Ntip(phy)))
+    expect_equal(treeio:::tipIds(phy), 1:Ntip(phy))
+})
