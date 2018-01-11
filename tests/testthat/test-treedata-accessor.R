@@ -25,3 +25,9 @@ test_that("access treetext slot for treedata object", {
 test_that("is.rooted method for treedata object", {
     expect_equal(is.rooted(mlc), ape::is.rooted(as.phylo(mlc)))
 })
+
+test_that("convert edgeNum to nodeNum", {
+    expect_true(is.numeric(treeio:::edgeNum2nodeNum(x, 3)))
+    expect_true(is.na(treeio:::edgeNum2nodeNum(x, 100)))
+})
+

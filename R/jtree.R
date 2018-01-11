@@ -1,19 +1,3 @@
-
-##' generate jplace file
-##'
-##'
-##' @title write.jplace
-##' @param nwk tree in newick format
-##' @param data annotation data
-##' @param outfile jplace output file
-##' @return jplace file
-##' @export
-##' @author ygc
-write.jplace <- function(nwk, data, outfile) {
-    stop("write.jplace is deprecated, please use write.jtree...")
-}
-
-
 ##' Import tree data from jtree file, which is JSON-based text and probably output by write.jtree
 ##'
 ##'

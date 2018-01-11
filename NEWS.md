@@ -1,11 +1,14 @@
 # treeio 1.3.11
 
++ deprecate read.phyloT as read.tree in ape v5 now supports phyloT newick text
+  <2018-01-11, Thu>
 + fixed goodpractice check <2018-01-10, Wed>
     - <https://github.com/ropensci/onboarding/issues/179#event-1416196637>
     - avoid using = for assignment
     - avoid code line > 80 characters
     - avoid sapply, instead using vapply and lapply
     - avoid using 1:length, 1:nrow and 1:ncol, use `seq_len` and `seq_along`
+    - more unit tests
 
 # treeio 1.3.10
 

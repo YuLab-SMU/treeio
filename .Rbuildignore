@@ -12,3 +12,4 @@ README.Rmd
 treeio_sticker.R
 site_src
 CONTRIBUTORS.md
+.covrignore

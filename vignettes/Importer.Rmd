@@ -100,7 +100,6 @@ jplace and Phylip as well as the data outputs from the following analysis progra
 [MrBayes](http://nbisweden.github.io/MrBayes/),
 [PAML](http://abacus.gene.ucl.ac.uk/software/paml.html),
 [PHYLDOG](https://pbil.univ-lyon1.fr/software/phyldog/),
-[phyloT](http://phylot.biobyte.de/)^[https://www.biostars.org/p/210401/#216128],
 [pplacer](http://matsen.fhcrc.org/pplacer/),
 [r8s](http://ginger.ucdavis.edu/r8s),
 [RAxML](http://evomics.org/learning/phylogenetics/raxml/) and
@@ -119,7 +118,6 @@ ff <- matrix(c(
   "read.nhx"        , "parsing NHX file including output of PHYLDOG and RevBayes",
   "read.paml_rst"   , "parsing rst file (output of BaseML or CodeML)",
   "read.phylip"     , "parsing phylip file (phylip alignment + newick string)",
-  "read.phyloT"     , "parsing output of phyloT",
   "read.r8s"        , "parsing output of r8s",
   "read.raxml"      , "parsing output of RAxML"
   ), ncol=2, byrow=TRUE)

@@ -15,3 +15,14 @@ test_that("remove quote in tree label", {
     expect_equal(newtree$node.label, as.character(nodeID))
 })
 
+phyfile <- system.file("extdata", "sample.phy", package="treeio")
+info <- treeio:::getPhyInfo(phyfile)
+
+test_that("tiny utilities", {
+    expect_false(treeio:::is.tree(data.frame()))
+    expect_false(treeio:::has.slot(data.frame(), "data"))
+    expect_equal(info$num, 15)
+    expect_equal(info$width, 2148)
+})
+
+
