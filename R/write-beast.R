@@ -83,19 +83,26 @@ write_beast_newick <- function(treedata, file = "",
         ## apply sprintf(f.d, anno[[v]]) to round digits?
 
         if (col_type[i] == "list") {
-            paste0(v, "={",
-                   vapply(anno[[v]], function(x) {
-                       paste(x, collapse=',')
-                   }, character(1)),
-                   "}")
+            rr <- paste0(
+                v, "={",
+                vapply(anno[[v]], function(x) {
+                    paste(x, collapse=',')
+                }, character(1)),
+                "}")
         } else {
-            paste0(v, '=', anno[[v]])
+            rr <- paste0(v, '=', anno[[v]])
         }
-
+        rr[is.na(anno[[v]])] <- NA
+        return(rr)
     }) %>% do.call('cbind', .)
 
     anno_text <- vapply(seq_len(nrow(yy)), function(i) {
-        paste0('[&', paste(yy[i,], collapse=','), ']')
+        rr <- yy[i,]
+        rr <- rr[!is.na(rr)]
+        if (length(rr) == 0) {
+            return("")
+        }
+        paste0('[&', paste(rr, collapse=','), ']')
     }, character(1))
     node_anno <- rep(NA, max(anno$node))
     node_anno[anno$node] <- anno_text
@@ -151,7 +158,7 @@ write_beast_newick <- function(treedata, file = "",
 
     add.terminal <- function(i) {
         ii <- phy$edge[i, 2]
-        if (is.null(node_anno) || !is.na(node_anno[ii])) {
+        if (is.null(node_anno) || is.na(node_anno[ii])) {
             tl <- phy$tip.label[ii]
         } else {
             tl <- paste0(phy$tip.label[ii], node_anno[ii])
