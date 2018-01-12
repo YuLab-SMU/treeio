@@ -71,14 +71,16 @@ devtools::install_github("GuangchuangYu/treeio")
 ```
 
 
------------------------------------------------------
+## Vignettes
+
++ [Importing trees with data](http://bioconductor.org/packages/devel/bioc/vignettes/treeio/inst/doc/Importer.html)
++ [Exporting trees with data](http://bioconductor.org/packages/devel/bioc/vignettes/treeio/inst/doc/Exporter.html)
+
 
 For details, please visit our project website, <https://guangchuangyu.github.io/treeio>.
 
-+ [Documentation](https://guangchuangyu.github.io/treeio/documentation/)
-+ [Feedback](https://guangchuangyu.github.io/treeio/#feedback)
 
-### Download stats
+## Download stats
 
 `r badge_download_bioc("treeio")`
 `r badge_bioc_download("treeio", "total", "blue")`
