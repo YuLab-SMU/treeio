@@ -15,8 +15,12 @@ os:
 r_packages:
   - covr
   - ape
+  - tidyr
   - tidytree
-
+  - ggtree
+  - testthat
+  - prettydoc
+  - knitr
 
 env:
   global:
