@@ -34,9 +34,12 @@ as.treedata.phylo4 <- function(tree, ...) {
 ##' @method as.treedata phylo4d
 ##' @export
 as.treedata.phylo4d <- function(tree, ...) {
+    d <- as_data_frame(tree@data)
+    d$node <- as.numeric(rownames(tree@data))
+
     new("treedata",
         phylo = as.phylo.phylo4(tree),
-        data = data_frame(node=rownames(tree@data), tree@data)
+        data = d
         )
 }
 
