@@ -8,9 +8,10 @@ ape::as.phylo
 ##' @export
 as.phylo.phylo4 <- function(x, ...) {
     edge <- x@edge
-    edge <- edge[edge[,1] != 0, ]
+    edge.filter <- edge[,1] != 0
+    edge <- edge[edge.filter, ]
     edge.length <- x@edge.length
-    edge.length <- edge.length[!is.na(edge.length)]
+    edge.length <- edge.length[edge.filter]
     tip.id <- sort(setdiff(edge[,2], edge[,1]))
     tip.label <- x@label[tip.id]
     phylo <- list(edge = edge,
