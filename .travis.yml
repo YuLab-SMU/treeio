@@ -22,6 +22,9 @@ r_packages:
   - prettydoc
   - knitr
 
+brew_packages:
+  - gcc
+
 env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=False
@@ -32,7 +35,7 @@ after_failure:
   - ./travis-tool.sh dump_logs
 
 after_success:
-- Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'library(covr); codecov()'
 
 notifications:
   email:
