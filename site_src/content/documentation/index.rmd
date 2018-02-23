@@ -15,7 +15,6 @@ weight: 10
 
 ## <i class="fa fa-wordpress"></i> Blog posts
 
-### <i class="fa fa-angle-double-right"></i> News and updates
 
 ### <i class="fa fa-angle-double-right"></i> object conversion
 

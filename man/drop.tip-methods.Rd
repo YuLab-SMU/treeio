@@ -21,7 +21,7 @@ drop.tip(object, tip, ...)
 \S4method{drop.tip}{phylo}(object, tip, ...)
 }
 \arguments{
-\item{object}{An nhx or phylo object}
+\item{object}{A treedata or phylo object}
 
 \item{tip}{a vector of mode numeric or character specifying the tips to delete}
 
