@@ -25,9 +25,8 @@ get.placements <- function(tree, ...) {
 ##' @export
 setGeneric(
     name = "get.treetext",
-    def = function(object, ...) {
+    def = function(object, ...)
         standardGeneric("get.treetext")
-    }
 )
 
 
@@ -36,16 +35,15 @@ setGeneric(
 ##' @name drop.tip
 ##' @rdname drop.tip-methods
 ##' @title drop.tip method
-##' @param object An nhx or phylo object
+##' @param object A treedata or phylo object
 ##' @param tip a vector of mode numeric or character specifying the tips to delete
 ##' @param ... additional parameters
 ##' @return updated object
 ##' @export
 setGeneric (
     name = "drop.tip",
-    def = function( object, tip, ... ) {
+    def = function( object, tip, ... )
         standardGeneric("drop.tip")
-    }
 )
 
 
