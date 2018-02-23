@@ -9,8 +9,6 @@ bioc_required: true
 
 os:
   - linux
-  - osx
-
 
 r_packages:
   - covr
@@ -21,9 +19,6 @@ r_packages:
   - testthat
   - prettydoc
   - knitr
-
-brew_packages:
-  - gcc
 
 env:
   global:
