@@ -84,7 +84,7 @@ read.trans_beast <- function(file) {
         return(matrix())
     }
     end <- grep(";", beast)
-    j <- end[end %>% `>`(i) %>% which %>% `[`(1)]
+    j <- end[which(end > i)[1]]
     trans <- beast[(i+1):j]
     trans %<>% gsub("^\\s+", "", .)
     trans %<>% gsub(",|;", "", .)
