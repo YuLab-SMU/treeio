@@ -26,6 +26,8 @@
 \alias{reexports}
 \alias{get.fields}
 \alias{reexports}
+\alias{get.data}
+\alias{reexports}
 \alias{as.treedata}
 \alias{reexports}
 \alias{ancestor}
@@ -56,6 +58,6 @@ below to see their documentation.
 
   \item{tibble}{\code{\link[tibble]{data_frame}}}
 
-  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}}
+  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}}
 }}
 

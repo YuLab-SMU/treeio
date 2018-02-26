@@ -32,6 +32,16 @@ library(tidytree)
 library(ggplot2)
 
 library("treeio")
+
+CRANpkg <- function (pkg) {
+    cran <- "https://CRAN.R-project.org/package"
+    fmt <- "[%s](%s=%s)"
+    sprintf(fmt, pkg, cran, pkg)
+}
+
+Biocpkg <- function (pkg) {
+    sprintf("[%s](http://bioconductor.org/packages/%s)", pkg, pkg)
+}
 ```
 
 # Introduction
@@ -47,10 +57,20 @@ comparative phylogenetic models and analyses, to infer their dynamics associated
 with the evolutionary or transmission processes of the virus. All these
 meta-data or other phenotypic or experimental data are stored either as the
 annotation data associated with the nodes or branches, and are often produced in
-inconsistent format by different analysis programs. Getting analysis results
-from widely used software packages in this field is quite challenging and generally
-requires programming expertise. Linking external data, including experimental
-and clinical data, to phylogeny is another obstacle for evolution biologists.
+inconsistent format by different analysis programs.
+
+
+Getting trees in to R is still limited. Newick and Nexus can be imported by
+several packages, including `r CRANpkg("ape")`, `r CRANpkg("phylobase")`. NeXML
+format can be parsed by `r CRANpkg("RNeXML")`. However, analysis results from
+widely used software packages in this field is not well
+supported. SIMMAP output can be parsed by `r CRANpkg("phyext2")` and `r
+CRANpkg("phytools")`. Although [PHYLOCH](http://www.christophheibl.de/Rpackages.html) can
+import BEAST and MrBayes output, only internal node attributes were parsed and
+tip attributes were ignore. Many other software outputs are mainly required
+programming expertise to import the tree with associated data. Linking external
+data, including experimental and clinical data, to phylogeny is another obstacle
+for evolution biologists.
 
 
 The [treeio](https://bioconductor.org/packages/treeio/) package defines base
@@ -479,6 +499,45 @@ and [CODEML](http://abacus.gene.ucl.ac.uk/software/paml.html), and evolutionary
 trait from external sources. All these information can be used to annotate the
 tree using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
 
+# Getting information from *treedata* object
+
+After the tree was imported, users may want to extract information that stored
+in the `treedata` object. `r Biocpkg("treeio")` provides several accessor
+methods to extract tree structure, features/attributes that stored in the object
+and their corresponding values.
+
+The `get.tree` or `as.phylo` methods can convert the `treedata` object to
+`phylo` object which is the fundamental tree object in the R community and
+many packages work with `phylo` object.
+
+```{r}
+# or get.tree
+as.phylo(beast_tree)
+```
+
+The `get.fields` method return a vector of features/attributes that stored in
+the object and associated with the phylogeny.
+
+```{r}
+get.fields(beast_tree)
+```
+
+The `get.data` method return a tibble of all the associated data.
+
+
+```{r}
+get.data(beast_tree)
+```
+
+If users are only interesting a subset of the features/attributes return by
+`get.fields`, they can extract the information from the output of `get.data` or
+directly subset the data by `[` or `[[`.
+
+```{r}
+beast_tree[, c("node", "height")]
+head(beast_tree[["height_median"]])
+```
+
 
 # Manipulating tree data using *tidytree*
 
@@ -494,6 +553,23 @@ single tree file](Exporter.html), further analyzed in R or visualized using [ggt
 
 
 For more details, please refer to the [tidytree package vignette](https://cran.r-project.org/web/packages/tidytree/vignettes/tidytree.html).
+
+
+# Visualizing tree data with *ggtree*
+
+[treeio](https://bioconductor.org/packages/treeio/) is seamlessly integrated
+into the [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017]
+package and all the information either directly imported or linking from
+external sources can be used to visualize and annotate the tree.
+
+See the `r Biocpkg("ggtree")` package vignettes for more details:
+
++ [Tree Visualization](treeVisualization.html)
++ [Tree Manipulation](treeManipulation.html)
++ [Tree Annotation](treeAnnotation.html)
++ [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
++ [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-ggimage.html)
++ [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/ggtree/vignettes/ggtree-inset.html)
 
 
 # References

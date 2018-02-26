@@ -42,7 +42,7 @@ and [MrBayes](http://nbisweden.github.io/MrBayes/) outputs that introduce square
 bracket, which was reserved to store comment in standard Nexus format, to store
 inferences). With [treeio](https://bioconductor.org/packages/treeio/), we are
 now able to parse these files to extract phylogenetic tree and map associated
-data on the tree structure. Exporting tree structure is easy, user can use
+data on the tree structure. Exporting tree structure is easy, users can use
 `as.phyo` method defined [treeio](https://bioconductor.org/packages/treeio/) to
 convert `treedata` object to `phylo` object then using `write.tree` or
 `write.nexus` implemented

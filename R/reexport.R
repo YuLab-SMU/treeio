@@ -6,6 +6,10 @@ magrittr::`%>%`
 ##' @export
 tidytree::get.fields
 
+##' @importFrom tidytree get.data
+##' @export
+tidytree::get.data
+
 ##' @importFrom tidytree as.treedata
 ##' @export
 tidytree::as.treedata

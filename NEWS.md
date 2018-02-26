@@ -1,3 +1,9 @@
+# treeio 1.3.12
+
++ update according to rOpenSci comments (2018-02-26, Mon)
+  - <https://github.com/ropensci/onboarding/issues/179#issuecomment-365144565>
+  - <https://github.com/ropensci/onboarding/issues/179#issuecomment-366800716>
+
 # treeio 1.3.11
 
 + deprecate read.phyloT as read.tree in ape v5 now supports phyloT newick text
