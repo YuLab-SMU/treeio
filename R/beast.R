@@ -110,7 +110,7 @@ read.stats_beast <- function(file) {
 
 
 read.stats_beast_internal <- function(beast, tree) {
-    tree <- gsub(" ", "", tree)
+    ##tree <- gsub(" ", "", tree)
     tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
     phylo <- read.tree(text = tree2)
 
@@ -120,7 +120,10 @@ read.stats_beast_internal <- function(beast, tree) {
     nn <- strsplit(tree2, split=",") %>% unlist %>%
         strsplit(., split="\\)") %>% unlist %>%
         gsub("\\(*", "", .) %>%
-        gsub("[:;].*", "", .)
+        gsub("[:;].*", "", .) %>%
+        gsub(" ", "", .) %>%
+        gsub("'", "", .) %>%
+        gsub('"', "", .)
 
     phylo <- read.tree(text = tree2)
     root <- rootnode(phylo)

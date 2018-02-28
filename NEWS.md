@@ -1,5 +1,7 @@
 # treeio 1.3.12
 
++ read.beast now compatible with taxa label contains ', " and space (2018-02-27,
+  Wed)
 + update according to rOpenSci comments (2018-02-26, Mon)
   - <https://github.com/ropensci/onboarding/issues/179#issuecomment-365144565>
   - <https://github.com/ropensci/onboarding/issues/179#issuecomment-366800716>
