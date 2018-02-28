@@ -66,13 +66,14 @@ preview:
 	rm themes;\
 	cd ..
 
-
-
 gitmaintain:
 	git gc --auto;\
 	git prune -v;\
 	git fsck --full
 
+release:
+	git checkout RELEASE_3_6;\
+	git fetch --all
 
 update:
 	git fetch --all;\
