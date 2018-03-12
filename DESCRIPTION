@@ -1,9 +1,9 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.3.12
+Version: 1.3.13
 Authors@R: c(
     person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
-    person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("aut", "ths")),
+    person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("ctb", "ths")),
     person("Casey", "Dunn",         email = "casey_dunn@brown.edu",    role = "ctb"),
     person("Bradley", "Jones",      email = "brj1@sfu.ca",             role = "ctb")
 	  )

@@ -14,3 +14,4 @@ site_src
 CONTRIBUTORS.md
 .covrignore
 ^CONDUCT\.md$
+^codemeta\.json$

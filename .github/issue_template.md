@@ -1,8 +1,8 @@
 ### Prerequisites
 
-+ [ ] Have you read [Feedback](https://guangchuangyu.github.io/treeio/#feedback) and follow the [guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/)?
++ [ ] Have you read [Feedback](https://guangchuangyu.github.io/software/treeio/#feedback) and follow the [guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/)?
 	* [ ] make sure your are using the latest release version
-	* [ ] read the [documents](https://guangchuangyu.github.io/treeio/documentation/)
+	* [ ] read the [documents](https://guangchuangyu.github.io/software/treeio/documentation/)
 	* [ ] google your quesion/issue
 
 ### Describe you issue
@@ -15,3 +15,12 @@
 
 * [ ] for bugs or feature requests, post here (github issue)
 * [ ] for questions, please post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree)
+
+
+<details> <summary><strong>Session Info</strong></summary>
+
+```r
+
+```
+</details>
+

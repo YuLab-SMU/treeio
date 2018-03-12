@@ -51,7 +51,7 @@ phylogeny. It also supports exporting phylogenetic tree with heterogeneous
 associated data to a single tree file and can be served as a platform for
 merging tree with associated data and converting file formats.
 
-See the `treeio` project website, <https://guangchuangyu.github.io/treeio>, and
+See the `treeio` project website, <https://guangchuangyu.github.io/software/treeio>, and
 package vignette for more details.
 
 ### Vignettes
@@ -107,4 +107,12 @@ ggsave(p, file="docs/images/dlstats.png", width=8, height=4)
 
 We welcome any contributions! By participating in this project you agree to
 abide by the terms outlined in the [Contributor Code of Conduct](CONDUCT.md).
+
+
+## Package Affiliations
+
+The `treeio` package is a part of the Bioconductor and rOpenSci projects.
+
+| [![bioconductor_footer](http://bioconductor.org/images/logo_bioconductor.gif)](http://bioconductor.org) | [![ropensci_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org) |
+|:-------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------:|
 

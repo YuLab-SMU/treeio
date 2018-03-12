@@ -12,6 +12,9 @@ rd:
 readme:
 	Rscript -e 'rmarkdown::render("README.Rmd")'
 
+codemetar:
+	Rscript -e 'codemetar::write_codemeta()'
+
 sticker:
 	Rscript -e 'source("treeio_sticker.R")';
 	rm Rplots.pdf
