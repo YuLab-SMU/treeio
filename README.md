@@ -4,7 +4,7 @@ treeio: Base classes and functions for phylogenetic tree input and output
 
 <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="200" align="right" />
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-1.2.2-green.svg?style=flat)](https://bioconductor.org/packages/treeio) [![develVersion](https://img.shields.io/badge/devel%20version-1.3.12-green.svg?style=flat)](https://github.com/guangchuangyu/treeio) [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since) [![](https://badges.ropensci.org/179_status.svg)](https://github.com/ropensci/onboarding/issues/179)
+[![releaseVersion](https://img.shields.io/badge/release%20version-1.2.2-green.svg?style=flat)](https://bioconductor.org/packages/treeio) [![develVersion](https://img.shields.io/badge/devel%20version-1.3.13-green.svg?style=flat)](https://github.com/guangchuangyu/treeio) [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since) [![](https://badges.ropensci.org/179_status.svg)](https://github.com/ropensci/onboarding/issues/179)
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio) [![Last-changedate](https://img.shields.io/badge/last%20change-2018--03--12-green.svg)](https://github.com/GuangchuangYu/treeio/commits/master) [![GitHub forks](https://img.shields.io/github/forks/GuangchuangYu/treeio.svg)](https://github.com/GuangchuangYu/treeio/network) [![GitHub stars](https://img.shields.io/github/stars/GuangchuangYu/treeio.svg)](https://github.com/GuangchuangYu/treeio/stargazers)
 
@@ -50,7 +50,7 @@ Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/treeio.svg)](https://bioconductor.org/packages/stats/bioc/treeio) [![total](https://img.shields.io/badge/downloads-7098/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio) [![month](https://img.shields.io/badge/downloads-759/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
 
-<img src="docs/images/dlstats.png" width="890"/>
+<img src="https://guangchuangyu.github.io/software/treeio/index_files/figure-html/unnamed-chunk-2-1.png" width="890"/>
 
 Contributing
 ------------
