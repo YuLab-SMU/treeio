@@ -111,10 +111,12 @@ read.stats_beast <- function(file) {
 
 read.stats_beast_internal <- function(beast, tree) {
     ##tree <- gsub(" ", "", tree)
-    tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
-    phylo <- read.tree(text = tree2)
+    ## tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
+    ## phylo <- read.tree(text = tree2)
+    ## tree2 <- add_pseudo_nodelabel(phylo, tree2)
 
-    tree2 <- add_pseudo_nodelabel(phylo, tree2)
+    phylo <- read.tree(text = tree)
+    tree2 <- add_pseudo_nodelabel(phylo)
 
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
@@ -286,18 +288,21 @@ read.stats_beast_internal <- function(beast, tree) {
 }
 
 
-add_pseudo_nodelabel <- function(phylo, treetext) {
+add_pseudo_nodelabel <- function(phylo) {
     if(is.null(phylo$node.label)) {
         nnode <- phylo$Nnode
-        nlab <- paste("X", 1:nnode, sep="")
-        for (i in 1:nnode) {
-            treetext <- sub("\\)([:;])",
-                            paste0("\\)", nlab[i], "\\1"),
-                            treetext)
-        }
+        phylo$node.label <- paste("X", 1:nnode, sep="")
+        ## for (i in 1:nnode) {
+        ##     treetext <- sub("\\)([:;])",
+        ##                     paste0("\\)", nlab[i], "\\1"),
+        ##                     treetext)
+        ## }
     }
+    ## if tip.label contains () which will broken node name extraction
+    phylo$tip.label <- gsub("[\\(\\)]", "_", phylo$tip.label)
 
-   return(treetext)
+    treetext <- write.tree(phylo)
+    return(treetext)
 }
 
 

@@ -17,6 +17,7 @@ vignette: >
   %\VignetteIndexEntry{01 Importing trees with data}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
@@ -570,6 +571,23 @@ See the `r Biocpkg("ggtree")` package vignettes for more details:
 + [Phylomoji](https://cran.r-project.org/web/packages/emojifont/vignettes/phylomoji.html)
 + [Annotating phylogenetic tree with images](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-ggimage.html)
 + [Annotate a phylogenetic tree with insets](https://guangchuangyu.github.io/software/ggtree/vignettes/ggtree-inset.html)
+
+
+# Need helps?
+
+
+If you have questions/issues, please visit
+[treeio homepage](https://guangchuangyu.github.io/software/treeio/) first.
+Your problems are mostly documented. If you think you found a bug, please follow
+[the guide](https://guangchuangyu.github.io/2016/07/how-to-bug-author/) and
+provide a reproducible example to be posted on
+[github issue tracker](https://github.com/GuangchuangYu/treeio/issues).
+For questions, please post
+to [Bioconductor support site](https://support.bioconductor.org/) and tag your
+post with *treeio*.
+
+
+For Chinese user, you can follow me on [WeChat (微信)](https://guangchuangyu.github.io/blog_images/biobabble.jpg).
 
 
 # References
