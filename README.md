@@ -12,7 +12,7 @@ treeio: Base classes and functions for phylogenetic tree input and output
 
 `treeio` is an R package to make it easier to import and store phylogenetic tree with associated data; and to link external data from different sources to phylogeny. It also supports exporting phylogenetic tree with heterogeneous associated data to a single tree file and can be served as a platform for merging tree with associated data and converting file formats.
 
-See the `treeio` project website, <https://guangchuangyu.github.io/software/treeio>, and package vignette for more details.
+See the `treeio` project website, <https://guangchuangyu.github.io/software/treeio>, and package vignettes for more details.
 
 ### Vignettes
 
