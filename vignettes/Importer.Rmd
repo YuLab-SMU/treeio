@@ -64,9 +64,9 @@ inconsistent format by different analysis programs.
 Getting trees in to R is still limited. Newick and Nexus can be imported by
 several packages, including `r CRANpkg("ape")`, `r CRANpkg("phylobase")`. NeXML
 format can be parsed by `r CRANpkg("RNeXML")`. However, analysis results from
-widely used software packages in this field is not well
-supported. SIMMAP output can be parsed by `r CRANpkg("phyext2")` and `r
-CRANpkg("phytools")`. Although [PHYLOCH](http://www.christophheibl.de/Rpackages.html) can
+widely used software packages in this field are not well
+supported. SIMMAP output can be parsed by `r CRANpkg("phyext2")` and `r CRANpkg("phytools")`.
+Although [PHYLOCH](http://www.christophheibl.de/Rpackages.html) can
 import BEAST and MrBayes output, only internal node attributes were parsed and
 tip attributes were ignore. Many other software outputs are mainly required
 programming expertise to import the tree with associated data. Linking external
@@ -383,7 +383,7 @@ read.jtree(file = jtree_file)
 In addition to analysis findings that are associated with the tree as we showed
 above, there is a wide range of heterogeneous data, including phenotypic data,
 experimental data and clinical data *etc.*, that need to be integrated and
-linked to phylogeny. For example, in study of viral evolution, tree nodes may
+linked to phylogeny. For example, in the study of viral evolution, tree nodes may
 associated with epidemiological information, such as location, age and subtype.
 Functional annotations may need to be mapped on gene trees for comparative
 genomics studies. To facilitate data
