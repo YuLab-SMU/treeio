@@ -7,6 +7,10 @@ gfocus <- function(phy, focus, group_name, focus_label=NULL,
 
     overlap <- match.arg(overlap, c("origin", "overwrite", "abandon"))
 
+    if (is.factor(focus)) {
+        focus <- as.character(focus)
+    }
+
     if (is.character(focus)) {
         focus <- which(phy$tip.label %in% focus)
     }
