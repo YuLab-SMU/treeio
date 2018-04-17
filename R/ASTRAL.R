@@ -25,6 +25,8 @@ read.astral <- function(file) {
         get_nhx_feature %>%
         as_data_frame
 
+    stats$node <- Ntip(phylo) + 1:phylo$Nnode
+
     phylo$node.label <- NULL
 
     new("treedata",
