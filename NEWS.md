@@ -1,3 +1,7 @@
+# treeio 1.3.14
+
++ read.iqtree (2018-04-17, Tue)
+
 # treeio 1.3.13
 
 + mv project website to <https://guangchuangyu.github.io/software/treeio>

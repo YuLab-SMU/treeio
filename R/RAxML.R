@@ -3,7 +3,7 @@
 ##'
 ##' @title read.raxml
 ##' @param file RAxML bootstrapping analysis output
-##' @return raxml object
+##' @return treedata object
 ##' @importFrom tibble data_frame
 ##' @export
 ##' @examples

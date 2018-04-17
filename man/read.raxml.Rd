@@ -10,7 +10,7 @@ read.raxml(file)
 \item{file}{RAxML bootstrapping analysis output}
 }
 \value{
-raxml object
+treedata object
 }
 \description{
 parse RAxML bootstrapping analysis output
