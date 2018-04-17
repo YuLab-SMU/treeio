@@ -12,7 +12,7 @@
 ##' read.nhx(nhxfile)
 ##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 read.nhx <- function(file) {
-    treetext <- suppressWarnings(readLines(file))
+    treetext <- readLines(file, warn=FALSE)
     treetext <- treetext[treetext != ""]
     treetext <- treetext[treetext != " "]
 
