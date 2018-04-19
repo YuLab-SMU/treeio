@@ -73,6 +73,7 @@ write_beast_newick <- function(treedata, file = "",
     phy <- as.phylo(treedata)
 
     anno <- get_tree_data(treedata)
+    anno$node <- as.integer(anno$node)
     ## currently substitution is not supported
     anno <- anno[!colnames(anno) %in% c('subs', "AA_subs")]
 
