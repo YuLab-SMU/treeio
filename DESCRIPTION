@@ -16,6 +16,7 @@ Imports:
     jsonlite,
     magrittr,
     methods,
+    rlang,
     rvcheck,
     tibble,
     tidytree (>= 0.1.7)
