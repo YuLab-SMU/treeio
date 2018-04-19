@@ -1,6 +1,7 @@
 # treeio 1.3.14
 
 + rename_taxa (2018-04-19, Thu)
+  - <https://guangchuangyu.github.io/2018/04/rename-phylogeny-tip-labels-in-treeio/>
 + read.astral (2018-04-17, Tue)
 + read.iqtree
 
