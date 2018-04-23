@@ -49,3 +49,46 @@ as.treedata.phylo4d <- function(tree, ...) {
 as.treedata.ggtree <- function(tree, ...) {
     as.treedata(tree$data, ...)
 }
+
+
+##' @method as.treedata tbl_df
+##' @export
+as.treedata.tbl_df <- function(tree, ...) {
+    edgelist <- as.tibble(tree)
+
+    phylo <- as.phylo.tbl_df(edgelist, ...)
+
+    res <- new("treedata",
+               phylo = phylo)
+
+    if (ncol(edgelist) >= 3) {
+        d <- edgelist[,-c(1,2)]
+        length_var <- attr(phylo, "length_var")
+
+        if (!is.null(length_var)) {
+            d <- d[, names(d) != length_var]
+            if (ncol(d) == 0) return(res)
+        }
+
+        lab <- c(phylo$tip.label, phylo$node.label)
+
+        edge <- check_edgelist(edgelist)
+        children <- edge[,2]
+
+        d$node <- match(children, lab)
+        res@data <- d
+    }
+
+    return(res)
+}
+
+
+
+##' @method as.treedata data.frame
+##' @export
+as.treedata.data.frame <- as.treedata.tbl_df
+
+
+##' @method as.treedata matrix
+##' @export
+as.treedata.matrix <- as.treedata.tbl_df

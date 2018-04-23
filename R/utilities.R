@@ -1,3 +1,22 @@
+
+check_edgelist <- function(edgelist) {
+    if (dim(edgelist)[2] < 2)
+        stop("input should be a matrix of edge list that holds the relationships in the first two columns")
+    if (length(unique(edgelist[[1]])) > length(unique(edgelist[[2]]))) {
+        children <- edgelist[[1]]
+        parents <- edgelist[[2]]
+    } else {
+        children <- edgelist[[2]]
+        parents <- edgelist[[1]]
+    }
+    root <- unique(parents[!(parents %in% children)])
+    if (length(root) != 1)
+        stop("Cannot find root. network is not a tree!")
+
+    matrix(c(parents, children), ncol=2)
+}
+
+
 is_numeric <- function(x) !anyNA(suppressWarnings(as.numeric(as.character(x))))
 
 filename <- function(file) {

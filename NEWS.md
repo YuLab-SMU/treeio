@@ -1,3 +1,8 @@
+# treeio 1.3.15
+
++ Supports convert edge list (matrix, data.frame or tibble) to `phylo` and `treedata` object, now
+  `ggtree` can be used to visualize all tree-like graph. (2018-04-23, Mon)
+
 # treeio 1.3.14
 
 + rename_taxa (2018-04-19, Thu)

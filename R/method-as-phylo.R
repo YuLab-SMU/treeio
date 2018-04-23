@@ -3,6 +3,40 @@
 ape::as.phylo
 
 
+##' @method as.phylo tbl_df
+##' @importFrom tibble as.tibble
+##' @importFrom dplyr mutate_if
+##' @export
+as.phylo.tbl_df <- function(x, length, ...) {
+    x <- as.tibble(x) %>% mutate_if(is.factor, as.character)
+
+    edge.length <- NULL
+    length_var <- quo_name(enexpr(length))
+
+    if (length_var != "") {
+        edge.length <- as.numeric(x[[length_var]])
+    } else {
+        length_var <- NULL
+    }
+
+    edge <- check_edgelist(x)
+    phylo <- read.tree(text = .write.tree4(edge,
+                                           id_as_label=TRUE,
+                                           edge.length = edge.length),
+                       ...)
+
+    attr(phylo, "length_var") <- length_var
+    return(phylo)
+}
+
+##' @method as.phylo data.frame
+##' @export
+as.phylo.data.frame <- as.phylo.tbl_df
+
+##' @method as.phylo matrix
+##' @export
+as.phylo.matrix <- as.phylo.tbl_df
+
 
 ##' @method as.phylo phylo4
 ##' @export
