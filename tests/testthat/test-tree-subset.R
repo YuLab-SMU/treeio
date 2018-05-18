@@ -1,8 +1,10 @@
 context("Tree subset")
 
 library(ape)
+library(tidytree)
 
-
+# testing that tree_subset works on phylo objects
+#==============================================================
 set.seed(42)
 # sample bifurcating tree
 bi_tree <- ape::rtree(10)
@@ -74,4 +76,43 @@ test_that("multi_tree and named_multi_tree return expected subtrees", {
                  as_data_frame() %>%
                  dplyr::select(-c(focus, group)),
                as_data_frame(multi_tree))
+})
+
+
+# testing that tree_subset works on treedata objects
+#====================================================================
+
+beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
+rst_file <- system.file("examples/rst", package="ggtree")
+mlc_file <- system.file("examples/mlc", package="ggtree")
+beast_tree <- read.beast(beast_file)
+codeml_tree <- read.codeml(rst_file, mlc_file)
+
+merged_tree <- merge_tree(beast_tree, codeml_tree)
+merged_tree
+
+
+test_that("treedata returns expected results", {
+  merged_subset <- tree_subset(merged_tree, "A/Swine/GX/2242/2011", 3)
+
+  expected_tips <- c("A/Swine/GD_NS2892/2012", "A/Swine/GD_NS2701/2012",
+                     "A/Swine/GX_NS1409/2012", "A/Swine/HK/3280/2012",
+                     "A/Swine/GX/650/2012", "A/Swine/GX/508/2012",
+                     "A/Swine/GX/2242/2011", "A/Swine/GD/2919/2012",
+                     "A/Swine/HK_NS1651/2012")
+
+  merged_subset_df <- merged_subset %>%
+    as_data_frame() %>%
+    dplyr::filter(!node %in% parent) %>%
+    tidyr::gather(key = data, value = value_subset, -c(parent, node, branch.length,
+                                                       label, group)) %>%
+    left_join(merged_tree %>%
+                as_data_frame() %>%
+                tidyr::gather(key = data, value = value_orig,
+                              -c(parent, node, branch.length,
+                                 label, group)),
+              by = c("label", "data"))
+
+  expect_true(all(merged_subset@phylo$tip.label %in% expected_tips))
+  expect_true(all(expected_tips %in% merged_subset@phylo$tip.label))
 })
