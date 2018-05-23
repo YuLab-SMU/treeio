@@ -45,7 +45,7 @@ test_that("bi_tree and named_bi_tree return expected subsets", {
   # returns the full tree - just have to remove focus and grouping
   expect_equal(tree_subset(bi_tree, "t5", 6) %>%
                  as_data_frame() %>%
-                 dplyr::select(-c(focus, group)),
+                 dplyr::select(-group),
                as_data_frame(bi_tree))
 
 })
@@ -74,7 +74,7 @@ test_that("multi_tree and named_multi_tree return expected subtrees", {
 
   expect_equal(tree_subset(multi_tree, "t8", 4) %>%
                  as_data_frame() %>%
-                 dplyr::select(-c(focus, group)),
+                 dplyr::select(-group),
                as_data_frame(multi_tree))
 })
 
@@ -106,13 +106,16 @@ test_that("treedata returns expected results", {
     dplyr::filter(!node %in% parent) %>%
     tidyr::gather(key = data, value = value_subset, -c(parent, node, branch.length,
                                                        label, group)) %>%
-    left_join(merged_tree %>%
+    dplyr::left_join(merged_tree %>%
                 as_data_frame() %>%
                 tidyr::gather(key = data, value = value_orig,
                               -c(parent, node, branch.length,
-                                 label, group)),
+                                 label)),
               by = c("label", "data"))
 
   expect_true(all(merged_subset@phylo$tip.label %in% expected_tips))
   expect_true(all(expected_tips %in% merged_subset@phylo$tip.label))
+
+  expect_identical(merged_subset_df$value_subset, merged_subset_df$value_orig)
+  expect_identical(merged_subset_df$branch.length.x, merged_subset_df$branch.length.y)
 })
