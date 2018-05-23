@@ -1,3 +1,17 @@
+# treeio 1.5.2
+
++ `drop.tip` works with `tree@extraInfo` (2018-05-23, Wed)
+  - <https://github.com/GuangchuangYu/tidytree/pull/6#issuecomment-390259901>
+
+# treeio 1.5.1
+
++ bug fixed of `groupOTU.treedata` (2018-05-23, Wed)
+  - <https://github.com/GuangchuangYu/treeio/issues/7>
+
+# treeio 1.4.0
+
++ Bioconductor 3.7 release
+
 # treeio 1.3.15
 
 + Supports convert edge list (matrix, data.frame or tibble) to `phylo` and `treedata` object, now

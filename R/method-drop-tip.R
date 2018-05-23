@@ -16,12 +16,11 @@ setMethod("drop.tip", signature(object="treedata"),
           })
 
 drop.tip.treedata <- function(object, tip, ...) {
-    ## no_node_label <- FALSE
-
     ## Column name that has very low chance of collision
     ## with existing column
     node_label_name <- "cd8128f329f72c167a8028cf8"
 
+    labels <- NULL
     if (!is.null(object@phylo$node.label)) {
         ## Tree has node labels. Put these in data
         ## for safe keeping and remove them from tree for now
@@ -30,7 +29,6 @@ drop.tip.treedata <- function(object, tip, ...) {
             rep( NA, length( object@phylo$tip.label ) ),
             object@phylo$node.label
         )
-        object@data[[ node_label_name ]] <- labels
 
         object@phylo$node.label <- NULL
     }
@@ -38,47 +36,63 @@ drop.tip.treedata <- function(object, tip, ...) {
     ## label the internal tree nodes by their number
     object@phylo$node.label <- Ntip(object) + (1:Nnode(object))
 
-    ## Prepare the nhx object for subsampling
-    object@data$node <- as.numeric(object@data$node)
-    object@data <- object@data[order(object@data$node),]
+    trans_node_data <- data_frame(node = 1:Nnode(object, internal.only = FALSE),
+                       node.label = c(object@phylo$tip.label,
+                                      as.character(object@phylo$node.label)))
+    if (!is.null(labels))
+        trans_node_data[[node_label_name]] <- labels
 
-    ## add a colmn that has labels for both tips and internal nodes
-    object@data$node.label <- c(object@phylo$tip.label,
-                                as.character(object@phylo$node.label))
+
 
     ## Will need to take different approaches for subsampling tips
     ## and internal nodes, add a column to make it easy to tell them apart
-    object@data$is_tip <- object@data$node <= Ntip(object)
+    trans_node_data$is_tip <- trans_node_data$node <= Ntip(object)
+
 
     ## Remove tips
     object@phylo <- ape::drop.tip( object@phylo, tip )
 
+
     ## Subsample the tags
-    object@data <- object@data[object@data$node.label %in%
-                               (c(object@phylo$tip.label,
-                                  as.character(object@phylo$node.label))),]
+    trans_node_data <- trans_node_data[trans_node_data$node.label %in%
+                            (c(object@phylo$tip.label,
+                               as.character(object@phylo$node.label))),]
 
     ## Update tip node numbers
-    tip_nodes <- object@data$node.label[ object@data$is_tip ]
-    object@data$node[ object@data$is_tip ] <- match(object@phylo$tip.label,
-                                                    tip_nodes)
+    tip_nodes <- trans_node_data$node.label[ trans_node_data$is_tip ]
+    trans_node_data$new_node <- NA
+    trans_node_data$new_node[ trans_node_data$is_tip ] <- match(object@phylo$tip.label,
+                                                                tip_nodes)
 
-    internal_nodes <- object@data$node.label[ !object@data$is_tip ]
-    object@data$node[!object@data$is_tip] <- match(object@phylo$node.label,
-                                                   internal_nodes)+ Ntip(object)
+    internal_nodes <- trans_node_data$node.label[ !trans_node_data$is_tip ]
+    trans_node_data$new_node[!trans_node_data$is_tip] <- match(object@phylo$node.label,
+                                                               internal_nodes)+ Ntip(object@phylo)
 
-    ## Clean up
-    object@data$node.label <- NULL
-    object@data$is_tip <- NULL
+
+    update_data <- function(data, trans_node_data) {
+        data <- data[match(trans_node_data$node, data$node),]
+        data$node <- trans_node_data$new_node
+        return(data)
+    }
+
+    if (nrow(object@data) > 0) {
+        object@data <- update_data(object@data, trans_node_data)
+    }
+
+    if (nrow(object@extraInfo) > 0) {
+        object@extraInfo <- update_data(object@extraInfo, trans_node_data)
+    }
+
 
     ## Add node labels back to tree, if there were any
-    if (node_label_name %in% names( object@data ) ) {
-        labels <- object@data[[ node_label_name ]]
-        ntips <- length ( object@phylo$tip.label )
-        labels <- labels[ (ntips+1):nrow( object@data ) ]
+    if (node_label_name %in% names( trans_node_data ) ) {
+        labels <- trans_node_data[[ node_label_name ]]
+        labels <- labels[1:Nnode(object) + Ntip(object)]
         object@phylo$node.label <- labels
-        object@data[[ node_label_name ]] <- NULL
+    } else {
+        object@phylo$node.label <- NULL
     }
+
 
     return(object)
 }
