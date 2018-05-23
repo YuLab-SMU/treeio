@@ -77,4 +77,5 @@ groupOTU.phylo <- function(.data, .node, group_name="group", ...) {
 ##' @export
 groupOTU.treedata <- function(.data, .node, group_name = "group", ...) {
     .data@phylo <- groupOTU(as.phylo(.data), .node, group_name, ...)
+    return(.data)
 }
