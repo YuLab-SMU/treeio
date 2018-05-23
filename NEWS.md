@@ -1,3 +1,8 @@
+# treeio 1.5.2
+
++ `drop.tip` works with `tree@extraInfo` (2018-05-23, Wed)
+  - <https://github.com/GuangchuangYu/tidytree/pull/6#issuecomment-390259901>
+
 # treeio 1.5.1
 
 + bug fixed of `groupOTU.treedata` (2018-05-23, Wed)
