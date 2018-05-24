@@ -1,9 +1,14 @@
-Bradley Jones
+[Tyler Bradley](https://github.com/tbradley1013)
+------------
++ `tree_subset` methods for `phylo` and `treedata` objects
+  - <https://github.com/GuangchuangYu/treeio/pull/8>
+  
+[Bradley Jones](https://github.com/brj1)
 -------------
 + beast1 tree support
   - <https://github.com/GuangchuangYu/treeio/pull/4>
 
-Casey Dunn
+[Casey Dunn](https://github.com/caseywdunn)
 ----------
 + `drop.tip` method
   - <https://github.com/GuangchuangYu/ggtree/pull/90>

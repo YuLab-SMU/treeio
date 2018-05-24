@@ -1,3 +1,9 @@
+# treeio 1.5.2.002
+
++ fixed R check for `tree_subset` by using `rlang::quo` and import `utils::head`
+  and `utils::tail` (2018-05-24, Thu)
++ `tree_subset` methods contributed by [@tbradley1013](https://github.com/tbradley1013)
+
 # treeio 1.5.2
 
 + `drop.tip` works with `tree@extraInfo` (2018-05-23, Wed)
