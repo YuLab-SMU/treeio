@@ -47,7 +47,9 @@ as.treedata.phylo4d <- function(tree, ...) {
 ##' @method as.treedata ggtree
 ##' @export
 as.treedata.ggtree <- function(tree, ...) {
-    as.treedata(tree$data, ...)
+    d <- as_data_frame(tree$data)
+    class(d) <- c("tbl_tree", "tbl_df", "tbl", "data.frame")
+    as.treedata(d, ...)
 }
 
 

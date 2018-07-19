@@ -69,7 +69,9 @@ as.phylo.phylo4 <- function(x, ...) {
 ##' @method as.phylo ggtree
 ##' @export
 as.phylo.ggtree <- function(x, ...) {
-    as.phylo(as_data_frame(x$data))
+    d <- as_data_frame(x$data)
+    class(d) <- c("tbl_tree", "tbl_df", "tbl", "data.frame")
+    as.phylo(d)
 }
 
 
