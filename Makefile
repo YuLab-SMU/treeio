@@ -4,7 +4,7 @@ PKGSRC  := $(shell basename `pwd`)
 
 all: rd readme check clean
 
-alldocs: rd readme site
+alldocs: rd readme
 
 rd:
 	Rscript -e 'library(methods); devtools::document()'
@@ -55,20 +55,6 @@ clean:
 	$(RM) -r $(PKGNAME).Rcheck/
 
 
-site:
-	cd site_src;\
-	ln -s ../../software/themes themes;\
-	Rscript -e 'blogdown::build_site()';\
-	rm themes;\
-	cd ..
-
-preview:
-	cd site_src;\
-	ln -s ../../software/themes themes;\
-	Rscript -e 'blogdown::serve_site()';\
-	rm themes;\
-	cd ..
-
 gitmaintain:
 	git gc --auto;\
 	git prune -v;\
@@ -88,3 +74,6 @@ push: update
 	git push upstream master;\
 	git push origin master
 
+biocinit:
+	git remote add upstream git@git.bioconductor.org:packages/$(PKGNAME).git;\
+	git fetch --all
