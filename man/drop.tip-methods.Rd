@@ -32,6 +32,8 @@ updated object
 }
 \description{
 drop.tip method
+
+drop.tip method
 }
 \examples{
 nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")

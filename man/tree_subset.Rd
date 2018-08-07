@@ -8,7 +8,8 @@
 \usage{
 tree_subset(tree, node, levels_back = 5, group_node = TRUE)
 
-\method{tree_subset}{phylo}(tree, node, levels_back = 5, group_node = TRUE)
+\method{tree_subset}{phylo}(tree, node, levels_back = 5,
+  group_node = TRUE)
 
 \method{tree_subset}{treedata}(tree, node, levels_back = 5,
   group_node = TRUE)

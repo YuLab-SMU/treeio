@@ -20,6 +20,4 @@ phylo object
 }
 \description{
 access tree text (newick text) from tree object
-
-get.treetext method
 }

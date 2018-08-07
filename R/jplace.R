@@ -48,6 +48,9 @@ summarize_placement <- function(tree) {
 ##' @importFrom dplyr filter_
 get.placements.jplace <- function(tree, by="best", ...) {
     placements <- tree@placements
+    if (!'likelihood' %in% names(placements))
+        return(placements)
+
     if (by == "best") {
         ## http://astrostatistics.psu.edu/su07/R/html/base/html/all.equal.html
         ## due to precision, number are identical maynot be equal,

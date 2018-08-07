@@ -1,3 +1,7 @@
+# treeio 1.5.3
+
++ `read.jplace` compatible with output of [TIPars](https://github.com/id-bioinfo/TIPars) (2018-08-07, Tue)
+
 # treeio 1.5.2
 
 + bug fixed of `as.phylo.ggtree` and `as.treedata.ggtree` (2018-07-19, Thu)
