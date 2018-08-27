@@ -184,14 +184,6 @@ tree_subset.treedata <- function(tree, node, levels_back = 5, group_node = TRUE)
   }
 
 
-  # subset_labels <- tidytree::ancestor(tree_df, node) %>%
-  #   tail(levels_back) %>%
-  #   head(1) %>%
-  #   dplyr::pull(node) %>%
-  #   tidytree::offspring(tree_df, .) %>%
-  #   dplyr::filter(!node %in% parent) %>%
-  #   dplyr::pull(!!quo("label"))
-
   subset_nodes <- which(tree@phylo$tip.label %in% subset_labels)
 
   subtree <- drop.tip(tree, tree@phylo$tip.label[-subset_nodes], rooted = TRUE)
