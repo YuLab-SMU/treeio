@@ -66,7 +66,7 @@ Get the released version from Bioconductor:
 ## try http:// if https:// URLs are not supported
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
-## biocLite("BiocUpgrade") ## you may need this
+## BiocManager::install("BiocUpgrade") ## you may need this
 BiocManager::install("treeio")
 ```
 
