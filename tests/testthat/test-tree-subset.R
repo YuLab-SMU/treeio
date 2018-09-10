@@ -48,7 +48,36 @@ test_that("bi_tree and named_bi_tree return expected subsets", {
                  dplyr::select(-group),
                as_data_frame(bi_tree))
 
+
+  # testing that levels_back = 0 returns an error when a tip is specified and
+  # a subset tree when a node is specified.
+  expect_error(tree_subset(bi_tree, "t5", levels_back = 0))
+
+  node_zero <- tree_subset(bi_tree, 17, levels_back = 0, group_node = FALSE) %>%
+    as_data_frame() %>%
+    dplyr::filter(!node %in% parent) %>%
+    dplyr::pull(label)
+
+  node_zero_reference <- bi_tree %>%
+    as_data_frame() %>%
+    offspring(17) %>%
+    dplyr::filter(!node %in% parent) %>%
+    dplyr::pull(label)
+
+  expect_true(all(node_zero %in% node_zero_reference))
+  expect_true(all(node_zero_reference %in% node_zero))
+
+
+  # testing that specifying the node by either label or node number returns
+  # the same result - including grouping
+  subset_by_label <- tree_subset(bi_tree, "t7", levels_back = 2)
+  subset_by_node <- tree_subset(bi_tree, 7, levels_back = 2)
+
+  expect_identical(subset_by_label, subset_by_node)
+
+
 })
+
 
 
 test_that("multi_tree and named_multi_tree return expected subtrees", {
@@ -76,6 +105,32 @@ test_that("multi_tree and named_multi_tree return expected subtrees", {
                  as_data_frame() %>%
                  dplyr::select(-group),
                as_data_frame(multi_tree))
+
+  # testing that levels_back = 0 returns an error when a tip is specified and
+  # a subset tree when a node is specified.
+  expect_error(tree_subset(multi_tree, "t5", levels_back = 0))
+
+  node_zero <- tree_subset(multi_tree, 13, levels_back = 0, group_node = FALSE) %>%
+    as_data_frame() %>%
+    dplyr::filter(!node %in% parent) %>%
+    dplyr::pull(label)
+
+  node_zero_reference <- multi_tree %>%
+    as_data_frame() %>%
+    offspring(13) %>%
+    dplyr::filter(!node %in% parent) %>%
+    dplyr::pull(label)
+
+  expect_true(all(node_zero %in% node_zero_reference))
+  expect_true(all(node_zero_reference %in% node_zero))
+
+
+  # testing that specifying the node by either label or node number returns
+  # the same result - including grouping
+  subset_by_label <- tree_subset(multi_tree, "t5", levels_back = 2)
+  subset_by_node <- tree_subset(multi_tree, 5, levels_back = 2)
+
+  expect_identical(subset_by_label, subset_by_node)
 })
 
 
@@ -89,7 +144,7 @@ beast_tree <- read.beast(beast_file)
 codeml_tree <- read.codeml(rst_file, mlc_file)
 
 merged_tree <- merge_tree(beast_tree, codeml_tree)
-merged_tree
+
 
 
 test_that("treedata returns expected results", {
@@ -118,4 +173,31 @@ test_that("treedata returns expected results", {
 
   expect_identical(merged_subset_df$value_subset, merged_subset_df$value_orig)
   expect_identical(merged_subset_df$branch.length.x, merged_subset_df$branch.length.y)
+
+
+  # testing that levels_back = 0 returns an error when a tip is specified and
+  # a subset tree when a node is specified.
+  expect_error(tree_subset(merged_tree, "A/New_York/334/2004", levels_back = 0))
+
+  node_zero <- tree_subset(merged_tree, 122, levels_back = 0, group_node = FALSE) %>%
+    as_data_frame() %>%
+    dplyr::filter(!node %in% parent) %>%
+    dplyr::pull(label)
+
+  node_zero_reference <- merged_tree %>%
+    as_data_frame() %>%
+    offspring(122) %>%
+    dplyr::filter(!node %in% parent) %>%
+    dplyr::pull(label)
+
+  expect_true(all(node_zero %in% node_zero_reference))
+  expect_true(all(node_zero_reference %in% node_zero))
+
+
+  # testing that specifying the node by either label or node number returns
+  # the same result - including grouping
+  subset_by_label <- tree_subset(merged_tree, "A/New_York/238/2005", levels_back = 2)
+  subset_by_node <- tree_subset(merged_tree, 5, levels_back = 2)
+
+  expect_identical(subset_by_label, subset_by_node)
 })

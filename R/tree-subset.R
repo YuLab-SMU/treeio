@@ -67,6 +67,29 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
 
     tree_df <- tidytree::as_data_frame(tree)
 
+    selected_node <- node
+
+    is_tip <- tree_df %>%
+      dplyr::mutate(isTip = !node %in% parent) %>%
+      dplyr::filter(node == selected_node | label == selected_node) %>%
+      dplyr::pull(isTip)
+
+    if (is_tip & levels_back == 0){
+      stop("The selected node (", selected_node, ") is a tip. 'levels_back' must be > 0",
+           call. = FALSE)
+    }
+
+    if (is_tip) {
+      group_labels <- tree_df %>%
+        dplyr::filter(node == selected_node | label == selected_node) %>%
+        dplyr::pull(!!quo("label"))
+    } else {
+      group_labels <- tree_df %>%
+        tidytree::offspring(selected_node) %>%
+        dplyr::filter(!node %in% parent) %>%
+        dplyr::pull(!!quo("label"))
+    }
+
     ## This pipeline returns the tip labels of all nodes related to
     ## the specified node
     ##
@@ -77,14 +100,22 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
     ## It then finds all of the offspring of that parent node. From there
     ## it filters to include only tip and then pulls the labels.
 
-
-    subset_labels <- tidytree::ancestor(tree_df, node) %>%
+    if (levels_back == 0) {
+      subset_labels <- tidytree::offspring(tree_df, selected_node) %>%
+        dplyr::filter(!node %in% parent) %>%
+        dplyr::pull(!!quo("label"))
+    } else {
+      subset_labels <- tidytree::ancestor(tree_df, selected_node) %>%
         tail(levels_back) %>%
         head(1) %>%
         dplyr::pull(node) %>%
         tidytree::offspring(tree_df, .) %>%
         dplyr::filter(!node %in% parent) %>%
         dplyr::pull(!!quo("label"))
+    }
+
+
+
 
     ## This finds the nodes associated with the labels pulled
     subset_nodes <- which(tree$tip.label %in% subset_labels)
@@ -93,7 +124,7 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
     ## This drops all of the tips that are not included in group_nodes
     subtree <- drop.tip(tree, tree$tip.label[-subset_nodes], rooted = TRUE)
 
-    if (group_node) subtree <- groupOTU.phylo(subtree, .node = node)
+    if (group_node) subtree <- groupOTU.phylo(subtree, .node = group_labels)
 
 
     return(subtree)
@@ -115,20 +146,49 @@ tree_subset.treedata <- function(tree, node, levels_back = 5, group_node = TRUE)
 
   tree_df <- tidytree::as_data_frame(tree)
 
+  selected_node <- node
 
-  subset_labels <- tidytree::ancestor(tree_df, node) %>%
-    tail(levels_back) %>%
-    head(1) %>%
-    dplyr::pull(node) %>%
-    tidytree::offspring(tree_df, .) %>%
-    dplyr::filter(!node %in% parent) %>%
-    dplyr::pull(!!quo("label"))
+  is_tip <- tree_df %>%
+    dplyr::mutate(isTip = !node %in% parent) %>%
+    dplyr::filter(node == selected_node | label == selected_node) %>%
+    dplyr::pull(isTip)
+
+  if (is_tip & levels_back == 0){
+    stop("The selected node (", selected_node, ") is a tip. 'levels_back' must be > 0",
+         call. = FALSE)
+  }
+
+  if (is_tip) {
+    group_labels <- tree_df %>%
+      dplyr::filter(node == selected_node | label == selected_node) %>%
+      dplyr::pull(!!quo("label"))
+  } else {
+    group_labels <- tree_df %>%
+      tidytree::offspring(selected_node) %>%
+      dplyr::filter(!node %in% parent) %>%
+      dplyr::pull(!!quo("label"))
+  }
+
+  if (levels_back == 0) {
+    subset_labels <- tidytree::offspring(tree_df, selected_node) %>%
+      dplyr::filter(!node %in% parent) %>%
+      dplyr::pull(!!quo("label"))
+  } else {
+    subset_labels <- tidytree::ancestor(tree_df, selected_node) %>%
+      tail(levels_back) %>%
+      head(1) %>%
+      dplyr::pull(node) %>%
+      tidytree::offspring(tree_df, .) %>%
+      dplyr::filter(!node %in% parent) %>%
+      dplyr::pull(!!quo("label"))
+  }
+
 
   subset_nodes <- which(tree@phylo$tip.label %in% subset_labels)
 
   subtree <- drop.tip(tree, tree@phylo$tip.label[-subset_nodes], rooted = TRUE)
 
-  if (group_node) subtree <- groupOTU(subtree, node)
+  if (group_node) subtree <- groupOTU(subtree, group_labels)
 
   return(subtree)
 
