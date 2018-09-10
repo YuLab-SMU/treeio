@@ -48,7 +48,7 @@ tree_subset <- function(tree, node, levels_back = 5, group_node = TRUE){
 #'
 #' @importFrom utils tail
 #' @importFrom utils head
-#' @importFrom rlang quo
+#' @importFrom rlang quo .data
 #' @export
 tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
     ## error catching to ensure the tree input is of class phylo
@@ -70,9 +70,9 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
     selected_node <- node
 
     is_tip <- tree_df %>%
-      dplyr::mutate(isTip = !node %in% parent) %>%
-      dplyr::filter(node == selected_node | label == selected_node) %>%
-      dplyr::pull(isTip)
+      dplyr::mutate(isTip = !.data$node %in% .data$parent) %>%
+      dplyr::filter(.data$node == selected_node | .data$label == selected_node) %>%
+      dplyr::pull(.data$isTip)
 
     if (is_tip & levels_back == 0){
       stop("The selected node (", selected_node, ") is a tip. 'levels_back' must be > 0",
@@ -81,13 +81,13 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
 
     if (is_tip) {
       group_labels <- tree_df %>%
-        dplyr::filter(node == selected_node | label == selected_node) %>%
-        dplyr::pull(!!quo("label"))
+        dplyr::filter(.data$node == selected_node | .data$label == selected_node) %>%
+        dplyr::pull(.data$label)
     } else {
       group_labels <- tree_df %>%
         tidytree::offspring(selected_node) %>%
-        dplyr::filter(!node %in% parent) %>%
-        dplyr::pull(!!quo("label"))
+        dplyr::filter(!.data$node %in% .data$parent) %>%
+        dplyr::pull(.data$label)
     }
 
     ## This pipeline returns the tip labels of all nodes related to
@@ -102,16 +102,16 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
 
     if (levels_back == 0) {
       subset_labels <- tidytree::offspring(tree_df, selected_node) %>%
-        dplyr::filter(!node %in% parent) %>%
-        dplyr::pull(!!quo("label"))
+        dplyr::filter(!.data$node %in% .data$parent) %>%
+        dplyr::pull(.data$label)
     } else {
       subset_labels <- tidytree::ancestor(tree_df, selected_node) %>%
         tail(levels_back) %>%
         head(1) %>%
-        dplyr::pull(node) %>%
+        dplyr::pull(.data$node) %>%
         tidytree::offspring(tree_df, .) %>%
-        dplyr::filter(!node %in% parent) %>%
-        dplyr::pull(!!quo("label"))
+        dplyr::filter(!.data$node %in% .data$parent) %>%
+        dplyr::pull(.data$label)
     }
 
 
@@ -150,8 +150,8 @@ tree_subset.treedata <- function(tree, node, levels_back = 5, group_node = TRUE)
 
   is_tip <- tree_df %>%
     dplyr::mutate(isTip = !node %in% parent) %>%
-    dplyr::filter(node == selected_node | label == selected_node) %>%
-    dplyr::pull(isTip)
+    dplyr::filter(.data$node == selected_node | .data$label == selected_node) %>%
+    dplyr::pull(.data$isTip)
 
   if (is_tip & levels_back == 0){
     stop("The selected node (", selected_node, ") is a tip. 'levels_back' must be > 0",
@@ -160,27 +160,27 @@ tree_subset.treedata <- function(tree, node, levels_back = 5, group_node = TRUE)
 
   if (is_tip) {
     group_labels <- tree_df %>%
-      dplyr::filter(node == selected_node | label == selected_node) %>%
-      dplyr::pull(!!quo("label"))
+      dplyr::filter(.data$node == selected_node | .data$label == selected_node) %>%
+      dplyr::pull(.data$label)
   } else {
     group_labels <- tree_df %>%
       tidytree::offspring(selected_node) %>%
-      dplyr::filter(!node %in% parent) %>%
-      dplyr::pull(!!quo("label"))
+      dplyr::filter(!.data$node %in% .data$parent) %>%
+      dplyr::pull(.data$label)
   }
 
   if (levels_back == 0) {
     subset_labels <- tidytree::offspring(tree_df, selected_node) %>%
-      dplyr::filter(!node %in% parent) %>%
-      dplyr::pull(!!quo("label"))
+      dplyr::filter(!.data$node %in% .data$parent) %>%
+      dplyr::pull(.data$label)
   } else {
     subset_labels <- tidytree::ancestor(tree_df, selected_node) %>%
       tail(levels_back) %>%
       head(1) %>%
-      dplyr::pull(node) %>%
+      dplyr::pull(.data$node) %>%
       tidytree::offspring(tree_df, .) %>%
-      dplyr::filter(!node %in% parent) %>%
-      dplyr::pull(!!quo("label"))
+      dplyr::filter(!.data$node %in% .data$parent) %>%
+      dplyr::pull(.data$label)
   }
 
 
