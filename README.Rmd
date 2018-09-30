@@ -76,9 +76,10 @@ Get the released version from Bioconductor:
 
 ```r
 ## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-## biocLite("BiocUpgrade") ## you may need this
-biocLite("treeio")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+## BiocManager::install("BiocUpgrade") ## you may need this
+BiocManager::install("treeio")
 ```
 
 Or the development version from github:
