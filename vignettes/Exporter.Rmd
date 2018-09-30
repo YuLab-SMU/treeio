@@ -2,7 +2,7 @@
 title: "Exporting trees with data"
 author: "Guangchuang Yu\\
 
-        School of Public Health, The University of Hong Kong"
+        School of Basic Medical Sciences, Southern Medical University"
 date: "`r Sys.Date()`"
 bibliography: treeio.bib
 biblio-style: apalike
