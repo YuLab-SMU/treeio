@@ -4,8 +4,8 @@
 
 <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="200" align="right" />
 
-[![releaseVersion](https://img.shields.io/badge/release%20version-1.4.3-green.svg?style=flat)](https://bioconductor.org/packages/treeio)
-[![develVersion](https://img.shields.io/badge/devel%20version-1.5.5-green.svg?style=flat)](https://github.com/guangchuangyu/treeio)
+[![releaseVersion](https://img.shields.io/badge/release%20version-1.6.0-green.svg?style=flat)](https://bioconductor.org/packages/treeio)
+[![develVersion](https://img.shields.io/badge/devel%20version-1.7.0-green.svg?style=flat)](https://github.com/guangchuangyu/treeio)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since)
 [![](https://badges.ropensci.org/179_status.svg)](https://github.com/ropensci/onboarding/issues/179)
 
@@ -13,7 +13,7 @@
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--09--30-green.svg)](https://github.com/GuangchuangYu/treeio/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--11--01-green.svg)](https://github.com/GuangchuangYu/treeio/commits/master)
 [![GitHub
 forks](https://img.shields.io/github/forks/GuangchuangYu/treeio.svg)](https://github.com/GuangchuangYu/treeio/network)
 [![GitHub
@@ -54,7 +54,7 @@ for more details.
 
 Guangchuang YU <https://guangchuangyu.github.io>
 
-School of Public Health, The University of Hong Kong
+School of Basic Medical Sciences, Southern Medical University
 
 ## Installation
 
@@ -78,8 +78,8 @@ devtools::install_github("GuangchuangYu/treeio")
 ## Download stats
 
 [![download](http://www.bioconductor.org/shields/downloads/treeio.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
-[![total](https://img.shields.io/badge/downloads-15360/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
-[![month](https://img.shields.io/badge/downloads-1397/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![total](https://img.shields.io/badge/downloads-16711/total-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![month](https://img.shields.io/badge/downloads-1246/month-blue.svg?style=flat)](https://bioconductor.org/packages/stats/bioc/treeio)
 
 <img src="https://guangchuangyu.github.io/software/treeio/index_files/figure-html/unnamed-chunk-2-1.png" width="890"/>
 
