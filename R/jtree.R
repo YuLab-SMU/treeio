@@ -12,7 +12,7 @@ read.jtree <- function(file) {
     phylo <- jplace_treetext_to_phylo(jtree$tree)
     edgeNum.df <- attr(phylo, "edgeNum")
     d <- merge(edgeNum.df, jtree$data, by.x = "edgeNum", by.y = "edge_num") %>%
-        as_data_frame %>% select_(~ -edgeNum)
+        as_tibble %>% select_(~ -edgeNum)
     new("treedata",
         treetext = jtree$tree,
         phylo = phylo,

@@ -7,7 +7,7 @@ full_join.treedata <- function(x, y, by = NULL,
                                copy = FALSE, suffix = c(".x", ".y"), ...) {
 
     by <- match.arg(by, c("node", "label"))
-    y <- as_data_frame(y)
+    y <- as_tibble(y)
     if (by == "label") {
         ntip <- Ntip(x)
         N <- Nnode2(x)

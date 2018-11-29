@@ -17,7 +17,6 @@ vignette: >
   %\VignetteIndexEntry{01 Importing trees with data}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r style, echo=FALSE, results="asis", message=FALSE}
@@ -467,7 +466,7 @@ by [BEAST](http://beast2.org/) on the same branches.
 library(tidytree)
 library(ggplot2)
 
-as_data_frame(merged_tree) %>%
+as_tibble(merged_tree) %>%
     dplyr::select(dN_vs_dS, dN, dS, rate) %>%
     subset(dN_vs_dS >=0 & dN_vs_dS <= 1.5) %>%
     tidyr::gather(type, value, dN_vs_dS:dS) %>%
@@ -585,9 +584,6 @@ provide a reproducible example to be posted on
 For questions, please post
 to [Bioconductor support site](https://support.bioconductor.org/) and tag your
 post with *treeio*.
-
-
-For Chinese user, you can follow me on [WeChat (微信)](https://guangchuangyu.github.io/blog_images/biobabble.jpg).
 
 
 # References

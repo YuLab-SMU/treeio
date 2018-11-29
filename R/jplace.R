@@ -6,7 +6,7 @@
 ##' @return \code{jplace} instance
 ##' @importFrom jsonlite fromJSON
 ##' @export
-##' @author ygc
+##' @author Guangchuang Yu
 ##' @examples
 ##' jp <- system.file("extdata", "sample.jplace", package="treeio")
 ##' read.jplace(jp)
@@ -91,7 +91,7 @@ extract.placement <- function(object, phylo) {
     }
     edgeNum.df <- attr(phylo, "edgeNum")
     place.df <- merge(place.df, edgeNum.df, by.x = "edge_num", by.y = "edgeNum")
-    as_data_frame(place.df)
+    as_tibble(place.df)
 }
 
 

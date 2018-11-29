@@ -23,9 +23,9 @@ test_that("bi_tree and named_bi_tree return expected subsets", {
   bi_subset <- tree_subset(bi_tree, "t5", 2)
 
   bi_subset_lengths <- bi_subset %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!is.na(label)) %>%
-    dplyr::left_join(as_data_frame(bi_tree), by = "label")
+    dplyr::left_join(as_tibble(bi_tree), by = "label")
 
   expect_equal(bi_subset$tip.label, paste0("t", 4:6))
   expect_equal(bi_subset_lengths$branch.length.x, bi_subset_lengths$branch.length.y)
@@ -33,9 +33,9 @@ test_that("bi_tree and named_bi_tree return expected subsets", {
   named_bi_subset <- tree_subset(named_bi_tree, "t5", 3)
 
   named_subset_lengths <- named_bi_subset %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!is.na(branch.length)) %>%
-    dplyr::left_join(as_data_frame(named_bi_tree), by = "label")
+    dplyr::left_join(as_tibble(named_bi_tree), by = "label")
 
   expect_equal(named_bi_subset$tip.label, paste0("t", 4:8))
   expect_equal(named_subset_lengths$branch.length.x, named_subset_lengths$branch.length.y)
@@ -44,9 +44,9 @@ test_that("bi_tree and named_bi_tree return expected subsets", {
   # testing that "subsetting" to the number of levels_back to the root of the tree
   # returns the full tree - just have to remove focus and grouping
   expect_equal(tree_subset(bi_tree, "t5", 6) %>%
-                 as_data_frame() %>%
+                 as_tibble() %>%
                  dplyr::select(-group),
-               as_data_frame(bi_tree))
+               as_tibble(bi_tree))
 
 
   # testing that levels_back = 0 returns an error when a tip is specified and
@@ -54,12 +54,12 @@ test_that("bi_tree and named_bi_tree return expected subsets", {
   expect_error(tree_subset(bi_tree, "t5", levels_back = 0))
 
   node_zero <- tree_subset(bi_tree, 17, levels_back = 0, group_node = FALSE) %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!node %in% parent) %>%
     dplyr::pull(label)
 
   node_zero_reference <- bi_tree %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     offspring(17) %>%
     dplyr::filter(!node %in% parent) %>%
     dplyr::pull(label)
@@ -84,9 +84,9 @@ test_that("multi_tree and named_multi_tree return expected subtrees", {
   multi_subset <- tree_subset(multi_tree, "t8", 2)
 
   multi_subset_lengths <- multi_subset %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!is.na(label)) %>%
-    dplyr::left_join(as_data_frame(multi_tree), by = "label")
+    dplyr::left_join(as_tibble(multi_tree), by = "label")
 
   expect_equal(multi_subset$tip.label, paste0("t", 4:8))
   expect_equal(multi_subset_lengths$branch.length.x, multi_subset_lengths$branch.length.y)
@@ -94,29 +94,29 @@ test_that("multi_tree and named_multi_tree return expected subtrees", {
   named_multi_subset <- tree_subset(named_multi_tree, "t8", 3)
 
   named_subset_length <- named_multi_subset %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!is.na(branch.length)) %>%
-    dplyr::left_join(as_data_frame(named_multi_tree), by = "label")
+    dplyr::left_join(as_tibble(named_multi_tree), by = "label")
 
   expect_equal(named_multi_subset$tip.label, paste0("t", 1:9))
   expect_equal(named_subset_length$branch.length.x, named_subset_length$branch.length.y)
 
   expect_equal(tree_subset(multi_tree, "t8", 4) %>%
-                 as_data_frame() %>%
+                 as_tibble() %>%
                  dplyr::select(-group),
-               as_data_frame(multi_tree))
+               as_tibble(multi_tree))
 
   # testing that levels_back = 0 returns an error when a tip is specified and
   # a subset tree when a node is specified.
   expect_error(tree_subset(multi_tree, "t5", levels_back = 0))
 
   node_zero <- tree_subset(multi_tree, 13, levels_back = 0, group_node = FALSE) %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!node %in% parent) %>%
     dplyr::pull(label)
 
   node_zero_reference <- multi_tree %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     offspring(13) %>%
     dplyr::filter(!node %in% parent) %>%
     dplyr::pull(label)
@@ -157,12 +157,12 @@ test_that("treedata returns expected results", {
                      "A/Swine/HK_NS1651/2012")
 
   merged_subset_df <- merged_subset %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!node %in% parent) %>%
     tidyr::gather(key = data, value = value_subset, -c(parent, node, branch.length,
                                                        label, group)) %>%
     dplyr::left_join(merged_tree %>%
-                as_data_frame() %>%
+                as_tibble() %>%
                 tidyr::gather(key = data, value = value_orig,
                               -c(parent, node, branch.length,
                                  label)),
@@ -180,12 +180,12 @@ test_that("treedata returns expected results", {
   expect_error(tree_subset(merged_tree, "A/New_York/334/2004", levels_back = 0))
 
   node_zero <- tree_subset(merged_tree, 122, levels_back = 0, group_node = FALSE) %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     dplyr::filter(!node %in% parent) %>%
     dplyr::pull(label)
 
   node_zero_reference <- merged_tree %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     offspring(122) %>%
     dplyr::filter(!node %in% parent) %>%
     dplyr::pull(label)

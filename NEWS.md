@@ -1,3 +1,7 @@
+# treeio 1.7.1
+
++ compatible with `tibble` v=2.0.0 (2018-11-29, Thu)
+
 # treeio 1.5.3
 
 + `read.jplace` compatible with output of [TIPars](https://github.com/id-bioinfo/TIPars) (2018-08-07, Tue)

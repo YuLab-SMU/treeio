@@ -23,7 +23,7 @@ read.astral <- function(file) {
         gsub("^@|@$", "", .) %>%
         gsub("\\$", ":", .) %>%
         get_nhx_feature %>%
-        as_data_frame
+        as_tibble
 
     stats$node <- Ntip(phylo) + 1:phylo$Nnode
 

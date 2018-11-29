@@ -253,7 +253,7 @@ read.stats_beast_internal <- function(beast, tree) {
     })
 
     stats3 <- do.call(rbind, stats2)
-    stats3 <- as_data_frame(stats3)
+    stats3 <- as_tibble(stats3)
 
     ## no need to extract sd from prob+-sd
     ## as the sd is stored in prob_stddev

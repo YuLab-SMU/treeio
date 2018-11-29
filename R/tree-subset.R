@@ -53,7 +53,7 @@ tree_subset <- function(tree, node, levels_back = 5, group_node = TRUE){
 tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
     ## error catching to ensure the tree input is of class phylo
     ## if (class(tree) %in% c("phylo", "treedata")) {
-    ##   tree_df <- tidytree::as_data_frame(tree)
+    ##   tree_df <- tidytree::as_tibble(tree)
     ## } else {
     ##   stop("tree must be of class 'phylo'")
     ## }
@@ -65,7 +65,7 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
         if (is.na(levels_back)) stop("'levels_back' must be of class numeric")
     }
 
-    tree_df <- tidytree::as_data_frame(tree)
+    tree_df <- tidytree::as_tibble(tree)
 
     selected_node <- node
 
@@ -144,7 +144,7 @@ tree_subset.treedata <- function(tree, node, levels_back = 5, group_node = TRUE)
     if (is.na(levels_back)) stop("'levels_back' must be of class numeric")
   }
 
-  tree_df <- tidytree::as_data_frame(tree)
+  tree_df <- tidytree::as_tibble(tree)
 
   selected_node <- node
 

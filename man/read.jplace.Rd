@@ -20,5 +20,5 @@ jp <- system.file("extdata", "sample.jplace", package="treeio")
 read.jplace(jp)
 }
 \author{
-ygc
+Guangchuang Yu
 }
