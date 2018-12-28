@@ -1,6 +1,7 @@
 context("Tree subset")
 
 library(ape)
+library(dplyr)
 library(tidytree)
 
 # testing that tree_subset works on phylo objects
