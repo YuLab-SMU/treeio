@@ -1,6 +1,7 @@
 # treeio 1.7.2
 
-+ `reroot` method move from `ggtree` (2018-12-28, Fri)
++ `root` method from `ggtree::reroot` (2018-12-28, Fri)
+  - rename to `root` for importing `ape::root` generic
 
 # treeio 1.7.1
 

@@ -22,6 +22,7 @@ get.placements <- function(tree, ...) {
 ##' @param object treedata object
 ##' @param ... additional parameter
 ##' @return phylo object
+##' @importFrom methods setGeneric
 ##' @export
 setGeneric(
     name = "get.treetext",
@@ -46,18 +47,4 @@ setGeneric (
         standardGeneric("drop.tip")
 )
 
-
-##' @docType methods
-##' @name reroot
-##' @rdname reroot-methods
-##' @title reroot method
-##' @param object \code{treedata} object
-##' @param node internal nnode number
-##' @param ... additional parameter
-##' @return tree object
-##' @importFrom methods setGeneric
-##' @export
-setGeneric(name = "reroot",
-           def = function(object, node, ...) standardGeneric("reroot")
-           )
 
