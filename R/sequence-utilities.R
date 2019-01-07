@@ -9,12 +9,9 @@ string2DNAbin <- function(seqs) {
 ##     substring(x, first=seq(1, nchar(x)-2, 3), last=seq(3, nchar(x), 3))
 ## }
 
-## ## @importFrom Biostrings GENETIC_CODE
-## ##' @importFrom rvcheck get_fun_from_pkg
 ## codon2AA <- function(codon) {
 ##     ## a genetic code name vector
-##     GENETIC_CODE <- get_fun_from_pkg("Biostrings", "GENETIC_CODE")
-##     aa <- GENETIC_CODE[codon]
+##     aa <- Biostrings::GENETIC_CODE[codon]
 ##     aa[is.na(aa)] <- "X"
 ##     return(aa)
 ## }
@@ -30,9 +27,7 @@ string2DNAbin <- function(seqs) {
 ##' @export
 ##' @author guangchuang yu
 read.fasta <- function(fasta) {
-    readBStringSet <- get_fun_from_pkg("Biostrings", "readBStringSet")
-
-    x <- readBStringSet(fasta)
+    x <- Biostrings::readBStringSet(fasta)
 
     if (guess_fasta_type(fasta) == "NT") {
         class <- "DNAbin"
