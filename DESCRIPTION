@@ -18,14 +18,15 @@ Imports:
     magrittr,
     methods,
     rlang,
-    rvcheck,
     tibble,
     tidytree,
     utils
 Suggests:
+    Biostrings,
     ggplot2,
     ggtree,
     knitr,
+    phangorn,
     prettydoc,
     testthat,
     tidyr
