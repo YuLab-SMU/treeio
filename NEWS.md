@@ -1,5 +1,6 @@
 # treeio 1.7.2
 
++ mv vignettes to [treedata-book](https://yulab-smu.github.io/treedata-book/) (2019-01-10, Thu)
 + `root` method from `ggtree::reroot` (2018-12-28, Fri)
   - rename to `root` for importing `ape::root` generic
 
