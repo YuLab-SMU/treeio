@@ -13,6 +13,10 @@
 
 + compatible with `tibble` v=2.0.0 (2018-11-29, Thu)
 
+# treeio 1.6.0
+
++ Bioconductor 3.8 release
+
 # treeio 1.5.3
 
 + `read.jplace` compatible with output of [TIPars](https://github.com/id-bioinfo/TIPars) (2018-08-07, Tue)
