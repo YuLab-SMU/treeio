@@ -9,6 +9,7 @@
 \alias{read.nexus}
 \alias{rtree}
 \alias{write.tree}
+\alias{write.nexus}
 \alias{Nnode}
 \alias{Ntip}
 \alias{is.rooted}
@@ -31,7 +32,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{as.phylo}}}
+  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{as.phylo}}}
 
   \item{dplyr}{\code{\link[dplyr]{full_join}}}
 

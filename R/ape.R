@@ -15,6 +15,10 @@ ape::rtree
 ##' @export
 ape::write.tree
 
+##' @importFrom ape write.nexus
+##' @export
+ape::write.nexus
+
 ##' @importFrom ape Nnode
 ##' @export
 ape::Nnode

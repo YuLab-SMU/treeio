@@ -1,3 +1,7 @@
+# treeio 1.7.3
+
++ `rescale_tree` from `ggtree` (2019-01-11, Fri)
+
 # treeio 1.7.2
 
 + `MRCA` methods for `phylo` and `treedata`  (2019-01-10, Thu)
