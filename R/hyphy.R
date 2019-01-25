@@ -17,9 +17,9 @@ read.hyphy.seq <- function(file) {
     seq.end   <- end[end > seq.start][1]
     seq       <- anc[(seq.start+1):(seq.end-1)]
     seq       <- seq[seq != ";"]
-    seq       <- seq[seq != ""]
-    seq       <- gsub(" ", "", seq)
+    seq       <- gsub("^\\s+", "", seq)
     seq       <- gsub(";", "", seq)
+    seq       <- seq[seq != ""]
 
     ## some files may only contains sequences
     ## (should have TAXALABELS block that contains seq names).
@@ -45,7 +45,9 @@ read.hyphy.seq <- function(file) {
         label       <- anc[(label.start+1):(label.end-1)]
 
         label <- sub("^\t+", "", label)
-        label <- sub("\\s*;$", "", label)
+        label <- sub("^\\s+", "", label)
+        label <- sub("\\s*;*$", "", label)
+        label <- label[label != ""]
         label <- unlist(strsplit(label, split="\\s+"))
         label <- gsub("'|\"", "", label)
     }
