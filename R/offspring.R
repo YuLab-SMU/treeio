@@ -14,8 +14,13 @@ child.phylo <- function(.data, .node, ...) {
 ##' @importFrom tidytree offspring
 ##' @method offspring phylo
 ##' @export
-offspring.phylo <- function(.data, .node, ...) {
-    sp <- child(.data, .node)
+offspring.phylo <- function(.data, .node, tiponly = FALSE, self_include = FALSE, ...) {
+    if (self_include) {
+        sp <- .node
+    } else {
+        sp <- child(.data, .node)
+    }
+
     sp <- sp[sp != 0]
     if (length(sp) == 0) {
         stop("input node is a tip...")
@@ -25,6 +30,9 @@ offspring.phylo <- function(.data, .node, ...) {
         sp <- c(sp, child(.data, sp[i]))
         sp <- sp[sp != 0]
         i <- i + 1
+    }
+    if (tiponly) {
+        return(sp[sp <= Ntip(.data)])
     }
     return(sp)
 }
