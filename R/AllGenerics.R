@@ -12,6 +12,20 @@ get.placements <- function(tree, ...) {
     UseMethod("get.placements")
 }
 
+##' whether the node is a tip
+##'
+##'
+##' @title isTip
+##' @param .data phylo, treedata or tbl_tree object
+##' @param .node node number
+##' @param ... additional parameters
+##' @return logical value
+##' @export
+##' @author Guangchuang Yu
+isTip <- function(.data, .node, ...) {
+    UseMethod("isTip")
+}
+
 ##' access tree text (newick text) from tree object
 ##'
 ##'
