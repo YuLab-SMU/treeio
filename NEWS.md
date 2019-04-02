@@ -1,3 +1,7 @@
+# treeio 1.7.4
+
++ update test according to the change of default RNG in the comming R-3.6 (2019-04-02, Tue)
+
 # treeio 1.7.3
 
 + `rescale_tree` from `ggtree` (2019-01-11, Fri)
