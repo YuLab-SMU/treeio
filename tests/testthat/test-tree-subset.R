@@ -4,6 +4,8 @@ library(ape)
 library(dplyr)
 library(tidytree)
 
+if (FALSE) {
+
 ## # testing that tree_subset works on phylo objects
 ## #==============================================================
 ## set.seed(42)
@@ -212,3 +214,6 @@ test_that("treedata returns expected results", {
 
   expect_identical(subset_by_label, subset_by_node)
 })
+
+
+}
