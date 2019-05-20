@@ -4,7 +4,6 @@ library(ape)
 library(dplyr)
 library(tidytree)
 
-if (FALSE) {
 
 ## # testing that tree_subset works on phylo objects
 ## #==============================================================
@@ -216,4 +215,4 @@ test_that("treedata returns expected results", {
 })
 
 
-}
+
