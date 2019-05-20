@@ -40,23 +40,33 @@ reroot_node_mapping <- function(tree, tree2) {
 ##' @title root
 ##' @rdname root-method
 ##' @param object tree object
+##' @param outgroup a vector of mode numeric or character specifying the new outgroup
 ##' @param node node to reroot
-##' @param ... additional parameters
+##' @param resolve.root a logical specifying whether to resolve the new root as a bifurcating node
+##' @param ... additional parameters passed to ape::root.phylo
 ##' @return rerooted tree
 ##' @importFrom ape root
 ##' @method root phylo
 ##' @export
 ##' @author Guangchuang Yu
-root.phylo <- function(object, node, ...) {
-    pos <- 0.5* object$edge.length[which(object$edge[,2] == node)]
+root.phylo <- function(object, outgroup, node = NULL, resolve.root = TRUE, ...) {
+    ## pos <- 0.5* object$edge.length[which(object$edge[,2] == node)]
     
     ## @importFrom phytools reroot
-    phytools <- "phytools"
-    require(phytools, character.only = TRUE, quietly = TRUE)
+    ## phytools <- "phytools"
+    ## require(phytools, character.only = TRUE, quietly = TRUE)
     
-    phytools_reroot <- eval(parse(text="phytools::reroot"))
+    ## phytools_reroot <- eval(parse(text="phytools::reroot"))
     
-    tree <- phytools_reroot(object, node, pos)
+    ## tree <- phytools_reroot(object, node, pos)
+
+    tree <- ape::root.phylo(object, outgroup = outgroup,
+                            node = node, resolve.root = resolve.root, ...)
+
+    if (Nnode(tree) != Nnode(object)) {
+        return(tree)
+    }
+
     attr(tree, "reroot") <- TRUE
     node_map <- reroot_node_mapping(object, tree)
     attr(tree, "node_map") <- node_map
@@ -67,13 +77,13 @@ root.phylo <- function(object, node, ...) {
 ##' @rdname root-method
 ##' @method root treedata
 ##' @export
-root.treedata <- function(object, node, ...) {
-                                        # warning message
+root.treedata <- function(object, outgroup, node = NULL, resolve.root = TRUE, ...) {
+    ## warning message
     message("The use of this method may cause some node data to become incorrect (e.g. bootstrap values).")
 
     newobject <- object
 
-                                        # ensure nodes/tips have a label to properly map @anc_seq/@tip_seq
+    ## ensure nodes/tips have a label to properly map @anc_seq/@tip_seq
     tree <- object@phylo
     if (is.null(tree$tip.label)) {
         tree$tip.label <- as.character(1:Ntip(tree))
@@ -82,14 +92,23 @@ root.treedata <- function(object, node, ...) {
         tree$node.label <- as.character((1:tree$Nnode) + Ntip(tree))
     }
     
-                                        # reroot tree
-    tree <- root(tree, node, ...)
+    ## reroot tree
+    tree <- root(tree, outgroup = outgroup, node = node,
+                 resolve.root = resolve.root, ...)
     newobject@phylo <- tree
 
-                                        # update node numbers in data
+    ## update node numbers in data
     n.tips <- Ntip(tree)
     node_map<- attr(tree, "node_map")
-    
+
+    if (is.null(node_map)) {
+        message("fail to assign associated data to rooted tree, only return tree structure (a phylo object)")
+        if (!resolve.root) {
+            message("maybe you can try again with `resolve.root = TRUE`")
+        }
+        return(tree)
+    }
+
     update_data <- function(data, node_map) {
         newdata <- data
         newdata[match(node_map$from, data$node), 'node'] <- node_map$to

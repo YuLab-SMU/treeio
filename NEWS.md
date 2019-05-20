@@ -1,3 +1,12 @@
+# treeio 1.9.1
+
++ redefined root method to wrape `ape::root.phylo` for compatibility (2019-05-20, Mon)
+  - <https://github.com/GuangchuangYu/treeio/issues/18>
+  
+# treeio 1.8.0
+
++ Bioconductor 3.9 release
+
 # treeio 1.7.4
 
 + update test according to the change of default RNG in the comming R-3.6 (2019-04-02, Tue)

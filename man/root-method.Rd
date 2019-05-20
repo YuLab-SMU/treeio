@@ -5,16 +5,22 @@
 \alias{root.treedata}
 \title{root}
 \usage{
-\method{root}{phylo}(object, node, ...)
+\method{root}{phylo}(object, outgroup, node = NULL,
+  resolve.root = TRUE, ...)
 
-\method{root}{treedata}(object, node, ...)
+\method{root}{treedata}(object, outgroup, node = NULL,
+  resolve.root = TRUE, ...)
 }
 \arguments{
 \item{object}{tree object}
 
+\item{outgroup}{a vector of mode numeric or character specifying the new outgroup}
+
 \item{node}{node to reroot}
 
-\item{...}{additional parameters}
+\item{resolve.root}{a logical specifying whether to resolve the new root as a bifurcating node}
+
+\item{...}{additional parameters passed to ape::root.phylo}
 }
 \value{
 rerooted tree
