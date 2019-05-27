@@ -6,13 +6,14 @@
 \alias{tree_subset.treedata}
 \title{Subset tree objects by related nodes}
 \usage{
-tree_subset(tree, node, levels_back = 5, group_node = TRUE)
+tree_subset(tree, node, levels_back = 5, group_node = TRUE,
+  group_name = "group", root_edge = TRUE)
 
 \method{tree_subset}{phylo}(tree, node, levels_back = 5,
-  group_node = TRUE)
+  group_node = TRUE, group_name = "group", root_edge = TRUE)
 
 \method{tree_subset}{treedata}(tree, node, levels_back = 5,
-  group_node = TRUE)
+  group_node = TRUE, group_name = "group", root_edge = TRUE)
 }
 \arguments{
 \item{tree}{a tree object of class phylo}
@@ -24,6 +25,10 @@ tree that will be the focus of the subsetted tree}
 the selected node the subsetted tree should include}
 
 \item{group_node}{whether add grouping information of selected node}
+
+\item{group_name}{group name (default 'group') for storing grouping information if group_node = TRUE}
+
+\item{root_edge}{If TRUE (by default), set root.edge to path length of orginal root to the root of subset tree}
 }
 \description{
 This function allows for a tree object to be subset by specifying a

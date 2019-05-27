@@ -10,6 +10,8 @@
 #' @param levels_back a number specifying how many nodes back from
 #' the selected node the subsetted tree should include
 #' @param group_node whether add grouping information of selected node
+#' @param group_name group name (default 'group') for storing grouping information if group_node = TRUE
+#' @param root_edge If TRUE (by default), set root.edge to path length of orginal root to the root of subset tree
 #'
 #' @details This function will take a tree and a specified node from
 #' that tree and subset the tree showing all relatives back to a specified
@@ -29,7 +31,8 @@
 #'
 #' @rdname tree_subset
 #' @export
-tree_subset <- function(tree, node, levels_back = 5, group_node = TRUE){
+tree_subset <- function(tree, node, levels_back = 5, group_node = TRUE,
+                        group_name = "group", root_edge = TRUE){
   UseMethod("tree_subset")
 }
 
@@ -50,7 +53,27 @@ tree_subset <- function(tree, node, levels_back = 5, group_node = TRUE){
 #' @importFrom utils head
 #' @importFrom rlang quo .data
 #' @export
-tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
+tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE,
+                              group_name = "group", root_edge = TRUE){
+ 
+    x <- tree_subset_internal(tree = tree, node = node, levels_back = levels_back, root_edge = root_edge)
+
+
+    ## This drops all of the tips that are not included in group_nodes
+    subtree <- drop.tip(tree, tree$tip.label[-x$subset_nodes], rooted = TRUE)
+
+    if (group_node) subtree <- groupOTU.phylo(subtree, .node = x$group_labels, group_name = group_name)
+
+    subtree$root.edge <- x$root.edge
+
+    return(subtree)
+}
+
+##' @importFrom dplyr filter
+##' @importFrom dplyr pull
+##' @importFrom dplyr bind_rows
+tree_subset_internal <- function(tree, node, levels_back = 5, root_edge = TRUE) {
+
     ## error catching to ensure the tree input is of class phylo
     ## if (class(tree) %in% c("phylo", "treedata")) {
     ##   tree_df <- tidytree::as_tibble(tree)
@@ -101,97 +124,56 @@ tree_subset.phylo <- function(tree, node, levels_back = 5, group_node = TRUE){
     ## it filters to include only tip and then pulls the labels.
 
     if (levels_back == 0) {
-      subset_labels <- tidytree::offspring(tree_df, selected_node) %>%
-        dplyr::filter(!.data$node %in% .data$parent) %>%
-        dplyr::pull(.data$label)
+        new_root_node <- selected_node
     } else {
-      subset_labels <- tidytree::ancestor(tree_df, selected_node) %>%
-        tail(levels_back) %>%
-        head(1) %>%
-        dplyr::pull(.data$node) %>%
-        tidytree::offspring(tree_df, .) %>%
-        dplyr::filter(!.data$node %in% .data$parent) %>%
-        dplyr::pull(.data$label)
+        new_root_node <- tidytree::ancestor(tree_df, selected_node) %>%
+            tail(levels_back) %>%
+            head(1) %>%
+            dplyr::pull(.data$node)
     }
 
-
-
+    subset_labels <- tidytree::offspring(tree_df, new_root_node) %>%
+        dplyr::filter(!.data$node %in% .data$parent) %>%
+        dplyr::pull(.data$label)
 
     ## This finds the nodes associated with the labels pulled
     subset_nodes <- which(tree$tip.label %in% subset_labels)
 
+    root.edge <- NULL
+    if (root_edge) {
+        root.edge <- ancestor(tree_df, new_root_node) %>%
+            bind_rows(dplyr::filter(tree_df, node == new_root_node)) %>%
+            pull(.data$branch.length) %>%
+            sum(na.rm = TRUE)
+        if (root.edge == 0)
+            root.edge <- NULL
+    }
 
-    ## This drops all of the tips that are not included in group_nodes
-    subtree <- drop.tip(tree, tree$tip.label[-subset_nodes], rooted = TRUE)
-
-    if (group_node) subtree <- groupOTU.phylo(subtree, .node = group_labels)
-
-
-    return(subtree)
+    return(list(
+        subset_nodes = subset_nodes,
+        new_root_node = new_root_node,
+        group_labels = group_labels,
+        root.edge = root.edge
+    ))
 }
-
 
 #' @method tree_subset treedata
 #' @rdname tree_subset
 #' @importFrom magrittr %>%
 #'
 #' @export
-tree_subset.treedata <- function(tree, node, levels_back = 5, group_node = TRUE){
-  # error catching to ensure the levels_back input is numeric
-  # or can be converted to numeric
-  if (!is.numeric(levels_back)) {
-    levels_back <- as.numeric(levels_back)
-    if (is.na(levels_back)) stop("'levels_back' must be of class numeric")
-  }
+tree_subset.treedata <- function(tree, node, levels_back = 5, group_node = TRUE,
+                                 group_name = "group", root_edge = TRUE){
 
-  tree_df <- tidytree::as_tibble(tree)
+    x <- tree_subset_internal(tree = tree@phylo, node = node, levels_back = levels_back)
 
-  selected_node <- node
+    subtree <- drop.tip(tree, tree@phylo$tip.label[-x$subset_nodes], rooted = TRUE)
 
-  is_tip <- tree_df %>%
-    dplyr::mutate(isTip = !node %in% parent) %>%
-    dplyr::filter(.data$node == selected_node | .data$label == selected_node) %>%
-    dplyr::pull(.data$isTip)
+    if (group_node) subtree <- groupOTU(subtree, .node = x$group_labels, group_name = group_name)
 
-  if (is_tip & levels_back == 0){
-    stop("The selected node (", selected_node, ") is a tip. 'levels_back' must be > 0",
-         call. = FALSE)
-  }
+    subtree@phylo$root.edge <- x$root.edge
 
-  if (is_tip) {
-    group_labels <- tree_df %>%
-      dplyr::filter(.data$node == selected_node | .data$label == selected_node) %>%
-      dplyr::pull(.data$label)
-  } else {
-    group_labels <- tree_df %>%
-      tidytree::offspring(selected_node) %>%
-      dplyr::filter(!.data$node %in% .data$parent) %>%
-      dplyr::pull(.data$label)
-  }
-
-  if (levels_back == 0) {
-    subset_labels <- tidytree::offspring(tree_df, selected_node) %>%
-      dplyr::filter(!.data$node %in% .data$parent) %>%
-      dplyr::pull(.data$label)
-  } else {
-    subset_labels <- tidytree::ancestor(tree_df, selected_node) %>%
-      tail(levels_back) %>%
-      head(1) %>%
-      dplyr::pull(.data$node) %>%
-      tidytree::offspring(tree_df, .) %>%
-      dplyr::filter(!.data$node %in% .data$parent) %>%
-      dplyr::pull(.data$label)
-  }
-
-
-  subset_nodes <- which(tree@phylo$tip.label %in% subset_labels)
-
-  subtree <- drop.tip(tree, tree@phylo$tip.label[-subset_nodes], rooted = TRUE)
-
-  if (group_node) subtree <- groupOTU(subtree, group_labels)
-
-  return(subtree)
-
+    return(subtree)
 }
 
 

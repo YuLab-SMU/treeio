@@ -1,5 +1,6 @@
 # treeio 1.9.1
 
++ enable `tree_subset` to specify `group_name` and enable to incorporate `root.edge` by setting `root_edge = TRUE` (2019-05-27, Mon)
 + `full_join` method for phylo object (2019-05-22, Wed)
 + redefined root method to wrape `ape::root.phylo` for compatibility (2019-05-20, Mon)
   - <https://github.com/GuangchuangYu/treeio/issues/18>

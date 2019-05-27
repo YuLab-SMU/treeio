@@ -50,7 +50,9 @@ test_that("bi_tree and named_bi_tree return expected subsets", {
     dplyr::left_join(as_tibble(named_bi_tree), by = "label")
 
   expect_equal(named_bi_subset$tip.label, paste0("t", 4:8))
-  expect_equal(named_subset_lengths$branch.length.x, named_subset_lengths$branch.length.y)
+  i <- rootnode(named_bi_subset)
+  expect_true(named_subset_lengths$branch.length.x[i] >= named_subset_lengths$branch.length.y[i])
+  expect_equal(named_subset_lengths$branch.length.x[-i], named_subset_lengths$branch.length.y[-i])
 
 
   # testing that "subsetting" to the number of levels_back to the root of the tree
