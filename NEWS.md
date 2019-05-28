@@ -1,5 +1,6 @@
 # treeio 1.9.1
 
++ `rename_taxa` now use 1st column as key and 2nd column as value by default (2019-05-28, Tue)
 + enable `tree_subset` to specify `group_name` and enable to incorporate `root.edge` by setting `root_edge = TRUE` (2019-05-27, Mon)
 + `full_join` method for phylo object (2019-05-22, Wed)
 + redefined root method to wrape `ape::root.phylo` for compatibility (2019-05-20, Mon)

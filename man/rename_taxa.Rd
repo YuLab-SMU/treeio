@@ -4,22 +4,28 @@
 \alias{rename_taxa}
 \title{rename_taxa}
 \usage{
-rename_taxa(tree, data, key, value)
+rename_taxa(tree, data, key = 1, value = 2)
 }
 \arguments{
 \item{tree}{tree object, either treedata or phylo}
 
 \item{data}{data frame}
 
-\item{key}{column in data that match tip label}
+\item{key}{column in data that match tip label (use 1st column by default)}
 
-\item{value}{column in data for rename tip label}
+\item{value}{column in data for rename tip label (use 2nd column by default)}
 }
 \value{
 tree object
 }
 \description{
 rename tip label of phylogenetic tree
+}
+\examples{
+tree <- rtree(3)
+d <- data.frame(old = paste0('t', 1:3), new = LETTERS[1:3])
+rename_taxa(tree, d)
+rename_taxa(tree, d, old, new)
 }
 \author{
 Guangchuang Yu

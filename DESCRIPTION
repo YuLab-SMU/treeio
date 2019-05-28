@@ -34,7 +34,7 @@ VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
 Encoding: UTF-8
-URL: https://guangchuangyu.github.io/software/treeio
+URL: https://yulab-smu.github.io/treedata-book/
 BugReports: https://github.com/GuangchuangYu/treeio/issues
 LazyData: true
 biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
