@@ -71,10 +71,12 @@ extract.placement <- function(object, phylo) {
 
     ids <- NULL
     if (length(placements) == 2) {
-        ids <- vapply(placements[,2], function(x) x[1], character(1))
-        names(place) <- ids
-    }
-
+		tmpids <- placements[,2]
+    }else{
+		tmpids <- list(unlist(placements[,2]), unlist(placements[,3]))
+	}
+	ids <- vapply(tmpids, function(x) x[1], character(1))
+	names(place) <- ids
     place.df <- do.call("rbind", place)
     row.names(place.df) <- NULL
     if (!is.null(ids)) {
