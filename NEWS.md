@@ -1,3 +1,8 @@
+# treeio 1.9.2
+
++ `read.mega_tabular` to parse MEGA Tabular output (2019-07-16, Tue)
++ `read.mega` to parse MEGA NEXUS (actually BEAST compatible)
+
 # treeio 1.9.1
 
 + `rename_taxa` now use 1st column as key and 2nd column as value by default (2019-05-28, Tue)

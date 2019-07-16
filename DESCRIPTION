@@ -1,6 +1,6 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.9.1
+Version: 1.9.2
 Authors@R: c(
     person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("ctb", "ths")),
@@ -29,7 +29,8 @@ Suggests:
     phangorn,
     prettydoc,
     testthat,
-    tidyr
+    tidyr,
+    vroom
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0

@@ -1,11 +1,11 @@
 
-##' read beast output
+##' read beast/mrbayes/mega Nexus output
 ##'
 ##'
-##' @rdname beast-mrbayes-parser
+##' @rdname beast-parser
 ##' @title read.beast
 ##' @param file beast file
-##' @return \code{beast} object
+##' @return treedata object
 ##' @importFrom ape read.nexus
 ##' @export
 ##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
@@ -29,7 +29,7 @@ read.beast <- function(file) {
 }
 
 
-##' @rdname beast-mrbayes-parser
+##' @rdname beast-parser
 ##' @export
 read.mrbayes <- read.beast
 
