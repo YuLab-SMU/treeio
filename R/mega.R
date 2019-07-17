@@ -7,7 +7,11 @@
 ##' @export
 ##' @author Guangchuang Yu
 read.mega_tabular <- function(file) {
-    d <- suppressMessages(vroom::vroom(file))
+    ## output of MEGA 7 has "datafile=X", while output of MEGA X may not
+    skip <- ifelse(grepl("datafile=",
+                         suppressMessages(scan(file, n = 1, what = character()))),
+                   1, 0)
+    d <- suppressMessages(vroom::vroom(file, skip = skip))
     d1 <- d[,c('NodeId','Des1')] %>% dplyr::rename(child=.data$Des1)
     d2 <- d[,c('NodeId','Des2')] %>% dplyr::rename(child=.data$Des2)
     dd <- dplyr::bind_rows(d1, d2) %>% dplyr::filter(child != '-')
