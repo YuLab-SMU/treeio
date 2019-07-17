@@ -18,11 +18,14 @@ read.mega_tabular <- function(file) {
 
     d <- dplyr::mutate(d, label = as.character(.data$NodeId))
 
-    as.phylo(dd) %>% as_tibble %>%
+    obj <- as.phylo(dd) %>% as_tibble %>%
         dplyr::full_join(d, by='label') %>%
         dplyr::mutate(label=sub("^-$", "", .data$NodeLabel)) %>%
         dplyr::select(-c('NodeLabel', 'NodeId', 'Des1', 'Des2')) %>%
         as.treedata
+
+    obj@file <- filename(file)
+    return(obj)
 }
 
 ##' @rdname beast-parser
