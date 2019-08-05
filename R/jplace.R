@@ -62,41 +62,94 @@ get.placements.jplace <- function(tree, by="best", ...) {
     return(placements)
 }
 
+getplacedf <- function(places, nm){
+	nplaces <- nrow(places)
+	if (inherits(nm, "matrix")){
+		nmsize <- nrow(nm)
+		tmpn <- nm[,1]
+	}
+	if (inherits(nm, "list")){
+		nmsize <- length(nm)
+		tmpn <- vapply(nm, function(x)x[1], character(1))
+	}
+	if (inherits(nm, "character")){
+		nmsize <- length(nm)
+		tmpn <- as.vector(nm)
+	}
+	places.df <- rep(list(places), nmsize)
+	name <- rep(tmpn, rep(nplaces, nmsize)) 
+	places.df <- do.call("rbind", places.df)
+	places.df <- data.frame(name=name, places.df, stringsAsFactors=FALSE)
+	return(places.df) 
+}
+
+
+mergenm <- function(n, nm){
+	if(is.null(n)&&!is.null(nm)){return(nm)}
+	if(is.null(nm)&&!is.null(n)){return(n)}
+	if(is.null(n)&&is.null(nm)){ 
+		stop("the placements of jplace should have corresponding name!")
+	}
+}
 
 
 extract.placement <- function(object, phylo) {
     placements <- object$placements
-
-    place <- placements[,1]
-
-    ids <- NULL
-    if (length(placements) == 2) {
-		tmpids <- placements[,2]
-    }else{
-		tmpids <- list(unlist(placements[,2]), unlist(placements[,3]))
+	if (ncol(placements)==2){
+		place.df <- mapply(getplacedf,
+						   placements[,1],
+						   placements[,2],
+						   SIMPLIFY=FALSE)
 	}
-	ids <- vapply(tmpids, function(x) x[1], character(1))
-	names(place) <- ids
-    place.df <- do.call("rbind", place)
-    row.names(place.df) <- NULL
-    if (!is.null(ids)) {
-        nn <- rep(ids, vapply(place, function(x) {
-            nr <- nrow(x)
-            if (is.null(nr))
-                return(1)
-            return(nr)
-        }, numeric(1)))
-        place.df <- data.frame(name=nn, place.df)
-        colnames(place.df) <- c("name", object$fields)
-    } else {
-        colnames(place.df) <- object$fields
-    }
+	if(ncol(placements)==3){
+		tmpname <- mapply(mergenm,
+						  placements[,2],
+						  placements[,3], 
+						  SIMPLIFY=FALSE)
+		place.df <- mapply(getplacedf,
+						   placements[,1],
+						   tmpname,
+						   SIMPLIFY=FALSE)
+	}
+	place.df <- do.call("rbind", place.df)
+	colnames(place.df) <- c("name", object$fields)
+    #place <- placements[,1]
+
+    #ids <- NULL
+    #if (length(placements) == 2) {
+	#	tmpids <- placements[,2]
+    #}else{
+	#	tmpids <- list(unlist(placements[,2]), unlist(placements[,3]))
+	#}
+	#ids <- vapply(tmpids, function(x) x[1], character(1))
+	#names(place) <- ids
+    #place.df <- do.call("rbind", place)
+    #row.names(place.df) <- NULL
+    #if (!is.null(ids)) {
+    #    nn <- rep(ids, vapply(place, function(x) {
+    #        nr <- nrow(x)
+    #        if (is.null(nr))
+    #            return(1)
+    #        return(nr)
+    #    }, numeric(1)))
+    #    place.df <- data.frame(name=nn, place.df)
+    #    colnames(place.df) <- c("name", object$fields)
+    #} else {
+    #    colnames(place.df) <- object$fields
+    #}
     edgeNum.df <- attr(phylo, "edgeNum")
     place.df <- merge(place.df, edgeNum.df, by.x = "edge_num", by.y = "edgeNum")
+	place.df <- getnewplacements(place.df)
     as_tibble(place.df)
 }
 
-
-
+# To avoid the character column
+getnewplacements <- function(placedf){
+	tmpfile <- tempfile()
+	write.csv(placedf, tmpfile)
+	placementdf <- read.csv(tmpfile, row.names=1)
+	file.remove(tmpfile)
+	return(placementdf)
+}
 
 
