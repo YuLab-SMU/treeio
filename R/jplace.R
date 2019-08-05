@@ -63,7 +63,11 @@ get.placements.jplace <- function(tree, by="best", ...) {
 }
 
 getplacedf <- function(places, nm){
-	nplaces <- nrow(places)
+	if (!inherits(places, "matrix")){
+		nplaces <- 1
+	}else{
+		nplaces <- nrow(places)
+	}
 	if (inherits(nm, "matrix")){
 		nmsize <- nrow(nm)
 		tmpn <- nm[,1]
