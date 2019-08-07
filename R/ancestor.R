@@ -19,6 +19,12 @@ parent.phylo <- function(.data, .node, ...) {
     }, numeric(1))
 }
 
+##' @method parent treedata
+##' @export
+parent.treedata <- function(.data,  .node,  ...) {
+    parent.phylo(as.phylo(.data), .node, ...)
+}
+
 ##' @importFrom tidytree ancestor
 ##' @method ancestor phylo
 ##' @export
@@ -34,6 +40,12 @@ ancestor.phylo <- function(.data, .node, ...) {
         res <- c(res, p)
     }
     return(res)
+}
+
+##' @method ancestor treedata
+##' @export
+ancestor.treedata <- function(.data, .node, ...) {
+    ancestor.phylo(as.phylo(.data), .node, ...)
 }
 
 ##' @importFrom tidytree rootnode
@@ -54,4 +66,10 @@ rootnode.phylo <- function(.data, ...) {
         stop("multiple roots found...")
     }
     return(root)
+}
+
+##' @method rootnode phylo
+##' @export
+rootnode.treedata <- function(.data, ...) {
+    rootnode.phylo(as.phylo(.data), ...)
 }
