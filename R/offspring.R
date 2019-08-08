@@ -11,6 +11,12 @@ child.phylo <- function(.data, .node, ...) {
     return(res)
 }
 
+##' @method child treedata
+##' @export
+child.treedata <- function(.data, .node, ...) {
+    child.phylo(as.phylo(.data), .node, ...)
+}
+
 ##' @importFrom tidytree offspring
 ##' @method offspring phylo
 ##' @export
@@ -35,4 +41,12 @@ offspring.phylo <- function(.data, .node, tiponly = FALSE, self_include = FALSE,
         return(sp[sp <= Ntip(.data)])
     }
     return(sp)
+}
+
+
+##' @method offspring treedata
+##' @export
+offspring.treedata <- function(.data, .node, tiponly = FALSE, self_include = FALSE, ...) {
+    offspring.phylo(as.phylo(.data), .node,
+                    tiponly = tiponly, self_include = self_include, ...)
 }

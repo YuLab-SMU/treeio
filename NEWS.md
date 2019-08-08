@@ -1,5 +1,6 @@
 # treeio 1.9.2
 
++ `parent`, 'ancestor`, `child`, `offspring` and `rootnode` methods for `treedata` (2019-08-07, Wed)
 + `read.mega_tabular` to parse MEGA Tabular output (2019-07-16, Tue)
 + `read.mega` to parse MEGA NEXUS (actually BEAST compatible)
 
