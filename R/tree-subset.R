@@ -140,6 +140,11 @@ tree_subset_internal <- function(tree, node, levels_back = 5, root_edge = TRUE) 
     subset_nodes <- which(tree$tip.label %in% subset_labels)
 
     root.edge <- NULL
+    if (is.null(tree$edge.length)) {
+        root_edge <- FALSE
+        ## if not branch length info, no need to determine root.edge
+    }
+
     if (root_edge) {
         root.edge <- ancestor(tree_df, new_root_node) %>%
             bind_rows(dplyr::filter(tree_df, node == new_root_node)) %>%
