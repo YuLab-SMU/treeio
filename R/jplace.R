@@ -63,6 +63,9 @@ get.placements.jplace <- function(tree, by="best", ...) {
 }
 
 getplacedf <- function(places, nm){
+	# the first column of placements maybe a matrix or one numeric vector,
+	# so when it is numeric vector, the nplaces will be 1.
+	# and the type of nm also is various.
 	if (!inherits(places, "matrix")){
 		nplaces <- 1
 	}else{
@@ -80,7 +83,15 @@ getplacedf <- function(places, nm){
 		nmsize <- length(nm)
 		tmpn <- as.vector(nm)
 	}
+	#example:
+   	# when first column of plamcements is [[1,2,3,4,5],[3,4,5,6,7],[6,7,3,2,4]] (3 row x 5 columns matrix),
+	# and the n column is ["read1", "read2"] (the type of n is character vector), so 
+	# will use "inherits(nm, "character")" block.
+   	#this will first generate two same matrix contained 3 row x 5 columns, because the length of n is two (the nmsize argument).
 	places.df <- rep(list(places), nmsize)
+	# then this will generate the names of each matrix for the nm.
+	# example result is: rep(c("read1", "read2"), rep(3,2)), here 3 is nplaces (the nrow of first column of placements),
+	# 2 is the length of nm.
 	name <- rep(tmpn, rep(nplaces, nmsize)) 
 	places.df <- do.call("rbind", places.df)
 	places.df <- data.frame(name=name, places.df, stringsAsFactors=FALSE)
@@ -89,6 +100,9 @@ getplacedf <- function(places, nm){
 
 
 mergenm <- function(n, nm){
+	# merge the n and nm.
+	# it is impossible that n and nm is empty simultaneously,
+	# so we will keep the column not NULL.
 	if(is.null(n)&&!is.null(nm)){return(nm)}
 	if(is.null(nm)&&!is.null(n)){return(n)}
 	if(is.null(n)&&is.null(nm)){ 
@@ -100,16 +114,21 @@ mergenm <- function(n, nm){
 extract.placement <- function(object, phylo) {
     placements <- object$placements
 	if (ncol(placements)==2){
+		# when placements contained p and n two columns,
+		# this will process placements row by row with getplacedf function.
 		place.df <- mapply(getplacedf,
 						   placements[,1],
 						   placements[,2],
 						   SIMPLIFY=FALSE)
 	}
 	if(ncol(placements)==3){
+		# when placements contained p ,n and nm three columns,
+		# first, we merge n and nm row by row.
 		tmpname <- mapply(mergenm,
 						  placements[,2],
 						  placements[,3], 
 						  SIMPLIFY=FALSE)
+		# then, it becomes the same as two columns.
 		place.df <- mapply(getplacedf,
 						   placements[,1],
 						   tmpname,
