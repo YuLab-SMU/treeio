@@ -23,8 +23,11 @@
 \alias{child}
 \alias{offspring}
 \alias{rootnode}
+\alias{nodeid}
+\alias{nodelab}
 \alias{full_join}
 \alias{data_frame}
+\alias{as_tibble}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -38,8 +41,8 @@ below to see their documentation.
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
-  \item{tibble}{\code{\link[tibble]{data_frame}}}
+  \item{tibble}{\code{\link[tibble]{data_frame}}, \code{\link[tibble]{as_tibble}}}
 
-  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}}
+  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
 }}
 

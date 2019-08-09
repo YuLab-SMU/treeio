@@ -34,11 +34,24 @@ tidytree::offspring
 ##' @export
 tidytree::rootnode
 
+##' @importFrom tidytree nodeid
+##' @export
+tidytree::nodeid
+
+##' @importFrom tidytree nodelab
+##' @export
+tidytree::nodelab
+
+
 ##' @importFrom dplyr full_join
 ##' @export
 dplyr::full_join
 
-
 ##' @importFrom tibble data_frame
 ##' @export
 tibble::data_frame
+
+##' @importFrom tibble as_tibble
+##' @export
+tibble::as_tibble
+

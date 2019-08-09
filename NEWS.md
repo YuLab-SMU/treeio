@@ -1,5 +1,6 @@
 # treeio 1.9.2
 
++ `nodeid` and `nodelab` methods for converting between node number and labels (2019-08-09, Fri)
 + `parent`, 'ancestor`, `child`, `offspring` and `rootnode` methods for `treedata` (2019-08-07, Wed)
 + `read.mega_tabular` to parse MEGA Tabular output (2019-07-16, Tue)
 + `read.mega` to parse MEGA NEXUS (actually BEAST compatible)
