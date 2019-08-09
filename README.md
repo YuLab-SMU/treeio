@@ -10,10 +10,10 @@
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![platform](http://www.bioconductor.org/shields/availability/devel/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#archives)
+[![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio)
 
 [![](https://img.shields.io/badge/release%20version-1.8.1-green.svg)](https://www.bioconductor.org/packages/treeio)
 [![](https://img.shields.io/badge/devel%20version-1.9.2-green.svg)](https://github.com/guangchuangyu/treeio)
-[![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio)
 [![Linux Travis Build
 Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Linux)](https://travis-ci.org/GuangchuangYu/treeio)
 [![AppVeyor Build
