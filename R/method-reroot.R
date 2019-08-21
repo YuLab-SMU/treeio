@@ -39,7 +39,7 @@ reroot_node_mapping <- function(tree, tree2) {
 ##' 
 ##' @title root
 ##' @rdname root-method
-##' @param object tree object
+##' @param phy tree object
 ##' @param outgroup a vector of mode numeric or character specifying the new outgroup
 ##' @param node node to reroot
 ##' @param resolve.root a logical specifying whether to resolve the new root as a bifurcating node
@@ -49,7 +49,7 @@ reroot_node_mapping <- function(tree, tree2) {
 ##' @method root phylo
 ##' @export
 ##' @author Guangchuang Yu
-root.phylo <- function(object, outgroup, node = NULL, resolve.root = TRUE, ...) {
+root.phylo <- function(phy, outgroup, node = NULL, resolve.root = TRUE, ...) {
     ## pos <- 0.5* object$edge.length[which(object$edge[,2] == node)]
     
     ## @importFrom phytools reroot
@@ -60,15 +60,15 @@ root.phylo <- function(object, outgroup, node = NULL, resolve.root = TRUE, ...) 
     
     ## tree <- phytools_reroot(object, node, pos)
 
-    tree <- ape::root.phylo(object, outgroup = outgroup,
+    tree <- ape::root.phylo(phy, outgroup = outgroup,
                             node = node, resolve.root = resolve.root, ...)
 
-    if (Nnode(tree) != Nnode(object)) {
+    if (Nnode(tree) != Nnode(phy)) {
         return(tree)
     }
 
     attr(tree, "reroot") <- TRUE
-    node_map <- reroot_node_mapping(object, tree)
+    node_map <- reroot_node_mapping(phy, tree)
     attr(tree, "node_map") <- node_map
     return(tree)
 }
@@ -77,10 +77,11 @@ root.phylo <- function(object, outgroup, node = NULL, resolve.root = TRUE, ...) 
 ##' @rdname root-method
 ##' @method root treedata
 ##' @export
-root.treedata <- function(object, outgroup, node = NULL, resolve.root = TRUE, ...) {
+root.treedata <- function(phy, outgroup, node = NULL, resolve.root = TRUE, ...) {
     ## warning message
     message("The use of this method may cause some node data to become incorrect (e.g. bootstrap values).")
 
+    object <- phy
     newobject <- object
 
     ## ensure nodes/tips have a label to properly map @anc_seq/@tip_seq

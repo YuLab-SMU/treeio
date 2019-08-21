@@ -13,6 +13,7 @@
 \alias{Nnode}
 \alias{Ntip}
 \alias{is.rooted}
+\alias{root}
 \alias{as.phylo}
 \alias{\%>\%}
 \alias{get.fields}
@@ -25,6 +26,7 @@
 \alias{rootnode}
 \alias{nodeid}
 \alias{nodelab}
+\alias{MRCA}
 \alias{full_join}
 \alias{data_frame}
 \alias{as_tibble}
@@ -35,7 +37,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{as.phylo}}}
+  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{root}}, \code{\link[ape]{as.phylo}}}
 
   \item{dplyr}{\code{\link[dplyr]{full_join}}}
 
@@ -43,6 +45,6 @@ below to see their documentation.
 
   \item{tibble}{\code{\link[tibble]{data_frame}}, \code{\link[tibble]{as_tibble}}}
 
-  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}}
+  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{MRCA}}}
 }}
 

@@ -42,6 +42,10 @@ tidytree::nodeid
 ##' @export
 tidytree::nodelab
 
+##' @importFrom tidytree MRCA
+##' @export
+tidytree::MRCA
+
 
 ##' @importFrom dplyr full_join
 ##' @export

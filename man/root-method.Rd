@@ -5,14 +5,14 @@
 \alias{root.treedata}
 \title{root}
 \usage{
-\method{root}{phylo}(object, outgroup, node = NULL,
-  resolve.root = TRUE, ...)
+\method{root}{phylo}(phy, outgroup, node = NULL, resolve.root = TRUE,
+  ...)
 
-\method{root}{treedata}(object, outgroup, node = NULL,
+\method{root}{treedata}(phy, outgroup, node = NULL,
   resolve.root = TRUE, ...)
 }
 \arguments{
-\item{object}{tree object}
+\item{phy}{tree object}
 
 \item{outgroup}{a vector of mode numeric or character specifying the new outgroup}
 
