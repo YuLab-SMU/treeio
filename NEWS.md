@@ -1,3 +1,7 @@
+# treeio 1.9.3
+
++ `as.phylo` method for `igraph` (only work with tree graph) (2019-09-28, Sat)
+
 # treeio 1.9.2
 
 + `nodeid` and `nodelab` methods for converting between node number and labels (2019-08-09, Fri)

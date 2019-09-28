@@ -74,6 +74,12 @@ as.phylo.ggtree <- function(x, ...) {
     as.phylo(d)
 }
 
+##' @method as.phylo igraph
+##' @export
+as.phylo.igraph <- function(x, ...) {
+    edge <- igraph::get.edgelist(x)
+    as.phylo(edge)
+}
 
 ##' access phylo slot
 ##'
