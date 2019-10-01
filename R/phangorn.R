@@ -1,19 +1,21 @@
-##' tree annotation of sequence substitution by comparing to parent node
-##'
-##'
-##' @title treeAnno.pml
-##' @param pmlTree tree in pml object, output of phangorn::optim.pml
+## ' tree annotation of sequence substitution by comparing to parent node
+## '
+## '
+## ' @title phyPML
+## ' @param pmlTree tree in pml object, output of phangorn::optim.pml
+##' @rdname as.treedata
 ##' @param type one of 'ml' and 'bayes' for inferring ancestral sequences
-##' @return phangorn object
+## ' @return treedata object
 ##' @importFrom ape read.tree
 ##' @importFrom ape reorder.phylo
+##' @method as.treedata pml
 ##' @export
 ##' @author Yu Guangchuang
-phyPML <- function(pmlTree, type = "ml") {
-    sequences <- pmlToSeqString(pmlTree, type, includeAncestor=TRUE)
-    tr <- pmlTree$tree
+as.treedata.pml <- function(tree, type = "ml", ...) {
+    sequences <- pmlToSeqString(tree, type, includeAncestor=TRUE)
+    tr <- tree$tree
     tr <- reorder.phylo(tr)
-
+    
     if (is.null(tr$node.label)) {
         n <- Ntip(tr)
         nl <- 1:(Nnode2(tr) - n) + n

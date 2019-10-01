@@ -1,5 +1,6 @@
 # treeio 1.9.3
 
++ rename `phyPML` to `as.treedata.pml` (2019-10-01, Tue)
 + `as.phylo` method for `igraph` (only work with tree graph) (2019-09-28, Sat)
 
 # treeio 1.9.2
@@ -225,7 +226,7 @@
 
 # treeio 0.0.1
 
-* read.nhx from ggtree <2016-12-06, Tue>
-* as.phylo.treedata to access phylo from treedata object <2016-12-06, Tue>
-* as.treedata.phylo to convert phylo to tree data object <2016-12-06, Tue>
-* treedata class definition <2016-12-06, Tue>
+* `read.nhx` from ggtree <2016-12-06, Tue>
+* `as.phylo.treedata` to access `phylo` from `treedata` object <2016-12-06, Tue>
+* `as.treedata.phylo` to convert `phylo` to `treedata` object <2016-12-06, Tue>
+* `treedata` class definition <2016-12-06, Tue>
