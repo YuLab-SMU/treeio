@@ -1,0 +1,37 @@
+citHeader("To cite treeio in publications use:")
+
+citEntry(
+    entry  = "article",
+    title  = "treeio: an R package for phylogenetic tree input and output with richly annotated and associated data.",
+    author = personList(
+        as.person("Li-Gen Wang"),
+        as.person("Tommy Tsan-Yuk Lam"),
+        as.person("Shuangbin Xu"),
+        as.person("Zehan Dai"),
+        as.person("Lang Zhou"),
+        as.person("Tingze Feng"),
+        as.person("Pingfan Guo"),
+        as.person("Casey W. Dunn"),
+        as.person("Bradley R. Jones"),
+        as.person("Tyler Bradley"),
+        as.person("Huachen Zhu"),
+        as.person("Yi Guan"),
+        as.person("Yong Jiang"),
+        as.person("Guangchuang Yu")
+        ),
+    year    = "2019",
+    journal = "Molecular Biology and Evolution",
+    volume  = "",
+    issue   = "",
+    number  = "",
+    pages   = "accepted",
+    doi     = "",
+    PMID    = "",
+    url     = "", 
+    textVersion = paste("LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR Jones, T Bradley, H Zhu, Y Guan, Y Jiang, G Yu.",
+                        "treeio: an R package for phylogenetic tree input and output with richly annotated and associated data.",
+                        "Molecular Biology and Evolution 2019, accepted.")
+
+)
+
+

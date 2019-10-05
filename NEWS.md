@@ -1,5 +1,6 @@
 # treeio 1.9.3
 
++ add citation information (2019-10-05, Sta)
 + rename `phyPML` to `as.treedata.pml` (2019-10-01, Tue)
 + `as.phylo` method for `igraph` (only work with tree graph) (2019-09-28, Sat)
 
