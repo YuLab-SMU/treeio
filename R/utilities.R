@@ -73,7 +73,7 @@ jplace_treetext_to_phylo <- function(tree.text) {
 edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
 
-    idx <- which(edges$edgeNum == edgeNum)
+    idx <- which(edges$edgeNum %in% edgeNum)
     if (length(idx) == 0) {
         return(NA)
     }
