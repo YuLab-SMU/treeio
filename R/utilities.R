@@ -74,6 +74,7 @@ edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
 
     idx <- match(edgeNum, edges$edgeNum)
+    idx <- idx[!is.na(idx)]
     if (length(idx) == 0) {
         return(NA)
     }
