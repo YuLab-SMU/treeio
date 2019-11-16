@@ -14,6 +14,10 @@ html_preview: false
 #library("txtplot")
 library("badger")
 library("ypages")
+
+Biocpkg <- function (pkg) {
+    sprintf("[%s](http://bioconductor.org/packages/%s)", pkg, pkg)
+}
 ```
 
 <a href="https://yulab-smu.github.io/treedata-book/"><img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/master/treeio/treeio.png" height="200" align="right" /></a>
@@ -49,11 +53,19 @@ Visit <https://yulab-smu.github.io/treedata-book/> for details.
 `r badger::badge_custom("follow me on", "WeChat", "green", "https://guangchuangyu.github.io/blog_images/biobabble.jpg")`
 
 
+
+
 ## :writing_hand: Authors
 
 Guangchuang YU <https://guangchuangyu.github.io>
 
 School of Basic Medical Sciences, Southern Medical University
+
+
+If you use `r Biocpkg('treeio')` in published research, please cite:
+
++ LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR Jones, T Bradley, H Zhu, Y Guan, Y Jiang, __G Yu__^\*^. treeio: an R package for phylogenetic tree input and output with richly annotated and associated data. __*Molecular Biology and Evolution*__. 2019, accepted.
+doi: [10.1093/molbev/msz240](http://dx.doi.org/10.1093/molbev/msz240).
 
 
 ## :arrow_double_down: Installation
