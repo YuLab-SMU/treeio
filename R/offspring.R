@@ -29,7 +29,8 @@ offspring.phylo <- function(.data, .node, tiponly = FALSE, self_include = FALSE,
 
     sp <- sp[sp != 0]
     if (length(sp) == 0) {
-        stop("input node is a tip...")
+        return(sp)
+        ## stop("input node is a tip...")
     }
     i <- 1
     while (i <= length(sp)) {
