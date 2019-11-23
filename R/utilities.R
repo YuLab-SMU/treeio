@@ -31,7 +31,14 @@ filename <- function(file) {
 
 jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @@
-    tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@@\\2\\1', tree.text)
+    ## The tree in jplace file format: The edge number is not always in curly braces.
+    ## they are sometimes in square brackets.
+    if(grepl("\\{(\\d+)\\}", jp$tree)){
+        tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@@\\2\\1', tree.text)
+    }
+    if(grepl("\\[(\\d+)\\]", jp$tree)){
+        tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\[(\\d+)\\]', '\\@@\\2\\1', tree.text)
+    }
     phylo <- read.tree(text=tr)
     if (length(grep('@@', phylo$tip.label)) > 0) {
         phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@@\\2", .)
@@ -72,9 +79,14 @@ jplace_treetext_to_phylo <- function(tree.text) {
 ## convert edge number to node number for EPA/pplacer output
 edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
-
     idx <- match(edgeNum, edges$edgeNum)
-    idx <- idx[!is.na(idx)]
+    flagna <- is.na(idx)
+    if (!all(flagna)){
+        na_edgeNum <- paste(edgeNum[which(flagna)], collapse="; ")
+        warning(paste("The following edges: ",na_edgeNum, ", couldn't be found", sep=""), call. = FALSE)
+        idx <- idx[!flagna]
+    }
+    #idx <- which(edges$edgeNum == edgeNum)
     if (length(idx) == 0) {
         return(NA)
     }
