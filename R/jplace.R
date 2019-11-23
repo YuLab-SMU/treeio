@@ -119,7 +119,7 @@ extract.placement <- function(object, phylo) {
         ## The order of `p` and `n` column is not fixed. I think colnames of
         ## placements (`p`, `n`, `nm`) are fixed, but when column number is
         ## two, the `n` or `nm` is not fixed.
-        nameidx <- match("p", colnames(p))
+        nameidx <- match("p", colnames(placements))
         place.df <- mapply(getplacedf,
                            placements$p,
                            placements[,-nameidx],
