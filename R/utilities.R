@@ -81,7 +81,7 @@ edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
     idx <- match(edgeNum, edges$edgeNum)
     flagna <- is.na(idx)
-    if (!all(flagna)){
+    if (any(flagna)){
         na_edgeNum <- paste(edgeNum[which(flagna)], collapse="; ")
         warning(paste("The following edges: ",na_edgeNum, ", couldn't be found", sep=""), call. = FALSE)
         idx <- idx[!flagna]
