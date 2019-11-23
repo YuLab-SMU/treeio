@@ -12,15 +12,15 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 [![platform](http://www.bioconductor.org/shields/availability/devel/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#archives)
 [![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio)
 
-[![](https://img.shields.io/badge/release%20version-1.8.1-green.svg)](https://www.bioconductor.org/packages/treeio)
-[![](https://img.shields.io/badge/devel%20version-1.9.2-green.svg)](https://github.com/guangchuangyu/treeio)
+[![](https://img.shields.io/badge/release%20version-1.10.0-green.svg)](https://www.bioconductor.org/packages/treeio)
+[![](https://img.shields.io/badge/devel%20version-1.11.0-green.svg)](https://github.com/guangchuangyu/treeio)
 [![Linux Travis Build
 Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Linux)](https://travis-ci.org/GuangchuangYu/treeio)
 [![AppVeyor Build
 Status](https://img.shields.io/appveyor/ci/Guangchuangyu/treeio/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/treeio)
 
-[![](https://img.shields.io/badge/download-31921/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
-[![](https://img.shields.io/badge/download-1584/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![](https://img.shields.io/badge/download-37760/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![](https://img.shields.io/badge/download-1883/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
 [![download](http://www.bioconductor.org/shields/downloads/release/treeio.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
 
 ‘treeio’ is an R package to make it easier to import and store
@@ -41,6 +41,16 @@ Visit <https://yulab-smu.github.io/treedata-book/> for details.
 Guangchuang YU <https://guangchuangyu.github.io>
 
 School of Basic Medical Sciences, Southern Medical University
+
+If you use [treeio](http://bioconductor.org/packages/treeio) in
+published research, please cite:
+
+  - LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR
+    Jones, T Bradley, H Zhu, Y Guan, Y Jiang, **G Yu**<sup>\*</sup>.
+    treeio: an R package for phylogenetic tree input and output with
+    richly annotated and associated data. ***Molecular Biology and
+    Evolution***. 2019, accepted. doi:
+    [10.1093/molbev/msz240](http://dx.doi.org/10.1093/molbev/msz240).
 
 ## :arrow\_double\_down: Installation
 

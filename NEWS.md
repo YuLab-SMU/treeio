@@ -1,3 +1,11 @@
+# treeio 1.11.1
+
++ `offspring` return `integer(0)` instead of throw error if input `.node` is a tip (2019-11-21, Thu)
+
+# treeio 1.10.0
+
++ Bioconductor 3.10 release
+
 # treeio 1.9.3
 
 + add citation information (2019-10-05, Sta)
