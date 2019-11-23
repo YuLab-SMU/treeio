@@ -33,10 +33,10 @@ jplace_treetext_to_phylo <- function(tree.text) {
     ## move edge label to node label separate by @@
     ## The tree in jplace file format: The edge number is not always in curly braces.
     ## they are sometimes in square brackets.
-    if(grepl("\\{(\\d+)\\}", jp$tree)){
+    if(grepl("\\{(\\d+)\\}", tree.text)){
         tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@@\\2\\1', tree.text)
     }
-    if(grepl("\\[(\\d+)\\]", jp$tree)){
+    if(grepl("\\[(\\d+)\\]", tree.text)){
         tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\[(\\d+)\\]', '\\@@\\2\\1', tree.text)
     }
     phylo <- read.tree(text=tr)
