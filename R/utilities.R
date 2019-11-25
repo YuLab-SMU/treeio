@@ -37,6 +37,7 @@ jplace_treetext_to_phylo <- function(tree.text) {
         tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\{(\\d+)\\}', '\\@@\\2\\1', tree.text)
     }
     if(grepl("\\[(\\d+)\\]", tree.text)){
+        message("The version of jplace file is 1.0.")
         tr <- gsub('(:[0-9\\.eE\\+\\-]+)\\[(\\d+)\\]', '\\@@\\2\\1', tree.text)
     }
     phylo <- read.tree(text=tr)
@@ -81,10 +82,11 @@ edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
     idx <- match(edgeNum, edges$edgeNum)
     flagna <- is.na(idx)
-    if (any(flagna)){
+    idx <- idx[!flagna]
+    if (any(flagna) & length(idx)>0){
         na_edgeNum <- paste(edgeNum[which(flagna)], collapse="; ")
-        warning(paste("The following edges: ",na_edgeNum, ", couldn't be found", sep=""), call. = FALSE)
-        idx <- idx[!flagna]
+        stop(paste("The following edges: ",na_edgeNum, ", couldn't be found", sep=""), call. = FALSE)
+        #idx <- idx[!flagna]
     }
     #idx <- which(edges$edgeNum == edgeNum)
     if (length(idx) == 0) {
