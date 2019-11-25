@@ -19,3 +19,9 @@
 + use `textConnection` to pass string to the `file` parameter.
   - <https://github.com/GuangchuangYu/ggtree/pull/55>
 
+[Shuangbin Xu](https://github.com/xiangpin)
+----------
++ parse `n` and `nm` in jplace when they coexists
+  - <https://github.com/YuLab-SMU/treeio/pull/19>
++ jplace version 1 support
+  - <https://github.com/YuLab-SMU/treeio/pull/25>

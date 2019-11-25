@@ -1,5 +1,7 @@
 # treeio 1.11.1
 
++ support jplace version 1 (2019-11-25, Mon)
+  - <https://github.com/YuLab-SMU/treeio/pull/25>
 + `offspring` return `integer(0)` instead of throw error if input `.node` is a tip (2019-11-21, Thu)
 
 # treeio 1.10.0
