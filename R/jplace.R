@@ -116,21 +116,25 @@ extract.placement <- function(object, phylo) {
     if (ncol(placements)==2){
         ## when placements contained p and n two columns,
         ## this will process placements row by row with getplacedf function.
+        ## The order of `p` and `n` column is not fixed. I think colnames of
+        ## placements (`p`, `n`, `nm`) are fixed, but when column number is
+        ## two, the `n` or `nm` is not fixed.
+        nameidx <- match("p", colnames(placements))
         place.df <- mapply(getplacedf,
-                           placements[,1],
-                           placements[,2],
+                           placements$p,
+                           placements[,-nameidx],
                            SIMPLIFY=FALSE)
     }
     if(ncol(placements)==3){
         ## when placements contained p ,n and nm three columns,
         ## first, we merge n and nm row by row.
         tmpname <- mapply(mergenm,
-                          placements[,2],
-                          placements[,3], 
+                          placements$n,
+                          placements$nm, 
                           SIMPLIFY=FALSE)
         ## then, it becomes the same as two columns.
         place.df <- mapply(getplacedf,
-                           placements[,1],
+                           placements$p,
                            tmpname,
                            SIMPLIFY=FALSE)
     }
