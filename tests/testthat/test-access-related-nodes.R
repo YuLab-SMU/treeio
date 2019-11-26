@@ -67,13 +67,13 @@ test_that("child works for non-bifurcating trees", {
 test_that("offspring works on bifurcating trees", {
   expect_equal(sort(offspring(bi_tree, 11)), (1:19)[-11])
   expect_equal(sort(offspring(bi_tree, 17)), c(4:6, 18))
-  expect_error(offspring(bi_tree, 1), "input node is a tip...")
+  expect_equal(offspring(bi_tree, 1), integer(0))
 })
 
 test_that("offspring works on non-bifurcating trees", {
   expect_equal(sort(offspring(multi_tree, 11)), (1:16)[-11])
   expect_equal(sort(offspring(multi_tree, 14)), c(4:8, 15:16))
-  expect_error(offspring(multi_tree, 1), "input node is a tip...")
+  expect_equal(offspring(multi_tree, 1), integer(0))
 })
 
 test_that("parent works for bifurcating trees", {
