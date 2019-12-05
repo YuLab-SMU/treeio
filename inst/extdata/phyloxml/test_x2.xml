@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phyloxml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phyloxml.org" xsi:schemaLocation="http://www.phyloxml.org http://www.phyloxml.org/1.10/phyloxml.xsd">
+  <phylogeny rooted="true">
+    <name>A phylogenetic tree</name>
+    <description>Some description</description>
+    <clade>
+      <clade>
+        <branch_length>0.38003517943434417248</branch_length>
+        <clade>
+          <branch_length>0.77744522131979465485</branch_length>
+          <clade>
+            <branch_length>0.93470523110590875149</branch_length>
+            <clade>
+              <name>t7</name>
+              <branch_length>0.21214252128265798092</branch_length>
+            </clade>
+            <clade>
+              <branch_length>0.65167376608587801456</branch_length>
+              <clade>
+                <name>t2</name>
+                <branch_length>0.12555509596131742001</branch_length>
+              </clade>
+              <clade>
+                <name>t3</name>
+                <branch_length>0.26722066872753202915</branch_length>
+              </clade>
+            </clade>
+          </clade>
+          <clade>
+            <name>t8</name>
+            <branch_length>0.38611409254372119904</branch_length>
+          </clade>
+        </clade>
+        <clade>
+          <branch_length>0.01339033315889537334</branch_length>
+          <clade>
+            <branch_length>0.38238795707002282143</branch_length>
+            <clade>
+              <name>t1</name>
+              <branch_length>0.86969084572046995163</branch_length>
+            </clade>
+            <clade>
+              <name>t5</name>
+              <branch_length>0.34034899668768048286</branch_length>
+            </clade>
+          </clade>
+          <clade>
+            <branch_length>0.48208011547103524208</branch_length>
+            <clade>
+              <name>t6</name>
+              <branch_length>0.59956582542508840561</branch_length>
+            </clade>
+            <clade>
+              <branch_length>0.49354130704887211323</branch_length>
+              <clade>
+                <name>t9</name>
+                <branch_length>0.18621760141104459763</branch_length>
+              </clade>
+              <clade>
+                <name>t10</name>
+                <branch_length>0.82737331860698759556</branch_length>
+              </clade>
+            </clade>
+          </clade>
+        </clade>
+      </clade>
+      <clade>
+        <name>t4</name>
+        <branch_length>0.66846673819236457348</branch_length>
+      </clade>
+    </clade>
+  </phylogeny>
+</phyloxml>
