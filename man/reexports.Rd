@@ -37,14 +37,14 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{read.tree}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.tree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{root}}, \code{\link[ape]{as.phylo}}}
+  \item{ape}{\code{\link[ape]{as.phylo}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{root}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{write.tree}}}
 
   \item{dplyr}{\code{\link[dplyr]{full_join}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
-  \item{tibble}{\code{\link[tibble]{data_frame}}, \code{\link[tibble]{as_tibble}}}
+  \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{data_frame}}}
 
-  \item{tidytree}{\code{\link[tidytree]{treedata}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{MRCA}}}
+  \item{tidytree}{\code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
 }}
 

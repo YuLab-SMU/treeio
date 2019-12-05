@@ -1,3 +1,7 @@
+# treeio 1.11.2
+
++ phyloxml parser `read.phyloxml` (2019-12-05, Thu)
+  
 # treeio 1.11.1
 
 + support jplace version 1 (2019-11-25, Mon)

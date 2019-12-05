@@ -1,6 +1,6 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.11.1
+Version: 1.11.2
 Authors@R: c(
     person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("ctb", "ths")),
@@ -21,8 +21,7 @@ Imports:
     rlang,
     tibble,
     tidytree (>= 0.2.6),
-    utils,
-    XML
+    utils
 Suggests:
     Biostrings,
     ggplot2,
@@ -33,7 +32,8 @@ Suggests:
     prettydoc,
     testthat,
     tidyr,
-    vroom
+    vroom,
+    xml2
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
@@ -43,4 +43,4 @@ BugReports: https://github.com/YuLab-SMU/treeio/issues
 LazyData: true
 biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
     Alignment, MultipleSequenceAlignment
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2

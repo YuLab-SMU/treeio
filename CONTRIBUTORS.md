@@ -1,8 +1,3 @@
-[Tyler Bradley](https://github.com/tbradley1013)
-------------
-+ `tree_subset` methods for `phylo` and `treedata` objects
-  - <https://github.com/GuangchuangYu/treeio/pull/8>
-  
 [Bradley Jones](https://github.com/brj1)
 -------------
 + beast1 tree support
@@ -21,7 +16,14 @@
 
 [Shuangbin Xu](https://github.com/xiangpin)
 ----------
++ parse phyloxml file
+  - <https://github.com/YuLab-SMU/treeio/pull/27>
 + parse `n` and `nm` in jplace when they coexists
   - <https://github.com/YuLab-SMU/treeio/pull/19>
 + jplace version 1 support
   - <https://github.com/YuLab-SMU/treeio/pull/25>
+
+[Tyler Bradley](https://github.com/tbradley1013)
+------------
++ `tree_subset` methods for `phylo` and `treedata` objects
+  - <https://github.com/GuangchuangYu/treeio/pull/8>

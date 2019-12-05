@@ -1,6 +1,5 @@
 #' @title read.phyloxml
 #' @param file phyloxml file
-#' @importFrom XML xmlParse xmlRoot xmlToList 
 #' @return treedata class
 #' @export
 #' @examples
@@ -8,9 +7,10 @@
 #' px <- read.phyloxml(xmlfile)
 #' px
 read.phyloxml <- function(file){
-    x <- xmlParse(file)
-    x <- xmlRoot(x)
-    phylogeny <- xmlToList(x)
+    x <- xml2::read_xml(file)
+    x <- xml2::xml_root(x)
+    phylogeny <- xml2::as_list(x)[["phyloxml"]]
+
     clade <- phylogeny[["phylogeny"]][["clade"]]
     dt <- parser_clade(clade)
     dt <- dt[!is.na(dt$nodeid),]
@@ -21,7 +21,7 @@ read.phyloxml <- function(file){
     obj <- dd %>% dplyr::mutate(label=as.vector(.data$labelnames)) %>% 
            dplyr::select(-c("nodeid", "child", "edge.length", "labelnames")) %>%
            as.treedata
-    obj@file <- treeio:::filename(file)
+    obj@file <- filename(file)
     return(obj)
 }
 
@@ -40,10 +40,17 @@ parser_clade <- function(x, id=list2env(list(id = 0L)), parent=NULL){
 
 #' @keywords internal
 checkvalue <- function(x){
-    if (inherits(x, "list")){
-        lapply(x, checkvalue)
-    }else{
-        ifelse(length(x), unlist(x), NA)
+    n <- length(x)
+    if (n == 0) return(NA)
+    if (inherits(x, "list")) {
+        if (n == 1) {
+            x <- x[[1]]
+        }
+    }
+    
+    if (inherits(x, "list")) {
+        lapply(x, checkvalue)    
+    } else {
+        unlist(x)
     }
 }
-
