@@ -4,11 +4,11 @@ ape::as.phylo
 
 
 ##' @method as.phylo tbl_df
-##' @importFrom tibble as.tibble
+##' @importFrom tibble as_tibble
 ##' @importFrom dplyr mutate_if
 ##' @export
 as.phylo.tbl_df <- function(x, length, ...) {
-    x <- as.tibble(x) %>% mutate_if(is.factor, as.character)
+    x <- as_tibble(x) %>% mutate_if(is.factor, as.character)
 
     edge.length <- NULL
     length_var <- quo_name(enexpr(length))

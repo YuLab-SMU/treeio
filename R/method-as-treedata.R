@@ -56,7 +56,7 @@ as.treedata.ggtree <- function(tree, ...) {
 ##' @method as.treedata tbl_df
 ##' @export
 as.treedata.tbl_df <- function(tree, ...) {
-    edgelist <- as.tibble(tree)
+    edgelist <- as_tibble(tree)
 
     phylo <- as.phylo.tbl_df(edgelist, ...)
 
