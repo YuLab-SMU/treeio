@@ -23,7 +23,7 @@ read.beast <- function(file) {
         obj <- lapply(seq_along(treetext), function(i) {
             BEAST(file, treetext[i], stats[[i]], phylo[[i]])
         })
-        class(obj) <- "beastList"
+        class(obj) <- "treedataList"
     }
     return(obj)
 }

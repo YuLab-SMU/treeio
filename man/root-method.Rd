@@ -5,11 +5,9 @@
 \alias{root.treedata}
 \title{root}
 \usage{
-\method{root}{phylo}(phy, outgroup, node = NULL, resolve.root = TRUE,
-  ...)
+\method{root}{phylo}(phy, outgroup, node = NULL, resolve.root = TRUE, ...)
 
-\method{root}{treedata}(phy, outgroup, node = NULL,
-  resolve.root = TRUE, ...)
+\method{root}{treedata}(phy, outgroup, node = NULL, resolve.root = TRUE, ...)
 }
 \arguments{
 \item{phy}{tree object}

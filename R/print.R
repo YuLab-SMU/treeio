@@ -1,14 +1,14 @@
-##' print information of a list of beast trees
+##' print information of a list of treedata objects
 ##'
 ##'
 ##' @title print
-##' @param x a list of beast object
+##' @param x a list of treedata objects
 ##' @param ... no used
 ##' @return message
-##' @method print beastList
+##' @method print treedataList
 ##' @export
-print.beastList <- function(x, ...) {
-    msg <- paste(length(x), "beast trees")
+print.treedataList <- function(x, ...) {
+    msg <- paste(length(x), "phylogenetic trees")
     cat(msg, "\n")
 }
 

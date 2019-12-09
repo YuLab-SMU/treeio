@@ -21,7 +21,7 @@ read.phyloxml <- function(file){
         obj <- single_tree(x[[index]], file)
     }else{
         obj <- lapply(x[index], single_tree, file)
-        class(obj) <- "multitreedata"
+        class(obj) <- "treedataList"
     }
     return(obj)
 }
