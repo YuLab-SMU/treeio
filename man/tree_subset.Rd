@@ -6,32 +6,14 @@
 \alias{tree_subset.treedata}
 \title{Subset tree objects by related nodes}
 \usage{
-tree_subset(
-  tree,
-  node,
-  levels_back = 5,
-  group_node = TRUE,
-  group_name = "group",
-  root_edge = TRUE
-)
+tree_subset(tree, node, levels_back = 5, group_node = TRUE,
+  group_name = "group", root_edge = TRUE)
 
-\method{tree_subset}{phylo}(
-  tree,
-  node,
-  levels_back = 5,
-  group_node = TRUE,
-  group_name = "group",
-  root_edge = TRUE
-)
+\method{tree_subset}{phylo}(tree, node, levels_back = 5,
+  group_node = TRUE, group_name = "group", root_edge = TRUE)
 
-\method{tree_subset}{treedata}(
-  tree,
-  node,
-  levels_back = 5,
-  group_node = TRUE,
-  group_name = "group",
-  root_edge = TRUE
-)
+\method{tree_subset}{treedata}(tree, node, levels_back = 5,
+  group_node = TRUE, group_name = "group", root_edge = TRUE)
 }
 \arguments{
 \item{tree}{a tree object of class phylo}
