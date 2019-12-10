@@ -10,7 +10,7 @@ read.phyloxml(file)
 \item{file}{phyloxml file}
 }
 \value{
-treedata class or multitreedata class
+treedata class or treedataList class
 }
 \description{
 read.phyloxml
