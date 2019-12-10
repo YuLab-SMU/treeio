@@ -4,7 +4,8 @@
 \alias{write.beast}
 \title{write.beast}
 \usage{
-write.beast(treedata, file = "", translate = TRUE, tree.name = "UNTITLED")
+write.beast(treedata, file = "", translate = TRUE,
+  tree.name = "UNTITLED")
 }
 \arguments{
 \item{treedata}{\code{treedata} object}
