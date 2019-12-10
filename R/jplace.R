@@ -166,15 +166,15 @@ extract.placement <- function(object, phylo) {
     ## }
     edgeNum.df <- attr(phylo, "edgeNum")
     place.df <- merge(place.df, edgeNum.df, by.x = "edge_num", by.y = "edgeNum")
-    place.df <- getnewplacements(place.df)
+    place.df <- get_newdata(place.df)
     as_tibble(place.df)
 }
 
 ## To avoid the character column
-getnewplacements <- function(placedf){
+get_newdata <- function(placedf){
     tmpfile <- tempfile()
     utils::write.csv(placedf, tmpfile)
-    placementdf <- utils::read.csv(tmpfile, row.names=1)
+    placementdf <- utils::read.csv(tmpfile, row.names=1, stringsAsFactors=FALSE)
     ## file.remove(tmpfile)
     return(placementdf)
 }
