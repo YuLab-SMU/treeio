@@ -1,6 +1,6 @@
 #' @title read.phyloxml
 #' @param file phyloxml file
-#' @return treedata class or multitreedata class
+#' @return treedata class or treedataList class
 #' @export
 #' @examples
 #' xmlfile <- system.file("extdata/phyloxml", "test_x2.xml", package="treeio")
@@ -18,41 +18,54 @@ read.phyloxml <- function(file){
         stop("The input file is not phyloxml format, please check it !")
     }
     if (length(index)==1){
-        obj <- single_tree(x[[index]], file)
+        objtmp <- single_tree(index, x, file)
+        obj <- objtmp[[1]]
     }else{
-        obj <- lapply(x[index], single_tree, file)
+        objtmp <- lapply(index, single_tree, x, file)
+        obj <- lapply(objtmp, function(x)x[[1]])
+        names(obj) <- unlist(lapply(objtmp, function(x)x[[2]]))
         class(obj) <- "treedataList"
     }
     return(obj)
 }
 
 #' @keywords internal
-single_tree <- function(phylogeny, file){
-    dt <- parser_clade(phylogeny[["clade"]])
+single_tree <- function(i, phylogeny, file){
+    rootflag <- unname(check_attrs(phylogeny[[i]]))
+    treename <- extract_treename(i, phylogeny)
+    dt <- parser_clade(phylogeny[[i]][["clade"]])
+    dt <- get_newdata(dt)
     dt <- dt[!is.na(dt$parentID), ]
-    if ("branch_length" %in% colnames(dt)){
+    if ("branch_length" %in% colnames(dt) & !all(is.na(dt[["branch_length"]]))){
         edgedf <- dt[,c("parentID", "NodeID", "branch_length")]
-        rmclumn <- c("parentID", "branch_length")
+        rmclumn <- c("parentID", "NodeID", "branch_length")
     }else{
         edgedf <- dt[,c("parentID", "NodeID")]
-        rmclumn <- c("parentID")
+        rmclumn <- c("parentID", "NodeID")
     }
     dt <- dplyr::mutate(dt, label = as.character(dt$NodeID))
-    dd <- as.phylo(edgedf, "branch_length") %>% as_tibble() %>%
-            dplyr::full_join(dt, by='label')
-    if ("accession" %in% colnames(dd)){
-        dd$label <- as.vector(dd$accession)
-    }else{
-        if ("name" %in% colnames(dd)){
-            dd$label <- as.vector(dd$name)
-        }
-        if ( "scientific_name" %in% colnames(dd) & !"name"%in%colnames(dd)){
-            dd$label <- as.vector(dd$scientific_name)
-	}
+    dd <- as.phylo(edgedf, "branch_length") 
+    if (rootflag == "false"){
+        dd <- ape::unroot(dd)
     }
-    obj <- dd %>% dplyr::select(-rmclumn) %>% as.treedata
+    dd <- dd %>% as_tibble() %>%
+            dplyr::full_join(dt, by='label')
+    if ("name" %in% colnames(dd)){
+        dd$label <- as.vector(dd$name)
+        rmclumn <- c(rmclumn, "name")
+    }else{
+        if ("sequence.symbol" %in% colnames(dd)){
+            dd$label <- as.vector(dd$sequence.symbol)
+            rmclumn <- c(rmclumn, "sequence.symbol")
+        }
+        if ( "taxonomy.scientific_name" %in% colnames(dd) & !"sequence.symbol"%in%colnames(dd)){
+            dd$label <- as.vector(dd$taxonomy.scientific_name)
+            rmclumn <- c(rmclumn, "taxonomy.scientific_name")
+        }
+    }
+    obj <- dd %>% dplyr::select(-rmclumn) %>% as.treedata()
     obj@file <- filename(file)
-    return(obj)
+    return(c(obj, treename))
 }
 
 
@@ -83,23 +96,19 @@ fill_id <- function(x){
 extract_another <- function(x){
     namestmp <- names(x)
     index <- which(namestmp != "clade")
-    namestmp <- namestmp[index]
-    namestmp2 <- namestmp
-    dind <- which(duplicated(namestmp2)|duplicated(namestmp2, fromLast=TRUE))
-    if (length(dind)){
-        namestmp2 <- mapply(paste0, namestmp2[dind], 
-                            seq_len(length(dind)), SIMPLIFY=FALSE)
-    }
-    if (length(index)){
-        lapply(index, function(i){
-                      attrs <- check_attrs(x[[i]])
-                      values <- check_value(x[[i]])
-                      if (length(values)!=0 & length(names(values))==0){
-                          names(values) <- namestmp2[i]
-                      }
-                      c(values, attrs)
+    if (length(index) >0){
+        lapply(x[index], function(i){
+               attrs <- check_attrs(i)
+               values <- check_value(i)
+               res <- unlist(c(values, attrs))
+               namestmp2 <- names(res)
+               dind <- which(duplicated(namestmp2)|duplicated(namestmp2, fromLast=TRUE))
+               if (length(dind) & length(unique(res[dind]))>1){
+                   namestmp2[dind] <- mapply(paste0, namestmp2[dind],seq_len(length(dind)), SIMPLIFY=FALSE)
+               }
+	       names(res) <- unlist(namestmp2)
+               return(res)
               })
-    
     }
 }
 
@@ -114,16 +123,27 @@ check_attrs <- function(x){
 
 #' @keywords internal
 check_value <- function(x){
-    if (inherits(x, "list")){
+    if(length(unlist(x))>1){
         lapply(x, check_value)
     }else{
-        if(length(x)>2){
-            lapply(x, check_value)
+        if (length(x)==0){
+            return(check_attrs(x))
 	}else{
-            list(check_attrs(x), unlist(x))
-        }
+	    return(c(check_attrs(x),unlist(x)))
+	}
     }
 }
+
+#' @keywords internal
+extract_treename <- function(i, phylogeny){
+    if ("name" %in% names(phylogeny[[i]])){
+        treename <- unlist(phylogeny[[i]][["name"]])
+    }else{
+        treename <- paste0("phylogeny_", i)
+    }
+    return (treename)
+}
+
 
 #' @keywords internal
 extract_values_attrs <- function(x, id, parent, isTip){
