@@ -1,5 +1,6 @@
 # treeio 1.11.2
 
++ update citation (2020-02-18, Tue)
 + phyloxml parser `read.phyloxml` (2019-12-05, Thu)
   
 # treeio 1.11.1
