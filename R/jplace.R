@@ -31,11 +31,12 @@ read.jplace <- function(file) {
 
 ##' @importFrom dplyr summarize
 ##' @importFrom dplyr mutate
+##' @importFrom dplyr group_by
 ##' @importFrom dplyr n
 summarize_placement <- function(tree) {
     place <- get.placements(tree, by="best")
     ids <- tibble(node = nodeIds(tree, internal.only = FALSE))
-    group_by_(place, ~node) %>% summarize(nplace=n()) %>%
+    group_by(place, .data$node) %>% summarize(nplace=n()) %>%
         full_join(ids, by='node') %>%
         mutate(nplace = ifelse(is.na(.data$nplace), 0, .data$nplace))
 }
@@ -44,8 +45,8 @@ summarize_placement <- function(tree) {
 ##' @param by one of 'best' and 'all'
 ##' @export
 ##' @rdname get-placements
-##' @importFrom dplyr group_by_
-##' @importFrom dplyr filter_
+##' @importFrom dplyr group_by
+##' @importFrom dplyr filter
 get.placements.jplace <- function(tree, by="best", ...) {
     placements <- tree@placements
     if (!'likelihood' %in% names(placements))
@@ -56,8 +57,8 @@ get.placements.jplace <- function(tree, by="best", ...) {
         ## due to precision, number are identical maynot be equal,
         ## so use all.equal which can test nearly equal number
         ## if not equals, the output is a descript string of the differences
-        placements <- group_by_(placements, ~name) %>%
-            filter_(~likelihood == min(likelihood))
+        placements <- group_by(placements, .data$name) %>%
+            filter(.data$likelihood == min(.data$likelihood))
     }
     return(placements)
 }
