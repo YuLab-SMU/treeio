@@ -16,5 +16,5 @@ TRUE or FALSE
 test whether input object is produced by ggtree function
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

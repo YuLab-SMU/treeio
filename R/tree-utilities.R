@@ -9,7 +9,7 @@
 ##' @param label label of branch, e.g. #1
 ##' @return updated phylo object
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 label_branch_paml <- function(tree, node, label) {
     sp_id <- offspring(tree, node)
     tip_id <- sp_id[sp_id <= Ntip(tree)]
@@ -64,7 +64,7 @@ Nnode2 <- getNodeNum
 ##' @param x object
 ##' @return TRUE or FALSE
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 is.ggtree <- function(x) inherits(x, 'ggtree')
 
 getNodeName <- function(tr) {

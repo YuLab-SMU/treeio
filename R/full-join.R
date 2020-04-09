@@ -1,6 +1,5 @@
 ##' @importFrom dplyr full_join
-##' @importFrom tibble data_frame
-##' @importFrom dplyr select_
+##' @importFrom tibble tibble
 ##' @method full_join treedata
 ##' @export
 full_join.treedata <- function(x, y, by = NULL,
@@ -16,8 +15,8 @@ full_join.treedata <- function(x, y, by = NULL,
         if (!is.null(x@phylo$node.label)) {
             label[(ntip+1):N] <- x@phylo$node.label
         }
-        lab <- data_frame(node = 1:N, label = label)
-        y <- full_join(lab, y, by = "label") %>% select_(~ -label)
+        lab <- tibble(node = 1:N, label = label)
+        y <- full_join(lab, y, by = "label") %>% select(-.data$label)
     }
 
     if (nrow(x@extraInfo) == 0) {

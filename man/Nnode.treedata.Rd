@@ -23,5 +23,5 @@ number of nodes
 Nnode(rtree(30))
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

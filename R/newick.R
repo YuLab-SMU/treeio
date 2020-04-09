@@ -7,14 +7,14 @@
 ##' @param ... additional parameter, passed to 'read.tree'
 ##' @return phylo or treedata object
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 read.newick <- function(file, node.label = "label", ...) {
     node.label <- match.arg(node.label, c("support", "label"))
     tree <- read.tree(file, ...)
     if (node.label == "label")
         return(tree)
 
-    df <- data_frame(node = nodeIds(tree),
+    df <- tibble(node = nodeIds(tree),
                      support = as.numeric(tree$node.label))
 
     tree$node.label <- NULL

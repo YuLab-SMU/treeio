@@ -30,7 +30,7 @@ read.phylip <- function(file) {
 ##' @param file phylip file, currently only sequential format is supported
 ##' @return DNAbin object
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 ##' @references \url{http://evolution.genetics.washington.edu/phylip/doc/sequence.html}
 read.phylip.seq <- function(file) {
     phylip <- readLines(file)
@@ -65,7 +65,7 @@ read.phylip.seq <- function(file) {
 ##' @param file phylip file
 ##' @return phylo or multiPhylo object
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 read.phylip.tree <- function(file) {
     phylip <- readLines(file)
     i <- grep("^\\d+$", phylip)

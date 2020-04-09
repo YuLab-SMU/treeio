@@ -19,5 +19,5 @@ read FASTA file
 This function supports both DNA or AA sequences
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

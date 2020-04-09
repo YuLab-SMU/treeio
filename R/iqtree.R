@@ -13,9 +13,9 @@ read.iqtree <- function(file) {
     sh <- sub("/.*", "", nlabel) %>% as.numeric
     uf <- sub(".*/", "", nlabel) %>% as.numeric
 
-    d <- data_frame(node = Ntip(phylo) + 1:phylo$Nnode,
-                    SH_aLRT = sh,
-                    UFboot = uf)
+    d <- tibble(node = Ntip(phylo) + 1:phylo$Nnode,
+                SH_aLRT = sh,
+                UFboot = uf)
 
     new("treedata",
         file = filename(file),

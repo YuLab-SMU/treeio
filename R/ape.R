@@ -54,7 +54,7 @@ Ntip.treedata <- function(phy) {
 ##' @export
 ##' @examples
 ##' Nnode(rtree(30))
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 Nnode.treedata <- function(phy, internal.only=TRUE, ...) {
     Nnode(as.phylo(phy), internal.only = internal.only, ...)
 }

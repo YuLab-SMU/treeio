@@ -36,7 +36,7 @@ drop.tip.treedata <- function(object, tip, ...) {
     ## label the internal tree nodes by their number
     object@phylo$node.label <- Ntip(object) + (1:Nnode(object))
 
-    trans_node_data <- data_frame(node = 1:Nnode(object, internal.only = FALSE),
+    trans_node_data <- tibble(node = 1:Nnode(object, internal.only = FALSE),
                        node.label = c(object@phylo$tip.label,
                                       as.character(object@phylo$node.label)))
     if (!is.null(labels))

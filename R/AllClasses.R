@@ -13,14 +13,14 @@
 ##' @slot info extra information, e.g. metadata, software version etc.
 ##' @importClassesFrom tidytree treedata
 ##' @exportClass jplace
-##' @author guangchuang yu \url{https://guangchuangyu.github.io}
+##' @author Guangchuang Yu \url{https://guangchuangyu.github.io}
 ##' @keywords classes
 setClass("jplace",
          representation = representation(
              placements = "tbl_df"
          ),
          prototype = prototype(
-             placements = data_frame()
+             placements = tibble()
          ),
          contains = "treedata"
          )

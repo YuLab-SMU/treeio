@@ -28,6 +28,6 @@ This class stores phylogenetic placements
 }}
 
 \author{
-guangchuang yu \url{https://guangchuangyu.github.io}
+Guangchuang Yu \url{https://guangchuangyu.github.io}
 }
 \keyword{classes}

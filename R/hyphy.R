@@ -8,7 +8,7 @@
 ##' @examples
 ##' ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
 ##' read.hyphy.seq(ancseq)
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 read.hyphy.seq <- function(file) {
     anc <- scan(file, what="", sep="\n", quiet=TRUE)
     end <- grep("END;", anc, ignore.case=TRUE)
@@ -111,8 +111,7 @@ read.hyphy <- function(nwk, ancseq, tip.fasfile=NULL) {
     set_substitution(res)
 }
 
-##' @importFrom dplyr rename_
-##' @importFrom dplyr select_
+
 set_substitution <- function(object, ...) {
     if (length(object@tip_seq) == 0) {
         return(object)
@@ -126,10 +125,10 @@ set_substitution <- function(object, ...) {
 
     if (object@seq_type == "NT") {
         AA_subs <- get.subs_(object, translate=TRUE, ...)
-        AA_subs <- rename_(AA_subs, AA_subs = ~subs)
+        AA_subs <- rename(AA_subs, AA_subs = .data$subs)
         subs <- full_join(subs, AA_subs, by=c("node", "parent"))
     }
-    subs <- select_(subs, ~ -parent)
+    subs <- select(subs, - .data$parent)
 
     if (nrow(object@data) == 0) {
         object@data <- subs
@@ -167,7 +166,7 @@ get.subs_ <- function(object, translate=TRUE, removeGap=TRUE) {
 
     ## if `subs` is too long to plot, user can use
     ## `stringr::str_wrap` to format the text
-    dd <- data_frame(node=node, parent=pp, subs=subs)
+    dd <- tibble(node=node, parent=pp, subs=subs)
     dd <- dd[dd$parent != 0,]
     return(dd)
 }

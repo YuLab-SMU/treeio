@@ -16,5 +16,5 @@ phylo or multiPhylo object
 parse tree from phylip file
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

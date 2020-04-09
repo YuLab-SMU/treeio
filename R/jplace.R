@@ -30,14 +30,14 @@ read.jplace <- function(file) {
 }
 
 ##' @importFrom dplyr summarize
+##' @importFrom dplyr mutate
 ##' @importFrom dplyr n
-##' @importFrom dplyr mutate_
 summarize_placement <- function(tree) {
     place <- get.placements(tree, by="best")
-    ids <- data_frame(node = nodeIds(tree, internal.only = FALSE))
+    ids <- tibble(node = nodeIds(tree, internal.only = FALSE))
     group_by_(place, ~node) %>% summarize(nplace=n()) %>%
         full_join(ids, by='node') %>%
-        mutate_(nplace = ~ ifelse(is.na(nplace), 0, nplace))
+        mutate(nplace = ifelse(is.na(.data$nplace), 0, .data$nplace))
 }
 
 ##' @method get.placements jplace

@@ -18,5 +18,5 @@ output file or file content on screen
 Export \code{treedata} object to json tree file
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

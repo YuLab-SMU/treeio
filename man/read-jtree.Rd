@@ -16,5 +16,5 @@ treedata object
 Import tree data from jtree file, which is JSON-based text and probably output by write.jtree
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

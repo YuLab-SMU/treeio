@@ -20,5 +20,5 @@ updated phylo object
 label branch for PAML to infer selection pressure using branch model
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

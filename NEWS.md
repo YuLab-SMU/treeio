@@ -1,5 +1,7 @@
 # treeio 1.11.2
 
++ change according to tibble (v=3.0.0) (2020-04-09, Thu)
+  - remove mutate_, rename_, select_ and data_frame
 + update citation (2020-02-18, Tue)
 + phyloxml parser `read.phyloxml` (2019-12-05, Thu)
   

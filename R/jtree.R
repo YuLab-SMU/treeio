@@ -6,13 +6,13 @@
 ##' @param file tree file
 ##' @return treedata object
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 read.jtree <- function(file) {
     jtree <- fromJSON(file)
     phylo <- jplace_treetext_to_phylo(jtree$tree)
     edgeNum.df <- attr(phylo, "edgeNum")
     d <- merge(edgeNum.df, jtree$data, by.x = "edgeNum", by.y = "edge_num") %>%
-        as_tibble %>% select_(~ -edgeNum)
+        as_tibble %>% select(- .data$edgeNum)
     new("treedata",
         treetext = jtree$tree,
         phylo = phylo,
@@ -31,8 +31,9 @@ read.jtree <- function(file) {
 ##' @param file output file. If file = "", print the output content on screen
 ##' @return output file or file content on screen
 ##' @importFrom jsonlite toJSON
+##' @importFrom dplyr rename
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 write.jtree <- function(treedata, file = "") {
     phylo <- as.phylo(treedata)
     ntip <- Ntip(phylo)
@@ -46,7 +47,7 @@ write.jtree <- function(treedata, file = "") {
         label[(ntip+1):N] <- phylo$node.label
     }
 
-    label.df <- data_frame(node=1:N, label=label)
+    label.df <- tibble(node=1:N, label=label)
     label.df$label <- paste0(label.df$label, '@@', label.df$node)
 
     phylo$tip.label <- label.df$label[label.df$node <= ntip]
@@ -68,7 +69,7 @@ write.jtree <- function(treedata, file = "") {
     data <- get_tree_data(treedata)
     cn <- colnames(data)
     data <- data[, c("node", cn[cn != "node"])]
-    data <- rename_(data, edge_num=~node)
+    data <- rename(data, edge_num=.data$node)
 
     cat(toJSON(data, pretty=TRUE), file = file, append = TRUE)
     metainfo <- ',\n\t"metadata": {"info": "R-package treeio", '

@@ -15,7 +15,7 @@
 ##' nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 ##' nhx <- read.nhx(nhxfile)
 ##' write.beast(nhx)
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 write.beast <- function(treedata, file = "",
                         translate = TRUE, tree.name = "UNTITLED") {
 

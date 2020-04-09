@@ -25,7 +25,7 @@ string2DNAbin <- function(seqs) {
 ##' @param fasta fasta file
 ##' @return DNAbin or AAbin object
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 read.fasta <- function(fasta) {
     x <- Biostrings::readBStringSet(fasta)
 

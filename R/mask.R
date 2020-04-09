@@ -24,7 +24,7 @@ mask <- function(tree_object, field, site, mask_site=FALSE) {
     }
 
     ## field_data <- sapply(field_data, gsub, pattern="\n", replacement="/")
-    tbl <- data_frame(field = field_data, id = seq_along(field_data)) %>%
+    tbl <- tibble(field = field_data, id = seq_along(field_data)) %>%
         filter_(~ !is.na(field)) %>% filter_(~field != "")
 
     tokens <- strsplit(tbl$field, " / ")

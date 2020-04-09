@@ -28,7 +28,6 @@
 \alias{nodelab}
 \alias{MRCA}
 \alias{full_join}
-\alias{data_frame}
 \alias{as_tibble}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -43,7 +42,7 @@ below to see their documentation.
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
-  \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{data_frame}}}
+  \item{tibble}{\code{\link[tibble]{as_tibble}}}
 
   \item{tidytree}{\code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
 }}

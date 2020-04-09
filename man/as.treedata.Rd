@@ -25,7 +25,7 @@ convert phylo to treedata
 converting phylo object to treedata object
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 
 Yu Guangchuang
 }

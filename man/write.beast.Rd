@@ -27,5 +27,5 @@ nhx <- read.nhx(nhxfile)
 write.beast(nhx)
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

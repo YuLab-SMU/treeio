@@ -20,5 +20,5 @@ phylo or treedata object
 read newick tree
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

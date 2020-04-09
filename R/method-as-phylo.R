@@ -89,7 +89,7 @@ as.phylo.igraph <- function(x, ...) {
 ##' @param ... additional parameters
 ##' @return phylo object
 ##' @export
-##' @author guangchuang yu
+##' @author Guangchuang Yu
 get.tree <- function(x, ...) {
     as.phylo(x, ...)
 }

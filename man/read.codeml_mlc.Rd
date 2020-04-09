@@ -20,5 +20,5 @@ mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
 read.codeml_mlc(mlcfile)
 }
 \author{
-ygc
+Guangchuang Yu
 }

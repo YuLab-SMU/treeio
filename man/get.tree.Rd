@@ -18,5 +18,5 @@ phylo object
 access phylo slot
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }

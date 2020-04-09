@@ -51,9 +51,6 @@ tidytree::MRCA
 ##' @export
 dplyr::full_join
 
-##' @importFrom tibble data_frame
-##' @export
-tibble::data_frame
 
 ##' @importFrom tibble as_tibble
 ##' @export

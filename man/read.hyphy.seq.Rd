@@ -20,5 +20,5 @@ ancseq <- system.file("extdata/HYPHY", "ancseq.nex", package="treeio")
 read.hyphy.seq(ancseq)
 }
 \author{
-guangchuang yu
+Guangchuang Yu
 }
