@@ -1,17 +1,18 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.13.0
+Version: 1.13.1
 Authors@R: c(
     person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("ctb", "ths")),
     person("Casey", "Dunn",         email = "casey_dunn@brown.edu",    role = "ctb"),
     person("Bradley", "Jones",      email = "brj1@sfu.ca",             role = "ctb"),
     person("Tyler", "Bradley",      email = "tcb85@drexel.edu",        role = "ctb"),
-    person("Shuangbin", "Xu",       email = "xshuangbin@163.com",      role = "ctb",           comment = c(ORCID="0000-0003-3513-5362"))
+    person("Shuangbin", "Xu",       email = "xshuangbin@163.com",      role = "ctb",           comment = c(ORCID="0000-0003-3513-5362")),
+    person("Konstantinos", "Geles", email = "konstantinos.geles@studenti.unicz.it", role = "ctb")
 	  )
 Description: 'treeio' is an R package to make it easier to import and store phylogenetic tree with associated data; and to link external data from different sources to phylogeny. It also supports exporting phylogenetic tree with heterogeneous associated data to a single tree file and can be served as a platform for merging tree with associated data and converting file formats.
 Depends:
-    R (>= 3.4.0)
+    R (>= 3.6.0)
 Imports:
     ape,
     dplyr,
@@ -20,7 +21,7 @@ Imports:
     methods,
     rlang,
     tibble,
-    tidytree (>= 0.2.6),
+    tidytree (>= 0.3.0),
     utils
 Suggests:
     Biostrings,
@@ -43,4 +44,4 @@ BugReports: https://github.com/YuLab-SMU/treeio/issues
 LazyData: true
 biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
     Alignment, MultipleSequenceAlignment
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0

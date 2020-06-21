@@ -1,3 +1,11 @@
+# treeio 1.13.1
+
++ `as.phylo` and `as.treedata` methods for `pvclust` object (2020-06-21, Sun)
+
+# treeio 1.12.0
+
++ Bioconductor 3.11 release
+
 # treeio 1.11.3
 
 + change according to dplyr (v=1.0.0) (2020-04-09, Thu)

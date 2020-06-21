@@ -28,3 +28,10 @@
 ------------
 + `tree_subset` methods for `phylo` and `treedata` objects
   - <https://github.com/GuangchuangYu/treeio/pull/8>
+
+
+[Konstantinos Geles](https://github.com/ConYel)
+------------
++ prototype of `as.treedata` method for `pvclust` object
+
+
