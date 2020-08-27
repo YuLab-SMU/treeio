@@ -45,7 +45,7 @@ Biocpkg <- function (pkg) {
 cat(packageDescription('treeio')$Description)
 ```
 
-Visit <https://yulab-smu.github.io/treedata-book/> for details.
+Visit <https://yulab-smu.top/treedata-book/> for details.
 
 
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=treeio&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)

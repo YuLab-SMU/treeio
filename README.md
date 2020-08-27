@@ -12,15 +12,15 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 [![platform](http://www.bioconductor.org/shields/availability/devel/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#archives)
 [![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio)
 
-[![](https://img.shields.io/badge/release%20version-1.10.0-green.svg)](https://www.bioconductor.org/packages/treeio)
-[![](https://img.shields.io/badge/devel%20version-1.11.0-green.svg)](https://github.com/guangchuangyu/treeio)
+[![](https://img.shields.io/badge/release%20version-1.12.0-green.svg)](https://www.bioconductor.org/packages/treeio)
+[![](https://img.shields.io/badge/devel%20version-1.13.1-green.svg)](https://github.com/guangchuangyu/treeio)
 [![Linux Travis Build
 Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Linux)](https://travis-ci.org/GuangchuangYu/treeio)
 [![AppVeyor Build
 Status](https://img.shields.io/appveyor/ci/Guangchuangyu/treeio/master.svg?label=Windows)](https://ci.appveyor.com/project/GuangchuangYu/treeio)
 
-[![](https://img.shields.io/badge/download-37760/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
-[![](https://img.shields.io/badge/download-1883/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![](https://img.shields.io/badge/download-57570/total-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
+[![](https://img.shields.io/badge/download-2279/month-blue.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
 [![download](http://www.bioconductor.org/shields/downloads/release/treeio.svg)](https://bioconductor.org/packages/stats/bioc/treeio)
 
 ‘treeio’ is an R package to make it easier to import and store
@@ -30,7 +30,7 @@ tree with heterogeneous associated data to a single tree file and can be
 served as a platform for merging tree with associated data and
 converting file formats.
 
-Visit <https://yulab-smu.github.io/treedata-book/> for details.
+Visit <https://yulab-smu.top/treedata-book/> for details.
 
 [![Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?hashtags=treeio&url=http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract&screen_name=guangchuangyu)
 [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/GuangchuangYu)

@@ -1,5 +1,6 @@
 # treeio 1.13.1
 
++ `as_tibble` for `pvclust` (2020-06-22, Mon)
 + `as.phylo` and `as.treedata` methods for `pvclust` object (2020-06-21, Sun)
 
 # treeio 1.12.0
