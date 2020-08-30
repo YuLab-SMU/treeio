@@ -44,4 +44,4 @@ BugReports: https://github.com/YuLab-SMU/treeio/issues
 LazyData: true
 biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
     Alignment, MultipleSequenceAlignment
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

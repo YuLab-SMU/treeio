@@ -65,7 +65,23 @@ Nnode2 <- getNodeNum
 ##' @return TRUE or FALSE
 ##' @export
 ##' @author Guangchuang Yu
-is.ggtree <- function(x) inherits(x, 'ggtree')
+is.ggtree <- function(x) {
+    if (inherits(x, 'ggtree')) return(TRUE)
+
+    if (!inherits(x, 'gg')) return(FALSE)
+
+    ## to compatible with user using `ggplot(tree) + geom_tree()`
+
+    tree_layer <- vapply(x$layers,
+                         function(x) {
+                             any(grepl("StatTree"), class(x$stat))
+                         },
+                         logical(1)
+                         )
+    return(any(tree_layer))
+}
+
+
 
 getNodeName <- function(tr) {
     if (is.null(tr$node.label)) {

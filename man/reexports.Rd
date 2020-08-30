@@ -36,14 +36,14 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{as.phylo}}, \code{\link[ape]{is.rooted}}, \code{\link[ape]{Nnode}}, \code{\link[ape]{Ntip}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{root}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{write.tree}}}
+  \item{ape}{\code{\link[ape:summary.phylo]{Nnode}}, \code{\link[ape:summary.phylo]{Ntip}}, \code{\link[ape]{as.phylo}}, \code{\link[ape:root]{is.rooted}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{root}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{write.tree}}}
 
-  \item{dplyr}{\code{\link[dplyr]{full_join}}}
+  \item{dplyr}{\code{\link[dplyr:mutate-joins]{full_join}}}
 
-  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 
   \item{tibble}{\code{\link[tibble]{as_tibble}}}
 
-  \item{tidytree}{\code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree]{get.data}}, \code{\link[tidytree]{get.fields}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
+  \item{tidytree}{\code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree:get.data-methods]{get.data}}, \code{\link[tidytree:get.fields-methods]{get.fields}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
 }}
 
