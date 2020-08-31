@@ -73,8 +73,8 @@ is.ggtree <- function(x) {
     ## to compatible with user using `ggplot(tree) + geom_tree()`
 
     tree_layer <- vapply(x$layers,
-                         function(x) {
-                             any(grepl("StatTree"), class(x$stat))
+                         function(y) {
+                             any(grepl("StatTree", class(y$stat)))
                          },
                          logical(1)
                          )
