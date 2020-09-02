@@ -43,5 +43,5 @@ URL: https://github.com/YuLab-SMU/treeio (devel), https://docs.ropensci.org/tree
 BugReports: https://github.com/YuLab-SMU/treeio/issues
 LazyData: true
 biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
-    Alignment, MultipleSequenceAlignment
+    Alignment, MultipleSequenceAlignment, Phylogenetics
 RoxygenNote: 7.1.1
