@@ -15,3 +15,4 @@ CONTRIBUTORS.md
 .covrignore
 ^CONDUCT\.md$
 ^codemeta\.json$
+TODO.md
