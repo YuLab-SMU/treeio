@@ -1,3 +1,7 @@
+# treeio 1.14.0
+
++ Bioconductor 3.12 release (2020-10-28, Wed)
+
 # treeio 1.13.1
 
 + `as_tibble` for `pvclust` (2020-06-22, Mon)
