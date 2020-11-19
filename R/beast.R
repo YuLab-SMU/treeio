@@ -34,7 +34,7 @@ read.beast <- function(file) {
 read.mrbayes <- read.beast
 
 BEAST <- function(file, treetext, stats, phylo) {
-    stats$node %<>% gsub("\"*'*", "", .)
+    stats$node <- gsub("\"*'*", "", stats$node)
 
     phylo <- remove_quote_in_tree_label(phylo)
 
@@ -51,10 +51,10 @@ BEAST <- function(file, treetext, stats, phylo) {
 
 remove_quote_in_tree_label <- function(phylo) {
     if (!is.null(phylo$node.label)) {
-        phylo$node.label %<>% gsub("\"*'*", "", .)
+        phylo$node.label <- gsub("\"*'*", "", phylo$node.label)
     }
     if ( !is.null(phylo$tip.label)) {
-        phylo$tip.label %<>% gsub("\"*'*", "", .)
+        phylo$tip.label <- gsub("\"*'*", "", phylo$tip.label)
     }
     return(phylo)
 }
@@ -85,12 +85,12 @@ read.trans_beast <- function(file) {
     }
     end <- grep(";", beast)
     j <- end[which(end > i)[1]]
-    trans <- beast[(i+1):j]
-    trans %<>% gsub("^\\s+", "", .)
-    trans %<>% gsub(",|;", "", .)
-    trans %<>% `[`(nzchar(trans))
+    trans <- beast[(i+1):j] %>% 
+        gsub("^\\s+", "", .) %>% 
+        gsub(",|;", "", .)
+    trans <- trans[nzchar(trans)]
     ## remove quote if strings were quoted
-    trans %<>% gsub("'|\"", "",.)
+    trans <- gsub("'|\"", "", trans)
     trans <- strsplit(trans, split="\\s+") %>%
         do.call(rbind, .)
     ## trans is a matrix

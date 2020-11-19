@@ -22,7 +22,7 @@ full_join.treedata <- function(x, y, by = NULL,
     if (nrow(x@extraInfo) == 0) {
         x@extraInfo <- y
     } else {
-        x@extraInfo %<>% full_join(y, by = "node", copy = copy, suffix = suffix)
+        x@extraInfo <- full_join(x@extraInfo, y, by = "node", copy = copy, suffix = suffix)
     }
     return(x)
 }

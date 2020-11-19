@@ -42,11 +42,11 @@ jplace_treetext_to_phylo <- function(tree.text) {
     }
     phylo <- read.tree(text=tr)
     if (length(grep('@@', phylo$tip.label)) > 0) {
-        phylo$node.label[1] %<>% gsub("(.*)\\{(\\d+)\\}", "\\1@@\\2", .)
+        phylo$node.label[1] <- gsub("(.*)\\{(\\d+)\\}", "\\1@@\\2",  phylo$node.label[1])
         tip.edgeNum <- as.numeric(gsub(".*@@(\\d*)", "\\1",phylo$tip.label))
         node.edgeNum <- as.numeric(gsub(".*@@(\\d*)", "\\1",phylo$node.label))
-        phylo$tip.label %<>% gsub("@@\\d+", "", .)
-        phylo$node.label %<>% gsub("@@\\d+", "", .)
+        phylo$tip.label <- gsub("@@\\d+", "", phylo$tip.label)
+        phylo$node.label <- gsub("@@\\d+", "", phylo$node.label)
         if (all(phylo$node.label == "")) {
             phylo$node.label <- NULL
         }

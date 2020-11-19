@@ -5,7 +5,6 @@
 ##' @param obj1 tree object 1
 ##' @param obj2 tree object 2
 ##' @return tree object
-##' @importFrom magrittr %<>%
 ##' @importFrom dplyr full_join
 ##' @export
 ##' @author Guangchuang Yu
@@ -45,8 +44,11 @@ merge_tree <- function(obj1, obj2) {
     idx <- match(tr2$tip.label, tr1$tip.label)
 
     node_map <- list()
-    node_map$from %<>% c(1:Ntip(tr2))
-    node_map$to %<>% c(idx)
+    ## node_map$from %<>% c(1:Ntip(tr2))
+    ## node_map$to %<>% c(idx)
+    node_map$from <- c(node_map$from, 1:Ntip(tr2))
+    node_map$to <- c(node_map$to, idx)
+
     node1 <- node_map$to
     node2 <- node_map$from
 

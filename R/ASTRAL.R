@@ -20,7 +20,7 @@ read.astral <- function(file) {
         gsub("]'", "@", .)
 
     if (substring(treetext, nchar(treetext), nchar(treetext)) != ';')
-        treetext %<>% paste0(";")
+        treetext <- paste0(treetext, ";")
 
     phylo <- read.tree(text = treetext)
     stats <- phylo$node.label %>%

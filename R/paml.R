@@ -36,9 +36,9 @@ read.dnds_mlc <- function(mlcfile) {
     cn <- strsplit(mlc[hi], " ") %>% unlist %>% `[`(nzchar(.))
 
     ii <- grep("\\d+\\.\\.\\d+", mlc)
-    info <- mlc[ii]
-    info %<>% sub("^\\s+", "", .)
-    info %<>% sub("\\s+$", "", .)
+    info <- mlc[ii] %>%
+        sub("^\\s+", "", .) %>%
+        sub("\\s+$", "", .)
 
     res <- lapply(info, function(x) {
         y <- unlist(strsplit(x, "\\s+"))
@@ -162,21 +162,21 @@ read.phylo_paml_rst <- function(rstfile) {
 
     label <- c(tr3$tip.label, tr3$node.label)
     root <- rootnode(tr3)
-    label %<>% `[`(. != root)
+    ## label %<>% `[`(. != root)
+    label <- label[label != root]
 
     node.length <- data.frame(label=label,
                               length=tr1$edge.length)
 
     ## node.length$node <- sub("_\\w+", "", node.length$label
     node.length$node <- gsub("^(\\d+)_.*", "\\1", node.length$label)
-    node.length$label %<>% sub("\\d+_", "", .)
+    node.length$label <- sub("\\d+_", "", node.length$label)
 
     edge <- as.data.frame(edge)
     colnames(edge) <- c("parent", "node")
 
     treeinfo <- merge(edge, node.length, by.x="node", by.y="node")
-    edge2 <- treeinfo[, c("parent", "node")]
-    edge2 %<>% as.matrix
+    edge2 <- treeinfo[, c("parent", "node")] %>% as.matrix
 
     ntip <- Ntip(tr3)
 
@@ -196,6 +196,7 @@ read.phylo_paml_rst <- function(rstfile) {
     return(phylo)
 }
 
+
 read.ancseq_paml_rst <- function(rstfile, by="Marginal") {
     ## works fine with baseml and codeml
     rst <- readLines(rstfile)
@@ -210,7 +211,10 @@ read.ancseq_paml_rst <- function(rstfile, by="Marginal") {
     si <- grep("reconstructed sequences", rst)
     idx <- si[which.min(abs(si-idx))]
 
-    nl <- strsplit(rst[idx+2], split=" ") %>% unlist %<>% `[`(nzchar(.))
+    nl <- strsplit(rst[idx+2], split=" ") %>%
+        unlist %>%
+        magrittr::extract(nzchar(.))
+
     N <- as.numeric(nl[1])
     seq.leng <- as.numeric(nl[2])
 
@@ -248,7 +252,8 @@ get_tree_edge_paml <- function(paml) {
     nodeNum <- strsplit(paml[edge.idx], split="\\.\\.") %>%
         unlist %>% strsplit(split="[[:space:]]") %>% unlist
 
-    nodeNum %<>% `[`(nzchar(.))
+    ## nodeNum %<>% `[`(nzchar(.))
+    nodeNum <- nodeNum[nzchar(nodeNum )]
 
     edge <- matrix(as.numeric(nodeNum), ncol=2, byrow = TRUE)
 

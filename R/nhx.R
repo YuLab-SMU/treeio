@@ -4,7 +4,6 @@
 ##' @title read.nhx
 ##' @param file nhx file
 ##' @return nhx object
-##' @importFrom magrittr %<>%
 ##' @importFrom tibble as_tibble
 ##' @export
 ##' @examples
@@ -19,7 +18,7 @@ read.nhx <- function(file) {
     if (length(treetext) > 1) {
         treetext <- paste0(treetext, collapse = '')
     }
-    treetext %<>% gsub(" ", "",. )
+    treetext <- gsub(" ", "", treetext)
 
     phylo <- read.tree(text=treetext)
     nnode <- Nnode(phylo, internal.only=FALSE)

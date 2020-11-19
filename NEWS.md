@@ -1,3 +1,7 @@
+# treeio 1.15.1
+
++ remove magrittr::`%<>%` as it throw error of 'Error: could not find function "%>%<-"' (2020-11-19, Thu) 
+
 # treeio 1.14.0
 
 + Bioconductor 3.12 release (2020-10-28, Wed)
