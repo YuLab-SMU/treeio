@@ -1,3 +1,8 @@
+# treeio 1.15.2
+
++ bug fixed of parsing nhx, now compatible with missing nhx tag (2020-11-19, Thu)
+  - <https://github.com/YuLab-SMU/treeio/pull/40>
+
 # treeio 1.15.1
 
 + remove magrittr::`%<>%` as it throw error of 'Error: could not find function "%>%<-"' (2020-11-19, Thu) 
