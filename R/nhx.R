@@ -33,7 +33,10 @@ read.nhx <- function(file) {
     phylo2 <- read.tree(text = tree2)
     node <- match(nlab, sub(".+(X\\d+)$","\\1",
                             c(phylo2$tip.label, phylo2$node.label)))
+
+    ## https://github.com/YuLab-SMU/treeio/pull/40
     node <- node[!is.na(node)]
+
     nhx.matches <- gregexpr(pattern, treetext)
 
     matches <- nhx.matches[[1]]
