@@ -4,13 +4,15 @@
 ##' @title read.newick
 ##' @param file newick file
 ##' @param node.label parse node label as 'label' or 'support' value
-##' @param ... additional parameter, passed to 'read.tree'
+##' @param ... additional parameter, passed to 'scan()'
 ##' @return phylo or treedata object
 ##' @export
 ##' @author Guangchuang Yu
 read.newick <- function(file, node.label = "label", ...) {
     node.label <- match.arg(node.label, c("support", "label"))
-    tree <- read.tree(file, ...)
+    tree_data <- scan(file = file, what = "", sep = "\n", quiet = TRUE, ...)
+    tree_data <- paste0(tree_data, collapse = "")
+    tree <- read.tree(text = tree_data)
     if (node.label == "label")
         return(tree)
 
