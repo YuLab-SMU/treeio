@@ -5,9 +5,9 @@
 \alias{root.treedata}
 \title{root}
 \usage{
-\method{root}{phylo}(phy, outgroup, node = NULL, resolve.root = TRUE, ...)
+\method{root}{phylo}(phy, outgroup, node = NULL, edgelabel = TRUE, ...)
 
-\method{root}{treedata}(phy, outgroup, node = NULL, resolve.root = TRUE, ...)
+\method{root}{treedata}(phy, outgroup, node = NULL, edgelabel = TRUE, ...)
 }
 \arguments{
 \item{phy}{tree object}
@@ -16,7 +16,9 @@
 
 \item{node}{node to reroot}
 
-\item{resolve.root}{a logical specifying whether to resolve the new root as a bifurcating node}
+\item{edgelabel}{a logical value specifying whether to treat node labels as 
+edge labels and thus eventually switching them so that they are associated 
+with the correct edges.}
 
 \item{...}{additional parameters passed to ape::root.phylo}
 }
