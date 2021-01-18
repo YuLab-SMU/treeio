@@ -45,8 +45,10 @@ root.phylo <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
 ##' @export
 
 root.treedata <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
+    if (!edgelabel){
     ## warning message
-    message("The use of this method may cause some node data missing or incorrect (e.g. bootstrap values) if edgelabel is FALSE.")
+        message("The use of this method may cause some node data to become incorrect (e.g. bootstrap values) if 'edgelabel' is FALSE.")
+    }
     object <- phy
     # generate node old label and new label map table.
     node2label <- as_tibble(object@phylo) %>%
