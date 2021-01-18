@@ -19,7 +19,9 @@ reroot_node_mapping <- function(tree, tree2){
 ##' @param phy tree object
 ##' @param outgroup a vector of mode numeric or character specifying the new outgroup
 ##' @param node node to reroot
-##' @param resolve.root a logical specifying whether to resolve the new root as a bifurcating node
+##' @param edgelabel a logical value specifying whether to treat node labels as 
+##' edge labels and thus eventually switching them so that they are associated 
+##' with the correct edges.
 ##' @param ... additional parameters passed to ape::root.phylo
 ##' @return rerooted tree
 ##' @importFrom ape root
@@ -27,9 +29,9 @@ reroot_node_mapping <- function(tree, tree2){
 ##' @export
 ##' @author Guangchuang Yu
 
-root.phylo <- function(phy, outgroup, node = NULL, resolve.root = TRUE, ...){
+root.phylo <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
     tree <- ape::root.phylo(phy, outgroup = outgroup, node = node,
-                            resolve.root = resolve.root, ...)
+                            edgelabel = edgelabel, ...)
 
     attr(tree, "reroot") <- TRUE
     node_map <- reroot_node_mapping(phy, tree)
@@ -42,9 +44,9 @@ root.phylo <- function(phy, outgroup, node = NULL, resolve.root = TRUE, ...){
 ##' @method root treedata
 ##' @export
 
-root.treedata <- function(phy, outgroup, node = NULL, resolve.root = TRUE, ...){
+root.treedata <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
     ## warning message
-    message("The use of this method may cause some node data missing (e.g. bootstrap values).")
+    message("The use of this method may cause some node data missing or incorrect (e.g. bootstrap values) if edgelabel is FALSE.")
     object <- phy
     # generate node old label and new label map table.
     node2label <- as_tibble(object@phylo) %>%
@@ -58,7 +60,7 @@ root.treedata <- function(phy, outgroup, node = NULL, resolve.root = TRUE, ...){
     
     # reroot tree
     tree <- root(tree, outgroup = outgroup, node = node,
-                 resolve.root = resolve.root, ...)
+                 edgelabel = edgelabel, ...)
     n.tips <- Ntip(tree)
     node_map<- attr(tree, "node_map") 
     
