@@ -45,9 +45,11 @@ single_tree <- function(i, phylogeny, file){
     }
     dt <- dplyr::mutate(dt, label = as.character(dt$NodeID))
     dd <- as.phylo(edgedf, "branch_length")
-    # check whether if rooted tree
+    # check whether is rooted tree
     if (rootflag == "false"){
-        dd <- ape::unroot(dd)
+        if (ape::is.rooted(dd)){
+            dd <- ape::unroot(dd)
+        }
     }
     dd <- dd %>% as_tibble() %>%
             dplyr::full_join(dt, by='label')
