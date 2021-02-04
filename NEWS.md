@@ -1,3 +1,8 @@
+# treeio 1.15.3
+
++ support parsing phyloxml (2021-02-04, Thu)
+  - <https://github.com/YuLab-SMU/treeio/pull/44>
+
 # treeio 1.15.2
 
 + bug fixed of parsing nhx, now compatible with missing nhx tag (2020-11-19, Thu)
