@@ -10,16 +10,16 @@ read.phyloxml(file)
 \item{file}{phyloxml file}
 }
 \value{
-treedata class or multitreedata class
+treedata class or treedataList class
 }
 \description{
 read.phyloxml
 }
 \examples{
-xmlfile <- system.file("extdata/phyloxml", "test_x2.xml", package="treeio")
-px <- read.phyloxml(xmlfile)
-px
+xmlfile1 <- system.file("extdata/phyloxml", "test_x2.xml", package="treeio")
+px1 <- read.phyloxml(xmlfile1)
+px1
 xmlfile2 <- system.file("extdata/phyloxml", "phyloxml_examples.xml", package="treeio")
 px2 <- read.phyloxml(xmlfile2)
-class(px2)
+px2
 }
