@@ -31,6 +31,6 @@ tr3 <- read.treeqza(qzafile3)
 tr3
 # parse node label as 'support' value.
 qzafile4 <- system.file("extdata/qiime2treeqza", "raxml-cat-bootstrap-tree.qza", package="treeio")
-tr4 <- read.treeqza(qzafile4)
+tr4 <- read.treeqza(qzafile4, node.label="support")
 tr4
 }
