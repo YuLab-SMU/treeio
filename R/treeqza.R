@@ -1,6 +1,8 @@
 #' @title read.treeqza
 #' @param treeqza the qiime2 output file contained tree file.
-#' @return phylo tree class
+#' @param node.label parse node label as 'label' or 'support' value.
+#' @param ... additional parameter, passed to 'read.tree'.
+#' @return phylo tree object or treedata object when node.label was parsed 'support'.
 #' @export 
 #' @examples
 #' qzafile1 <- system.file("extdata/qiime2treeqza", "fasttree-tree.qza", package="treeio")
@@ -12,7 +14,11 @@
 #' tr2
 #' tr3 <- read.treeqza(qzafile3)
 #' tr3
-read.treeqza <- function(treeqza){
+#' # parse node label as 'support' value.
+#' qzafile4 <- system.file("extdata/qiime2treeqza", "raxml-cat-bootstrap-tree.qza", package="treeio")
+#' tr4 <- read.treeqza(qzafile4, node.label="support")
+#' tr4
+read.treeqza <- function(treeqza, node.label = "label", ...){
     tmpdir <- tempdir()
     unzipfiles <- utils::unzip(treeqza, exdir=tmpdir)
     metadafile <- unzipfiles[grep("metadata.yaml", unzipfiles)[1]]
@@ -22,7 +28,7 @@ read.treeqza <- function(treeqza){
         stop("Please check whether treeqza file contained tree file!")
     }else{
         datafile <- unzipfiles[grep("data/tree.nwk", unzipfiles)]
-        x <- read.tree(datafile)
+        x <- read.newick(datafile, node.label=node.label, ...)
         return (x)
     }
 }

@@ -4,13 +4,17 @@
 \alias{read.treeqza}
 \title{read.treeqza}
 \usage{
-read.treeqza(treeqza)
+read.treeqza(treeqza, node.label = "label", ...)
 }
 \arguments{
 \item{treeqza}{the qiime2 output file contained tree file.}
+
+\item{node.label}{parse node label as 'label' or 'support' value.}
+
+\item{...}{additional parameter, passed to 'read.tree'.}
 }
 \value{
-phylo tree class
+phylo tree object or treedata object when node.label was parsed 'support'.
 }
 \description{
 read.treeqza
@@ -25,4 +29,8 @@ tr2 <- read.treeqza(qzafile2)
 tr2
 tr3 <- read.treeqza(qzafile3)
 tr3
+# parse node label as 'support' value.
+qzafile4 <- system.file("extdata/qiime2treeqza", "raxml-cat-bootstrap-tree.qza", package="treeio")
+tr4 <- read.treeqza(qzafile4)
+tr4
 }
