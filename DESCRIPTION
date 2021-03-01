@@ -34,7 +34,8 @@ Suggests:
     testthat,
     tidyr,
     vroom,
-    xml2
+    xml2,
+    yaml
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
