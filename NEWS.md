@@ -1,3 +1,8 @@
+# treeio 1.15.4
+
++ support parsing tree qza file from qiime2 (2020-03-01, Mon)
+  - <https://github.com/YuLab-SMU/treeio/pull/46/files>
+
 # treeio 1.15.3
 
 + support parsing phyloxml (2021-02-04, Thu)
