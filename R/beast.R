@@ -175,8 +175,16 @@ read.stats_beast_internal <- function(beast, tree) {
         ## BEAST output
         stats <- strsplit(tree, ":") %>% unlist
     }
-
-    names(stats) <- node
+    
+    # check whether the stats info is after edge length or not.
+    if (!all(grepl("]$", stats) || grepl("];$", stats))){
+        # t1:0.04[&mutation="test1"]
+        stats <- sub("].*", "", stats)
+        names(stats) <- c(rep(node[1],2),node[-c(1,length(node))])
+    }else{
+        # t1[&mutation="test1"]:0.04
+        names(stats) <- node
+    }
 
     stats <- stats[grep("\\[", stats)]
     stats <- sub("[^\\[]*\\[", "", stats)
@@ -184,12 +192,17 @@ read.stats_beast_internal <- function(beast, tree) {
     stats <- sub("^&", "", stats)
     stats <- sub("];*$", "", stats)
     stats <- gsub("\"", "", stats)
-
+    
     stats2 <- lapply(seq_along(stats), function(i) {
         x <- stats[[i]]
         y <- unlist(strsplit(x, ","))
-        sidx <- grep("=\\{", y)
-        eidx <- grep("\\}$", y)
+        # the stats information has not always {}
+        #sidx <- grep("=\\{", y)
+        #eidx <- grep("\\}$", y)
+        # [&mutation="test1,test2",rate=80,90]
+        sidx <- grep("=", y)
+        eidx <- sidx - 1
+        eidx <- c(eidx[-1], length(y))
 
         flag <- FALSE
         if (length(sidx) > 0) {
