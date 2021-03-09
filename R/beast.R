@@ -192,18 +192,21 @@ read.stats_beast_internal <- function(beast, tree) {
     stats <- sub("^&", "", stats)
     stats <- sub("];*$", "", stats)
     stats <- gsub("\"", "", stats)
-    
+
     stats2 <- lapply(seq_along(stats), function(i) {
         x <- stats[[i]]
         y <- unlist(strsplit(x, ","))
-        # the stats information has not always {}
+        # the stats information does not has always {}
         #sidx <- grep("=\\{", y)
         #eidx <- grep("\\}$", y)
         # [&mutation="test1,test2",rate=80,90]
-        sidx <- grep("=", y)
-        eidx <- sidx - 1
-        eidx <- c(eidx[-1], length(y))
-
+        sidx1 <- grep("=", y)
+        eidx1 <- sidx1 - 1
+        eidx1 <- c(eidx1[-1], length(y))
+        # for better parsing [&mutation="test",name="A"] single value to key.
+        sidx <- sidx1[!(sidx1==eidx1)]
+        eidx <- eidx1[!(sidx1==eidx1)]
+        
         flag <- FALSE
         if (length(sidx) > 0) {
             flag <- TRUE
