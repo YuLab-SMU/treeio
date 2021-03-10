@@ -212,7 +212,9 @@ read.stats_beast_internal <- function(beast, tree) {
             flag <- TRUE
             SETS <- lapply(seq_along(sidx), function(k) {
                 p <- y[sidx[k]:eidx[k]]
-                gsub(".*=\\{", "", p) %>% gsub("\\}$", "", .)
+                gsub(".*=\\{", "", p) %>% 
+                    gsub("\\}$", "", .) %>%
+                    gsub(".*=", "", .)
             })
             names(SETS) <- gsub("=.*", "", y[sidx])
 
