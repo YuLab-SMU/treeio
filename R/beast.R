@@ -175,8 +175,16 @@ read.stats_beast_internal <- function(beast, tree) {
         ## BEAST output
         stats <- strsplit(tree, ":") %>% unlist
     }
-
-    names(stats) <- node
+    
+    # check whether the stats info is after edge length or not.
+    if (!all(grepl("]$", stats) || grepl("];$", stats))){
+        # t1:0.04[&mutation="test1"]
+        stats <- sub("].*", "", stats)
+        names(stats) <- c(rep(node[1],2),node[-c(1,length(node))])
+    }else{
+        # t1[&mutation="test1"]:0.04
+        names(stats) <- node
+    }
 
     stats <- stats[grep("\\[", stats)]
     stats <- sub("[^\\[]*\\[", "", stats)
@@ -188,15 +196,25 @@ read.stats_beast_internal <- function(beast, tree) {
     stats2 <- lapply(seq_along(stats), function(i) {
         x <- stats[[i]]
         y <- unlist(strsplit(x, ","))
-        sidx <- grep("=\\{", y)
-        eidx <- grep("\\}$", y)
-
+        # the stats information does not has always {}
+        #sidx <- grep("=\\{", y)
+        #eidx <- grep("\\}$", y)
+        # [&mutation="test1,test2",rate=80,90]
+        sidx1 <- grep("=", y)
+        eidx1 <- sidx1 - 1
+        eidx1 <- c(eidx1[-1], length(y))
+        # for better parsing [&mutation="test",name="A"] single value to key.
+        sidx <- sidx1[!(sidx1==eidx1)]
+        eidx <- eidx1[!(sidx1==eidx1)]
+        
         flag <- FALSE
         if (length(sidx) > 0) {
             flag <- TRUE
             SETS <- lapply(seq_along(sidx), function(k) {
                 p <- y[sidx[k]:eidx[k]]
-                gsub(".*=\\{", "", p) %>% gsub("\\}$", "", .)
+                gsub(".*=\\{", "", p) %>% 
+                    gsub("\\}$", "", .) %>%
+                    gsub(".*=", "", .)
             })
             names(SETS) <- gsub("=.*", "", y[sidx])
 
