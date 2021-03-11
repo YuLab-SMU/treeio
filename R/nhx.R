@@ -19,60 +19,105 @@ read.nhx <- function(file) {
         treetext <- paste0(treetext, collapse = '')
     }
     treetext <- gsub(" ", "", treetext)
-
-    phylo <- read.tree(text=treetext)
-    nnode <- Nnode(phylo, internal.only=FALSE)
-    nlab <- paste("X", 1:nnode, sep="")
-    tree2 <- treetext
-
-    pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?\\[&&NHX.*?\\]"
-    for (i in 1:nnode) {
-        tree2 <- sub(pattern, paste0("\\", nlab[i], "\\2"), tree2)
-    }
-
-    phylo2 <- read.tree(text = tree2)
-    node <- match(nlab, sub(".+(X\\d+)$","\\1",
-                            c(phylo2$tip.label, phylo2$node.label)))
-
-    ## https://github.com/YuLab-SMU/treeio/pull/40
-    node <- node[!is.na(node)]
-
-    nhx.matches <- gregexpr(pattern, treetext)
-
-    matches <- nhx.matches[[1]]
-    match.pos <- as.numeric(matches)
-    if (length(match.pos) == 1 && (match.pos == -1)) {
-        nhx_tags <- data.frame(node = 1:nnode)
-    } else {
-        match.len <- attr(matches, 'match.length')
-
-        nhx_str <- substring(treetext, match.pos, match.pos+match.len-1)
-
-        nhx_features <- gsub("^[^\\[]*", "", nhx_str) %>%
-            gsub("\\[&&NHX:", "", .) %>%
-            gsub("\\]", "", .)
-
-        nhx_tags <- get_nhx_feature(nhx_features)
-        fields <- names(nhx_tags)
-        for (i in ncol(nhx_tags)) {
-            if(any(grepl("\\D+", nhx_tags[,i])) == FALSE) {
-                ## should be numerical varialbe
-                nhx_tags[,i] <- as.numeric(nhx_tags[,i])
-            }
-        }
-        nhx_tags$node <- as.integer(node)
-    }
-
-    # Order rows by row number to facilitate downstream manipulations
-    nhx_tags <- nhx_tags[order(nhx_tags$node),]
-
+    # t1:0.04[&&NHX:test=1] -> t1[&&NHX:test=1]:0.04
+    pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&&NHX.*?\\])"
+    treetext <- gsub(pattern, "\\1\\3\\2", treetext)
+    #t1[&&NHX:test=1]:0.04 -> t1[&&NHX|test=1]:0.04
+    #treetext <- gsub("\\:(?=[^\\[\\]]*\\])", "|", treetext, perl=TRUE)
+    phylo <- read.nhx.tree(treetext)
+    stats <- read.nhx.stats(treetext=treetext, phylo=phylo)
+    
     new("treedata",
         file = filename(file),
         phylo = phylo,
-        data = as_tibble(nhx_tags)
+        data = as_tibble(stats)
         )
 }
 
+read.nhx.tree <- function(treetext){
+    pattern <- "(\\w+)?(\\[&&NHX.*?\\])(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)"
+    treetext <- gsub(pattern, "\\1\\3", treetext)
+    tree <- ape::read.tree(text=treetext)
+    return(tree)
+}
+
+read.nhx.stats <- function(treetext, phylo){
+    tree2 <- add_pseudo_label(phylo)
+    nn <- strsplit(tree2, split=",") %>% unlist %>%
+          strsplit(., split="\\)") %>% unlist %>%
+          gsub("\\(*", "", .) %>%
+          gsub("[:;].*", "", .) %>%
+          gsub(" ", "", .) %>%
+          gsub("'", "", .) %>%
+          gsub('"', "", .)
+    phylo <- ape::read.tree(text = tree2)
+    root <- rootnode(phylo)
+    nnode <- phylo$Nnode
+
+    tree_label <- c(phylo$tip.label, phylo$node.label)
+    ii <- match(nn, tree_label)
+    label2 <- as.character(seq_len(getNodeNum(phylo)))
+    node <- label2[match(nn, tree_label)]
+    #if (!grepl(":?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*", treetext)){
+    stats <- strsplit(treetext, "[,\\)]") %>% unlist()
+    #}else{
+    #    stats <- strsplit(treetext, ":") %>% unlist()
+    #}
+    names(stats) <- node
+
+    stats <- stats[grep("\\[&&NHX", stats)]
+    stats <- sub("[^\\[]*\\[", "", stats) %>%
+             sub("^&&NHX:", "", .) %>%
+             sub("].*", "", .) %>%
+             gsub("\"", "", .)
+    stats <- extract_nhx_feature(stats=stats)
+    return(stats)
+}
+
+extract_nhx_feature <- function(stats){
+    stats2 <- lapply(seq_along(stats), function(i) {
+        x <- stats[[i]] 
+        y <- unlist(strsplit(x, ":"))
+        name <- gsub("=.*", "", y)
+        val <- gsub(".*=", "", y)
+        names(val) <- name
+        return(val) 
+
+    })
+
+    nn <- lapply(stats2, names) %>% unlist %>%
+    unique %>% sort
+    
+    stats2 <- lapply(stats2, function(x) {
+        y <- x[nn]
+        names(y) <- nn
+        y[vapply(y, is.null, logical(1))] <- NA
+        y
+    })
+
+    stats3 <- do.call(rbind, stats2) %>% data.frame()
+    for (i in seq_len(ncol(stats3))) {
+        x <- stats3[,i]
+        x <- x[!is.na(x)]
+        if (all(grepl("[-]?[0-9]+[.]?[0-9]*|[-]?[0-9]+[L]?|[-]?[0-9]+[.]?[0-9]*[eE][0-9]+", x))){
+            ## should be numerical varialbe
+            stats3[,i] <- as.numeric(stats3[,i])
+        }
+    }
+    stats3$node <- names(stats)
+    stats3$node <- as.integer(stats3$node)
+    stats3 <- as_tibble(stats3)
+    return(stats3)
+
+}
+
+#' @importFrom ape Ntip Nnode
+add_pseudo_label <- function(phylo){
+    phylo$tip.label <- paste0("T", seq_len(Ntip(phylo)))
+    phylo$node.label <- paste0("N", seq_len(Nnode(phylo)))
+    treetext <- ape::write.tree(phylo)
+    return(treetext)
+}
 
 get_nhx_feature <- function(nhx_features) {
     nameSET <- strsplit(nhx_features, split=":") %>% unlist %>%
@@ -98,4 +143,3 @@ get_nhx_feature_internal <- function(feature, nameSET) {
     names(y) <- nameSET
     return(y)
 }
-
