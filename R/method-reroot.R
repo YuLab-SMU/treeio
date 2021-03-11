@@ -11,36 +11,47 @@ reroot_node_mapping <- function(tree, tree2){
     return(node_map)
 }
 
+# ##' re-root a tree
+# ##'
+# ##'
+# ##' @title root
+# ##' @rdname root-method
+# ##' @param phy tree object
+# ##' @param outgroup a vector of mode numeric or character specifying the new outgroup
+# ##' @param node node to reroot
+# ##' @param edgelabel a logical value specifying whether to treat node labels as 
+# ##' edge labels and thus eventually switching them so that they are associated 
+# ##' with the correct edges.
+# ##' @param ... additional parameters passed to ape::root.phylo
+# ##' @return rerooted tree
+# ##' @importFrom ape root
+# ##' @method root phylo
+# ##' @export
+# ##' @author Guangchuang Yu
+# 
+# root.phylo <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
+#     tree <- ape::root.phylo(phy, outgroup = outgroup, node = node,
+#                             edgelabel = edgelabel, ...)
+# 
+#     attr(tree, "reroot") <- TRUE
+#     node_map <- reroot_node_mapping(phy, tree)
+#     attr(tree, "node_map") <- node_map
+#     return(tree)
+# }
+
+
 ##' re-root a tree
-##'
 ##'
 ##' @title root
 ##' @rdname root-method
 ##' @param phy tree object
 ##' @param outgroup a vector of mode numeric or character specifying the new outgroup
 ##' @param node node to reroot
-##' @param edgelabel a logical value specifying whether to treat node labels as 
-##' edge labels and thus eventually switching them so that they are associated 
+##' @param edgelabel a logical value specifying whether to treat node labels as
+##' edge labels and thus eventually switching them so that they are associated
 ##' with the correct edges.
 ##' @param ... additional parameters passed to ape::root.phylo
-##' @return rerooted tree
-##' @importFrom ape root
-##' @method root phylo
-##' @export
-##' @author Guangchuang Yu
-
-root.phylo <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
-    tree <- ape::root.phylo(phy, outgroup = outgroup, node = node,
-                            edgelabel = edgelabel, ...)
-
-    attr(tree, "reroot") <- TRUE
-    node_map <- reroot_node_mapping(phy, tree)
-    attr(tree, "node_map") <- node_map
-    return(tree)
-}
-
-
-##' @rdname root-method
+##' @return rerooted treedata
 ##' @method root treedata
 ##' @export
 
@@ -61,10 +72,12 @@ root.treedata <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
     node2oldnewlab <- dplyr::inner_join(node2label, node2label2, by="node")
     
     # reroot tree
-    tree <- root(tree, outgroup = outgroup, node = node,
+    re_tree <- root(tree, outgroup = outgroup, node = node,
                  edgelabel = edgelabel, ...)
+    
+    node_map <- reroot_node_mapping(tree, re_tree)
+    tree <- re_tree
     n.tips <- Ntip(tree)
-    node_map<- attr(tree, "node_map") 
     
     # replace new label with old label
     treeda <- as_tibble(tree)
