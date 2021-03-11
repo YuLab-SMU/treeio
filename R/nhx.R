@@ -75,39 +75,12 @@ read.nhx.stats <- function(treetext, phylo){
 }
 
 extract_nhx_feature <- function(stats){
-    stats2 <- lapply(seq_along(stats), function(i) {
-        x <- stats[[i]] 
-        y <- unlist(strsplit(x, ":"))
-        name <- gsub("=.*", "", y)
-        val <- gsub(".*=", "", y)
-        names(val) <- name
-        return(val) 
-
-    })
-
-    nn <- lapply(stats2, names) %>% unlist %>%
-    unique %>% sort
-    
-    stats2 <- lapply(stats2, function(x) {
-        y <- x[nn]
-        names(y) <- nn
-        y[vapply(y, is.null, logical(1))] <- NA
-        y
-    })
-
-    stats3 <- do.call(rbind, stats2) %>% data.frame()
-    for (i in seq_len(ncol(stats3))) {
-        x <- stats3[,i]
-        x <- x[!is.na(x)]
-        if (all(grepl("[-]?[0-9]+[.]?[0-9]*|[-]?[0-9]+[L]?|[-]?[0-9]+[.]?[0-9]*[eE][0-9]+", x))){
-            ## should be numerical varialbe
-            stats3[,i] <- as.numeric(stats3[,i])
-        }
-    }
-    stats3$node <- names(stats)
-    stats3$node <- as.integer(stats3$node)
-    stats3 <- as_tibble(stats3)
-    return(stats3)
+    stats2 <- get_nhx_feature(nhx_features=stats)
+    stats2 <- convert_to_numeric(dat=stats2)
+    stats2$node <- names(stats)
+    stats2$node <- as.integer(stats2$node)
+    stats2 <- as_tibble(stats2)
+    return(stats2)
 
 }
 
@@ -121,7 +94,7 @@ add_pseudo_label <- function(phylo){
 
 get_nhx_feature <- function(nhx_features) {
     nameSET <- strsplit(nhx_features, split=":") %>% unlist %>%
-        gsub("=.*", "", .) %>% unique
+        gsub("=.*", "", .) %>% unique %>% sort
     lapply(nhx_features, get_nhx_feature_internal, nameSET=nameSET) %>%
         do.call(rbind, .) %>% as.data.frame(., stringsAsFactors = FALSE)
 }
@@ -142,4 +115,16 @@ get_nhx_feature_internal <- function(feature, nameSET) {
     }
     names(y) <- nameSET
     return(y)
+}
+
+convert_to_numeric <- function(dat){
+    for (i in seq_len(ncol(dat))){
+        x <- dat[, i]
+        x <- x[!is.na(x)]
+	if (all(grepl("[-]?[0-9]+[.]?[0-9]*|[-]?[0-9]+[L]?|[-]?[0-9]+[.]?[0-9]*[eE][0-9]+", x))){
+            ## should be numerical varialbe
+	    dat[,i] <- as.numeric(dat[,i])
+	}
+    }
+    return (dat)
 }
