@@ -17,9 +17,13 @@ write.beast.newick(
 
 \item{file}{output file. If file = "", print the output content on screen}
 
-\item{translate}{whether translate taxa labels}
+\item{append}{logical. Only used if the argument 'file' is the name of file
+(and not a connection or "|cmd").  If 'TRUE' output will be appended to 
+'file'; otherwise, it will overwrite the contents of file.}
 
-\item{tree.name}{name of the tree}
+\item{digits}{integer, the indicating the number of decimal places, default is 10.}
+
+\item{tree.prefix, }{character default is "".}
 }
 \value{
 output file or file content on screen
@@ -30,7 +34,7 @@ Export \code{treedata} object to BEAST Newick file. This is useful for making BE
 \examples{
 nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 nhx <- read.nhx(nhxfile)
-write_beast_newick(nhx)
+write.beast.newick(nhx)
 }
 \author{
 Guangchuang Yu
