@@ -3,7 +3,7 @@
 \name{read.beast}
 \alias{read.beast}
 \alias{read.mrbayes}
-\alias{read.beast.tree}
+\alias{read.beast.newick}
 \alias{read.mega}
 \title{read.beast}
 \usage{
@@ -11,7 +11,7 @@ read.beast(file)
 
 read.mrbayes(file)
 
-read.beast.tree(file = "", text = NULL)
+read.beast.newick(file)
 
 read.mega(file)
 }
@@ -28,12 +28,12 @@ treedata object
 \description{
 read beast/mrbayes/mega Nexus output
 
-read beast/mrbayes/mega newick output
+read beast/mrbayes/mega newick file format
 }
 \examples{
 file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
 read.beast(file)
-tree <- read.beast.tree(text = '(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);')
+tree <- read.beast.tree(textConnection('(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'))
 }
 \author{
 Guangchuang Yu \url{https://guangchuangyu.github.io}

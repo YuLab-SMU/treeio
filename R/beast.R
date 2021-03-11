@@ -34,11 +34,11 @@ read.beast <- function(file) {
 ##' @export
 read.mrbayes <- read.beast
 
-##' read beast/mrbayes/mega newick output
+##' read beast/mrbayes/mega newick file format
 ##'
 ##'
 ##' @rdname beast-parser
-##' @title read.beast.tree
+##' @title read.beast.newick
 ##' @param file newick file
 ##' @param text newick text
 ##' @return treedata object
@@ -46,12 +46,9 @@ read.mrbayes <- read.beast
 ##' @export
 ##' @author Bradley R Jones
 ##' @examples
-##' tree <- read.beast.tree(text = '(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);')
-read.beast.tree <- function(file = "", text = NULL) {
-    if (is.null(text)) {
-        text <- readLines(file)
-    }
-    
+##' tree <- read.beast.tree(textConnection('(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'))
+read.beast.newick <- function(file) {
+    text <- readLines(file)
     treetext <- text
     stats <- if (length(treetext) == 1)
         read.stats_beast_internal(text, treetext)

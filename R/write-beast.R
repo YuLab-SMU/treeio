@@ -70,7 +70,7 @@ write.beast <- function(treedata, file = "",
 ##' Export \code{treedata} object to BEAST Newick file. This is useful for making BEAST starting trees with metadata
 ##'
 ##'
-##' @title write.beast
+##' @title write.beast.newick
 ##' @param treedata \code{treedata} object
 ##' @param file output file. If file = "", print the output content on screen
 ##' @param translate whether translate taxa labels
@@ -82,7 +82,7 @@ write.beast <- function(treedata, file = "",
 ##' nhx <- read.nhx(nhxfile)
 ##' write_beast_newick(nhx)
 ##' @author Guangchuang Yu
-write_beast_newick <- function(treedata, file = "",
+write.beast.newick <- function(treedata, file = "",
                                append = FALSE, digits = 10, tree.prefix = "") {
     
     phy <- as.phylo(treedata)
@@ -141,6 +141,9 @@ write_beast_newick <- function(treedata, file = "",
                  node.label = node.label,
                  node_anno = node_anno)
 }
+
+# to preserve old name
+write_beast_newick <- write.beast.newick
 
 ## derived from .write.tree3_old to tailor for edge list, then all tree-like graph can be supported.
 .write.tree4 <- function(edge, digits = 10, tree.prefix = "", root.edge=NULL, edge.length = NULL,
