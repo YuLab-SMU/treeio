@@ -26,8 +26,9 @@ read.astral <- function(file) {
     stats <- phylo$node.label %>%
         gsub("^@|@$", "", .) %>%
         gsub("\\$", ":", .) %>%
-        get_nhx_feature %>%
-        as_tibble
+        get_nhx_feature
+
+    stats <- convert_to_numeric(dat=stats) %>% as_tibble()
 
     stats$node <- Ntip(phylo) + 1:phylo$Nnode
 
