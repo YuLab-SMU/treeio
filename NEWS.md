@@ -1,8 +1,13 @@
+# treeio 1.15.6
+
++ optimized `read.nhx` for large tree file (2021-03-12, Fri)
+- <https://github.com/YuLab-SMU/treeio/pull/51>
+
 # treeio 1.15.5
 
 + `read.beast.newick` and `write.beast.newick` for importing and exporting newick text with metadata in BEAST style (2021-03-11, Thu)
   - <https://github.com/YuLab-SMU/treeio/pull/50>
-  
+
 # treeio 1.15.4
 
 + support parsing tree qza file from qiime2 (2020-03-01, Mon)
