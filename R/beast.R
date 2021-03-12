@@ -40,20 +40,21 @@ read.mrbayes <- read.beast
 ##' @rdname beast-parser
 ##' @title read.beast.newick
 ##' @param file newick file
-##' @param text newick text
 ##' @return treedata object
 ##' @importFrom ape read.tree
 ##' @export
 ##' @author Bradley R Jones
 ##' @examples
-##' tree <- read.beast.tree(textConnection('(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'))
+##' tree <- read.beast.newick(textConnection('(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'))
 read.beast.newick <- function(file) {
     text <- readLines(file)
     treetext <- text
-    stats <- if (length(treetext) == 1)
+    stats <- if (length(treetext) == 1){
         read.stats_beast_internal(text, treetext)
-    else
-        lapply(trees, read.stats_beast_internal, beast=beast)
+    }else{
+        trees <- read.treetext_beast(treetext)
+        lapply(trees, read.stats_beast_internal, beast=text)
+    }
     phylo <- read.tree(text = text)
     
     if (length(treetext) == 1) {
@@ -179,8 +180,12 @@ read.stats_beast_internal <- function(beast, tree) {
     ## stats <- sub(":.+$", "", stats
     
     ## BEAST1 edge stat fix
-    tree <- gsub("\\]:\\[&(.+?\\])", ",\\1:", tree)
+   	tree <- gsub("\\]:\\[&(.+?\\])", ",\\1:", tree)
+    # t1:[&mutation="test1"]0.04 -> t1[&mutation="test1"]:0.04
     tree <- gsub(":(\\[.+?\\])", "\\1:", tree)
+    # t1:0.04[&mutation="test1"] -> t1[&mutation="test1"]:0.04
+    pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&.*?\\])"
+    tree <- gsub(pattern, "\\1\\3\\2", tree)
     
     if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
         ## MrBayes output
@@ -206,14 +211,15 @@ read.stats_beast_internal <- function(beast, tree) {
     }
     
     # check whether the stats info is after edge length or not.
-    if (!all(grepl("]$", stats) || grepl("];$", stats))){
+    #if (!all(grepl("]$", stats) || grepl("];$", stats))){
         # t1:0.04[&mutation="test1"]
-        stats <- sub("].*", "", stats)
-        names(stats) <- c(rep(node[1],2),node[-c(1,length(node))])
-    }else{
+    #    stats <- sub("].*", "", stats)
+    #    names(stats) <- c(rep(node[1],2),node[-c(1,length(node))])
+    #}else{
         # t1[&mutation="test1"]:0.04
-        names(stats) <- node
-    }
+    #    names(stats) <- node
+    #}
+    names(stats) <- node
     
     stats <- stats[grep("\\[", stats)]
     stats <- sub("[^\\[]*\\[", "", stats)

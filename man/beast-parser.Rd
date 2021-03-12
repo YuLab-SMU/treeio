@@ -17,8 +17,6 @@ read.mega(file)
 }
 \arguments{
 \item{file}{newick file}
-
-\item{text}{newick text}
 }
 \value{
 treedata object
@@ -33,7 +31,7 @@ read beast/mrbayes/mega newick file format
 \examples{
 file <- system.file("extdata/BEAST", "beast_mcc.tree", package="treeio")
 read.beast(file)
-tree <- read.beast.tree(textConnection('(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'))
+tree <- read.beast.newick(textConnection('(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'))
 }
 \author{
 Guangchuang Yu \url{https://guangchuangyu.github.io}

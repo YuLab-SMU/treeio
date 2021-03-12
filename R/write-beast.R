@@ -73,14 +73,17 @@ write.beast <- function(treedata, file = "",
 ##' @title write.beast.newick
 ##' @param treedata \code{treedata} object
 ##' @param file output file. If file = "", print the output content on screen
-##' @param translate whether translate taxa labels
-##' @param tree.name name of the tree
+##' @param append logical. Only used if the argument 'file' is the name of file
+##' (and not a connection or "|cmd").  If 'TRUE' output will be appended to 
+##' 'file'; otherwise, it will overwrite the contents of file.
+##' @param digits integer, the indicating the number of decimal places, default is 10.
+##' @param tree.prefix, character the tree prefix, default is "". 
 ##' @return output file or file content on screen
 ##' @export
 ##' @examples
 ##' nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 ##' nhx <- read.nhx(nhxfile)
-##' write_beast_newick(nhx)
+##' write.beast.newick(nhx)
 ##' @author Guangchuang Yu
 write.beast.newick <- function(treedata, file = "",
                                append = FALSE, digits = 10, tree.prefix = "") {
