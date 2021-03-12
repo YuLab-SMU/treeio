@@ -121,10 +121,10 @@ convert_to_numeric <- function(dat){
     for (i in seq_len(ncol(dat))){
         x <- dat[, i]
         x <- x[!is.na(x)]
-	if (all(grepl("[-]?[0-9]+[.]?[0-9]*|[-]?[0-9]+[L]?|[-]?[0-9]+[.]?[0-9]*[eE][0-9]+", x))){
+        if (all(grepl("[-]?[0-9]+[.]?[0-9]*|[-]?[0-9]+[L]?|[-]?[0-9]+[.]?[0-9]*[eE][0-9]+", x))){
             ## should be numerical varialbe
-	    dat[,i] <- as.numeric(dat[,i])
-	}
+            dat[,i] <- as.numeric(dat[,i])
+        }
     }
     return (dat)
 }
