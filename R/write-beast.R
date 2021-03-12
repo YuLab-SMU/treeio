@@ -77,7 +77,7 @@ write.beast <- function(treedata, file = "",
 ##' (and not a connection or "|cmd").  If 'TRUE' output will be appended to 
 ##' 'file'; otherwise, it will overwrite the contents of file.
 ##' @param digits integer, the indicating the number of decimal places, default is 10.
-##' @param tree.prefix, character default is "". 
+##' @param tree.prefix, character the tree prefix, default is "". 
 ##' @return output file or file content on screen
 ##' @export
 ##' @examples

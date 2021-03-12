@@ -23,7 +23,7 @@ write.beast.newick(
 
 \item{digits}{integer, the indicating the number of decimal places, default is 10.}
 
-\item{tree.prefix, }{character default is "".}
+\item{tree.prefix, }{character the tree prefix, default is "".}
 }
 \value{
 output file or file content on screen
