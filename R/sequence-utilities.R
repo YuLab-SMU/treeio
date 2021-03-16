@@ -63,7 +63,7 @@ read.fasta <- function(fasta) {
 
 guess_fasta_type <- function(fasta) {
     seqstr <- readLines(fasta, n=3)
-    if (grepl("^>", seqstr[[3]])){
+    if (length(seqstr)==2 || grepl("^>", seqstr[[3]])){
         # >seq1
         # AGCGTACGTGACGTAGCGTAGC
         # >seq2
