@@ -31,7 +31,7 @@ string2DNAbin <- function(seqs) {
 read.fasta <- function(fasta, type = "auto") {
     type <- match.arg(type, c("auto", "NT", "AA"))
 
-    if (type == "auto") type <- gess_fasta_type(fasta)
+    if (type == "auto") type <- guess_fasta_type(fasta)
 
     if (type == "NT") {
         class <- "DNAbin"
