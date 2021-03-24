@@ -23,17 +23,23 @@ string2DNAbin <- function(seqs) {
 ##' This function supports both DNA or AA sequences
 ##' @title read.fasta
 ##' @param fasta fasta file
+##' @param type sequence type of the input file, one of 'NT' or 'AA'.
+##' Default is 'auto' and guess the sequence type automatically 
 ##' @return DNAbin or AAbin object
 ##' @export
 ##' @author Guangchuang Yu
-read.fasta <- function(fasta) {
-    x <- Biostrings::readBStringSet(fasta)
+read.fasta <- function(fasta, type = "auto") {
+    type <- match.arg(type, c("auto", "NT", "AA"))
 
-    if (guess_fasta_type(fasta) == "NT") {
+    if (type == "auto") type <- gess_fasta_type(fasta)
+
+    if (type == "NT") {
         class <- "DNAbin"
     } else {
         class <- "AAbin"
     }
+
+    x <- Biostrings::readBStringSet(fasta)
 
     structure(lapply(x, .BStringSet2bin, class = class),
               class = class)

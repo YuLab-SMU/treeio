@@ -4,10 +4,13 @@
 \alias{read.fasta}
 \title{read.fasta}
 \usage{
-read.fasta(fasta)
+read.fasta(fasta, type = "auto")
 }
 \arguments{
 \item{fasta}{fasta file}
+
+\item{type}{sequence type of the input file, one of 'NT' or 'AA'.
+Default is 'auto' and guess the sequence type automatically}
 }
 \value{
 DNAbin or AAbin object
