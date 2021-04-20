@@ -32,6 +32,9 @@ read.beast <- function(file) {
 
 ##' @rdname beast-parser
 ##' @export
+##' @examples
+##' file <- system.file("extdata/MrBayes", "Gq_nxs.tre", package="treeio")
+##' read.mrbayes(file)
 read.mrbayes <- read.beast
 
 ##' read beast/mrbayes/mega newick file format
@@ -178,56 +181,49 @@ read.stats_beast_internal <- function(beast, tree) {
     
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
-    
     ## BEAST1 edge stat fix
    	tree <- gsub("\\]:\\[&(.+?\\])", ",\\1:", tree)
     # t1:[&mutation="test1"]0.04 -> t1[&mutation="test1"]:0.04
     tree <- gsub(":(\\[.+?\\])", "\\1:", tree)
     # t1:0.04[&mutation="test1"] -> t1[&mutation="test1"]:0.04
+    # or t1[&prob=100]:0.04[&mutation="test"] -> t1[&prob=100][&mutation="test"]:0.04 (MrBayes output)
     pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&.*?\\])"
     tree <- gsub(pattern, "\\1\\3\\2", tree)
     
-    if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
-        ## MrBayes output
-        stats <- strsplit(tree, "\\]:[0-9\\.eE+\\-]*\\[") %>% unlist
-        lstats <- lapply(stats, function(x) {
-            unlist(strsplit(x, split="\\][,\\)]"))
-        })
-        
-        for (i in seq_along(stats)) {
-            n <- length(lstats[[i]])
-            if (i == length(stats)) {
-                stats[i] <- lstats[[i]][n]
-            } else {
-                stats[i] <- paste0(lstats[[i]][n],
-                                   sub("&", ",", lstats[[i+1]][1])
-                )
-            }
-        }
-        stats <- gsub("\\]\\[&", ",", stats)
-    } else {
-        ## BEAST output
-        stats <- strsplit(tree, ":") %>% unlist
-    }
-    
-    # check whether the stats info is after edge length or not.
-    #if (!all(grepl("]$", stats) || grepl("];$", stats))){
-        # t1:0.04[&mutation="test1"]
-    #    stats <- sub("].*", "", stats)
-    #    names(stats) <- c(rep(node[1],2),node[-c(1,length(node))])
-    #}else{
-        # t1[&mutation="test1"]:0.04
-    #    names(stats) <- node
+    #if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
+    #    ## MrBayes output
+    #    stats <- strsplit(tree, "\\]:[0-9\\.eE+\\-]*\\[") %>% unlist
+    #    lstats <- lapply(stats, function(x) {
+    #        unlist(strsplit(x, split="\\][,\\)]"))
+    #    })
+    #    
+    #    for (i in seq_along(stats)) {
+    #        n <- length(lstats[[i]])
+    #        if (i == length(stats)) {
+    #            stats[i] <- lstats[[i]][n]
+    #        } else {
+    #            stats[i] <- paste0(lstats[[i]][n],
+    #                               sub("&", ",", lstats[[i+1]][1])
+    #            )
+    #        }
+    #    }
+    #    stats <- gsub("\\]\\[&", ",", stats)
+    #} else {
+    #    ## BEAST output
+    #    stats <- strsplit(tree, ":") %>% unlist
     #}
+    stats <- strsplit(tree, ":") %>% unlist
     names(stats) <- node
     
     stats <- stats[grep("\\[", stats)]
     stats <- sub("[^\\[]*\\[", "", stats)
     
     stats <- sub("^&", "", stats)
+    # this is for MrBayes output 
+    stats <- sub("\\]\\[&", ",", stats)
     stats <- sub("];*$", "", stats)
     stats <- gsub("\"", "", stats)
-    
+
     stats2 <- lapply(seq_along(stats), function(i) {
         x <- stats[[i]]
         y <- unlist(strsplit(x, ","))
