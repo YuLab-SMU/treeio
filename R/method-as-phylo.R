@@ -85,6 +85,13 @@ as.phylo.igraph <- function(x, ...) {
     as.phylo(edge)
 }
 
+##' @method as.phylo chronos
+##' @export
+as.phylo.chronos <- function(x, ...){
+    class(x) <- "phylo"
+    as.phylo(x)
+}
+
 ##' access phylo slot
 ##'
 ##'
