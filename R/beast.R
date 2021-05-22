@@ -185,11 +185,14 @@ read.stats_beast_internal <- function(beast, tree) {
    	tree <- gsub("\\]:\\[&(.+?\\])", ",\\1:", tree)
     # t1:[&mutation="test1"]0.04 -> t1[&mutation="test1"]:0.04
     tree <- gsub(":(\\[.+?\\])", "\\1:", tree)
-    # t1:0.04[&mutation="test1"] -> t1[&mutation="test1"]:0.04
-    # or t1[&prob=100]:0.04[&mutation="test"] -> t1[&prob=100][&mutation="test"]:0.04 (MrBayes output)
-    pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&.*?\\])"
-    tree <- gsub(pattern, "\\1\\3\\2", tree)
-    
+
+    if (grepl("\\:[0-9\\.eEL+\\-]*\\[", tree) || grepl("\\]\\[", tree)){
+        # t1:0.04[&mutation="test1"] -> t1[&mutation="test1"]:0.04
+        # or t1[&prob=100]:0.04[&mutation="test"] -> t1[&prob=100][&mutation="test"]:0.04 (MrBayes output)
+        # pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&.*?\\])"
+        pattern <- "(\\w+)?(:\\d*\\.?\\d*[Ee]?[\\+\\-]?\\L*\\d*)?(\\[&.*?\\])"
+        tree <- gsub(pattern, "\\1\\3\\2", tree)
+    }
     #if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
     #    ## MrBayes output
     #    stats <- strsplit(tree, "\\]:[0-9\\.eE+\\-]*\\[") %>% unlist
