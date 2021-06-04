@@ -18,7 +18,7 @@ read.mcmctree <- function(file){
     obj <- read.beast(file=newfile)
     if(inherits(obj, "treedata")){
         obj@file <- filename(file)
-    }else{
+    } else{
         for (i in seq_len(length(obj))){
             obj[[i]]@file <- filename(file)
         }
