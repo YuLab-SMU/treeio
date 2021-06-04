@@ -4,10 +4,21 @@
 \alias{read.mcmctree}
 \title{read.mcmctree}
 \usage{
-read.mcmctree(file)
+read.mcmctree(file, as.ultrametric = FALSE, option = 2, ...)
 }
 \arguments{
 \item{file}{the output tree file of MCMCTree}
+
+\item{as.ultrametric}{logical whether convert the tree 
+to be ultrametric, if it is not ultrametric, default is FALSE.
+When the tree is ultrametric, branch times will be calculated 
+automatically.}
+
+\item{option}{integer it should be one of 1 or 2, default is 2. 
+see also the 'option' of 'is.ultrametric' of 'ape'.}
+
+\item{...}{additional arguments, see also the arguments of 
+'is.ultrametric' of 'ape'.}
 }
 \value{
 treedata object
@@ -17,6 +28,6 @@ read MCMCTree output Tree
 }
 \examples{
 file <- system.file("extdata/MCMCTree", "mcmctree_output.tree", package="treeio")
-tr <- read.mcmctree(file)
+tr <- read.mcmctree(file, option=2)
 tr
 }
