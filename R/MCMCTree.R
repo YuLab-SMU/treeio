@@ -6,17 +6,13 @@
 ##' to be ultrametric, if it is not ultrametric, default is FALSE.
 ##' When the tree is ultrametric, branch times will be calculated 
 ##' automatically. 
-##' @param option integer it should be one of 1 or 2, default is 2. 
-##' see also the 'option' of 'is.ultrametric' of 'ape'.
-##' @param ... additional arguments, see also the arguments of 
-##' 'is.ultrametric' of 'ape'.
 ##' @return treedata object
 ##' @export
 ##' @examples
 ##' file <- system.file("extdata/MCMCTree", "mcmctree_output.tree", package="treeio")
-##' tr <- read.mcmctree(file, option=2)
+##' tr <- read.mcmctree(file)
 ##' tr
-read.mcmctree <- function(file, as.ultrametric = FALSE, option=2, ...){
+read.mcmctree <- function(file, as.ultrametric = FALSE){
     text <- readLines(file)
     ind <- grep("^.*tree.*=.*", text, ignore.case=TRUE)
     text[ind] <- gsub("^.*TREE", "TREE", text[ind], ignore.case=TRUE)
@@ -29,16 +25,14 @@ read.mcmctree <- function(file, as.ultrametric = FALSE, option=2, ...){
         obj <- add.branch.time.mcmctree(
                                         obj=obj, 
                                         as.ultrametric = as.ultrametric, 
-                                        option=option, 
-                                        ...)
+                                        )
     }else{
         for (i in seq_len(length(obj))){
             obj[[i]]@file <- filename(file)
             obj[[i]] <- add.branch.time.mcmctree(
                                         obj=obj[[i]], 
-                                        as.ultrametric = as.ultrametric, 
-                                        option=option, 
-                                        ...)
+                                        as.ultrametric = as.ultrametric
+                                        )
         }
     }
     return(obj)
@@ -47,10 +41,11 @@ read.mcmctree <- function(file, as.ultrametric = FALSE, option=2, ...){
 #' @importFrom ape branching.times
 #' @importFrom ape is.ultrametric
 add.branch.time.mcmctree <- function(obj, as.ultrametric=FALSE, ...){
-    if (as.ultrametric && !is.ultrametric(obj@phylo, ...)){
+    flag_ultrametric <- !is.ultrametric(obj@phylo, option=2) || !is.ultrametric(obj@phylo)
+    if (as.ultrametric && flag_ultrametric){
         obj <- as.ultrametric(obj)
     }
-    if (is.ultrametric(obj@phylo, ...)){
+    if (flag_ultrametric){
         xx <- branching.times(obj@phylo)
         ntip <- Ntip(obj)
         N <- Nnode(obj, internal.only = FALSE)
