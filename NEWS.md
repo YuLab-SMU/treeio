@@ -1,3 +1,11 @@
+# treeio 1.17.1
+
++ `read.mcmctree` for PAML MCMCTree result (2021-06-04, Fri)
+
+# treeio 1.16.0
+
++ Bioconductor 3.13 release
+
 # treeio 1.15.6
 
 + optimized `read.nhx` for large tree file (2021-03-12, Fri)
