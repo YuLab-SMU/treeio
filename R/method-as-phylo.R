@@ -20,6 +20,11 @@ as.phylo.tbl_df <- function(x, length, ...) {
     }
 
     edge <- check_edgelist(x)
+    indx <- attr(edge, "indx")
+    if (!is.null(indx) && !is.null(edge.length)){
+        edge.length <- edge.length[indx]
+        attr(edge, "indx") <- NULL
+    }
     phylo <- read.tree(text = .write.tree4(edge,
                                            id_as_label=TRUE,
                                            edge.length = edge.length),

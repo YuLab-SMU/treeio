@@ -57,7 +57,12 @@ as.treedata.ggtree <- function(tree, ...) {
 ##' @export
 as.treedata.tbl_df <- function(tree, ...) {
     edgelist <- as_tibble(tree)
-
+    edge <- check_edgelist(edgelist)
+    indx <- attr(edge, "indx")
+    if (!is.null(indx)){
+        edgelist <- edgelist[indx,]
+        attr(edge, "indx") <- NULL
+    }
     phylo <- as.phylo.tbl_df(edgelist, ...)
 
     res <- new("treedata",
@@ -74,7 +79,7 @@ as.treedata.tbl_df <- function(tree, ...) {
 
         lab <- c(phylo$tip.label, phylo$node.label)
 
-        edge <- check_edgelist(edgelist)
+        #edge <- check_edgelist(edgelist)
         children <- edge[,2]
 
         d$node <- match(children, lab)
