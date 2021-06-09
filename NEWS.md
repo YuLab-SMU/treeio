@@ -1,3 +1,8 @@
+# treeio 1.17.1.991
+
++ `as.ultrametric` method to force a tree to be ultrametric (2021-06-09, Wed)
++ introduce `force.ultrametric` parameter in `read.mcmctree` 
+
 # treeio 1.17.1
 
 + `read.mcmctree` for PAML MCMCTree result (2021-06-04, Fri)
