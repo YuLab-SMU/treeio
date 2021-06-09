@@ -4,10 +4,15 @@
 \alias{read.mcmctree}
 \title{read.mcmctree}
 \usage{
-read.mcmctree(file)
+read.mcmctree(file, force.ultrametric = FALSE)
 }
 \arguments{
 \item{file}{the output tree file of MCMCTree}
+
+\item{force.ultrametric}{logical whether convert the tree 
+to be ultrametric, if it is not ultrametric, default is FALSE.
+When the tree is ultrametric, branch times will be calculated 
+automatically.}
 }
 \value{
 treedata object
