@@ -9,11 +9,20 @@ check_edgelist <- function(edgelist) {
         children <- edgelist[[2]]
         parents <- edgelist[[1]]
     }
-    root <- unique(parents[!(parents %in% children)])
-    if (length(root) != 1)
+    root1 <- unique(parents[!(parents %in% children)])
+    root2 <- unique(parents[parents == children])
+    if (length(root1) != 1 && length(root2) != 1)
         stop("Cannot find root. network is not a tree!")
-
-    matrix(c(parents, children), ncol=2)
+    if (length(root1) != 1 && length(root2) == 1){
+        indx <- parents != children
+        parents <- parents[indx]
+        children <- children[indx]
+        edge <- matrix(c(parents, children), ncol=2)
+        attr(edge, "indx") <- indx
+    }else{
+        edge <- matrix(c(parents, children), ncol=2)
+    }
+    return (edge)
 }
 
 
