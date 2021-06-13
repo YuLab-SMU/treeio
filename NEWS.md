@@ -1,5 +1,6 @@
-# treeio 1.17.1.991
+# treeio 1.17.1.992
 
++ `as.phylo` and `as.treedata` for `data.frame` (2021-06-12, Sat)
 + `as.ultrametric` method to force a tree to be ultrametric (2021-06-09, Wed)
 + introduce `force.ultrametric` parameter in `read.mcmctree` 
 
