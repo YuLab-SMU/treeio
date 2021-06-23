@@ -15,64 +15,29 @@ setMethod("drop.tip", signature(object="treedata"),
               drop.tip.treedata(object, tip, ...)
           })
 
-drop.tip.treedata <- function(object, tip, ...) {
-    ## Column name that has very low chance of collision
-    ## with existing column
-    node_label_name <- "cd8128f329f72c167a8028cf8"
-
-    labels <- NULL
-    if (!is.null(object@phylo$node.label)) {
-        ## Tree has node labels. Put these in data
-        ## for safe keeping and remove them from tree for now
-
-        labels <- c(
-            rep( NA, length( object@phylo$tip.label ) ),
-            object@phylo$node.label
-        )
-
-        object@phylo$node.label <- NULL
+drop.tip.treedata <- function(object, tip, ...){
+    params <- list(...)
+    if ("interactive" %in% names(params) && params$interactive){
+        message("The interactive mode is not implemented for treedata object!")
+        params$interactive <- FALSE
     }
-
-    ## label the internal tree nodes by their number
-    object@phylo$node.label <- Ntip(object) + (1:Nnode(object))
-
-    trans_node_data <- tibble(node = 1:Nnode(object, internal.only = FALSE),
-                       node.label = c(object@phylo$tip.label,
-                                      as.character(object@phylo$node.label)))
-    if (!is.null(labels))
-        trans_node_data[[node_label_name]] <- labels
-
-
-
-    ## Will need to take different approaches for subsampling tips
-    ## and internal nodes, add a column to make it easy to tell them apart
-    trans_node_data$is_tip <- trans_node_data$node <= Ntip(object)
-
-
-    ## Remove tips
-    object@phylo <- ape::drop.tip( object@phylo, tip )
-
-
-    ## Subsample the tags
-    trans_node_data <- trans_node_data[trans_node_data$node.label %in%
-                            (c(object@phylo$tip.label,
-                               as.character(object@phylo$node.label))),]
-
-    ## Update tip node numbers
-    tip_nodes <- trans_node_data$node.label[ trans_node_data$is_tip ]
-    trans_node_data$new_node <- NA
-    trans_node_data$new_node[ trans_node_data$is_tip ] <- match(object@phylo$tip.label,
-                                                                tip_nodes)
-
-    internal_nodes <- trans_node_data$node.label[ !trans_node_data$is_tip ]
-    trans_node_data$new_node[!trans_node_data$is_tip] <- match(object@phylo$node.label,
-                                                               internal_nodes)+ Ntip(object@phylo)
-
+    res <- build_new_labels(tree=object)
+    tree <- res$tree
+    old_and_new <- res$node2old_new_lab
+    if(is.character(tip)){
+        tip <- old_and_new[old_and_new$old %in% tip, "new"] %>% unlist(use.names=FALSE)
+    }
+    params$phy <- tree
+    params$tip <- tip
+    new_tree <- do.call(ape::drop.tip, params)
+    
+    trans_node_data <- old_new_node_mapping(tree, new_tree)
+    object@phylo <- build_new_tree(tree=new_tree, node2old_new_lab=old_and_new)
 
     update_data <- function(data, trans_node_data) {
-        data <- data[match(trans_node_data$node, data$node),]
-        data$node <- trans_node_data$new_node
-        return(data)
+        data <- data[match(trans_node_data$old, data$node),]
+        data$node <- trans_node_data$new
+        return(data)    
     }
 
     if (nrow(object@data) > 0) {
@@ -82,24 +47,8 @@ drop.tip.treedata <- function(object, tip, ...) {
     if (nrow(object@extraInfo) > 0) {
         object@extraInfo <- update_data(object@extraInfo, trans_node_data)
     }
-
-
-    ## Add node labels back to tree, if there were any
-    if (node_label_name %in% names( trans_node_data ) ) {
-        labels <- trans_node_data[[ node_label_name ]]
-        labels <- labels[1:Nnode(object) + Ntip(object)]
-        object@phylo$node.label <- labels
-    } else {
-        object@phylo$node.label <- NULL
-    }
-
-
-    return(object)
+    return (object)
 }
-
-
-
-
 
 ##' @rdname drop.tip-methods
 ##' @exportMethod drop.tip
