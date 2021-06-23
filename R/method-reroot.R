@@ -1,13 +1,13 @@
-reroot_node_mapping <- function(tree, tree2){
-    treelab1 <- tree %>% 
+old_new_node_mapping <- function(oldtree, newtree){
+    treelab1 <- oldtree %>% 
                 as_tibble() %>%
                 dplyr::select(c("node", "label"))
-    treelab2 <- tree2 %>% 
+    treelab2 <- newtree %>% 
                 as_tibble() %>%
                 dplyr::select(c("node", "label"))
     node_map <- dplyr::inner_join(treelab1, treelab2, by="label") %>%
                 dplyr::select(c("node.x", "node.y")) %>%
-                dplyr::rename(c(from=.data$node.x, to=.data$node.y))
+                dplyr::rename(c(old="node.x", new="node.y"))
     return(node_map)
 }
 
@@ -60,44 +60,28 @@ root.treedata <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
     ## warning message
         message("The use of this method may cause some node data to become incorrect (e.g. bootstrap values) if 'edgelabel' is FALSE.")
     }
-    object <- phy
+    #object <- phy
     # generate node old label and new label map table.
-    node2label <- as_tibble(object@phylo) %>%
-                  dplyr::select(c("node", "label"))
-    tree <- object@phylo
-    tree$tip.label <- paste0("t", seq_len(Ntip(tree)))
-    tree$node.label <- paste0("n", seq_len(Nnode(tree)))
-    node2label2 <- as_tibble(tree) %>%
-                  dplyr::select(c("node", "label"))
-    node2oldnewlab <- dplyr::inner_join(node2label, node2label2, by="node")
-    
+    res <- build_new_labels(tree=phy)
+    tree <- res$tree
+    node2oldnewlab <- res$node2old_new_lab
     # reroot tree
     re_tree <- root(tree, outgroup = outgroup, node = node,
                  edgelabel = edgelabel, ...)
     
-    node_map <- reroot_node_mapping(tree, re_tree)
-    tree <- re_tree
-    n.tips <- Ntip(tree)
+    node_map <- old_new_node_mapping(tree, re_tree)
+    n.tips <- Ntip(re_tree)
     
     # replace new label with old label
-    treeda <- as_tibble(tree)
-    treeda1 <- treeda %>% 
-               dplyr::filter(.data$label %in% node2oldnewlab$label.y)
-    treeda2 <- treeda %>%
-               dplyr::filter(!(.data$label %in% node2oldnewlab$label.y))
-    # original label
-    treeda1$label <- node2oldnewlab[match(treeda1$label, node2oldnewlab$label.y), "label.x"] %>%
-                     unlist(use.names=FALSE)
-    treeda <- rbind(treeda1, treeda2)
-    tree <- treeda[order(treeda$node),] %>% as.phylo()
-    object@phylo <- tree
+    phy@phylo <- build_new_tree(tree=re_tree, node2old_new_lab=node2oldnewlab)
+
     # update data or extraInfo function
     update_data <- function(data, node_map) {
         cn <- colnames(data)
         cn <- cn[cn != "node"]
-        data <- dplyr::inner_join(data, node_map, by=c("node"="from")) %>%
-                dplyr::select(c("to", cn)) %>% 
-                dplyr::rename(node=.data$to)
+        data <- dplyr::inner_join(data, node_map, by=c("node"="old")) %>%
+                dplyr::select(c("new", cn)) %>% 
+                dplyr::rename(node=.data$new)
 
         # clear root data
         root <- data$node == (n.tips + 1)
@@ -105,14 +89,14 @@ root.treedata <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
         data[root,'node'] <- n.tips + 1
         return(data)
     }
-    if (nrow(object@data) > 0) {
-        object@data <- update_data(object@data, node_map)
+    if (nrow(phy@data) > 0) {
+        phy@data <- update_data(phy@data, node_map)
     }    
-    if (nrow(object@extraInfo) > 0){
-        object@extraInfo <- update_data(object@extraInfo, node_map)
+    if (nrow(phy@extraInfo) > 0){
+        phy@extraInfo <- update_data(phy@extraInfo, node_map)
     }
 
-    return(object)
+    return(phy)
 }
 
 
