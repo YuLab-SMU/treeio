@@ -71,6 +71,7 @@ read.beast.newick <- function(file) {
     return(obj)
 }
 
+#' @importFrom filenamer filename
 BEAST <- function(file, treetext, stats, phylo) {
     stats$node <- gsub("\"*'*", "", stats$node)
     
@@ -142,6 +143,7 @@ read.stats_beast <- function(beast, trees) {
 
 
 
+##' @importFrom purrr is_numeric
 read.stats_beast_internal <- function(beast, tree) {
     ##tree <- gsub(" ", "", tree)
     ## tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
@@ -349,6 +351,11 @@ add_pseudo_nodelabel <- function(phylo) {
         ##                     paste0("\\)", nlab[i], "\\1"),
         ##                     treetext)
         ## }
+    }
+    # assign blank labels
+    if (any(phylo$node.label == "")) {
+        blanks <- sum(phylo$node.label == "")
+        phylo$node.label[phylo$node.label == ""] <-  paste("X", 1:blanks, sep="")
     }
     ## if tip.label contains () which will broken node name extraction
     phylo$tip.label <- gsub("[\\(\\)]", "_", phylo$tip.label)
