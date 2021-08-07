@@ -52,13 +52,13 @@ read.mrbayes <- read.beast
 read.beast.newick <- function(file) {
     text <- readLines(file)
     treetext <- text
+    phylo <- read.tree(textConnection(treetext))
+
     stats <- if (length(treetext) == 1){
         read.stats_beast_internal(text, treetext)
     }else{
-        trees <- read.treetext_beast(treetext)
-        lapply(trees, read.stats_beast_internal, beast=text)
+        lapply(treetext, read.stats_beast_internal, beast=text)
     }
-    phylo <- read.tree(text = text)
     
     if (length(treetext) == 1) {
         obj <- BEAST(file, treetext, stats, phylo)
@@ -149,7 +149,7 @@ read.stats_beast_internal <- function(beast, tree) {
     ## tree2 <- add_pseudo_nodelabel(phylo, tree2)
     
     phylo <- read.tree(text = tree)
-    tree2 <- add_pseudo_nodelabel(phylo)
+    tree2 <- add_pseudo_nodelabel(beast, phylo)
     
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
@@ -340,18 +340,21 @@ read.stats_beast_internal <- function(beast, tree) {
 }
 
 
-add_pseudo_nodelabel <- function(phylo) {
-    if(is.null(phylo$node.label)) {
-        nnode <- phylo$Nnode
-        phylo$node.label <- paste("X", 1:nnode, sep="")
-        ## for (i in 1:nnode) {
-        ##     treetext <- sub("\\)([:;])",
-        ##                     paste0("\\)", nlab[i], "\\1"),
-        ##                     treetext)
-        ## }
+add_pseudo_nodelabel <- function(beast, phylo) {
+    # When TRANSLATE is TURE, the tip.label of tree line is 
+    # the node number of phylo that is parsed via read.nexus, So the
+    # tip.label can not be replaced in this condition
+    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))){
+        phylo$node.label <- paste0("N", seq_len(Nnode(phylo)))
+    }else{
+        # However when the TRANSLATE is not provided, the tip.label
+        # of tree line is not the node number of phylo that is parsed
+        # via read.nexus. Moreover, the node label does not effect 
+        # the node number of phylo that is parsed via read.nexus.
+        # So the tip.label and node.label can be replaced in this condition.
+        phylo$tip.label <- paste0("T", seq_len(Ntip(phylo)))
+        phylo$node.label <- paste0("N", seq_len(Nnode(phylo)))
     }
-    ## if tip.label contains () which will broken node name extraction
-    phylo$tip.label <- gsub("[\\(\\)]", "_", phylo$tip.label)
     
     treetext <- write.tree(phylo)
     return(treetext)
