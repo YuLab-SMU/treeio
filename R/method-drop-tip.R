@@ -30,6 +30,10 @@ drop.tip.treedata <- function(object, tip, ...){
     params$phy <- tree
     params$tip <- tip
     new_tree <- do.call(ape::drop.tip, params)
+
+    if (is.null(new_tree)){
+        return(new_tree)
+    }
     
     trans_node_data <- old_new_node_mapping(tree, new_tree)
     object@phylo <- build_new_tree(tree=new_tree, node2old_new_lab=old_and_new)
