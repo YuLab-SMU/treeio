@@ -56,6 +56,9 @@ old_new_node_mapping <- function(oldtree, newtree){
 ##' @export
 
 root.treedata <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
+    if (is.character(outgroup)){
+        outgroup <- match(outgroup, phy@phylo$tip.label)
+    }
     if (!edgelabel){
     ## warning message
         message("The use of this method may cause some node data to become incorrect (e.g. bootstrap values) if 'edgelabel' is FALSE.")
