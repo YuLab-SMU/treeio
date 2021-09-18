@@ -106,11 +106,12 @@ edgeNum2nodeNum <- function(jp, edgeNum) {
 }
 
 is.tree <- function(x) {
-    if (class(x) %in% c("phylo",
-                        "phylo4",
-                        "jplace",
-                        "treedata")
-        ) {
+    tree_class <- c("phylo",
+                    "phylo4",
+                    "jplace",
+                    "treedata")
+
+    if (inherits(x, tree_class) {
         return(TRUE)
     }
     return(FALSE)
