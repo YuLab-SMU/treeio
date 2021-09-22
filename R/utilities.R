@@ -111,7 +111,7 @@ is.tree <- function(x) {
                     "jplace",
                     "treedata")
 
-    if (inherits(x, tree_class) {
+    if (inherits(x, tree_class)) {
         return(TRUE)
     }
     return(FALSE)
