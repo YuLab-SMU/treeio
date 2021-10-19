@@ -56,7 +56,7 @@ old_new_node_mapping <- function(oldtree, newtree){
 ##' @export
 
 root.treedata <- function(phy, outgroup, node = NULL, edgelabel = TRUE, ...){
-    if (is.character(outgroup)){
+    if (!missing(outgroup) && is.character(outgroup)){
         outgroup <- match(outgroup, phy@phylo$tip.label)
     }
     if (!edgelabel){
