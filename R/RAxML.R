@@ -10,11 +10,12 @@
 ##' read.raxml(raxml_file)
 ##' @author Guangchuang Yu
 read.raxml <- function(file) {
-    tree.text <- readLines(file)
+    tree.text <- readLines(file, warn=FALSE)
     tree_text <- gsub('(:[0-9\\.eE+\\-]+)\\[(\\d+)\\]', '\\@\\2\\1', tree.text)
     phylo <- read.tree(text=tree_text)
     if(any(grepl('@', phylo$node.label))) {
-        bootstrap <- as.numeric(gsub("[^@]*@(\\d+)", "\\1", phylo$node.label))
+        bootstrap <- as.numeric(gsub("[^@]*@(\\d+)", "\\1", phylo$node.label)) %>%
+                     suppressWarnings()
         phylo$node.label <- gsub("@\\d+", "", phylo$node.label)
     }
 
