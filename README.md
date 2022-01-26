@@ -1,9 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-treeio: Base classes and functions for phylogenetic tree input and output
-=========================================================================
-
-<a href="https://yulab-smu.github.io/treedata-book/"><img src="https://yulab-smu.top/images/stickers/treeio.png" height="200" align="right" /></a>
+#  treeio: Base classes and functions for phylogenetic tree input and output <a href="https://yulab-smu.github.io/treedata-book/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 [![](https://badges.ropensci.org/179_status.svg)](https://github.com/ropensci/onboarding/issues/179)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since)
