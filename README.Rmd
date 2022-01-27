@@ -8,7 +8,7 @@ html_preview: false
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
-#  treeio: Base classes and functions for phylogenetic tree input and output <a href="https://yulab-smu.github.io/treedata-book/"><img src="man/figures/logo.png" align="right" height="139" /></a>
+#  treeio: Base classes and functions for phylogenetic tree input and output <a href="https://yulab-smu.top/treedata-book/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 ```{r echo=FALSE, results="hide", message=FALSE}
 #library("txtplot")
