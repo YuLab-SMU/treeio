@@ -1,3 +1,7 @@
+# treeio 1.19.1.900
+
++ `write.beast` allows `treedata` object only contains `phylo` slot, then it will equivalent to `write.nexus` (2022-02-23, Wed)
+
 # treeio 1.19.1
 
 + bug fixed in `groupClade.treedata` to return a `treedata` object instead of `phylo` (2021-11-12, Fri)
