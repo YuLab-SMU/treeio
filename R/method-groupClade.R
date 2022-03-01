@@ -20,6 +20,7 @@ groupClade.phylo <- function(.data, .node, group_name = "group", ...) {
 ##' @export
 groupClade.treedata <- function(.data, .node, group_name = "group", ...) {
     .data@phylo <- groupClade(as.phylo(.data), .node, group_name, ...)
+    .data
 }
 
 
