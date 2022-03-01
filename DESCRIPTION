@@ -22,7 +22,8 @@ Imports:
     rlang,
     tibble,
     tidytree (>= 0.3.0),
-    utils
+    utils,
+    pillar
 Suggests:
     Biostrings,
     ggplot2,
