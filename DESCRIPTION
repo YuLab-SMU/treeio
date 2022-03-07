@@ -21,7 +21,7 @@ Imports:
     methods,
     rlang,
     tibble,
-    tidytree (>= 0.3.0),
+    tidytree (>= 0.3.9),
     utils
 Suggests:
     Biostrings,
