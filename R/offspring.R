@@ -1,20 +1,52 @@
 ##' @importFrom tidytree child
 ##' @method child phylo
 ##' @export
-child.phylo <- function(.data, .node, ...) {
-    edge <- .data[["edge"]]
-    res <- edge[edge[,1] == .node, 2]
-    ## if (length(res) == 0) {
-    ##     ## is a tip
-    ##     return(NA)
-    ## }
-    return(res)
+child.phylo <- function(.data, .node, type = 'children', ...) {
+    type <- match.arg(type, c("children", 'tips', 'internal', 'external', 'all'))
+    res <- lapply(.node, .internal.child, data = .data, type = type)
+    if (length(res) <= 1){
+        return(unlist(res))
+    }else {
+        names(res) <- .node
+        return(res)
+    }
 }
 
 ##' @method child treedata
 ##' @export
-child.treedata <- function(.data, .node, ...) {
-    child.phylo(as.phylo(.data), .node, ...)
+child.treedata <- function(.data, .node, type = 'children', ...) {
+    child.phylo(as.phylo(.data), .node, type = type, ...)
+}
+
+.internal.child <- function(data, node, type = 'children'){
+    if (!is_numeric(node)){
+        all.labs <- c(data$tip.label, data$node.label)
+        names(all.labs) <- seq_len(length(all.labs))
+        node <- names(all.labs[all.labs %in% node])
+    }
+    edge <- data$edge
+    res <- edge[edge[,1] == node, 2]
+    if (type != 'children'){
+        alltips <- edge[,2][! edge[,2] %in% edge[,1]]
+        w <- which(res >= length(alltips))
+        if(length(w)>0){
+            for(i in 1:length(w)){
+                res <- c(res,
+                         .internal.child(
+                           data = data,
+                           node = res[w[i]],
+                           type = type
+                         )
+                       )
+            }
+        }
+        if (type %in% c('tips', 'external')){
+            res <- res[res %in% alltips]
+        }else if(type == 'internal'){
+            res <- res[!res %in% alltips]
+        }
+    }
+    return(unname(res))
 }
 
 ##' @importFrom tidytree offspring
