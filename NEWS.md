@@ -1,5 +1,6 @@
-# treeio 1.19.1.900
+# treeio 1.19.1.901
 
++ update `child()` to support different types ("children", 'tips', 'internal', 'external', 'all') (2022-03-09, Wed, #75)
 + `write.beast` allows `treedata` object only contains `phylo` slot, then it will equivalent to `write.nexus` (2022-02-23, Wed)
 
 # treeio 1.19.1
