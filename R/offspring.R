@@ -2,14 +2,8 @@
 ##' @method child phylo
 ##' @export
 child.phylo <- function(.data, .node, type = 'children', ...) {
-    type <- match.arg(type, c("children", 'tips', 'internal', 'external', 'all'))
-    res <- lapply(.node, .internal.child, data = .data, type = type)
-    if (length(res) <= 1){
-        return(unlist(res))
-    }else {
-        names(res) <- .node
-        return(res)
-    }
+    res <- offspring(.data=.data, .node = .node, type = type)
+    return(res)
 }
 
 ##' @method child treedata
@@ -52,34 +46,54 @@ child.treedata <- function(.data, .node, type = 'children', ...) {
 ##' @importFrom tidytree offspring
 ##' @method offspring phylo
 ##' @export
-offspring.phylo <- function(.data, .node, tiponly = FALSE, self_include = FALSE, ...) {
-    if (self_include) {
-        sp <- .node
-    } else {
-        sp <- child(.data, .node)
+offspring.phylo <- function(.data, .node, tiponly = FALSE, self_include = FALSE, type = 'all', ...){
+    if (tiponly){
+        message('The "tiponly = TRUE" can be replaced by type="tips".')
+        type = 'tips'
     }
+    type <- match.arg(type, c("children", 'tips', 'internal', 'external', 'all'))
+    res <- lapply(.node, .internal.child, data = .data, type = type)
+    if (length(res) <= 1){
+        res <- unlist(res)
+        if (self_include){
+            res <- c(.node, res)
+        }
+    }else{
+        if (self_include){
+            res <- mapply(append, .node, res, SIMPLIFY=FALSE)
+        }
+        names(res) <- .node
+    }
+    return (res)
+    #if (self_include) {
+    #    sp <- .node
+    #} else {
+    #    sp <- child(.data, .node)
+    #}
 
-    sp <- sp[sp != 0]
-    if (length(sp) == 0) {
-        return(sp)
-        ## stop("input node is a tip...")
-    }
-    i <- 1
-    while (i <= length(sp)) {
-        sp <- c(sp, child(.data, sp[i]))
-        sp <- sp[sp != 0]
-        i <- i + 1
-    }
-    if (tiponly) {
-        return(sp[sp <= Ntip(.data)])
-    }
-    return(sp)
+    #sp <- sp[sp != 0]
+    #if (length(sp) == 0) {
+    #    return(sp)
+    #    ## stop("input node is a tip...")
+    #}
+    #i <- 1
+    #while (i <= length(sp)) {
+    #    sp <- c(sp, child(.data, sp[i]))
+    #    sp <- sp[sp != 0]
+    #    i <- i + 1
+    #}
+    #if (tiponly) {
+    #    return(sp[sp <= Ntip(.data)])
+    #}
+    #return(sp)
 }
 
 
 ##' @method offspring treedata
 ##' @export
-offspring.treedata <- function(.data, .node, tiponly = FALSE, self_include = FALSE, ...) {
+offspring.treedata <- function(.data, .node, tiponly = FALSE, self_include = FALSE, type = 'all', ...) {
     offspring.phylo(as.phylo(.data), .node,
-                    tiponly = tiponly, self_include = self_include, ...)
+                    tiponly = tiponly, self_include = self_include, 
+                    type = type,
+                    ...)
 }
