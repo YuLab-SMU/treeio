@@ -47,11 +47,13 @@ child.treedata <- function(.data, .node, type = 'children', ...) {
 ##' @method offspring phylo
 ##' @export
 offspring.phylo <- function(.data, .node, tiponly = FALSE, self_include = FALSE, type = 'all', ...){
+    type <- match.arg(type, c("children", 'tips', 'internal', 'external', 'all'))
+
     if (tiponly){
         message('The "tiponly = TRUE" can be replaced by type="tips".')
         type = 'tips'
     }
-    type <- match.arg(type, c("children", 'tips', 'internal', 'external', 'all'))
+
     res <- lapply(.node, .internal.child, data = .data, type = type)
     if (length(res) <= 1){
         res <- unlist(res)
