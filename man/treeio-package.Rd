@@ -6,7 +6,7 @@
 \alias{treeio-package}
 \title{treeio: Base Classes and Functions for Phylogenetic Tree Input and Output}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 'treeio' is an R package to make it easier to import and store phylogenetic tree with associated data; and to link external data from different sources to phylogeny. It also supports exporting phylogenetic tree with heterogeneous associated data to a single tree file and can be served as a platform for merging tree with associated data and converting file formats.
 }
@@ -16,7 +16,7 @@ Useful links:
   \item \url{https://github.com/YuLab-SMU/treeio (devel)}
   \item \url{https://docs.ropensci.org/treeio/ (docs)}
   \item \url{https://yulab-smu.top/treedata-book/ (book)}
-  \item \url{https://doi.org/10.1093/molbev/msz240 (paper)}
+  \item \doi{10.1093/molbev/msz240 (paper)}
   \item Report bugs at \url{https://github.com/YuLab-SMU/treeio/issues}
 }
 
