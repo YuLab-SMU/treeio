@@ -9,7 +9,11 @@
 #' tr
 read.nextstrain.json <- function(x){
     x <- jsonlite::read_json(x)
-    dt <- parser_children(x$tree)
+    if (all(c('meta', 'tree') %in% names(x))){
+        dt <- parser_children(x$tree)
+    }else{
+        dt <- parser_children(x)
+    }
     if ('branch.length' %in% colnames(dt)){
         rmclnm <- c("parentID", "NodeID", "branch.length")
         edgedf <- dt[, rmclnm]
