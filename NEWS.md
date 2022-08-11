@@ -1,3 +1,11 @@
+# treeio 1.21.1
+
++ `read.nextstrain.json()` function to parse json tree file from NextStrain (2022-08-03, Wed, #81)
+
+# treeio 1.20.0
+
++ Bioconductor 3.15 relase
+
 # treeio 1.19.2
 
 + update `offspring()` to work as `child()`. Actually they are using the same function with different default (`child(type = "children")` and `offspring(type="all")`) (2022-03-16, Wed)
