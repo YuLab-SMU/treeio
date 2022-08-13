@@ -1,3 +1,7 @@
+# treeio 1.21.1.991
+
++ add citation of the tree data book (2022-08-13, Sat)
+
 # treeio 1.21.1
 
 + `read.nextstrain.json()` function to parse json tree file from NextStrain (2022-08-03, Wed, #81)

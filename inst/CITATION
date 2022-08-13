@@ -1,6 +1,18 @@
 citHeader("To cite treeio in publications use:")
 
 citEntry(
+    entry  = "book",
+    title = "Data Integration, Manipulation and Visualization of Phylogenetic Treess",
+    author = person("Guangchuang", "Yu"),
+	publisher = "Chapman and Hall/{CRC}",
+    year = "2022",
+	edition = "1st edition",
+    textVersion = paste("Guangchuang Yu. (2022).",
+                        "Data Integration, Manipulation and Visualization of Phylogenetic Trees (1st edition).",
+                        "Chapman and Hall/CRC.")   
+)
+
+citEntry(
     entry  = "article",
     title  = "treeio: an R package for phylogenetic tree input and output with richly annotated and associated data.",
     author = personList(
