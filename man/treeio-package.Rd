@@ -15,7 +15,7 @@ Useful links:
 \itemize{
   \item \url{https://github.com/YuLab-SMU/treeio (devel)}
   \item \url{https://docs.ropensci.org/treeio/ (docs)}
-  \item \url{https://yulab-smu.top/treedata-book/ (book)}
+  \item \url{https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/ (book)}
   \item \doi{10.1093/molbev/msz240 (paper)}
   \item Report bugs at \url{https://github.com/YuLab-SMU/treeio/issues}
 }

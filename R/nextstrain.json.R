@@ -50,7 +50,7 @@ parser_children <- function(x, id=list2env(list(id = 0L)), parent = 1){
     }else{
         id[["data"]][[id[["id"]]]][["isTip"]] <- TRUE
     }
-    dat <- dplyr::bind_rows(as.list(id[["data"]]))
+    dat <- dplyr::bind_rows(as.list(id[["data"]])) %>% dplyr::mutate_if(is_numeric, as.numeric)
     return(dat)
 }
 
