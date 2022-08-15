@@ -50,8 +50,12 @@ parser_children <- function(x, id=list2env(list(id = 0L)), parent = 1){
     }else{
         id[["data"]][[id[["id"]]]][["isTip"]] <- TRUE
     }
-    dat <- dplyr::bind_rows(as.list(id[["data"]]))
+    dat <- dplyr::bind_rows(as.list(id[["data"]])) %>% dplyr::mutate_if(check_num, as.numeric)
     return(dat)
+}
+
+check_num <- function(x){
+    is_numeric(x) && is.character(x)
 }
 
 extract_node_attrs <- function(x, id, isTip, parent){
