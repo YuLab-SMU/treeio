@@ -155,7 +155,7 @@ getplacedf <- function(places, nm){
     ## then this will generate the names of each matrix for the nm.
     ## example result is: rep(c("read1", "read2"), rep(3,2)), here 3 is nplaces (the nrow of first column of placements),
     ## 2 is the length of nm.
-    name <- rep(tmpn, rep(nplaces, nmsize))
+    name <- rep(tmpn, rep(nplaces, nmsize)) 
     places.df <- do.call("rbind", places.df)
     places.df <- data.frame(name=name, places.df, stringsAsFactors=FALSE)
     return(places.df)
@@ -168,7 +168,7 @@ mergenm <- function(n, nm){
     ## so we will keep the column not NULL.
     if(is.null(n)&&!is.null(nm)) {return(nm)}
     if(is.null(nm)&&!is.null(n)) {return(n)}
-    if(is.null(n)&&is.null(nm)){
+    if(is.null(n)&&is.null(nm)){ 
         stop("the placements of jplace should have corresponding name!")
     }
 }
@@ -193,7 +193,7 @@ extract.placement <- function(object, phylo) {
         ## first, we merge n and nm row by row.
         tmpname <- mapply(mergenm,
                           placements$n,
-                          placements$nm,
+                          placements$nm, 
                           SIMPLIFY=FALSE)
         ## then, it becomes the same as two columns.
         place.df <- mapply(getplacedf,
@@ -204,7 +204,7 @@ extract.placement <- function(object, phylo) {
     place.df <- do.call("rbind", place.df)
     colnames(place.df) <- c("name", object$fields)
     ## place <- placements[,1]
-
+    
     ## ids <- NULL
     ## if (length(placements) == 2) {
     ##	tmpids <- placements[,2]
