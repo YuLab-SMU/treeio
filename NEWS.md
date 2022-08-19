@@ -1,5 +1,6 @@
-# treeio 1.21.1.991
+# treeio 1.21.1.992
 
++ update `as.treedata.pvclust` method (2022-08-15, Mon, #82)
 + add citation of the tree data book (2022-08-13, Sat)
 
 # treeio 1.21.1
