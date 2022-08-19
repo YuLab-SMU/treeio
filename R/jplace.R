@@ -148,7 +148,7 @@ getplacedf <- function(places, nm){
     }
     ##example:
     ## when first column of plamcements is [[1,2,3,4,5],[3,4,5,6,7],[6,7,3,2,4]] (3 row x 5 columns matrix),
-    ## and the n column is ["read1", "read2"] (the type of n is character vector), so
+    ## and the n column is ["read1", "read2"] (the type of n is character vector), so 
     ## will use "inherits(nm, "character")" block.
    	## this will first generate two same matrix contained 3 row x 5 columns, because the length of n is two (the nmsize argument).
     places.df <- rep(list(places), nmsize)
