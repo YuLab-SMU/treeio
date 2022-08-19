@@ -150,11 +150,13 @@ as.phylo.hclust_node <- function(x, hang = NULL){
                 node.label = paste(node.lab,"_edge",sep = "")) # export it to the final object 
     class(obj) <- "phylo"
     obj <- stats::reorder(obj)
-	if (!is.null(hang) && hang > 0){
+    if (!is.null(hang) && hang > 0){
         tip2parent <- edge[match(seq_len(N+1), edge[,2]), 1]
         tip.edge.len <- hang * max(x$height) - x$height[match(tip2parent, node)]
         obj$edge.length <- obj$edge.length * 2
-		attr(obj, 'tip.edge.len') <- tip.edge.len
+        attr(obj, 'tip.edge.len') <- tip.edge.len
+    }else if (hang < 0){
+        obj$edge.length <- obj$edge.length * 2
     }
-	return(obj)
+    return(obj)
 }
