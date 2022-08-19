@@ -7,18 +7,30 @@
 \usage{
 get.placements(tree, ...)
 
-\method{get.placements}{jplace}(tree, by = "best", ...)
+\method{get.placements}{jplace}(tree, by = "all", filter_value = NULL)
 }
 \arguments{
-\item{tree}{tree object}
+\item{tree}{jtree}
 
 \item{...}{additional parameters}
 
-\item{by}{one of 'best' and 'all'}
+\item{by}{filter methods "all","max_lwr","max_pendant",
+"min_likelihood","lwr","pendant","likelihood"}
+
+\item{filter_value}{a given value to filter placements.}
 }
 \value{
 placement tibble
+
+a dataframe of placements
 }
 \description{
 access placement information
+}
+\examples{
+\donttest{
+jp <- system.file("extdata", "sample.jplace", package="treeio")
+jplace <- read.jplace(jp)
+placements <- get.placement(jp,by="all")
+}
 }

@@ -41,27 +41,89 @@ summarize_placement <- function(tree) {
         mutate(nplace = ifelse(is.na(.data$nplace), 0, .data$nplace))
 }
 
-##' @method get.placements jplace
-##' @param by one of 'best' and 'all'
-##' @export
-##' @rdname get-placements
-##' @importFrom dplyr group_by
-##' @importFrom dplyr filter
-get.placements.jplace <- function(tree, by="best", ...) {
+
+#' @method get.placements jplace
+#' @param tree jtree
+#' @param by filter methods "all","max_lwr","max_pendant",
+#' "min_likelihood","lwr","pendant","likelihood"
+#' @param filter_value a given value to filter placements.
+#' @rdname get-placements
+#' @importFrom dplyr group_by
+#' @importFrom dplyr filter
+#' @importFrom magrittr %<>%
+#' @return a dataframe of placements
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' jp <- system.file("extdata", "sample.jplace", package="treeio")
+#' jplace <- read.jplace(jp)
+#' placements <- get.placement(jp,by="all")
+#' }
+get.placements.jplace <- function(tree, by="all", filter_value = NULL) {
+    jplist <- c("all","max_lwr","max_pendant",
+                "min_likelihood","lwr","pendant","likelihood")
+    if(!(by %in% jplist)){
+        stop("by should be one of all,max_lwr,max_pendant,
+              min_likelihood,lwr,pendant,likelihood")
+    }
+
+    if(by %in% c("lwr","pendant","likelihood")){
+        if(!is.null(filter_value)){
+            message("Placement will be filtered by the given value...")
+        }else{
+            stop("The filter_value should be given
+             in order to filter placement by the given value.")
+        }
+
+    }
+
     placements <- tree@placements
-    if (!'likelihood' %in% names(placements))
+
+    if (by == "all")
         return(placements)
 
-    if (by == "best") {
-        ## http://astrostatistics.psu.edu/su07/R/html/base/html/all.equal.html
-        ## due to precision, number are identical maynot be equal,
-        ## so use all.equal which can test nearly equal number
-        ## if not equals, the output is a descript string of the differences
-        placements <- group_by(placements, .data$name) %>%
-            filter(.data$likelihood == min(.data$likelihood))
+    if (by == "max_lwr") {
+        if (!'like_weight_ratio' %in% names(placements)){
+            return(placements)
+        } else{
+            placements <- group_by(placements, .data$name) %>%
+                filter(.data$like_weight_ratio == max(.data$like_weight_ratio))
+        }
+
     }
+
+    if (by == "max_pendant"){
+        if (!'pendant_length' %in% names(placements)){
+            return(placements)
+        } else{
+            placements <- group_by(placements, .data$name) %>%
+                filter(.data$pendant_length == max(.data$pendant_length))
+        }
+    }
+
+    if (by == "min_likelihood"){
+        if (!'likelihood' %in% names(placements)){
+            return(placements)
+        } else{
+            placements <- group_by(placements, .data$name) %>%
+                filter(.data$likelihood == min(.data$likelihood))
+        }
+    }
+
+    if (by == "lwr"){
+        placements %<>% filter(.data$like_weight_ratio > filter_value)
+    }
+    if (by == "pendant"){
+        placements %<>% filter(.data$pendant_length > filter_value)
+    }
+    if (by == "likelihood"){
+        placements %<>% filter(.data$likelihood < filter_value)
+    }
+
     return(placements)
 }
+
 
 getplacedf <- function(places, nm){
     ## the first column of placements maybe a matrix or one numeric vector,
@@ -86,17 +148,17 @@ getplacedf <- function(places, nm){
     }
     ##example:
     ## when first column of plamcements is [[1,2,3,4,5],[3,4,5,6,7],[6,7,3,2,4]] (3 row x 5 columns matrix),
-    ## and the n column is ["read1", "read2"] (the type of n is character vector), so 
+    ## and the n column is ["read1", "read2"] (the type of n is character vector), so
     ## will use "inherits(nm, "character")" block.
    	## this will first generate two same matrix contained 3 row x 5 columns, because the length of n is two (the nmsize argument).
     places.df <- rep(list(places), nmsize)
     ## then this will generate the names of each matrix for the nm.
     ## example result is: rep(c("read1", "read2"), rep(3,2)), here 3 is nplaces (the nrow of first column of placements),
     ## 2 is the length of nm.
-    name <- rep(tmpn, rep(nplaces, nmsize)) 
+    name <- rep(tmpn, rep(nplaces, nmsize))
     places.df <- do.call("rbind", places.df)
     places.df <- data.frame(name=name, places.df, stringsAsFactors=FALSE)
-    return(places.df) 
+    return(places.df)
 }
 
 
@@ -106,7 +168,7 @@ mergenm <- function(n, nm){
     ## so we will keep the column not NULL.
     if(is.null(n)&&!is.null(nm)) {return(nm)}
     if(is.null(nm)&&!is.null(n)) {return(n)}
-    if(is.null(n)&&is.null(nm)){ 
+    if(is.null(n)&&is.null(nm)){
         stop("the placements of jplace should have corresponding name!")
     }
 }
@@ -131,7 +193,7 @@ extract.placement <- function(object, phylo) {
         ## first, we merge n and nm row by row.
         tmpname <- mapply(mergenm,
                           placements$n,
-                          placements$nm, 
+                          placements$nm,
                           SIMPLIFY=FALSE)
         ## then, it becomes the same as two columns.
         place.df <- mapply(getplacedf,
@@ -142,7 +204,7 @@ extract.placement <- function(object, phylo) {
     place.df <- do.call("rbind", place.df)
     colnames(place.df) <- c("name", object$fields)
     ## place <- placements[,1]
-    
+
     ## ids <- NULL
     ## if (length(placements) == 2) {
     ##	tmpids <- placements[,2]
