@@ -25,21 +25,21 @@ read.jplace <- function(file) {
         file       = filename(file)
         )
 
-    res@data <- summarize_placement(res)
+    # res@data <- summarize_placement(res)
     return(res)
 }
 
-##' @importFrom dplyr summarize
-##' @importFrom dplyr mutate
-##' @importFrom dplyr group_by
-##' @importFrom dplyr n
-summarize_placement <- function(tree) {
-    place <- get.placements(tree, by="best")
-    ids <- tibble(node = nodeIds(tree, internal.only = FALSE))
-    group_by(place, .data$node) %>% summarize(nplace=n()) %>%
-        full_join(ids, by='node') %>%
-        mutate(nplace = ifelse(is.na(.data$nplace), 0, .data$nplace))
-}
+# ##' @importFrom dplyr summarize
+# ##' @importFrom dplyr mutate
+# ##' @importFrom dplyr group_by
+# ##' @importFrom dplyr n
+# summarize_placement <- function(tree) {
+#     place <- get.placements(tree, by="max_lwr")
+#     ids <- tibble(node = nodeIds(tree, internal.only = FALSE))
+#     group_by(place, .data$node) %>% summarize(nplace=n()) %>%
+#         full_join(ids, by='node') %>%
+#         mutate(nplace = ifelse(is.na(.data$nplace), 0, .data$nplace))
+# }
 
 
 #' @method get.placements jplace
@@ -58,9 +58,9 @@ summarize_placement <- function(tree) {
 #' \donttest{
 #' jp <- system.file("extdata", "sample.jplace", package="treeio")
 #' jplace <- read.jplace(jp)
-#' placements <- get.placement(jp,by="all")
+#' placements <- get.placements(jplace,by="all")
 #' }
-get.placements.jplace <- function(tree, by="all", filter_value = NULL) {
+get.placements.jplace <- function(tree, by="all", filter_value = NULL,...) {
     jplist <- c("all","max_lwr","max_pendant",
                 "min_likelihood","lwr","pendant","likelihood")
     if(!(by %in% jplist)){

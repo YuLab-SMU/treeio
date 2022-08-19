@@ -7,7 +7,7 @@
 \usage{
 get.placements(tree, ...)
 
-\method{get.placements}{jplace}(tree, by = "all", filter_value = NULL)
+\method{get.placements}{jplace}(tree, by = "all", filter_value = NULL, ...)
 }
 \arguments{
 \item{tree}{jtree}
@@ -31,6 +31,6 @@ access placement information
 \donttest{
 jp <- system.file("extdata", "sample.jplace", package="treeio")
 jplace <- read.jplace(jp)
-placements <- get.placement(jp,by="all")
+placements <- get.placements(jplace,by="all")
 }
 }

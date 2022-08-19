@@ -8,7 +8,7 @@ pp <- get.placements(x)
 
 test_that("access placements slot for jplace object", {
     expect_true(is(x, "jplace"))
-    expect_equal(nrow(pp), 3)
+    expect_equal(nrow(pp), 7)
     expect_equal(ncol(pp), 7)
     expect_true('likelihood' %in% names(pp))
 })
