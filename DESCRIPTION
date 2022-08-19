@@ -1,6 +1,6 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.19.1
+Version: 1.21.1.992
 Authors@R: c(
     person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("ctb", "ths")),
@@ -21,7 +21,7 @@ Imports:
     methods,
     rlang,
     tibble,
-    tidytree (>= 0.3.0),
+    tidytree (>= 0.3.9),
     utils
 Suggests:
     Biostrings,
@@ -41,8 +41,8 @@ VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
 Encoding: UTF-8
-URL: https://github.com/YuLab-SMU/treeio (devel), https://docs.ropensci.org/treeio/ (docs), https://yulab-smu.top/treedata-book/ (book), https://doi.org/10.1093/molbev/msz240 (paper)
+URL: https://github.com/YuLab-SMU/treeio (devel), https://docs.ropensci.org/treeio/ (docs), https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/ (book), https://doi.org/10.1093/molbev/msz240 (paper)
 BugReports: https://github.com/YuLab-SMU/treeio/issues
 biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
     Alignment, MultipleSequenceAlignment, Phylogenetics
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1

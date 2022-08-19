@@ -1,3 +1,22 @@
+# treeio 1.21.1.992
+
++ update `as.treedata.pvclust` method (2022-08-15, Mon, #82)
++ add citation of the tree data book (2022-08-13, Sat)
+
+# treeio 1.21.1
+
++ `read.nextstrain.json()` function to parse json tree file from NextStrain (2022-08-03, Wed, #81)
+
+# treeio 1.20.0
+
++ Bioconductor 3.15 relase
+
+# treeio 1.19.2
+
++ update `offspring()` to work as `child()`. Actually they are using the same function with different default (`child(type = "children")` and `offspring(type="all")`) (2022-03-16, Wed)
++ update `child()` to support different types ("children", 'tips', 'internal', 'external', 'all') (2022-03-09, Wed, #75)
++ `write.beast` allows `treedata` object only contains `phylo` slot, then it will equivalent to `write.nexus` (2022-02-23, Wed)
+
 # treeio 1.19.1
 
 + bug fixed in `groupClade.treedata` to return a `treedata` object instead of `phylo` (2021-11-12, Fri)

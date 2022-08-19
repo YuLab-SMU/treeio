@@ -2,12 +2,12 @@
 check_edgelist <- function(edgelist) {
     if (dim(edgelist)[2] < 2)
         stop("input should be a matrix of edge list that holds the relationships in the first two columns")
-    if (length(unique(edgelist[[1]])) > length(unique(edgelist[[2]]))) {
-        children <- edgelist[[1]]
-        parents <- edgelist[[2]]
+    if (length(unique(edgelist[,1,drop=TRUE])) > length(unique(edgelist[,2,drop=TRUE]))) {
+        children <- edgelist[,1,drop=TRUE]
+        parents <- edgelist[,2,drop=TRUE]
     } else {
-        children <- edgelist[[2]]
-        parents <- edgelist[[1]]
+        children <- edgelist[,2,drop = TRUE]
+        parents <- edgelist[,1,drop = TRUE]
     }
     root1 <- unique(parents[!(parents %in% children)])
     root2 <- unique(parents[parents == children])

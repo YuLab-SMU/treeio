@@ -105,19 +105,19 @@ as.treedata.matrix <- as.treedata.tbl_df
 ##' @export
 ## contributed by Konstantinos Geles and modified by Guangchuang Yu
 as.treedata.pvclust <- function(tree, ...) {
-    phylo <- as.phylo.hclust_node(tree$hclust)
+    phylo <- as.phylo.hclust_node(tree$hclust, ...)
 
     ## tranforming the pvclust bootstraps values to tibble with key column:"label"
     tree_boots <- (round(tree$edges[, c("si","au", "bp")],2)*100) %>% 
         as_tibble() %>%
         mutate(label = paste0(seq_len(Nnode(phylo)),"_edge"))
 
-    full_join(phylo, tree_boots)
+    tidytree::left_join(phylo, tree_boots, by = 'label')
 }
 
 
 ## reference: https://stackoverflow.com/questions/22749634/how-to-append-bootstrapped-values-of-clusters-tree-nodes-in-newick-format-in
-as.phylo.hclust_node <- function(x){
+as.phylo.hclust_node <- function(x, hang = NULL){
     N <- dim(x$merge)[1]
     edge <- matrix(0L, 2 * N, 2)
     edge.length <- numeric(2 * N)
@@ -149,6 +149,12 @@ as.phylo.hclust_node <- function(x){
                 Nnode = N, 
                 node.label = paste(node.lab,"_edge",sep = "")) # export it to the final object 
     class(obj) <- "phylo"
-    stats::reorder(obj)
+    obj <- stats::reorder(obj)
+	if (!is.null(hang) && hang > 0){
+        tip2parent <- edge[match(seq_len(N+1), edge[,2]), 1]
+        tip.edge.len <- hang * max(x$height) - x$height[match(tip2parent, node)]
+        obj$edge.length <- obj$edge.length * 2
+		attr(obj, 'tip.edge.len') <- tip.edge.len
+    }
+	return(obj)
 }
-

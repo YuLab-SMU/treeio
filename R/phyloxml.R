@@ -46,7 +46,7 @@ single_tree <- function(i, phylogeny, file){
     dt <- dplyr::mutate(dt, label = as.character(dt$NodeID))
     dd <- as.phylo(edgedf, "branch_length")
     # check whether is rooted tree
-    if (rootflag == "false"){
+    if (any(rootflag == "false")){
         if (ape::is.rooted(dd)){
             dd <- ape::unroot(dd)
         }
