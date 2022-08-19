@@ -72,7 +72,7 @@ as.phylo.phylo4 <- function(x, ...) {
 ##' @method as.phylo pvclust
 ##' @export
 as.phylo.pvclust <- function(x, ...) {
-    as.phylo(x$hclust, ...)
+    as.phylo.hclust_node(x$hclust, ...)
 }
 
 ##' @method as.phylo ggtree
