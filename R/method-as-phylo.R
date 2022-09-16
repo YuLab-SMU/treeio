@@ -90,6 +90,65 @@ as.phylo.igraph <- function(x, ...) {
     as.phylo(edge)
 }
 
+##' @method as.phylo list
+##' @export
+as.phylo.list <- function(x, ...){
+    max.depth <- purrr::vec_depth(x)
+    while(max.depth > 1){
+        trash = try(silent = TRUE,
+                    expr = {
+                       x <- purrr::map_depth(x, max.depth - 1, paste_nested_list)
+                    }
+                )
+        max.depth <- max.depth - 1
+    }
+    x <- lapply(x, .paste0_)
+    x <- .paste1_(x)
+    x <- paste0(x, collapse=',')
+    x <- paste0('(', x, ');')
+    x <- ape::read.tree(text = x)
+    return(x)
+}
+
+paste_nested_list <- function(x){
+    if (length(x)>1){
+        if (length(names(x))!=0){
+            x <- paste0(paste0(x, names(x)), collapse=',')
+        }else{
+            x <- paste0("(", paste0(x, collapse=','), ")")
+        }
+    }else{
+        if (!(grepl("^\\(", x) && grepl("\\)$", x))){
+            x <- paste0('(', x, ')', names(x))
+        }else{
+            x <- paste0(x, names(x))
+        }
+    }
+    return(x)
+}
+
+.paste0_ <- function(x){
+    flag <- grepl("^\\(\\(", x) && grepl("\\)\\)$", x)
+    if (flag){
+        x <- gsub("^\\(\\(", "\\(", x)
+        x <- gsub('\\)\\)$', "\\)", x)
+    }else{
+        x <- paste0('(', x, ')', names(x), collapse=',')
+    }
+    return(x)
+}
+
+.paste1_ <- function(x){
+    index <- grepl('\\),', x)
+    if (any(index)){
+        x[index] <- paste0("(", x[index],")", names(x[index]))
+        x[!index] <- paste0(x[!index], names(x[!index]))
+    }else{
+        x <- paste0(x, names(x))
+    }
+    return(x)
+}
+
 ##' access phylo slot
 ##'
 ##'
