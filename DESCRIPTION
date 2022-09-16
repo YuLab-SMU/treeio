@@ -36,7 +36,8 @@ Suggests:
     tidyr,
     vroom,
     xml2,
-    yaml
+    yaml,
+    purrr
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0
