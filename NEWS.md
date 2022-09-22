@@ -1,3 +1,8 @@
+# treeio 1.21.2.001
+
++ `as.phylo()` method for `list` (2022-09-14, Wed, #86)
+
+
 # treeio 1.21.2
 
 + update `as.treedata.pvclust` method (2022-08-15, Mon, #82)
