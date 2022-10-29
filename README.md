@@ -11,7 +11,7 @@ developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repo
 [![codecov](https://codecov.io/gh/GuangchuangYu/treeio/branch/master/graph/badge.svg)](https://codecov.io/gh/GuangchuangYu/treeio)
 
 [![](https://img.shields.io/badge/release%20version-1.20.2-green.svg)](https://www.bioconductor.org/packages/treeio)
-[![](https://img.shields.io/badge/devel%20version-1.21.2.001-green.svg)](https://github.com/guangchuangyu/treeio)
+[![](https://img.shields.io/badge/devel%20version-1.21.3-green.svg)](https://github.com/guangchuangyu/treeio)
 [![Linux Travis Build
 Status](https://img.shields.io/travis/GuangchuangYu/treeio/master.svg?label=Linux)](https://travis-ci.org/GuangchuangYu/treeio)
 [![AppVeyor Build

@@ -1,4 +1,4 @@
-# treeio 1.21.2.001
+# treeio 1.21.3
 
 + `as.phylo()` method for `list` (2022-09-14, Wed, #86)
 
