@@ -15,9 +15,7 @@ html_preview: false
 library("badger")
 library("ypages")
 
-Biocpkg <- function (pkg) {
-    sprintf("[%s](http://bioconductor.org/packages/%s)", pkg, pkg)
-}
+library("yulab.utils")
 ```
 
 [![](https://badges.ropensci.org/179_status.svg)](https://github.com/ropensci/onboarding/issues/179)
