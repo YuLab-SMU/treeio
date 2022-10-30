@@ -1,5 +1,6 @@
 # treeio 1.21.3
 
++ update `as.phylo` and `as.treedata` for data.frame object (2022-10-31, Mon, #88)
 + `as.phylo()` method for `list` (2022-09-14, Wed, #86)
 
 
