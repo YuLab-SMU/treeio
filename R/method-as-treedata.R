@@ -55,33 +55,43 @@ as.treedata.ggtree <- function(tree, ...) {
 
 ##' @method as.treedata tbl_df
 ##' @export
-as.treedata.tbl_df <- function(tree, ...) {
+as.treedata.tbl_df <- function(tree, branch.length, label, ...) {
     edgelist <- as_tibble(tree)
-    edge <- check_edgelist(edgelist)
-    indx <- attr(edge, "indx")
-    if (!is.null(indx)){
-        edgelist <- edgelist[indx,]
-        attr(edge, "indx") <- NULL
-    }
-    phylo <- as.phylo.tbl_df(edgelist, ...)
+    branch.length <- rlang::enquo(branch.length)
+    label <- rlang::enquo(label)
+    if (nrow(unique(edgelist[, 1])) > nrow(unique(edgelist[,2]))){
+        edgelist %<>% dplyr::select(rev(seq_len(2)), seq_len(ncol(edgelist)))
+    }    
+    #edge <- check_edgelist(edgelist)
+    #indx <- attr(edge, "indx")
+    #if (!is.null(indx)){
+    #    edgelist <- edgelist[indx,]
+    #    attr(edge, "indx") <- NULL
+    #}
+    phylo <- as.phylo.tbl_df(edgelist, branch.length=!!branch.length, label=!!label, ...)
 
     res <- new("treedata",
                phylo = phylo)
 
     if (ncol(edgelist) >= 3) {
         d <- edgelist[,-c(1,2)]
-        length_var <- attr(phylo, "length_var")
+        #length_var <- attr(phylo, "length_var")
 
-        if (!is.null(length_var)) {
-            d <- d[, names(d) != length_var]
+        if (!rlang::quo_is_missing(branch.length)) {
+            d <- d[, names(d) != rlang::as_name(branch.length)]
             if (ncol(d) == 0) return(res)
+        }
+        if (!rlang::quo_is_missing(label)){
+            d <- d[,names(d) != rlang::as_name(label)]
+            if (ncol(d)==0) return(res)
+            children <- d %>% dplyr::pull(!!label) %>% as.character()
+        }else{
+            children <- edgelist %>% dplyr::pull(2) %>% as.character()
         }
 
         lab <- c(phylo$tip.label, phylo$node.label)
-
         #edge <- check_edgelist(edgelist)
-        children <- edge[,2]
-
+        #children <- edgelist[,2]
         d$node <- match(children, lab)
         res@data <- d
     }

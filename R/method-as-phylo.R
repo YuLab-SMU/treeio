@@ -7,29 +7,78 @@ ape::as.phylo
 ##' @importFrom tibble as_tibble
 ##' @importFrom dplyr mutate_if
 ##' @export
-as.phylo.tbl_df <- function(x, length, ...) {
+as.phylo.tbl_df <- function(x, branch.length, label, ...) {
     x <- as_tibble(x) %>% mutate_if(is.factor, as.character)
+    branch.length <- rlang::enquo(branch.length)
+    label <- rlang::enquo(label)
+    length_var <- root.edge <- edge.length <- NULL
+    tip.label <- node.label <- labels <- NULL
+    if (nrow(unique(x[, 1])) > nrow(unique(x[,2]))){
+        x %<>% dplyr::select(rev(seq_len(2)), seq_len(ncol(x)))
+    }
 
-    edge.length <- NULL
-    length_var <- quo_name(enexpr(length))
+    if (!rlang::quo_is_missing(branch.length)){
+        edge.length <- as.numeric(x %>% dplyr::pull(!!branch.length))
+        length_var <- rlang::as_name(branch.length)
+    }
 
-    if (length_var != "") {
-        edge.length <- as.numeric(x[[length_var]])
-    } else {
-        length_var <- NULL
+    if (!rlang::quo_is_missing(label)){
+        labels <- x %>% dplyr::pull(!!label) %>% as.character()
+    }else{
+        labels <- x %>% dplyr::pull(2) %>% as.character()
     }
 
     edge <- check_edgelist(x)
-    indx <- attr(edge, "indx")
-    if (!is.null(indx) && !is.null(edge.length)){
-        edge.length <- edge.length[indx]
-        attr(edge, "indx") <- NULL
-    }
-    phylo <- read.tree(text = .write.tree4(edge,
-                                           id_as_label=TRUE,
-                                           edge.length = edge.length),
-                       ...)
 
+    indx <- attr(edge, "indx")
+    if (is.null(indx)){
+        indx <- c(FALSE, rep(TRUE, nrow(edge)))
+        labels <- c(unique(edge[,1][!edge[,1] %in% edge[,2]]), labels)
+        if (!is.null(edge.length)){
+            edge.length <- c(0, edge.length)
+        }
+    }
+
+    isTip <- !edge[,2] %in% edge[,1]
+
+    index <- rep(NA, length(isTip))
+    index[isTip] <- seq_len(sum(isTip))
+    index[!isTip] <- seq(sum(isTip)+2, length(isTip)+1)
+    mapping <- data.frame(node=index, labelnames=edge[,2], isTip)
+    parent <- mapping[match(edge[,1], mapping$labelnames), "node"]
+    child <- mapping[match(edge[,2], mapping$labelnames), 'node']
+    edge <- as.matrix(cbind(parent, child))
+    colnames(edge) <- NULL
+    edge[is.na(edge)] <- sum(isTip) + 1
+
+    if (!is.null(edge.length)){
+        root.edge <- edge.length[!indx]
+        if (length(root.edge)==0 || is.na(root.edge)){
+            root.edge <- NULL
+        }
+        edge.length <- edge.length[indx]
+    }
+
+    if (!is.null(labels)){
+        root.label <- labels[!indx]
+        labels <- labels[indx]
+        tip.label <- labels[isTip]
+        node.label <- c(root.label, labels[!isTip])
+        if (all(is.na(node.label))){
+            node.label <- NULL
+        }
+    }
+
+    Nnode <- length(unique(as.vector(edge))) - sum(isTip)
+    phylo <- list(
+                  edge = edge,
+                  Nnode = Nnode,
+                  tip.label = tip.label,
+                  edge.length = edge.length
+             )
+    class(phylo) <- 'phylo'
+    phylo$root.edge <- root.edge
+    phylo$node.label <- node.label
     attr(phylo, "length_var") <- length_var
     return(phylo)
 }

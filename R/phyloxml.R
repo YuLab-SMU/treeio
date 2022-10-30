@@ -44,7 +44,11 @@ single_tree <- function(i, phylogeny, file){
         rmclumn <- c("parentID", "NodeID")
     }
     dt <- dplyr::mutate(dt, label = as.character(dt$NodeID))
-    dd <- as.phylo(edgedf, "branch_length")
+    if ('branch_length' %in% names(edgedf)){
+        dd <- as.phylo(edgedf, length = "branch_length")
+    }else{
+        dd <- as.phylo(edgedf)
+    }
     # check whether is rooted tree
     if (any(rootflag == "false")){
         if (ape::is.rooted(dd)){
