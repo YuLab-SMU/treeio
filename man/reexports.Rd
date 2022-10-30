@@ -16,6 +16,7 @@
 \alias{root}
 \alias{as.phylo}
 \alias{\%>\%}
+\alias{\%<>\%}
 \alias{get.fields}
 \alias{get.data}
 \alias{as.treedata}
@@ -40,7 +41,7 @@ below to see their documentation.
 
   \item{dplyr}{\code{\link[dplyr:mutate-joins]{full_join}}}
 
-  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:compound]{\%<>\%}}, \code{\link[magrittr:pipe]{\%>\%}}}
 
   \item{tibble}{\code{\link[tibble]{as_tibble}}}
 
