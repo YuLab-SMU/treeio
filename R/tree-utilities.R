@@ -96,3 +96,10 @@ getNodeName <- function(tr) {
     return(nodeName)
 }
 
+
+.extract_annotda.treedata <- getFromNamespace('.extract_annotda.treedata', 'tidytree')
+
+.internal_nest <- getFromNamespace('.internal_nest', 'tidytree')
+
+.update.td.join <- getFromNamespace('.update.td.join', 'tidytree')
+
