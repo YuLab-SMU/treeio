@@ -8,12 +8,12 @@ ape::as.phylo
 ##' @importFrom dplyr mutate_if
 ##' @export
 as.phylo.tbl_df <- function(x, branch.length, label, ...) {
-    x <- as_tibble(x) %>% mutate_if(is.factor, as.character)
+    x <- data.frame(x) %>% mutate_if(is.factor, as.character)
     branch.length <- rlang::enquo(branch.length)
     label <- rlang::enquo(label)
     length_var <- root.edge <- edge.length <- NULL
     tip.label <- node.label <- labels <- NULL
-    if (nrow(unique(x[, 1])) > nrow(unique(x[,2]))){
+    if (nrow(unique(x[, 1, drop=FALSE])) > nrow(unique(x[, 2, drop=FALSE]))){
         x %<>% dplyr::select(rev(seq_len(2)), seq_len(ncol(x)))
     }
 
