@@ -1,4 +1,14 @@
-# treeio
+# treeio 1.23.1
+
++ supports converting `dendro` object (output of `ggdendro::dendro_data()`) to a phylo object (2023-03-02, Thu, #95)
++ add `inner_join()` method to allows appending data of a variable
+  - use nested data structure and `tidyr::unnest` can extract and convert the data to a simple tibble data frame (#93)
++ update full_join method (#92)
+  - support standard dplyr UI of `by = c( 'columnX' = 'cloumnY')`
+  - drop data from external `data.frame` that are not presented in the tree
+  - use nested column if duplicated rows exist
+
+# treeio 1.22.0
 
 + Bioconductor RELEASE_3_16 (2022-11-02, Wed)
 
