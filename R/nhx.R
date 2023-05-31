@@ -68,6 +68,7 @@ read.nhx.stats <- function(treetext, phylo){
     stats <- stats[grep("\\[&&NHX", stats)]
     stats <- sub("[^\\[]*\\[", "", stats) %>%
              sub("^&&NHX:", "", .) %>%
+             sub("^&&NHX", "", .) %>%
              sub("].*", "", .) %>%
              gsub("\"", "", .)
     stats <- extract_nhx_feature(stats=stats)
@@ -121,7 +122,8 @@ convert_to_numeric <- function(dat){
     for (i in seq_len(ncol(dat))){
         x <- dat[, i]
         x <- x[!is.na(x)]
-        if (all(grepl("[-]?[0-9]+[.]?[0-9]*|[-]?[0-9]+[L]?|[-]?[0-9]+[.]?[0-9]*[eE][0-9]+", x))){
+        #if (all(grepl("[-]?[0-9]+[.]?[0-9]*|[-]?[0-9]+[L]?|[-]?[0-9]+[.]?[0-9]*[eE][0-9]+", x))){
+        if (is_numeric(x)){
             ## should be numerical varialbe
             dat[,i] <- as.numeric(dat[,i])
         }
