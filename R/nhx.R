@@ -67,7 +67,7 @@ read.nhx.stats <- function(treetext, phylo){
 
     stats <- stats[grep("\\[&&NHX", stats)]
     stats <- sub("[^\\[]*\\[", "", stats) %>%
-             sub("^&&NHX:", "", .) %>%
+             # sub("^&&NHX:", "", .) %>%
              sub("^&&NHX", "", .) %>%
              sub("].*", "", .) %>%
              gsub("\"", "", .)
