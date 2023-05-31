@@ -1,3 +1,11 @@
+# treeio 1.25.0.001
+
++ bug fixed in `read.nhx()` when metadata contains both character and numeric (e.g., AAA111) (2023-05-31, Wed, #97)
+
+# treeio 1.24.0
+
++ Bioconductor RELEASE_3_17 (2023-05-03, Wed)
+
 # treeio 1.23.1
 
 + supports converting `dendro` object (output of `ggdendro::dendro_data()`) to a phylo object (2023-03-02, Thu, #95)
