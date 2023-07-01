@@ -1,4 +1,4 @@
-# treeio 1.25.0.001
+# treeio 1.25.1
 
 + bug fixed in `read.nhx()` when metadata contains both character and numeric (e.g., AAA111) (2023-05-31, Wed, #97)
 
