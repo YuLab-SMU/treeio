@@ -1,37 +1,45 @@
 ##' @importFrom dplyr full_join
 ##' @importFrom tibble tibble
+##' @importFrom cli cli_warn
 ##' @method full_join treedata
 ##' @export
 full_join.treedata <- function(x, y, by = NULL,
-                               copy = FALSE, suffix = c(".x", ".y"), ...) {
+                               copy = FALSE, suffix = c("", ".y"), ...) {
 
-    by <- match.arg(by, c("node", "label"))
-    y <- as_tibble(y)
-    if (by == "label") {
-        ntip <- Ntip(x)
-        N <- Nnode2(x)
-        label <- rep(NA, N)
-        label[1:ntip] <- x@phylo[["tip.label"]]
-        if (!is.null(x@phylo$node.label)) {
-            label[(ntip+1):N] <- x@phylo$node.label
-        }
-        lab <- tibble(node = 1:N, label = label)
-        y <- full_join(lab, y, by = "label") %>% select(-.data$label)
+    dat <- .extract_annotda.treedata(x)
+    ornm <- colnames(dat)
+    msg <- c("The {.arg suffix} requires a character vector containing 2 different elements,",
+             "The first element must be \"\", and the second element must not be \"\",",
+             "it was set {.code suffix=c(\"\", \".y\")} automatically.")
+    if (all(nchar(suffix)!=0)){
+        cli::cli_warn(msg)
+        suffix[1] = ""
+    }
+    if (all(nchar(suffix)==0)){
+        cli::cli_warn(msg)
+        suffix[2] = ".y"
+    }
+    if (nchar(suffix[1])!=0 && nchar(suffix[2])==0){
+        cli::cli_warn(msg)
+        suffix <- rev(suffix[seq_len(2)])
+    }
+    
+    da <- dplyr::full_join(dat, y, by = by, copy = copy, suffix = suffix, ...)
+
+    da <- da[!is.na(da$node),]
+
+    if (any(duplicated(da$node))){
+        da %<>% .internal_nest(keepnm=ornm)
     }
 
-    if (nrow(x@extraInfo) == 0) {
-        x@extraInfo <- y
-    } else {
-        x@extraInfo <- full_join(x@extraInfo, y, by = "node", copy = copy, suffix = suffix)
-    }
-    return(x)
+    tr <- .update.td.join(td=x, da=da)
+    return(tr)    
 }
 
 ##' @method full_join phylo
 ##' @export
 full_join.phylo <- function(x, y, by = NULL,
-                            copy = FALSE, suffix = c(".x", ".y"), ...) {
-    full_join(as_tibble(x), y = y, by = by,
-              copy = copy, suffix = suffix, ...) %>%
-        as.treedata
+                            copy = FALSE, suffix = c("", ".y"), ...) {
+    full_join(as.treedata(x), y = y, by = by,
+              copy = copy, suffix = suffix, ...)
 }

@@ -8,12 +8,12 @@ ape::as.phylo
 ##' @importFrom dplyr mutate_if
 ##' @export
 as.phylo.tbl_df <- function(x, branch.length, label, ...) {
-    x <- as_tibble(x) %>% mutate_if(is.factor, as.character)
+    x <- data.frame(x) %>% mutate_if(is.factor, as.character)
     branch.length <- rlang::enquo(branch.length)
     label <- rlang::enquo(label)
     length_var <- root.edge <- edge.length <- NULL
     tip.label <- node.label <- labels <- NULL
-    if (nrow(unique(x[, 1])) > nrow(unique(x[,2]))){
+    if (nrow(unique(x[, 1, drop=FALSE])) > nrow(unique(x[, 2, drop=FALSE]))){
         x %<>% dplyr::select(rev(seq_len(2)), seq_len(ncol(x)))
     }
 
@@ -249,6 +249,65 @@ paste_nested_list <- function(x){
         x <- paste0(x, names(x))
     }
     return(x)
+}
+
+##' @method as.phylo dendro
+##' @export
+as.phylo.dendro <- function(x, ...){
+    seg.da <- x$segments
+    lab.da <- x$labels
+    inode.da <- seg.da[,c(1, 2)] |>
+                dplyr::bind_rows(
+                  seg.da[,c(3, 4)] |>
+                  dplyr::rename(x="xend", y="yend")
+                )
+    root.index <- apply(inode.da, 1,
+                    function(x)!any(x[[1]] == seg.da$xend & x[[2]] == seg.da$yend),
+                    simplify=F) |>
+              unlist(use.names=F)
+    root.da <- unique(inode.da[root.index, ])
+
+    inode.da <- inode.da[apply(inode.da, 1, 
+                               function(x)sum(x[[1]]==inode.da[,1] & x[[2]]==inode.da[,2])) != 2,]
+
+    dt <- unique(rbind(lab.da[,c(1, 2)], root.da, inode.da))
+    rownames(dt) <- seq_len(nrow(dt))
+
+    parent.id <- do.call('rbind',
+        apply(dt, 1, function(x)check.inode(x=x, y=dt, z=seg.da, root.id=root.da), simplify=FALSE)
+    )
+
+    edge <- cbind(as.numeric(parent.id), as.numeric(rownames(dt)))
+    edge <- edge[!edge[,1]==edge[,2],]
+
+    tr <- structure(
+            .Data = list(
+               edge = edge,
+               edge.length = abs(dt[edge[,2],2] - dt[edge[,1],2]),
+               tip.label = lab.da$label,
+               Nnode = nrow(dt) - nrow(lab.da)
+            ),
+            class = 'phylo'
+          )
+    
+    return(tr)
+}
+
+check.inode <- function(x, y, z, root.id){
+    check.root <- x[[1]] == root.id[[1]] && x[[2]] == root.id[[2]]
+    if (check.root){
+        nodeID <- rownames(y[x[[1]]==y[,1] & x[[2]]==y[,2], ])
+        return(nodeID)
+    }
+    tmp <- z[x[[1]]==z[,3] & x[[2]] == z[,4],]
+    x <- tmp[,c(1,2)]
+    nodeID <- rownames(y[x[[1]] == y[,1] & x[[2]] == y[,2],])
+    check.root <- x[[1]] == root.id[[1]] && x[[2]] == root.id[[2]]
+    if (length(nodeID)>0 || check.root){
+        return(nodeID)
+    }else{
+        check.inode(x=x, y=y, z=z, root.id=root.id)
+    }
 }
 
 ##' access phylo slot

@@ -1,7 +1,7 @@
 PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGSRC  := $(shell basename `pwd`)
-BIOCVER := RELEASE_3_15
+BIOCVER := RELEASE_3_17
 
 all: rd check clean
 
@@ -21,20 +21,23 @@ sticker:
 	rm Rplots.pdf
 
 build:
-	cd ..;\
-	R CMD build $(PKGSRC)
+	#cd ..;\
+	# R CMD build $(PKGSRC)
+	Rscript -e 'devtools::build()'
 
 build2:
 	cd ..;\
 	R CMD build --no-build-vignettes $(PKGSRC)
 
-install:
+install: build
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
-check: rd build
-	cd ..;\
-	Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz")'
+
+check: 
+	# cd ..;\
+	# Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz")'
+	Rscript -e 'devtools::check()'
 
 check2: rd build
 	cd ..;\
@@ -70,13 +73,13 @@ release:
 	
 update:
 	git fetch --all;\
-	git checkout master;\
-	git merge upstream/master;\
-	git merge origin/master
+	git checkout devel;\
+	git merge upstream/devel;\
+	git merge origin/devel
 
 push: update
-	git push upstream master;\
-	git push origin master
+	git push upstream devel;\
+	git push origin devel
 
 biocinit:
 	git remote add upstream git@git.bioconductor.org:packages/$(PKGNAME).git;\

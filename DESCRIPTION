@@ -1,6 +1,6 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.21.3
+Version: 1.25.1
 Authors@R: c(
     person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("ctb", "ths")),
@@ -22,7 +22,8 @@ Imports:
     rlang,
     tibble,
     tidytree (>= 0.3.9),
-    utils
+    utils,
+    cli
 Suggests:
     Biostrings,
     ggplot2,
@@ -46,4 +47,4 @@ URL: https://github.com/YuLab-SMU/treeio (devel), https://docs.ropensci.org/tree
 BugReports: https://github.com/YuLab-SMU/treeio/issues
 biocViews: Software, Annotation, Clustering, DataImport, DataRepresentation,
     Alignment, MultipleSequenceAlignment, Phylogenetics
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

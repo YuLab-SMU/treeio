@@ -29,6 +29,7 @@
 \alias{nodelab}
 \alias{MRCA}
 \alias{full_join}
+\alias{inner_join}
 \alias{as_tibble}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -39,7 +40,7 @@ below to see their documentation.
 \describe{
   \item{ape}{\code{\link[ape]{as.phylo}}, \code{\link[ape:root]{is.rooted}}, \code{\link[ape:summary.phylo]{Nnode}}, \code{\link[ape:summary.phylo]{Ntip}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{root}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{write.tree}}}
 
-  \item{dplyr}{\code{\link[dplyr:mutate-joins]{full_join}}}
+  \item{dplyr}{\code{\link[dplyr:mutate-joins]{full_join}}, \code{\link[dplyr:mutate-joins]{inner_join}}}
 
   \item{magrittr}{\code{\link[magrittr:compound]{\%<>\%}}, \code{\link[magrittr:pipe]{\%>\%}}}
 

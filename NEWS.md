@@ -1,5 +1,28 @@
+# treeio 1.25.1
+
++ bug fixed in `read.nhx()` when metadata contains both character and numeric (e.g., AAA111) (2023-05-31, Wed, #97)
+
+# treeio 1.24.0
+
++ Bioconductor RELEASE_3_17 (2023-05-03, Wed)
+
+# treeio 1.23.1
+
++ supports converting `dendro` object (output of `ggdendro::dendro_data()`) to a phylo object (2023-03-02, Thu, #95)
++ add `inner_join()` method to allows appending data of a variable
+  - use nested data structure and `tidyr::unnest` can extract and convert the data to a simple tibble data frame (#93)
++ update full_join method (#92)
+  - support standard dplyr UI of `by = c( 'columnX' = 'cloumnY')`
+  - drop data from external `data.frame` that are not presented in the tree
+  - use nested column if duplicated rows exist
+
+# treeio 1.22.0
+
++ Bioconductor RELEASE_3_16 (2022-11-02, Wed)
+
 # treeio 1.21.3
 
++ update `as.phylo` and `as.treedata` for data.frame object (2022-10-31, Mon, #88)
 + `as.phylo()` method for `list` (2022-09-14, Wed, #86)
 
 
