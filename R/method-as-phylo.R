@@ -136,7 +136,60 @@ as.phylo.ggtree <- function(x, ...) {
 ##' @export
 as.phylo.igraph <- function(x, ...) {
     edge <- igraph::get.edgelist(x)
-    as.phylo(edge)
+    trash <- try(
+       silent = TRUE,
+       expr = {
+          x <- as.phylo(edge)
+       }   
+    )
+
+    if (inherits(trash, 'try-error')){
+        trash <- try(
+            silent = TRUE,
+            expr = {
+               x <- .as.phylo.rev.edges(edge)
+            }
+        )
+    }
+
+    if (inherits(trash, 'try-error')){
+        trash <- try(
+            silent = TRUE,
+            expr = {
+               x <- .as.phylo.igraph.list(edge)
+            }
+        )
+    }
+
+    if (inherits(trash, 'try-error')){
+        stop("The igraph is a network not a tree graph.")    
+    }else{
+        return(x) 
+    }
+
+}
+
+.rev.edges <- function(x){
+    tips <- names(which(table(as.vector(x))==1))
+    index <- x[,1] %in% tips
+    if (sum(index)>0){
+        x[index,] <- t(apply(x[index,,drop=FALSE],1,rev))
+    }
+    return(x)
+}
+
+.as.phylo.rev.edges <- function(x){
+    x <- .rev.edges(x)
+    x <- as.phylo(x)
+    return(x)
+}
+
+.as.phylo.igraph.list <- function(x){
+    x <- .rev.edges(x)
+    x <- data.frame(x)
+    x <- split(x, x$X1) |> lapply(function(i)i$X2)
+    x <- as.phylo(x)
+    return(x)
 }
 
 ##' @method as.phylo list
