@@ -170,10 +170,11 @@ as.phylo.igraph <- function(x, ...) {
 }
 
 .rev.edges <- function(x){
-    tips <- names(which(table(as.vector(x))==1))
-    index <- x[,1] %in% tips
+    degree <- data.frame(table(as.vector(x)))
+    index <- t(apply(x,1,function(i)degree[match(as.vector(i),degree$Var1),'Freq']))
+    index <- (index[,2] - index[,1]) > 0
     if (sum(index)>0){
-        x[index,] <- t(apply(x[index,,drop=FALSE],1,rev))
+       x[index,] <- t(apply(x[index,,drop=FALSE],1,rev))
     }
     return(x)
 }
