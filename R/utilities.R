@@ -11,7 +11,7 @@ check_edgelist <- function(edgelist) {
     }
     root1 <- unique(parents[!(parents %in% children)])
     root2 <- unique(parents[parents == children])
-    if (length(root1) != 1 && length(root2) != 1)
+    if ((length(root1) != 1 && length(root2) != 1 )|| any(duplicated(children)))
         stop("Cannot find root. network is not a tree!")
     if (length(root1) != 1 && length(root2) == 1){
         indx <- parents != children
