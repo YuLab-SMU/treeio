@@ -12,4 +12,19 @@ context("as.phylo")
 ##     expect_false(any(grepl("FATAL", msg)))
 ## })
 
+test_that("as.phylo for tree igraph",{
+  tr <- rtree(10)
+  g <- ape::as.igraph.phylo(tr)
+  tr2 <- as.phylo(g)
+  expect_true(is(tr2, 'phylo'))
+  expect_true(all(tr$tip.label %in% tr2$tip.label))
+  expect_equal(tr$Nnode, tr2$Nnode)
+})
+
+
+test_that("as.phylo for network igraph",{
+  g <- igraph::sample_gnp(10, 3/10)
+  tr <- as.phylo(g)
+  expect_true(is(tr, "phylo"))  
+})
 
