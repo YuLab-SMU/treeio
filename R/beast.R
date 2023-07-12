@@ -48,7 +48,11 @@ read.mrbayes <- read.beast
 ##' @export
 ##' @author Bradley R Jones
 ##' @examples
-##' tree <- read.beast.newick(textConnection('(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'))
+##' tr <- read.beast.newick(
+##'         textConnection(
+##'           '(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);'
+##'         )
+##' )
 read.beast.newick <- function(file) {
     text <- readLines(file)
     treetext <- text
