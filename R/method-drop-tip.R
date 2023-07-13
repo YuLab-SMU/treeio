@@ -69,7 +69,7 @@ setMethod("drop.tip", signature(object="phylo"),
 ##' @export
 setMethod("keep.tip", signature(object = 'treedata'),
           function(object, tip, ...){
-     .internal.drop.tip(object, tip, ...)  
+     .internal.keep.tip(object, tip, ...)  
   }
 )
 
@@ -77,10 +77,10 @@ setMethod("keep.tip", signature(object = 'treedata'),
 ##' @export
 setMethod('keep.tip', signature(object = 'phylo'),
   function(object, tip, ...){
-    .internal.drop.tip(object, tip, ...)
+    .internal.keep.tip(object, tip, ...)
 })
 
-.internal.drop.tip <- function(object, tip, ...){
+.internal.keep.tip <- function(object, tip, ...){
     if (inherits(object, 'treedata')){
        tip.label <- object@phylo$tip.label
     }

@@ -1,3 +1,7 @@
+# treeio 1.25.1.001
+
++ `keep.tip()` method to remove all tips excepts the selected tips (2023-07-13, Thu)
+
 # treeio 1.25.1
 
 + bug fixed in `read.nhx()` when metadata contains both character and numeric (e.g., AAA111) (2023-05-31, Wed, #97)
