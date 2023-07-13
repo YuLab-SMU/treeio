@@ -1,3 +1,14 @@
+<!--
+
+# TODO LIST
+
++ [ ] improve read.phyloxml
++ [ ] re-write read.beast to optimize parsing large file
+
+
+-->
+
+
 # treeio 1.25.1.001
 
 + `keep.tip()` method to remove all tips excepts the selected tips (2023-07-13, Thu)
