@@ -153,15 +153,6 @@ as.phylo.igraph <- function(x, ...) {
     }
 
     if (inherits(trash, 'try-error')){
-        trash <- try(
-            silent = TRUE,
-            expr = {
-               x <- .as.phylo.igraph.list(edge)
-            }
-        )
-    }
-
-    if (inherits(trash, 'try-error')){
         stop("The igraph is a network not a tree graph.")    
     }else{
         return(x) 
@@ -169,29 +160,29 @@ as.phylo.igraph <- function(x, ...) {
 
 }
 
-.rev.edges <- function(x){
-    degree <- data.frame(table(as.vector(x)))
-    index <- t(apply(x,1,function(i)degree[match(as.vector(i),degree$Var1),'Freq']))
-    index <- (index[,2] - index[,1]) > 0
-    if (sum(index)>0){
-       x[index,] <- t(apply(x[index,,drop=FALSE],1,rev))
+.adjust.tree.network.edge <- function(x){
+    tip.nodes <- names(which(table(x) == 1))
+    if (.check.no.tree.network(x, tip.nodes)){
+        cli::cli_abort("The edge is not a edge of tree.")
+    }
+    x <- .rev.edge(x, tip.nodes, index = 1)
+    internal.nodes <- names(which(table(x[,2])>1))
+    while(length(internal.nodes) > 0){
+        x <- .rev.edge(x, internal.nodes, index = 2)
+        internal.nodes <- names(which(table(x[,2])>1))
     }
     return(x)
 }
 
 .as.phylo.rev.edges <- function(x){
-    x <- .rev.edges(x)
+    x <- unique(x)
+    if (any(duplicated(x[,2]))){
+        x <- .adjust.tree.network.edge(x)
+    }
     x <- as.phylo(x)
     return(x)
 }
 
-.as.phylo.igraph.list <- function(x){
-    x <- .rev.edges(x)
-    x <- data.frame(x)
-    x <- split(x, x$X1) |> lapply(function(i)i$X2)
-    x <- as.phylo(x)
-    return(x)
-}
 
 ##' @method as.phylo list
 ##' @export
