@@ -1,15 +1,12 @@
-##' drop.tip method
-##'
-##'
 ##' @rdname drop.tip-methods
 ##' @aliases drop.tip,treedata
 ##' @exportMethod drop.tip
 ##' @author Casey Dunn \url{http://dunnlab.org}  and Guangchuang Yu \url{https://guangchuangyu.github.io}
-##' @usage drop.tip(object, tip, ...)
 ##' @examples
 ##' nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 ##' nhx <- read.nhx(nhxfile)
-##' drop.tip(nhx, c("ADH2", "ADH1"))
+##' tr1 <- drop.tip(nhx, c("ADH2", "ADH1"))
+##' tr2 <- keep.tip(nhx, c("ADH2", "ADH1"))
 setMethod("drop.tip", signature(object="treedata"),
           function(object, tip, ...) {
               drop.tip.treedata(object, tip, ...)
@@ -61,10 +58,53 @@ drop.tip.treedata <- function(object, tip, ...){
 ##' drop.tip for phylo object is a wrapper method of ape::drop.tip
 ##' from the ape package. The documentation you should
 ##' read for the drop.tip function can be found here: \link[ape]{drop.tip}
-##'
 ##' @seealso
 ##' \link[ape]{drop.tip}
 setMethod("drop.tip", signature(object="phylo"),
           function(object, tip, ...){
               ape::drop.tip(object, tip, ...)
           })
+
+##' @rdname drop.tip-methods
+##' @export
+setMethod("keep.tip", signature(object = 'treedata'),
+          function(object, tip, ...){
+     .internal.drop.tip(object, tip, ...)  
+  }
+)
+
+##' @rdname drop.tip-methods 
+##' @export
+setMethod('keep.tip', signature(object = 'phylo'),
+  function(object, tip, ...){
+    .internal.drop.tip(object, tip, ...)
+})
+
+.internal.drop.tip <- function(object, tip, ...){
+    if (inherits(object, 'treedata')){
+       tip.label <- object@phylo$tip.label
+    }
+    if (inherits(object, 'phylo')){
+       tip.label <- object$tip.label
+    }
+    Ntip <- length(tip.label)
+    if (is.character(tip)) {
+        idx <- match(tip, tip.label)
+        if (anyNA(idx)) {
+            cli::cli_abort(
+              "unmatched {.var tip} label/labels was/were found in the {.class object} object.",
+              "Considering remove the it/them: ",
+              paste(tip[is.na(idx)], collapse = " ")
+            )
+        }
+        tip <- idx
+    }else{
+        out.of.range <- tip > Ntip
+        if (any(out.of.range)) {
+            cli::cli_warn("some tip numbers were larger than the number of tips: they were ignored")
+            tip <- tip[!out.of.range]
+        }
+    }
+    toDrop <- setdiff(1:Ntip, tip)
+    drop.tip(object, toDrop, ...)
+}

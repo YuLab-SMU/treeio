@@ -3,10 +3,13 @@
 \docType{methods}
 \name{drop.tip}
 \alias{drop.tip}
+\alias{keep.tip}
 \alias{drop.tip,treedata-method}
 \alias{drop.tip,treedata}
 \alias{drop.tip,phylo-method}
 \alias{drop.tip,phylo}
+\alias{keep.tip,treedata-method}
+\alias{keep.tip,phylo-method}
 \title{drop.tip method}
 \source{
 drop.tip for phylo object is a wrapper method of ape::drop.tip
@@ -16,9 +19,15 @@ read for the drop.tip function can be found here: \link[ape]{drop.tip}
 \usage{
 drop.tip(object, tip, ...)
 
-drop.tip(object, tip, ...)
+keep.tip(object, tip, ...)
+
+\S4method{drop.tip}{treedata}(object, tip, ...)
 
 \S4method{drop.tip}{phylo}(object, tip, ...)
+
+\S4method{keep.tip}{treedata}(object, tip, ...)
+
+\S4method{keep.tip}{phylo}(object, tip, ...)
 }
 \arguments{
 \item{object}{A treedata or phylo object}
@@ -32,13 +41,12 @@ updated object
 }
 \description{
 drop.tip method
-
-drop.tip method
 }
 \examples{
 nhxfile <- system.file("extdata/NHX", "ADH.nhx", package="treeio")
 nhx <- read.nhx(nhxfile)
-drop.tip(nhx, c("ADH2", "ADH1"))
+tr1 <- drop.tip(nhx, c("ADH2", "ADH1"))
+tr2 <- keep.tip(nhx, c("ADH2", "ADH1"))
 }
 \seealso{
 \link[ape]{drop.tip}

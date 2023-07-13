@@ -61,4 +61,10 @@ setGeneric (
         standardGeneric("drop.tip")
 )
 
-
+##' @rdname drop.tip-methods
+##' @export
+setGeneric(
+    name = 'keep.tip',
+    def = function(object, tip, ...)
+        standardGeneric('keep.tip')
+)
