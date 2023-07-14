@@ -11,7 +11,8 @@
 
 # treeio 1.25.1.001
 
-+ `keep.tip()` method to remove all tips excepts the selected tips (2023-07-13, Thu)
++ `keep.tip()` method to remove all tips excepts the selected tips (2023-07-13, Thu, #100)
++ better support of converting 'igraph' object to 'phylo' object (2023-07-12, Wed, #99)
 
 # treeio 1.25.1
 
