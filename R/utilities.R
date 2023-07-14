@@ -153,3 +153,14 @@ build_new_tree <- function(tree, node2old_new_lab){
     tree <- treeda[order(treeda$node),] %>% as.phylo() 
     return (tree)
 }
+
+.rev.edge <- function(x, nodes, index){
+    ind <- x[,index] %in% nodes
+    x[ind,] <- t(apply(x[ind,],1,rev))
+    return(x)
+}
+
+.check.no.tree.network <- function(x, nodes){
+    is.tree <- length(table(x)) - nrow(x) != 1
+    is.tree || any(((x[,1] %in% nodes) + (x[,2] %in% nodes)) ==2)
+}
