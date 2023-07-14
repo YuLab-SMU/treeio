@@ -30,5 +30,5 @@ find.spt.igraph <- function(x, from, to, ...){
     if (any(duplicated(edge[,2]))){
         edge <- .adjust.tree.network.edge(edge)
     }
-    treeio::as.phylo(edge)
+    as.phylo(edge)
 }
