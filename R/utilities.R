@@ -161,5 +161,6 @@ build_new_tree <- function(tree, node2old_new_lab){
 }
 
 .check.no.tree.network <- function(x, nodes){
-    any(((x[,1] %in% nodes) + (x[,2] %in% nodes)) ==2)
+    is.tree <- length(table(x)) - nrow(x) != 1
+    is.tree || any(((x[,1] %in% nodes) + (x[,2] %in% nodes)) ==2)
 }

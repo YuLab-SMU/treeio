@@ -27,6 +27,9 @@ find.spt.igraph <- function(x, from, to, ...){
         unlist() |>
         unique()
     edge <- edge[ind,] |> unique()
+    if (nrow(edge) <=1){
+        cli::cli_abort("the shortest path tree can not be found!")
+    }
     if (any(duplicated(edge[,2]))){
         edge <- .adjust.tree.network.edge(edge)
     }

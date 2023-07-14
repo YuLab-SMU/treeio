@@ -135,6 +135,9 @@ as.phylo.ggtree <- function(x, ...) {
 ##' @method as.phylo igraph
 ##' @export
 as.phylo.igraph <- function(x, ...) {
+    if (!igraph::is_tree(x)){
+        cli::cli_abort("The graph is not a root graph.")
+    }
     edge <- igraph::get.edgelist(x)
     trash <- try(
        silent = TRUE,
@@ -153,7 +156,7 @@ as.phylo.igraph <- function(x, ...) {
     }
 
     if (inherits(trash, 'try-error')){
-        stop("The igraph is a network not a tree graph.")    
+        cli::cli_abort("The igraph is a network not a tree graph.")    
     }else{
         return(x) 
     }
