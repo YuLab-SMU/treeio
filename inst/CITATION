@@ -1,7 +1,7 @@
 citHeader("To cite treeio in publications use:")
 
-citEntry(
-    entry  = "book",
+bibentry(
+    bibtype  = "book",
     title = "Data Integration, Manipulation and Visualization of Phylogenetic Treess",
     author = person("Guangchuang", "Yu"),
 	publisher = "Chapman and Hall/{CRC}",
@@ -13,24 +13,24 @@ citEntry(
                         "Chapman and Hall/CRC.")   
 )
 
-citEntry(
-    entry  = "article",
+bibentry(
+    bibtype  = "article",
     title  = "treeio: an R package for phylogenetic tree input and output with richly annotated and associated data.",
     author = personList(
-        as.person("Li-Gen Wang"),
-        as.person("Tommy Tsan-Yuk Lam"),
-        as.person("Shuangbin Xu"),
-        as.person("Zehan Dai"),
-        as.person("Lang Zhou"),
-        as.person("Tingze Feng"),
-        as.person("Pingfan Guo"),
-        as.person("Casey W. Dunn"),
-        as.person("Bradley R. Jones"),
-        as.person("Tyler Bradley"),
-        as.person("Huachen Zhu"),
-        as.person("Yi Guan"),
-        as.person("Yong Jiang"),
-        as.person("Guangchuang Yu")
+        person("Li-Gen", "Wang"),
+        person("Tommy Tsan-Yuk Lam"),
+        person("Shuangbin", "Xu"),
+        person("Zehan", "Dai"),
+        person("Lang", "Zhou"),
+        person("Tingze", "Feng"),
+        person("Pingfan", "Guo"),
+        person("Casey W. Dunn"),
+        person("Bradley R. Jones"),
+        person("Tyler Bradley"),
+        person("Huachen", "Zhu"),
+        person("Yi", "Guan"),
+        person("Yong", "Jiang"),
+        person("Guangchuang", "Yu")
         ),
     year    = "2020",
     journal = "Molecular Biology and Evolution",

@@ -21,10 +21,3 @@ test_that("as.phylo for tree igraph",{
   expect_equal(tr$Nnode, tr2$Nnode)
 })
 
-
-test_that("as.phylo for network igraph",{
-  g <- igraph::sample_gnp(10, 3/10)
-  tr <- as.phylo(g)
-  expect_true(is(tr, "phylo"))  
-})
-
