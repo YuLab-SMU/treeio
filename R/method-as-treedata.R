@@ -56,44 +56,51 @@ as.treedata.ggtree <- function(tree, ...) {
 ##' @method as.treedata tbl_df
 ##' @export
 as.treedata.tbl_df <- function(tree, branch.length, label, ...) {
-    edgelist <- as_tibble(tree)
+    edgelist <- as_tibble(data.frame(tree))
     branch.length <- rlang::enquo(branch.length)
     label <- rlang::enquo(label)
     if (nrow(unique(edgelist[, 1])) > nrow(unique(edgelist[,2]))){
-        edgelist %<>% dplyr::select(rev(seq_len(2)), seq_len(ncol(edgelist)))
+        edgelist %<>% dplyr::select(rev(seq_len(2)), setdiff(seq_len(ncol(edgelist)), c(1,2)))
     }    
-    #edge <- check_edgelist(edgelist)
-    #indx <- attr(edge, "indx")
-    #if (!is.null(indx)){
-    #    edgelist <- edgelist[indx,]
-    #    attr(edge, "indx") <- NULL
-    #}
-    phylo <- as.phylo.tbl_df(edgelist, branch.length=!!branch.length, label=!!label, ...)
+    edgelist$`.NAME` <- paste0('name', seq_len(nrow(edgelist)))
+    phylo <- as.phylo.tbl_df(edgelist, branch.length=!!branch.length, label=".NAME", ...)
 
     res <- new("treedata",
                phylo = phylo)
 
-    if (ncol(edgelist) >= 3) {
+    if (ncol(edgelist) >= 4) {
         d <- edgelist[,-c(1,2)]
         #length_var <- attr(phylo, "length_var")
 
         if (!rlang::quo_is_missing(branch.length)) {
             d <- d[, names(d) != rlang::as_name(branch.length)]
-            if (ncol(d) == 0) return(res)
+            if (ncol(d) == 1 && colnames(d)=='.NAME'){
+                res@phylo$tip.label <- edgelist[match(res@phylo$tip.label,edgelist$`.NAME`),2,drop=TRUE]
+                res@phylo$node.label <- edgelist[match(res@phylo$node.label,edgelist$`.NAME`),2,drop=TRUE]
+                return(res)
+            }
         }
         if (!rlang::quo_is_missing(label)){
             d <- d[,names(d) != rlang::as_name(label)]
-            if (ncol(d)==0) return(res)
-            children <- d %>% dplyr::pull(!!label) %>% as.character()
+            if (ncol(d)== 1 && colnames(d)=='.NAME'){
+                res@phylo$tip.label <- edgelist[match(res@phylo$tip.label,edgelist$`.NAME`),rlang::as_name(label),drop=TRUE]
+                res@phylo$node.label <- edgelist[match(res@phylo$node.label,edgelist$`.NAME`),rlang::as_name(label),drop=TRUE]
+                return(res)
+            }
+            res <- dplyr::left_join(res, d, by = c('label' = '.NAME'))
+            res@phylo$tip.label <- edgelist[match(res@phylo$tip.label,edgelist$`.NAME`),rlang::as_name(label),drop=TRUE]
+            nodelab <- edgelist[match(res@phylo$node.label,edgelist$`.NAME`),rlang::as_name(label),drop=TRUE]
+            if (all(is.na(nodelab))){
+                res@phylo$node.label <- NULL
+            }else{
+                res@phylo$node.label <- nodelab
+            }
         }else{
-            children <- edgelist %>% dplyr::pull(2) %>% as.character()
+            res <- dplyr::left_join(res, d, by=c('label'='.NAME'))
+            res@phylo$tip.label <- edgelist[match(res@phylo$tip.label,edgelist$`.NAME`),2,drop=TRUE]
+            res@phylo$node.label <- edgelist[match(res@phylo$node.label,edgelist$`.NAME`),2,drop=TRUE]
         }
-
-        lab <- c(phylo$tip.label, phylo$node.label)
-        #edge <- check_edgelist(edgelist)
-        #children <- edgelist[,2]
-        d$node <- match(children, lab)
-        res@data <- d
+        return(res)
     }
 
     return(res)
