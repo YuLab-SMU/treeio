@@ -9,8 +9,11 @@
 -->
 
 
-# treeio 1.25.1.001
+# treeio 1.25.1.002
 
++ `spt` method to find shortest path tree (2023-07-14, Fri, #102)
++ update old-style 'CITATION' from `citEntry()` to `bibentry()` (2023-07-14, Fri, #102)
++ bug fixed in `as.treedata()` for `tbl_df` object (2023-07-14, Fri, #101)
 + `keep.tip()` method to remove all tips excepts the selected tips (2023-07-13, Thu, #100)
 + better support of converting 'igraph' object to 'phylo' object (2023-07-12, Wed, #99)
 

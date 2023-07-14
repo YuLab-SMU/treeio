@@ -1,6 +1,6 @@
-##' @name find.spt
-##' @rdname find.spt-methods
-##' @title find.spt method
+##' @name spt
+##' @rdname spt-methods
+##' @title spt method
 ##' @param x a igraph object
 ##' @param from a specific node of network.
 ##' @param to other nodes of the network, length of it must 
@@ -8,18 +8,18 @@
 ##' @param ... additional parameters
 ##' @return phylo object
 ##' @export
-find.spt <- function(x, from, to, ...){
-    UseMethod('find.spt')
+spt <- function(x, from, to, ...){
+    UseMethod('spt')
 }
 
 
-#' @method find.spt igraph
+#' @method spt igraph
 #' @export
-find.spt.igraph <- function(x, from, to, ...){
-    .internal.find.spt(x, from, to, ...)
+spt.igraph <- function(x, from, to, ...){
+    .internal.spt(x, from, to, ...)
 }
 
-.internal.find.spt <- function(x, from, to, ...){
+.internal.spt <- function(x, from, to, ...){
     edge <- igraph::get.edgelist(x)
     res <- igraph::shortest_paths(x, from, to, output = 'epath', ...)
     ind <- res$epath |>
