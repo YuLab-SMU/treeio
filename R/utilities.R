@@ -126,13 +126,15 @@ has.slot <- function(object, slotName) {
 }
 
 build_new_labels <- function(tree){
-    node2label_old <- tree %>% as_tibble() %>% dplyr::select(c("node", "label")) 
+    node2label_old <- tree %>% as_tibble() %>% dplyr::select(c("node", "label")) %>%
+      suppressMessages() 
     if (inherits(tree, "treedata")){
         tree <- tree@phylo
     }
     tree$tip.label <- paste0("t", seq_len(Ntip(tree)))
     tree$node.label <- paste0("n", seq_len(Nnode(tree)))
-    node2label_new <- tree %>% as_tibble() %>% dplyr::select(c("node", "label")) 
+    node2label_new <- tree %>% as_tibble() %>% dplyr::select(c("node", "label")) %>%
+       suppressMessages() 
     old_and_new <- node2label_old %>% 
                    dplyr::inner_join(node2label_new, by="node") %>%
                    dplyr::rename(old="label.x", new="label.y") 
@@ -143,9 +145,11 @@ build_new_tree <- function(tree, node2old_new_lab){
     # replace new label with old label
     treeda <- tree %>% as_tibble()
     treeda1 <- treeda %>%
-               dplyr::filter(.data$label %in% node2old_new_lab$new)
+               dplyr::filter(.data$label %in% node2old_new_lab$new) %>%
+               suppressWarnings()
     treeda2 <- treeda %>%
-               dplyr::filter(!(.data$label %in% node2old_new_lab$new))
+               dplyr::filter(!(.data$label %in% node2old_new_lab$new)) %>%
+               suppressWarnings()
     # original label
     treeda1$label <- node2old_new_lab[match(treeda1$label, node2old_new_lab$new), "old"] %>%
                      unlist(use.names=FALSE)
