@@ -64,3 +64,18 @@ dplyr::inner_join
 ##' @export
 tibble::as_tibble
 
+##' @importFrom tibble tibble
+##' @export
+tibble::tibble
+
+##' @importFrom tidytree as.phylo
+##' @export
+tidytree::as.phylo
+
+##' @importFrom rlang .data
+##' @export
+rlang::.data
+
+##' @importFrom tidytree drop.tip
+##' @export
+tidytree::drop.tip

@@ -1,6 +1,7 @@
 context("accessor")
 
 library(treeio)
+library(tidytree)
 
 jp <- system.file("extdata", "sample.jplace", package="treeio")
 x <- read.jplace(jp)
@@ -16,7 +17,7 @@ test_that("access placements slot for jplace object", {
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
 mlc <- read.codeml_mlc(mlcfile)
 
-tree <- read.tree(text = get.treetext(mlc))
+tree <- read.tree(text = tidytree::get.treetext(mlc))
 
 test_that("access treetext slot for treedata object", {
     expect_true(ape::all.equal.phylo(mlc@phylo, tree, use.tip.label=FALSE))

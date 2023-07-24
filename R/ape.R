@@ -35,33 +35,3 @@ ape::is.rooted
 ##' @export
 ape::root
 
-##' @method Ntip treedata
-##' @importFrom ape Ntip
-##' @export
-Ntip.treedata <- function(phy) {
-    Ntip(as.phylo(phy))
-}
-
-##' number of nodes
-##'
-##'
-##' @title Nnode
-##' @param phy treedata object
-##' @param internal.only whether only count internal nodes
-##' @param ... additional parameters
-##' @return number of nodes
-##' @method Nnode treedata
-##' @export
-##' @examples
-##' Nnode(rtree(30))
-##' @author Guangchuang Yu
-Nnode.treedata <- function(phy, internal.only=TRUE, ...) {
-    Nnode(as.phylo(phy), internal.only = internal.only, ...)
-}
-
-##' @method is.rooted treedata
-##' @importFrom ape is.rooted
-##' @export
-is.rooted.treedata <- function(phy) {
-    is.rooted(as.phylo(phy))
-}

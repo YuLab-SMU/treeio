@@ -1,5 +1,7 @@
 context('nhx')
 
+library(tidytree)
+
 ## Some sample NHX tree strings
 test_nhx_text <- readLines(system.file("extdata/NHX", "ADH.nhx",
                                        package="treeio"))
