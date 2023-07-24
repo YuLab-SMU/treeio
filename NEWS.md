@@ -9,7 +9,7 @@
 -->
 
 
-# treeio 1.25.1.002
+# treeio 1.25.2
 
 + `spt` method to find shortest path tree (2023-07-14, Fri, #102)
 + update old-style 'CITATION' from `citEntry()` to `bibentry()` (2023-07-14, Fri, #102)
