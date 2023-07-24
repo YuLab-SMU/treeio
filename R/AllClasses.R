@@ -20,7 +20,7 @@ setClass("jplace",
              placements = "tbl_df"
          ),
          prototype = prototype(
-             placements = tibble()
+             placements = tibble::tibble()
          ),
          contains = "treedata"
          )
