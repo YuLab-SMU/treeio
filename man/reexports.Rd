@@ -33,6 +33,7 @@
 \alias{as.phylo}
 \alias{.data}
 \alias{drop.tip}
+\alias{isTip}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -50,6 +51,6 @@ below to see their documentation.
 
   \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}}
 
-  \item{tidytree}{\code{\link[tidytree]{ancestor}}, \code{\link[tidytree:reexports]{as.phylo}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree:drop.tip-methods]{drop.tip}}, \code{\link[tidytree:get.data-methods]{get.data}}, \code{\link[tidytree:get.fields-methods]{get.fields}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
+  \item{tidytree}{\code{\link[tidytree]{ancestor}}, \code{\link[tidytree:reexports]{as.phylo}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree:drop.tip-methods]{drop.tip}}, \code{\link[tidytree:get.data-methods]{get.data}}, \code{\link[tidytree:get.fields-methods]{get.fields}}, \code{\link[tidytree]{isTip}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
 }}
 

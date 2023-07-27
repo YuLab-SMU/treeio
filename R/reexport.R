@@ -6,6 +6,9 @@ magrittr::`%>%`
 ##' @export
 magrittr::`%<>%`
 
+##' @import tidytree
+NULL
+
 ##' @importFrom tidytree get.fields
 ##' @export
 tidytree::get.fields
@@ -13,11 +16,11 @@ tidytree::get.fields
 ##' @importFrom tidytree get.data
 ##' @export
 tidytree::get.data
-
+ 
 ##' @importFrom tidytree as.treedata
 ##' @export
 tidytree::as.treedata
-
+ 
 ##' @importFrom tidytree ancestor
 ##' @export
 tidytree::ancestor
@@ -79,3 +82,7 @@ rlang::.data
 ##' @importFrom tidytree drop.tip
 ##' @export
 tidytree::drop.tip
+
+##' @importFrom tidytree isTip
+##' @export
+tidytree::isTip

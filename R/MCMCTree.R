@@ -44,7 +44,7 @@ add.branch.time.mcmctree <- function(obj, force.ultrametric=FALSE, ...){
     flag_ultrametric <- is.ultrametric(obj@phylo, option=2) || is.ultrametric(obj@phylo)
     if (force.ultrametric && flag_ultrametric){
         message("This tree is not ultrametric, and you has set force.ultrametric to TRUE, so the tree will be converted to ultrametric automatically!")
-        obj <- tidytree::as.ultrametric(obj)
+        obj <- as.ultrametric(obj)
     }
     if (flag_ultrametric){
         xx <- branching.times(obj@phylo)

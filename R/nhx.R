@@ -4,6 +4,7 @@
 ##' @title read.nhx
 ##' @param file nhx file
 ##' @return nhx object
+##' @import tidytree
 ##' @importFrom tibble as_tibble
 ##' @export
 ##' @examples
