@@ -121,7 +121,7 @@ as.phylo.matrix <- as.phylo.tbl_df
 ##' @method as.phylo pvclust
 ##' @export
 as.phylo.pvclust <- function(x, ...) {
-    as.phylo.hclust_node(x$hclust, ...)
+    as.phylo.hclust2(x$hclust, ...)
 }
 
 ##' @method as.phylo ggtree
@@ -258,9 +258,11 @@ check_edgelist <- function(edgelist) {
         parents <- parents[indx]
         children <- children[indx]
         edge <- matrix(c(parents, children), ncol=2)
+        edge <- .adjust.tree.network.edge(edge)
         attr(edge, "indx") <- indx
     }else{
         edge <- matrix(c(parents, children), ncol=2)
+        edge <- .adjust.tree.network.edge(edge)
     }
     return (edge)
 }

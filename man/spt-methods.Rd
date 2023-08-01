@@ -4,7 +4,7 @@
 \alias{spt}
 \title{spt method}
 \usage{
-spt(x, from, to, ...)
+spt(x, from, to, weights = NULL, ...)
 }
 \arguments{
 \item{x}{a igraph object}
@@ -14,6 +14,13 @@ spt(x, from, to, ...)
 \item{to}{other nodes of the network, length of it must 
 be larger than 2.}
 
+\item{weights}{a numeric vector giving edge weights or a character.
+If this is \code{NULL} and the graph has a \code{weight} edge attribute, 
+then the attribute is used. If this is \code{NA} then no weights 
+are used even if the graph has a \code{weight} attribute. If this is a
+character, the graph has the edge attribute which is numeric, then it 
+will be used, default is \code{NULL}.}
+
 \item{...}{additional parameters}
 }
 \value{
@@ -21,4 +28,14 @@ phylo object
 }
 \description{
 spt method
+}
+\examples{
+library(igraph)
+set.seed(123)
+g <- igraph::sample_gnp(100, .1) \%>\% 
+     set_edge_attr(name='weight', value=abs(rnorm(E(.),3)))
+tr1 <- spt(g, from = 6, to=V(g), weights = 'weight')
+tr1
+tr2 <- spt(g, from = 6, to = V(g), weights = NA)
+tr2
 }

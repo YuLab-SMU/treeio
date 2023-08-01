@@ -23,6 +23,7 @@ Imports:
     tibble,
     tidytree (> 0.4.4),
     utils,
+    stats
 Suggests:
     Biostrings,
     ggplot2,
