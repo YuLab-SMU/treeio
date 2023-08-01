@@ -134,15 +134,16 @@ as.phylo.ggtree <- function(x, ...) {
 
 ##' @method as.phylo igraph
 ##' @export
-as.phylo.igraph <- function(x, ...) {
-    if (!igraph::is_tree(x)){
-        cli::cli_abort("The graph is not a root graph.")
-    }
-    edge <- igraph::get.edgelist(x)
+as.phylo.igraph <- function(x, branch.length, ...) {
+    #if (!igraph::is_tree(x)){
+    #    cli::cli_abort("The graph is not a root graph.")
+    #}
+    branch.length <- rlang::enquo(branch.length)
+    edge <- igraph::as_data_frame(x)
     trash <- try(
        silent = TRUE,
        expr = {
-          x <- as.phylo(edge)
+          x <- as.phylo(edge, branch.length=!!branch.length)
        }   
     )
 
@@ -150,7 +151,7 @@ as.phylo.igraph <- function(x, ...) {
         trash <- try(
             silent = TRUE,
             expr = {
-               x <- .as.phylo.rev.edges(edge)
+               x <- .as.phylo.rev.edges(edge, branch.length = !!branch.length)
             }
         )
     }
@@ -164,12 +165,19 @@ as.phylo.igraph <- function(x, ...) {
 }
 
 
-.as.phylo.rev.edges <- function(x){
-    x <- unique(x)
+.as.phylo.rev.edges <- function(x, branch.length){
+    branch.length <- rlang::enquo(branch.length)
+    edge <- as.matrix(x[,c(1,2)])
+    col.nm <- colnames(x)
+    keep.ind <- !duplicated(edge)
+    x <- x[keep.ind,]
+    edge <- edge[keep.ind,]
     if (any(duplicated(x[,2]))){
-        x <- .adjust.tree.network.edge(x)
+        edge <- .adjust.tree.network.edge(edge)
     }
-    x <- as.phylo(x)
+    x <- cbind(edge, x[,-c(1,2)])
+    colnames(x) <- col.nm
+    x <- as.phylo(x, branch.length = !!branch.length)
     return(x)
 }
 
