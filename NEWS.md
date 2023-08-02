@@ -8,6 +8,9 @@
 
 -->
 
+# treeio 1.25.2.001
+
++ fixed issue in parse BEAST file that contains negative branch length (2023-08-03, Thu, #106)
 
 # treeio 1.25.2
 
