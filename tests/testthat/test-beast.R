@@ -31,10 +31,10 @@ test_that("write.beast output a valid beast file", {
 })
 
 
-xx <- "(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);\n(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);"
+xx <- "(a:2L[&rate=1],(b:[&rate=1.1]1L,c[&rate=0.9]:1):-10e-6[&rate=1]);\n(a[&rate=1]:2,(b[&rate=1.1]:1,c[&rate=0.9]:1)[&rate=1]:1);"
 
 tree1 <- structure(list(edge=matrix(c(4L, 4L, 5L, 5L, 1L, 5L, 2L, 3L), ncol=2),
-                        edge.length=c(2, 1, 1, 1),
+                        edge.length=c(2, -1e-05, 1, 1),
                         Nnode=2L,
                         tip.label=c("a", "b", "c")),
                         class="phylo",
