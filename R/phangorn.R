@@ -49,6 +49,7 @@ pmlToSeqString <- function(pml, type, includeAncestor=TRUE) {
     if (includeAncestor == FALSE) {
         phyDat <- pml$data
     } else {
+        check_installed('phangorn', 'for `as.treedata()` with pml class and includeAncestor=TRUE.')
         phyDat <- phangorn::ancestral.pml(pml, type)
     }
 

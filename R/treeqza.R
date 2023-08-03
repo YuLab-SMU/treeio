@@ -22,6 +22,7 @@ read.treeqza <- function(treeqza, node.label = "label", ...){
     tmpdir <- tempdir()
     unzipfiles <- utils::unzip(treeqza, exdir=tmpdir)
     metadafile <- unzipfiles[grep("metadata.yaml", unzipfiles)[1]]
+    check_installed('yaml', 'for `read.treeqza()`.')
     metaflag <- yaml::read_yaml(metadafile)
     formatflag <- metaflag$format
     if (formatflag!="NewickDirectoryFormat"){

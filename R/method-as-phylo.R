@@ -133,8 +133,10 @@ as.phylo.ggtree <- function(x, ...) {
 }
 
 ##' @method as.phylo igraph
+##' @importFrom rlang check_installed
 ##' @export
 as.phylo.igraph <- function(x, ...) {
+    check_installed('igraph', 'for `as.phylo()` with igraph.')
     if (!igraph::is_tree(x)){
         cli::cli_abort("The graph is not a root graph.")
     }
