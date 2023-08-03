@@ -5,12 +5,18 @@
 \title{find the hierarchical cluster analysis among the nodes of graph
 based on the length of all the shortest paths in the graph.}
 \usage{
-find.hclust(x, mst = FALSE, weights = NULL, hclust.method = "average", ...)
+find.hclust(
+  x,
+  graph.mst = FALSE,
+  weights = NULL,
+  hclust.method = "average",
+  ...
+)
 }
 \arguments{
 \item{x}{a igraph object}
 
-\item{mst}{logical whether obtain the minimum spanning tree first
+\item{graph.mst}{logical whether obtain the minimum spanning tree first
 then find.hclust, default is FALSE.}
 
 \item{weights}{a numeric vector giving edge weights or a character.
@@ -28,7 +34,7 @@ unambiguous abbreviation of) one of \code{"ward.D"}, \code{"ward.D2"},
 \item{...}{additional parameters}
 }
 \value{
-phylo object
+hclust object
 }
 \description{
 find the hierarchical cluster analysis among the nodes of graph
@@ -41,5 +47,5 @@ g <- igraph::sample_gnp(100, .1) \%>\%
      set_edge_attr(name='weight', value=abs(rnorm(E(.),3)))
 tr1 <- find.hclust(g, weights = NA)
 tr2 <- find.hclust(g)
-tr3 <- find.hclust(g, mst = TRUE)
+tr3 <- find.hclust(g, graph.mst = TRUE)
 }

@@ -37,7 +37,7 @@ spt.igraph <- function(x, from, to, weights = NULL, ...){
 ##' find the hierarchical cluster analysis among the nodes of graph
 ##' based on the length of all the shortest paths in the graph.
 ##' @param x a igraph object
-##' @param mst logical whether obtain the minimum spanning tree first
+##' @param graph.mst logical whether obtain the minimum spanning tree first
 ##' then find.hclust, default is FALSE.
 ##' @param weights a numeric vector giving edge weights or a character.
 ##' If this is \code{NULL} and the graph has a \code{weight} edge attribute,
@@ -50,7 +50,7 @@ spt.igraph <- function(x, from, to, weights = NULL, ...){
 ##' \code{"single"}, \code{"complete"}, \code{"average"} (= UPGMA), \code{"mcquitty"}
 ##' (= WPGMA), \code{"median"} (= WPGMC) or \code{"centroid"} (= UPGMC). 
 ##' @param ... additional parameters
-##' @return phylo object
+##' @return hclust object
 ##' @export
 ##' @examples
 ##' library(igraph)
@@ -59,24 +59,26 @@ spt.igraph <- function(x, from, to, weights = NULL, ...){
 ##'      set_edge_attr(name='weight', value=abs(rnorm(E(.),3)))
 ##' tr1 <- find.hclust(g, weights = NA)
 ##' tr2 <- find.hclust(g)
-##' tr3 <- find.hclust(g, mst = TRUE)
-find.hclust <- function(x, mst = FALSE, weights = NULL, hclust.method = 'average', ...){
+##' tr3 <- find.hclust(g, graph.mst = TRUE)
+find.hclust <- function(x, graph.mst = FALSE, weights = NULL, hclust.method = 'average', ...){
     UseMethod('find.hclust')
 }
 
 ##' @method find.hclust igraph
 ##' @importFrom stats as.dist hclust
+##' @importFrom rlang check_installed
 ##' @export
 find.hclust.igraph <- function(
   x,
-  mst = FALSE,
+  graph.mst = FALSE,
   weights = NULL,
   hclust.method = 'average',
   ...
   ){
+    check_installed('igraph', 'for `find.hclust()`.')
     edge.attr.list <- igraph::edge_attr(x)
     wg.nm <- 'weight'
-    if (is.numeric(weights) && length(weights)==length(igraph::E(x))){
+    if (is.numeric(weights) && length(weights) == igraph::ecount(x)){
         x <- igraph::set_edge_attr(x, name='weight', value = weights)
         weights <- NULL
     }else if (is.character(weights) && weights %in% names(edge.attr.list) && is.numeric(edge.attr.list[[weights]])){
@@ -91,7 +93,7 @@ find.hclust.igraph <- function(
         weights <- NA
     }
 
-    if (mst){
+    if (graph.mst){
        x <- igraph::mst(x, weights = weights)
        if (!is.null(wg.nm)){
            weights <- igraph::edge_attr(x)[[wg.nm]]
@@ -100,15 +102,13 @@ find.hclust.igraph <- function(
 
     d <- igraph::distances(x, weights = weights, ...)
 
-    tr <- as.phylo.hclust2(
-            hclust(as.dist(d), method = hclust.method),
-            hang = .1
-          )
-    return(tr)
+    hc <- hclust(as.dist(d), method = hclust.method)
+    return(hc)
 }
 
 
 .internal.spt <- function(x, from, to, weights = NULL, ...){
+    check_installed('igraph', 'for `spt()`.')
     edge <- igraph::as_data_frame(x)
     flag.weight <- FALSE
     if (is.numeric(weights) && length(weights)==nrow(edge)){
