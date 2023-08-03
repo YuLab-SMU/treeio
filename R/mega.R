@@ -11,6 +11,7 @@ read.mega_tabular <- function(file) {
     skip <- ifelse(grepl("datafile=",
                          suppressMessages(scan(file, n = 1, what = character()))),
                    1, 0)
+    check_installed('vroom', 'for `read.mega_tabular()`.')
     d <- suppressMessages(vroom::vroom(file, skip = skip))
     d1 <- d[,c('NodeId','Des1')] %>% dplyr::rename(child=.data$Des1)
     d2 <- d[,c('NodeId','Des2')] %>% dplyr::rename(child=.data$Des2)

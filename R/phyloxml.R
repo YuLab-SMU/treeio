@@ -10,6 +10,7 @@
 #' px2 <- read.phyloxml(xmlfile2)
 #' px2
 read.phyloxml <- function(file){
+    check_installed('xml2', 'for `read.phyloxml()`.')
     x <- xml2::read_xml(file)
     x <- xml2::as_list(x)
     x <- x[["phyloxml"]]
