@@ -21,9 +21,8 @@ Imports:
     methods,
     rlang,
     tibble,
-    tidytree (>= 0.3.9),
+    tidytree (> 0.4.4),
     utils,
-    cli
 Suggests:
     Biostrings,
     ggplot2,
@@ -38,7 +37,8 @@ Suggests:
     vroom,
     xml2,
     yaml,
-    purrr
+    purrr,
+    cli
 VignetteBuilder: knitr
 ByteCompile: true
 License: Artistic-2.0

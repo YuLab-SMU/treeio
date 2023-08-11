@@ -1,11 +1,12 @@
-## ' tree annotation of sequence substitution by comparing to parent node
-## '
-## '
-## ' @title phyPML
-## ' @param pmlTree tree in pml object, output of phangorn::optim.pml
-##' @rdname as.treedata
-##' @param type one of 'ml' and 'bayes' for inferring ancestral sequences
-## ' @return treedata object
+##  tree annotation of sequence substitution by comparing to parent node
+## 
+## 
+##  @title phyPML
+##  @param pmlTree tree in pml object, output of phangorn::optim.pml
+##  @rdname as.treedata
+##  @param type one of 'ml' and 'bayes' for inferring ancestral sequences
+##  @return treedata object
+
 ##' @importFrom ape read.tree
 ##' @importFrom ape reorder.phylo
 ##' @method as.treedata pml

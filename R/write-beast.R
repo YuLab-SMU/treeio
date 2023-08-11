@@ -256,8 +256,8 @@ write_beast_newick <- write.beast.newick
     k <- 1
     cp(tree.prefix)
     cp("(")
-    getRoot <- function(edge)
-        edge[, 1][!match(edge[, 1], edge[, 2], 0)][1]
+    #getRoot <- function(edge)
+    #    edge[, 1][!match(edge[, 1], edge[, 2], 0)][1]
     root <- getRoot(edge) # replaced n+1 with root - root has not be n+1
     desc <- kids[[root]]
     for (j in desc) {
@@ -291,6 +291,9 @@ write_beast_newick <- write.beast.newick
     paste(STRING, collapse = "")
 }
 
+getRoot <- function(edge){
+    edge[, 1][!match(edge[, 1], edge[, 2], 0)][1]
+}
 
 ## this function was derived from ape:::.write.tree2
 ## by adding node/tip label with associated annotation in BEAST format
@@ -365,9 +368,9 @@ write_beast_newick <- write.beast.newick
     k <- 1
     cp(tree.prefix)
     cp("(")
-    getRoot <- function(phy)
-        phy$edge[, 1][!match(phy$edge[, 1], phy$edge[, 2], 0)][1]
-    root <- getRoot(phy) # replaced n+1 with root - root has not be n+1
+    #getRoot <- function(phy)
+    #    phy$edge[, 1][!match(phy$edge[, 1], phy$edge[, 2], 0)][1]
+    root <- getRoot(phy$edge) # replaced n+1 with root - root has not be n+1
     desc <- kids[[root]]
     for (j in desc) {
         if (j > n) add.internal(j)

@@ -83,15 +83,6 @@ as.phylo.tbl_df <- function(x, branch.length, label, ...) {
     return(phylo)
 }
 
-##' @method as.phylo data.frame
-##' @export
-as.phylo.data.frame <- as.phylo.tbl_df
-
-##' @method as.phylo matrix
-##' @export
-as.phylo.matrix <- as.phylo.tbl_df
-
-
 ##' @method as.phylo phylo4
 ##' @export
 as.phylo.phylo4 <- function(x, ...) {
@@ -116,6 +107,15 @@ as.phylo.phylo4 <- function(x, ...) {
     class(phylo) <- "phylo"
     return(phylo)
 }
+
+##' @method as.phylo data.frame
+##' @export
+as.phylo.data.frame <- as.phylo.tbl_df
+
+##' @method as.phylo matrix
+##' @export
+as.phylo.matrix <- as.phylo.tbl_df
+
 
 
 ##' @method as.phylo pvclust
@@ -165,19 +165,6 @@ as.phylo.igraph <- function(x, ...) {
 
 }
 
-.adjust.tree.network.edge <- function(x){
-    tip.nodes <- names(which(table(x) == 1))
-    if (.check.no.tree.network(x, tip.nodes)){
-        cli::cli_abort("The edge is not a edge of tree.")
-    }
-    x <- .rev.edge(x, tip.nodes, index = 1)
-    internal.nodes <- names(which(table(x[,2])>1))
-    while(length(internal.nodes) > 0){
-        x <- .rev.edge(x, internal.nodes, index = 2)
-        internal.nodes <- names(which(table(x[,2])>1))
-    }
-    return(x)
-}
 
 .as.phylo.rev.edges <- function(x){
     x <- unique(x)
@@ -209,44 +196,6 @@ as.phylo.list <- function(x, ...){
     return(x)
 }
 
-paste_nested_list <- function(x){
-    if (length(x)>1){
-        if (length(names(x))!=0){
-            x <- paste0(paste0(x, names(x)), collapse=',')
-        }else{
-            x <- paste0("(", paste0(x, collapse=','), ")")
-        }
-    }else{
-        if (!(grepl("^\\(", x) && grepl("\\)$", x))){
-            x <- paste0('(', x, ')', names(x))
-        }else{
-            x <- paste0(x, names(x))
-        }
-    }
-    return(x)
-}
-
-.paste0_ <- function(x){
-    flag <- grepl("^\\(\\(", x) && grepl("\\)\\)$", x)
-    if (flag){
-        x <- gsub("^\\(\\(", "\\(", x)
-        x <- gsub('\\)\\)$', "\\)", x)
-    }else{
-        x <- paste0('(', x, ')', names(x), collapse=',')
-    }
-    return(x)
-}
-
-.paste1_ <- function(x){
-    index <- grepl('\\),', x)
-    if (any(index)){
-        x[index] <- paste0("(", x[index],")", names(x[index]))
-        x[!index] <- paste0(x[!index], names(x[!index]))
-    }else{
-        x <- paste0(x, names(x))
-    }
-    return(x)
-}
 
 ##' @method as.phylo dendro
 ##' @export
@@ -290,6 +239,44 @@ as.phylo.dendro <- function(x, ...){
     return(tr)
 }
 
+
+
+check_edgelist <- function(edgelist) {
+    if (dim(edgelist)[2] < 2)
+        stop("input should be a matrix of edge list that holds the relationships in the first two columns")
+    if (length(unique(edgelist[,1,drop=TRUE])) > length(unique(edgelist[,2,drop=TRUE]))) {
+        children <- edgelist[,1,drop=TRUE]
+        parents <- edgelist[,2,drop=TRUE]
+    } else {
+        children <- edgelist[,2,drop = TRUE]
+        parents <- edgelist[,1,drop = TRUE]
+    }
+    root1 <- unique(parents[!(parents %in% children)])
+    root2 <- unique(parents[parents == children])
+    if ((length(root1) != 1 && length(root2) != 1 )|| any(duplicated(children)))
+        stop("Cannot find root. network is not a tree!")
+    if (length(root1) != 1 && length(root2) == 1){
+        indx <- parents != children
+        parents <- parents[indx]
+        children <- children[indx]
+        edge <- matrix(c(parents, children), ncol=2)
+        attr(edge, "indx") <- indx
+    }else{
+        edge <- matrix(c(parents, children), ncol=2)
+    }
+    return (edge)
+}
+
+.paste1_ <- function(x){
+    index <- grepl('\\),', x)
+    if (any(index)){
+        x[index] <- paste0("(", x[index],")", names(x[index]))
+        x[!index] <- paste0(x[!index], names(x[!index]))
+    }else{
+        x <- paste0(x, names(x))
+    }
+    return(x)
+}
 check.inode <- function(x, y, z, root.id){
     check.root <- x[[1]] == root.id[[1]] && x[[2]] == root.id[[2]]
     if (check.root){
@@ -307,6 +294,49 @@ check.inode <- function(x, y, z, root.id){
     }
 }
 
+.paste0_ <- function(x){
+    flag <- grepl("^\\(\\(", x) && grepl("\\)\\)$", x)
+    if (flag){
+        x <- gsub("^\\(\\(", "\\(", x)
+        x <- gsub('\\)\\)$', "\\)", x)
+    }else{
+        x <- paste0('(', x, ')', names(x), collapse=',')
+    }
+    return(x)
+}
+
+paste_nested_list <- function(x){
+    if (length(x)>1){
+        if (length(names(x))!=0){
+            x <- paste0(paste0(x, names(x)), collapse=',')
+        }else{
+            x <- paste0("(", paste0(x, collapse=','), ")")
+        }
+    }else{
+        if (!(grepl("^\\(", x) && grepl("\\)$", x))){
+            x <- paste0('(', x, ')', names(x))
+        }else{
+            x <- paste0(x, names(x))
+        }
+    }
+    return(x)
+}
+
+
+.adjust.tree.network.edge <- function(x){
+    tip.nodes <- names(which(table(x) == 1))
+    if (.check.no.tree.network(x, tip.nodes)){
+        cli::cli_abort("The edge is not a edge of tree.")
+    }
+    x <- .rev.edge(x, tip.nodes, index = 1)
+    internal.nodes <- names(which(table(x[,2])>1))
+    while(length(internal.nodes) > 0){
+        x <- .rev.edge(x, internal.nodes, index = 2)
+        internal.nodes <- names(which(table(x[,2])>1))
+    }
+    return(x)
+}
+
 ##' access phylo slot
 ##'
 ##'
@@ -319,4 +349,3 @@ check.inode <- function(x, y, z, root.id){
 get.tree <- function(x, ...) {
     as.phylo(x, ...)
 }
-

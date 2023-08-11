@@ -8,7 +8,6 @@
 ##' @param boot optional, can be bootstrap value from ape::boot.phylo
 ##' @param ... additional parameters
 ##' @importFrom methods new
-##' @importFrom tidytree as.treedata
 ##' @method as.treedata phylo
 ##' @export
 ##' @author Guangchuang Yu

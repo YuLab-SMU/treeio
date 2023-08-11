@@ -21,7 +21,7 @@ read.nextstrain.json <- function(x){
         rmclnm <- c("parentID", "NodeID")
         edgedf <- dt[, rmclnm]
     }
-    dd <- treeio::as.phylo(edgedf, "branch.length")
+    dd <- as.phylo(edgedf, "branch.length")
     dt$label <- as.character(dt$NodeID)
     dt <- dt[, !colnames(dt) %in% rmclnm, drop=FALSE]
     dd <- dd |> tidytree::as_tibble() |> dplyr::full_join(dt, by='label')
@@ -29,7 +29,7 @@ read.nextstrain.json <- function(x){
         dd$label <- dd$name
         dd$name <- NULL
     }
-    tr <- dd |> treeio::as.treedata()
+    tr <- dd |> as.treedata()
     return(tr)
 }
 
