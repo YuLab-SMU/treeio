@@ -160,11 +160,13 @@ build_new_tree <- function(tree, node2old_new_lab){
 
 .rev.edge <- function(x, nodes, index){
     ind <- x[,index] %in% nodes
-    x[ind,] <- t(apply(x[ind,],1,rev))
+    if (sum(ind)>=1){
+        x[ind,] <- t(apply(matrix(x[ind,], ncol=2),1,rev))
+    }
     return(x)
 }
 
 .check.no.tree.network <- function(x, nodes){
     is.tree <- length(table(x)) - nrow(x) != 1
-    is.tree || any(((x[,1] %in% nodes) + (x[,2] %in% nodes)) ==2)
+    is.tree || any(((x[,1] %in% nodes) + (x[,2] %in% nodes)) ==2) || sum(x[,1]==x[,2])>1
 }

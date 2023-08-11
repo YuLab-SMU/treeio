@@ -21,3 +21,13 @@ test_that("as.phylo for tree igraph",{
   expect_equal(tr$Nnode, tr2$Nnode)
 })
 
+test_that("as.phylo for tree igraph with weights",{
+  set.seed(123)
+  g <- igraph::sample_gnp(18, .3) %>%
+        igraph::mst() %>%
+        igraph::set_edge_attr(name='weight', value=abs(rnorm(length(igraph::E(.)))))
+  tr <- as.phylo(g, branch.length = weight)
+  expect_true(is(tr, 'phylo'))
+
+  }
+)
