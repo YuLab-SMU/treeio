@@ -1,6 +1,6 @@
 Package: treeio
 Title: Base Classes and Functions for Phylogenetic Tree Input and Output
-Version: 1.25.2.001
+Version: 1.25.3
 Authors@R: c(
     person("Guangchuang", "Yu",     email = "guangchuangyu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6485-8781")),
     person("Tommy Tsan-Yuk", "Lam", email = "tylam.tommy@gmail.com",   role = c("ctb", "ths")),
@@ -21,7 +21,7 @@ Imports:
     methods,
     rlang,
     tibble,
-    tidytree (> 0.4.4),
+    tidytree (>= 0.4.5),
     utils,
     stats
 Suggests:

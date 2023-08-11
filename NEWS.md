@@ -8,8 +8,11 @@
 
 -->
 
-# treeio 1.25.2.001
+# treeio 1.25.3
 
++ add `find.hclust.igraph()` method to hierarchical clustering graph nodes (2023-08-11, Fri, #105) 
++ update `spt()` and `as.phylo.igraph()` to consider edge attributes (#105)
++ move tree operation methods to the 'tidytree' package so that this package is focus on input, output and object conversion 
 + fixed issue in parse BEAST file that contains negative branch length (2023-08-03, Thu, #106)
 
 # treeio 1.25.2
