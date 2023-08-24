@@ -121,7 +121,7 @@ as.treedata.matrix <- as.treedata.tbl_df
 ##' @export
 ## contributed by Konstantinos Geles and modified by Guangchuang Yu
 as.treedata.pvclust <- function(tree, ...) {
-    phylo <- as.phylo.hclust2(tree$hclust, ...)
+    phylo <- as.phylo.hclust_node(tree$hclust, ...)
 
     ## tranforming the pvclust bootstraps values to tibble with key column:"label"
     tree_boots <- (round(tree$edges[, c("si","au", "bp")],2)*100) %>% 
@@ -129,6 +129,53 @@ as.treedata.pvclust <- function(tree, ...) {
         mutate(label = paste0(seq_len(Nnode(phylo)),"_edge"))
 
     tidytree::left_join(phylo, tree_boots, by = 'label')
+}
+
+
+as.phylo.hclust_node <- function(x, hang = NULL){
+    N <- dim(x$merge)[1]
+    edge <- matrix(0L, 2 * N, 2)
+    edge.length <- numeric(2 * N)
+    node <- integer(N)
+    node[N] <- N + 2L
+    cur.nod <- N + 3L
+    j <- 1L
+    for (i in N:1) {
+        edge[j:(j + 1), 1] <- node[i]
+        for (l in 1:2) {
+            k <- j + l - 1L
+            y <- x$merge[i, l]
+            if (y > 0) {
+                edge[k, 2] <- node[y] <- cur.nod
+                cur.nod <- cur.nod + 1L
+                edge.length[k] <- x$height[i] - x$height[y]
+            }
+            else {
+                edge[k, 2] <- -y
+                edge.length[k] <- x$height[i]
+            }
+        }
+        j <- j + 2L
+    }
+    if (is.null(x$labels))
+        x$labels <- as.character(1:(N + 1))
+    node.lab <- order(node)
+    obj <- list(edge = edge, edge.length = edge.length/2, tip.label = x$labels,
+        Nnode = N, node.label = paste(node.lab, "_edge", sep = ""))
+    class(obj) <- "phylo"
+    obj <- stats::reorder(obj)
+    if (!is.null(hang) && hang > 0) {
+        tip2parent <- edge[match(seq_len(N + 1), edge[, 2]),
+            1]
+        tip.edge.len <- hang * max(x$height) - x$height[match(tip2parent,
+            node)]
+        obj$edge.length <- obj$edge.length * 2
+        attr(obj, "tip.edge.len") <- tip.edge.len
+    }
+    else if (hang < 0) {
+        obj$edge.length <- obj$edge.length * 2
+    }
+    return(obj)
 }
 
 
