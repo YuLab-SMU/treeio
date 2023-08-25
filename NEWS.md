@@ -7,6 +7,9 @@
 
 
 -->
+# treeio 1.25.4
+
++ reexport `as.phylo.hclust_node()` to fix `as.phylo.pvclust()` issue (2023-8-25, Fri, #110)
 
 # treeio 1.25.3
 
