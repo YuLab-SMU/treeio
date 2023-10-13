@@ -42,7 +42,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{as.phylo}}, \code{\link[ape:root]{is.rooted}}, \code{\link[ape:summary.phylo]{Nnode}}, \code{\link[ape:summary.phylo]{Ntip}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{root}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{write.tree}}}
+  \item{ape}{\code{\link[ape:summary.phylo]{Nnode}}, \code{\link[ape:summary.phylo]{Ntip}}, \code{\link[ape]{as.phylo}}, \code{\link[ape:root]{is.rooted}}, \code{\link[ape]{read.nexus}}, \code{\link[ape]{read.tree}}, \code{\link[ape]{root}}, \code{\link[ape]{rtree}}, \code{\link[ape]{write.nexus}}, \code{\link[ape]{write.tree}}}
 
   \item{dplyr}{\code{\link[dplyr:mutate-joins]{full_join}}, \code{\link[dplyr:mutate-joins]{inner_join}}}
 
@@ -52,6 +52,6 @@ below to see their documentation.
 
   \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{tibble}}}
 
-  \item{tidytree}{\code{\link[tidytree]{ancestor}}, \code{\link[tidytree:reexports]{as.phylo}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree:drop.tip-methods]{drop.tip}}, \code{\link[tidytree:get.data-methods]{get.data}}, \code{\link[tidytree:get.fields-methods]{get.fields}}, \code{\link[tidytree]{isTip}}, \code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
+  \item{tidytree}{\code{\link[tidytree]{MRCA}}, \code{\link[tidytree]{ancestor}}, \code{\link[tidytree:reexports]{as.phylo}}, \code{\link[tidytree]{as.treedata}}, \code{\link[tidytree]{child}}, \code{\link[tidytree:drop.tip-methods]{drop.tip}}, \code{\link[tidytree:get.data-methods]{get.data}}, \code{\link[tidytree:get.fields-methods]{get.fields}}, \code{\link[tidytree]{isTip}}, \code{\link[tidytree]{nodeid}}, \code{\link[tidytree]{nodelab}}, \code{\link[tidytree]{offspring}}, \code{\link[tidytree]{parent}}, \code{\link[tidytree]{rootnode}}, \code{\link[tidytree]{treedata}}}
 }}
 

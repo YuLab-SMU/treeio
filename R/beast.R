@@ -24,6 +24,7 @@ read.beast <- function(file) {
         obj <- lapply(seq_along(treetext), function(i) {
             BEAST(file, treetext[i], stats[[i]], phylo[[i]])
         })
+        names(obj) <- names(phylo)
         class(obj) <- "treedataList"
     }
     return(obj)

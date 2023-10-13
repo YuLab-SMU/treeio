@@ -4,16 +4,16 @@
 \alias{write.beast}
 \title{write.beast}
 \usage{
-write.beast(treedata, file = "", translate = TRUE, tree.name = "UNTITLED")
+write.beast(treedata, file = "", translate = TRUE, tree.name = NULL)
 }
 \arguments{
-\item{treedata}{\code{treedata} object}
+\item{treedata}{\code{treedata} object, list of \code{treedata}, \code{phylo}, or list of \code{phylo}}
 
 \item{file}{output file. If file = "", print the output content on screen}
 
-\item{translate}{whether translate taxa labels}
+\item{translate}{whether to translate taxa labels}
 
-\item{tree.name}{name of the tree}
+\item{tree.name}{names of the trees, NULL to use existing tree names}
 }
 \value{
 output file or file content on screen
