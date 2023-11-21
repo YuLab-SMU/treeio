@@ -61,19 +61,21 @@ write.jtree <- function(treedata, file = "") {
             sub("@@(\\d+)", "{\\1}", .)
     }
 
-    cat("{\n", file = file)
-
-    cat(paste0('\t"tree": "', tree_text, '",\n'), file = file, append = TRUE)
-    cat('\t"data":', file = file, append = TRUE)
-
+    buffer <- c("{\n")
+    buffer <- c(buffer, paste0('\t"tree": "', tree_text, '",\n'))
+    buffer <- c(buffer, '\t"data":')
+    
     data <- get_tree_data(treedata)
     cn <- colnames(data)
     data <- data[, c("node", cn[cn != "node"])]
     data <- rename(data, edge_num="node")
-
-    cat(toJSON(data, pretty=TRUE), file = file, append = TRUE)
+    
+    buffer <- c(buffer, toJSON(data, pretty=TRUE))
     metainfo <- ',\n\t"metadata": {"info": "R-package treeio", '
     metainfo <- paste0(metainfo, '"data": ', paste0('"', date(), '"'), '}\n')
-    cat(metainfo, file = file, append = TRUE)
-    cat("}\n", file = file, append = TRUE)
+    buffer <- c(buffer, metainfo)
+    buffer <- c(buffer, "}\n")
+    
+    writeLines(buffer, file)
+    return(buffer)
 }

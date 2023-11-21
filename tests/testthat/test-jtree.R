@@ -4,10 +4,8 @@ rstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
 ml <- read.codeml(rstfile, mlcfile)
 
-jtree_text <- write.jtree(ml)
 jtree_file <- tempfile()
-
-write.jtree(ml, jtree_file)
+jtree_text <- write.jtree(ml, jtree_file)
 
 js <- jsonlite::fromJSON(jtree_file)
 
