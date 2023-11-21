@@ -12,7 +12,7 @@ read.jtree <- function(file) {
     phylo <- jplace_treetext_to_phylo(jtree$tree)
     edgeNum.df <- attr(phylo, "edgeNum")
     d <- merge(edgeNum.df, jtree$data, by.x = "edgeNum", by.y = "edge_num") %>%
-        as_tibble %>% select(- .data$edgeNum)
+        as_tibble %>% select(- "edgeNum")
     new("treedata",
         treetext = jtree$tree,
         phylo = phylo,
@@ -69,7 +69,7 @@ write.jtree <- function(treedata, file = "") {
     data <- get_tree_data(treedata)
     cn <- colnames(data)
     data <- data[, c("node", cn[cn != "node"])]
-    data <- rename(data, edge_num=.data$node)
+    data <- rename(data, edge_num="node")
 
     cat(toJSON(data, pretty=TRUE), file = file, append = TRUE)
     metainfo <- ',\n\t"metadata": {"info": "R-package treeio", '
