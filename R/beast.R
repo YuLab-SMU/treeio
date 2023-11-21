@@ -60,7 +60,7 @@ read.beast.newick <- function(file) {
 
     stats <- if (length(treetext) == 1){
         read.stats_beast_internal(text, treetext)
-    }else{
+    } else {
         lapply(treetext, read.stats_beast_internal, beast=text)
     }
     
@@ -345,21 +345,20 @@ read.stats_beast_internal <- function(beast, tree) {
 
 
 add_pseudo_nodelabel <- function(beast, phylo) {
-    # When TRANSLATE is TURE, the tip.label of tree line is 
+    # When TRANSLATE is TRUE, the tip.label of tree line is
     # the node number of phylo that is parsed via read.nexus, So the
     # tip.label can not be replaced in this condition
-    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))){
+    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))) {
         phylo$node.label <- paste0("N", seq_len(Nnode(phylo)))
-    }else{
-        # However when the TRANSLATE is not provided, the tip.label
+    } else {
+        # However when TRANSLATE is not provided, the tip.label
         # of tree line is not the node number of phylo that is parsed
-        # via read.nexus. Moreover, the node label does not effect 
+        # via read.nexus. Moreover, the node label does not affect
         # the node number of phylo that is parsed via read.nexus.
         # So the tip.label and node.label can be replaced in this condition.
         phylo$tip.label <- paste0("T", seq_len(Ntip(phylo)))
         phylo$node.label <- paste0("N", seq_len(Nnode(phylo)))
     }
-    
     treetext <- write.tree(phylo)
     return(treetext)
 }
