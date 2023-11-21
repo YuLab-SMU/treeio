@@ -146,13 +146,13 @@ read.stats_beast <- function(beast, trees) {
 
 
 
-read.stats_beast_internal <- function(beast, tree) {
+read.stats_beast_internal <- function(beast, text) {
     ##tree <- gsub(" ", "", tree)
     ## tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
     ## phylo <- read.tree(text = tree2)
     ## tree2 <- add_pseudo_nodelabel(phylo, tree2)
     
-    phylo <- read.tree(text = tree)
+    phylo <- read.tree(text = text)
     tree2 <- add_pseudo_nodelabel(beast, phylo)
     
     ## node name corresponding to stats
@@ -172,8 +172,7 @@ read.stats_beast_internal <- function(beast, tree) {
     ii <- match(nn, tree_label)
     
     if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))) {
-        label2 <- c(phylo$tip.label,
-                    root:getNodeNum(phylo))
+        label2 <- c(phylo$tip.label, root:getNodeNum(phylo))
         ## label2 <- c(treeinfo[treeinfo$isTip, "label"],
         ##             root:(root+nnode-1))
         
@@ -186,16 +185,16 @@ read.stats_beast_internal <- function(beast, tree) {
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
     ## BEAST1 edge stat fix
-   	tree <- gsub("\\]:\\[&(.+?\\])", ",\\1:", tree)
+   	text <- gsub("\\]:\\[&(.+?\\])", ",\\1:", text)
     # t1:[&mutation="test1"]0.04 -> t1[&mutation="test1"]:0.04
-    tree <- gsub(":(\\[.+?\\])", "\\1:", tree)
+    text <- gsub(":(\\[.+?\\])", "\\1:", text)
 
-    if (grepl("\\:[0-9\\.eEL+\\-]*\\[", tree) || grepl("\\]\\[", tree)){
+    if (grepl("\\:[0-9\\.eEL+\\-]*\\[", text) || grepl("\\]\\[", text)){
         # t1:0.04[&mutation="test1"] -> t1[&mutation="test1"]:0.04
         # or t1[&prob=100]:0.04[&mutation="test"] -> t1[&prob=100][&mutation="test"]:0.04 (MrBayes output)
         # pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&.*?\\])"
         pattern <- "(\\w+)?(:[\\+\\-]?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\L*\\d*)?(\\[&.*?\\])"
-        tree <- gsub(pattern, "\\1\\3\\2", tree)
+        text <- gsub(pattern, "\\1\\3\\2", text)
     }
     #if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
     #    ## MrBayes output
@@ -219,7 +218,7 @@ read.stats_beast_internal <- function(beast, tree) {
     #    ## BEAST output
     #    stats <- strsplit(tree, ":") %>% unlist
     #}
-    stats <- strsplit(tree, ":") %>% unlist
+    stats <- strsplit(text, ":") %>% unlist
     names(stats) <- node
     
     stats <- stats[grep("\\[", stats)]
