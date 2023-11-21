@@ -170,8 +170,6 @@ test_that("treedata returns expected results", {
                      "A/Swine/GX/2242/2011", "A/Swine/GD/2919/2012",
                      "A/Swine/HK_NS1651/2012")
 
-
-
   merged_subset_df <- merged_subset %>%
     as_tibble() %>%
     as.data.frame() %>%  # remove attributes to stop tidyr warning
@@ -186,7 +184,6 @@ test_that("treedata returns expected results", {
                                  label)),
               by = c("label", "data"))
 
-  #print(merged_subset_df)
   expect_true(all(merged_subset@phylo$tip.label %in% expected_tips))
   expect_true(all(expected_tips %in% merged_subset@phylo$tip.label))
 
