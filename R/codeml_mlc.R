@@ -26,7 +26,7 @@ read.codeml_mlc <- function(mlcfile) {
         phylo    = read.phylo_paml_mlc(mlcfile),
         file     = filename(mlcfile))
     if (!is.null(dNdS)) {
-        res@data <- as_tibble(dNdS) %>% select(-.data$parent)
+        res@data <- as_tibble(dNdS) %>% select(-"parent")
     }
     return(res)
 }

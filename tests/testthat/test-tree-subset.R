@@ -170,18 +170,23 @@ test_that("treedata returns expected results", {
                      "A/Swine/GX/2242/2011", "A/Swine/GD/2919/2012",
                      "A/Swine/HK_NS1651/2012")
 
+
+
   merged_subset_df <- merged_subset %>%
     as_tibble() %>%
+    as.data.frame() %>%  # remove attributes to stop tidyr warning
     dplyr::filter(!node %in% parent) %>%
     tidyr::gather(key = data, value = value_subset, -c(parent, node, branch.length,
                                                        label, group)) %>%
     dplyr::left_join(merged_tree %>%
                 as_tibble() %>%
+                as.data.frame() %>%  # remove attributes to stop tidyr warning
                 tidyr::gather(key = data, value = value_orig,
                               -c(parent, node, branch.length,
                                  label)),
               by = c("label", "data"))
 
+  #print(merged_subset_df)
   expect_true(all(merged_subset@phylo$tip.label %in% expected_tips))
   expect_true(all(expected_tips %in% merged_subset@phylo$tip.label))
 
