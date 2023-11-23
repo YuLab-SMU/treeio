@@ -103,14 +103,14 @@ remove_quote_in_tree_label <- function(phylo) {
 
 
 read.treetext_beast <- function(beast) {
-    ii <- grep("begin trees;", beast, ignore.case = TRUE)
-    jj <- grep("end;", beast, ignore.case = TRUE)
+    ii <- grep("begin trees;", beast, ignore.case = TRUE, perl = TRUE)
+    jj <- grep("end;", beast, ignore.case = TRUE, perl = TRUE)
     jj <- jj[jj > max(ii)][1]
     jj <- c(ii[-1], jj)
 
     trees <- lapply(seq_along(ii), function(i) {
         tree <- beast[(ii[i]+1):(jj[i]-1)]
-        tree <- tree[grep("^\\s*tree", tree, ignore.case = TRUE)]
+        tree <- tree[grep("^\\s*tree", tree, ignore.case = TRUE, perl = TRUE)]
         sub("[^(]*", "", tree)
     }) %>% unlist
 
@@ -118,11 +118,11 @@ read.treetext_beast <- function(beast) {
 }
 
 read.trans_beast <- function(beast) {
-    i <- grep("TRANSLATE", beast, ignore.case = TRUE)
+    i <- grep("TRANSLATE", beast, ignore.case = TRUE, perl = TRUE)
     if (length(i) == 0) {
         return(matrix())
     }
-    end <- grep(";", beast)
+    end <- grep(";", beast, fixed = TRUE)
     j <- end[which(end > i)[1]]
     trans <- beast[(i+1):j] %>%
         gsub("^\\s+", "", .) %>%
@@ -171,7 +171,7 @@ read.stats_beast_internal <- function(beast, text) {
     tree_label <- c(phylo$tip.label, phylo$node.label)
     ii <- match(nn, tree_label)
 
-    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))) {
+    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE, perl = TRUE))) {
         label2 <- c(phylo$tip.label, root:getNodeNum(phylo))
         ## label2 <- c(treeinfo[treeinfo$isTip, "label"],
         ##             root:(root+nnode-1))
@@ -189,7 +189,7 @@ read.stats_beast_internal <- function(beast, text) {
     # t1:[&mutation="test1"]0.04 -> t1[&mutation="test1"]:0.04
     text <- gsub(":(\\[.+?\\])", "\\1:", text)
 
-    if (grepl("\\:[0-9\\.eEL+\\-]*\\[", text) || grepl("\\]\\[", text)){
+    if (grepl("\\:[0-9\\.eEL+\\-]*\\[", text, perl = TRUE) || grepl("\\]\\[", text, perl = TRUE)){
         # t1:0.04[&mutation="test1"] -> t1[&mutation="test1"]:0.04
         # or t1[&prob=100]:0.04[&mutation="test"] -> t1[&prob=100][&mutation="test"]:0.04 (MrBayes output)
         # pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&.*?\\])"
@@ -221,7 +221,7 @@ read.stats_beast_internal <- function(beast, text) {
     stats <- strsplit(text, ":") %>% unlist
     names(stats) <- node
 
-    stats <- stats[grep("\\[", stats)]
+    stats <- stats[grep("\\[", stats, perl = TRUE)]
     stats <- sub("[^\\[]*\\[", "", stats)
 
     stats <- sub("^&", "", stats)
@@ -237,7 +237,7 @@ read.stats_beast_internal <- function(beast, text) {
         #sidx <- grep("=\\{", y)
         #eidx <- grep("\\}$", y)
         # [&mutation="test1,test2",rate=80,90]
-        sidx1 <- grep("=", y)
+        sidx1 <- grep("=", y, fixed = TRUE)
         eidx1 <- sidx1 - 1
         eidx1 <- c(eidx1[-1], length(y))
         # for better parsing [&mutation="test",name="A"] single value to key.
@@ -347,7 +347,7 @@ add_pseudo_nodelabel <- function(beast, phylo) {
     # When TRANSLATE is TRUE, the tip.label of tree line is
     # the node number of phylo that is parsed via read.nexus, So the
     # tip.label can not be replaced in this condition
-    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))) {
+    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE, perl = TRUE))) {
         phylo$node.label <- paste0("N", seq_len(Nnode(phylo)))
     } else {
         # However when TRANSLATE is not provided, the tip.label
