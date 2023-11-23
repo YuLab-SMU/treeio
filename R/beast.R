@@ -76,7 +76,7 @@ read.beast.newick <- function(file) {
 }
 
 BEAST <- function(file, treetext, stats, phylo) {
-    stats$node <- gsub("\"*'*", "", stats$node)
+    stats$node <- gsub("\"*'*", "", stats$node, perl = TRUE)
 
     phylo <- remove_quote_in_tree_label(phylo)
 
@@ -125,11 +125,11 @@ read.trans_beast <- function(beast) {
     end <- grep(";", beast, fixed = TRUE)
     j <- end[which(end > i)[1]]
     trans <- beast[(i+1):j] %>%
-        gsub("^\\s+", "", .) %>%
-        gsub(",|;", "", .)
+        gsub("^\\s+", "", ., perl = TRUE) %>%
+        gsub(",|;", "", ., perl = TRUE)
     trans <- trans[nzchar(trans)]
     ## remove quote if strings were quoted
-    trans <- gsub("'|\"", "", trans)
+    trans <- gsub("'|\"", "", trans, perl = TRUE)
     trans <- strsplit(trans, split="\\s+") %>%
         do.call(rbind, .)
     ## trans is a matrix
@@ -152,17 +152,19 @@ read.stats_beast_internal <- function(beast, text) {
     ## phylo <- read.tree(text = tree2)
     ## tree2 <- add_pseudo_nodelabel(phylo, tree2)
 
+    is_translated <- any(grepl("TRANSLATE", beast, ignore.case = TRUE, perl = TRUE))
+
     phylo <- read.tree(text = text)
-    tree2 <- add_pseudo_nodelabel(beast, phylo)
+    tree2 <- add_pseudo_nodelabel(beast, phylo, is_translated)
 
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
         strsplit(., split="\\)") %>% unlist %>%
-        gsub("\\(*", "", .) %>%
-        gsub("[:;].*", "", .) %>%
-        gsub(" ", "", .) %>%
-        gsub("'", "", .) %>%
-        gsub('"', "", .)
+        gsub("\\(*", "", ., perl = TRUE) %>%
+        gsub("[:;].*", "", ., perl = TRUE) %>%
+        gsub(" ", "", ., perl = TRUE) %>%
+        gsub("'", "", ., perl = TRUE) %>%
+        gsub('"', "", ., perl = TRUE)
 
     phylo <- read.tree(text = tree2)
     root <- rootnode(phylo)
@@ -171,11 +173,10 @@ read.stats_beast_internal <- function(beast, text) {
     tree_label <- c(phylo$tip.label, phylo$node.label)
     ii <- match(nn, tree_label)
 
-    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE, perl = TRUE))) {
-        label2 <- c(phylo$tip.label, root:getNodeNum(phylo))
-        ## label2 <- c(treeinfo[treeinfo$isTip, "label"],
-        ##             root:(root+nnode-1))
 
+    if (is_translated == TRUE) {
+        label2 <- c(phylo$tip.label, root:getNodeNum(phylo))
+        ## label2 <- c(treeinfo[treeinfo$isTip, "label"], root:(root+nnode-1))
     } else {
         ## node <- as.character(treeinfo$node[match(nn, treeinfo$label)])
         label2 <- as.character(1:getNodeNum(phylo))
@@ -185,16 +186,16 @@ read.stats_beast_internal <- function(beast, text) {
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
     ## BEAST1 edge stat fix
-   	text <- gsub("\\]:\\[&(.+?\\])", ",\\1:", text)
+   	text <- gsub("\\]:\\[&(.+?\\])", ",\\1:", text, perl = TRUE)
     # t1:[&mutation="test1"]0.04 -> t1[&mutation="test1"]:0.04
-    text <- gsub(":(\\[.+?\\])", "\\1:", text)
+    text <- gsub(":(\\[.+?\\])", "\\1:", text, perl = TRUE)
 
     if (grepl("\\:[0-9\\.eEL+\\-]*\\[", text, perl = TRUE) || grepl("\\]\\[", text, perl = TRUE)){
         # t1:0.04[&mutation="test1"] -> t1[&mutation="test1"]:0.04
         # or t1[&prob=100]:0.04[&mutation="test"] -> t1[&prob=100][&mutation="test"]:0.04 (MrBayes output)
         # pattern <- "(\\w+)?(:?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\d*)?(\\[&.*?\\])"
         pattern <- "(\\w+)?(:[\\+\\-]?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\L*\\d*)?(\\[&.*?\\])"
-        text <- gsub(pattern, "\\1\\3\\2", text)
+        text <- gsub(pattern, "\\1\\3\\2", text)  # not PCRE compatible
     }
     #if (grepl("\\]:[0-9\\.eE+\\-]*\\[", tree) || grepl("\\]\\[", tree)) {
     #    ## MrBayes output
@@ -222,13 +223,13 @@ read.stats_beast_internal <- function(beast, text) {
     names(stats) <- node
 
     stats <- stats[grep("\\[", stats, perl = TRUE)]
-    stats <- sub("[^\\[]*\\[", "", stats)
+    stats <- sub("[^\\[]*\\[", "", stats, perl = TRUE)
 
-    stats <- sub("^&", "", stats)
+    stats <- sub("^&", "", stats, perl = TRUE)
     # this is for MrBayes output
-    stats <- sub("\\]\\[&", ",", stats)
-    stats <- sub("];*$", "", stats)
-    stats <- gsub("\"", "", stats)
+    stats <- sub("\\]\\[&", ",", stats, perl = TRUE)
+    stats <- sub("];*$", "", stats, perl = TRUE)
+    stats <- gsub("\"", "", stats, perl = TRUE)
 
     stats2 <- lapply(seq_along(stats), function(i) {
         x <- stats[[i]]
@@ -249,11 +250,11 @@ read.stats_beast_internal <- function(beast, text) {
             flag <- TRUE
             SETS <- lapply(seq_along(sidx), function(k) {
                 p <- y[sidx[k]:eidx[k]]
-                gsub(".*=\\{", "", p) %>%
-                    gsub("\\}$", "", .) %>%
-                    gsub(".*=", "", .)
+                gsub(".*=\\{", "", p, perl = TRUE) %>%
+                    gsub("\\}$", "", ., perl = TRUE) %>%
+                    gsub(".*=", "", ., perl = TRUE)
             })
-            names(SETS) <- gsub("=.*", "", y[sidx])
+            names(SETS) <- gsub("=.*", "", y[sidx], perl = TRUE)
 
             kk <- lapply(seq_along(sidx), function(k) {
                 sidx[k]:eidx[k]
@@ -265,10 +266,10 @@ read.stats_beast_internal <- function(beast, text) {
         if (length(y) == 0)
             return(SETS)
 
-        name <- gsub("=.*", "", y)
-        val <- gsub(".*=", "", y) %>%
-            gsub("^\\{", "", .) %>%
-            gsub("\\}$", "", .)
+        name <- gsub("=.*", "", y, perl = TRUE)
+        val <- gsub(".*=", "", y, perl = TRUE) %>%
+            gsub("^\\{", "", ., perl = TRUE) %>%
+            gsub("\\}$", "", ., perl = TRUE)
 
         if (flag) {
             nn <- c(name, names(SETS))
@@ -324,8 +325,8 @@ read.stats_beast_internal <- function(beast, text) {
     ##     }
     ## }
 
-    cn <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
-    cn <- gsub("\\(([^\\)]+)\\)", "_\\1", cn)
+    cn <- gsub("(\\d+)%", "0.\\1", colnames(stats3), perl = TRUE)
+    cn <- gsub("\\(([^\\)]+)\\)", "_\\1", cn, perl = TRUE)
     ## cn <- gsub("\\+-", "_", cn)
 
     colnames(stats3) <- cn
@@ -343,11 +344,11 @@ read.stats_beast_internal <- function(beast, text) {
 }
 
 
-add_pseudo_nodelabel <- function(beast, phylo) {
+add_pseudo_nodelabel <- function(beast, phylo, translated=FALSE) {
     # When TRANSLATE is TRUE, the tip.label of tree line is
     # the node number of phylo that is parsed via read.nexus, So the
     # tip.label can not be replaced in this condition
-    if (any(grepl("TRANSLATE", beast, ignore.case = TRUE, perl = TRUE))) {
+    if (translated == TRUE) {
         phylo$node.label <- paste0("N", seq_len(Nnode(phylo)))
     } else {
         # However when TRANSLATE is not provided, the tip.label
