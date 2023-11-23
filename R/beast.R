@@ -93,10 +93,10 @@ BEAST <- function(file, treetext, stats, phylo) {
 
 remove_quote_in_tree_label <- function(phylo) {
     if (!is.null(phylo$node.label)) {
-        phylo$node.label <- gsub("\"*'*", "", phylo$node.label)
+        phylo$node.label <- gsub("\"*'*", "", phylo$node.label, perl = TRUE)
     }
     if ( !is.null(phylo$tip.label)) {
-        phylo$tip.label <- gsub("\"*'*", "", phylo$tip.label)
+        phylo$tip.label <- gsub("\"*'*", "", phylo$tip.label, perl = TRUE)
     }
     return(phylo)
 }
