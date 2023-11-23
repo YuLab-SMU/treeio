@@ -131,10 +131,6 @@ write.beast.newick <- function(treedata, file = "",
         paste0('[&', paste(rr, collapse=','), ']')
     }, character(1))
 
-    ## ORDER:::
-    #node_anno <- rep(NA, max(anno$node))
-    #node_anno[anno$node] <- anno_text
-    #node_anno[anno$node_anno] <- anno_text
     node_anno <- setNames(lapply(anno_text, function(x) x), anno$node)
     # want node_anno -> node_id : node_text
     res <- .write.tree3(phy, digits = digits,
