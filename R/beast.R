@@ -13,11 +13,11 @@
 ##' read.beast(file)
 read.beast <- function(file) {
     text <- readLines(file)
-    
+
     treetext <- read.treetext_beast(text)
     stats <- read.stats_beast(text, treetext)
     phylo <- read.nexus(file)
-    
+
     if (length(treetext) == 1) {
         obj <- BEAST(file, treetext, stats, phylo)
     } else {
@@ -63,7 +63,7 @@ read.beast.newick <- function(file) {
     } else {
         lapply(treetext, read.stats_beast_internal, beast=text)
     }
-    
+
     if (length(treetext) == 1) {
         obj <- BEAST(file, treetext, stats, phylo)
     } else {
@@ -77,9 +77,9 @@ read.beast.newick <- function(file) {
 
 BEAST <- function(file, treetext, stats, phylo) {
     stats$node <- gsub("\"*'*", "", stats$node)
-    
+
     phylo <- remove_quote_in_tree_label(phylo)
-    
+
     obj <- new("treedata",
                ## fields      = fields,
                treetext    = treetext,
@@ -87,7 +87,7 @@ BEAST <- function(file, treetext, stats, phylo) {
                data        = stats,
                file        = filename(file)
     )
-    
+
     return(obj)
 }
 
@@ -107,13 +107,13 @@ read.treetext_beast <- function(beast) {
     jj <- grep("end;", beast, ignore.case = TRUE)
     jj <- jj[jj > max(ii)][1]
     jj <- c(ii[-1], jj)
-    
+
     trees <- lapply(seq_along(ii), function(i) {
         tree <- beast[(ii[i]+1):(jj[i]-1)]
         tree <- tree[grep("^\\s*tree", tree, ignore.case = TRUE)]
         sub("[^(]*", "", tree)
     }) %>% unlist
-    
+
     return(trees)
 }
 
@@ -124,8 +124,8 @@ read.trans_beast <- function(beast) {
     }
     end <- grep(";", beast)
     j <- end[which(end > i)[1]]
-    trans <- beast[(i+1):j] %>% 
-        gsub("^\\s+", "", .) %>% 
+    trans <- beast[(i+1):j] %>%
+        gsub("^\\s+", "", .) %>%
         gsub(",|;", "", .)
     trans <- trans[nzchar(trans)]
     ## remove quote if strings were quoted
@@ -151,10 +151,10 @@ read.stats_beast_internal <- function(beast, text) {
     ## tree2 <- gsub("\\[[^\\[]*\\]", "", tree)
     ## phylo <- read.tree(text = tree2)
     ## tree2 <- add_pseudo_nodelabel(phylo, tree2)
-    
+
     phylo <- read.tree(text = text)
     tree2 <- add_pseudo_nodelabel(beast, phylo)
-    
+
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
         strsplit(., split="\\)") %>% unlist %>%
@@ -163,25 +163,25 @@ read.stats_beast_internal <- function(beast, text) {
         gsub(" ", "", .) %>%
         gsub("'", "", .) %>%
         gsub('"', "", .)
-    
+
     phylo <- read.tree(text = tree2)
     root <- rootnode(phylo)
     nnode <- phylo$Nnode
-    
+
     tree_label <- c(phylo$tip.label, phylo$node.label)
     ii <- match(nn, tree_label)
-    
+
     if (any(grepl("TRANSLATE", beast, ignore.case = TRUE))) {
         label2 <- c(phylo$tip.label, root:getNodeNum(phylo))
         ## label2 <- c(treeinfo[treeinfo$isTip, "label"],
         ##             root:(root+nnode-1))
-        
+
     } else {
         ## node <- as.character(treeinfo$node[match(nn, treeinfo$label)])
         label2 <- as.character(1:getNodeNum(phylo))
     }
     node <- label2[match(nn, tree_label)]
-    
+
     ## stats <- unlist(strsplit(tree, "\\["))[-1]
     ## stats <- sub(":.+$", "", stats
     ## BEAST1 edge stat fix
@@ -202,7 +202,7 @@ read.stats_beast_internal <- function(beast, text) {
     #    lstats <- lapply(stats, function(x) {
     #        unlist(strsplit(x, split="\\][,\\)]"))
     #    })
-    #    
+    #
     #    for (i in seq_along(stats)) {
     #        n <- length(lstats[[i]])
     #        if (i == length(stats)) {
@@ -220,12 +220,12 @@ read.stats_beast_internal <- function(beast, text) {
     #}
     stats <- strsplit(text, ":") %>% unlist
     names(stats) <- node
-    
+
     stats <- stats[grep("\\[", stats)]
     stats <- sub("[^\\[]*\\[", "", stats)
-    
+
     stats <- sub("^&", "", stats)
-    # this is for MrBayes output 
+    # this is for MrBayes output
     stats <- sub("\\]\\[&", ",", stats)
     stats <- sub("];*$", "", stats)
     stats <- gsub("\"", "", stats)
@@ -243,42 +243,42 @@ read.stats_beast_internal <- function(beast, text) {
         # for better parsing [&mutation="test",name="A"] single value to key.
         sidx <- sidx1[!(sidx1==eidx1)]
         eidx <- eidx1[!(sidx1==eidx1)]
-        
+
         flag <- FALSE
         if (length(sidx) > 0) {
             flag <- TRUE
             SETS <- lapply(seq_along(sidx), function(k) {
                 p <- y[sidx[k]:eidx[k]]
-                gsub(".*=\\{", "", p) %>% 
+                gsub(".*=\\{", "", p) %>%
                     gsub("\\}$", "", .) %>%
                     gsub(".*=", "", .)
             })
             names(SETS) <- gsub("=.*", "", y[sidx])
-            
+
             kk <- lapply(seq_along(sidx), function(k) {
                 sidx[k]:eidx[k]
             }) %>%
                 unlist
             y <- y[-kk]
         }
-        
+
         if (length(y) == 0)
             return(SETS)
-        
+
         name <- gsub("=.*", "", y)
         val <- gsub(".*=", "", y) %>%
             gsub("^\\{", "", .) %>%
             gsub("\\}$", "", .)
-        
+
         if (flag) {
             nn <- c(name, names(SETS))
         } else {
             nn <- name
         }
-        
+
         res <- rep(NA, length(nn))
         names(res) <- nn
-        
+
         for (i in seq_along(name)) {
             res[i] <- if(is_numeric(val[i])) as.numeric(val[i]) else val[i]
         }
@@ -292,24 +292,24 @@ read.stats_beast_internal <- function(beast, text) {
                 }
             }
         }
-        
+
         return(res)
     })
-    
+
     nn <- lapply(stats2, names) %>% unlist %>%
         unique %>% sort
-    
-    
+
+
     stats2 <- lapply(stats2, function(x) {
         y <- x[nn]
         names(y) <- nn
         y[vapply(y, is.null, logical(1))] <- NA
         y
     })
-    
+
     stats3 <- do.call(rbind, stats2)
     stats3 <- as_tibble(stats3)
-    
+
     ## no need to extract sd from prob+-sd
     ## as the sd is stored in prob_stddev
     ##
@@ -323,18 +323,18 @@ read.stats_beast_internal <- function(beast, text) {
     ##         stats3[,i] <- as.numeric(gsub("\\d+\\+-", "", stats3[,i]))
     ##     }
     ## }
-    
+
     cn <- gsub("(\\d+)%", "0.\\1", colnames(stats3))
     cn <- gsub("\\(([^\\)]+)\\)", "_\\1", cn)
     ## cn <- gsub("\\+-", "_", cn)
-    
+
     colnames(stats3) <- cn
     stats3$node <- names(stats)
-    
+
     i <- vapply(stats3,
                 function(x) max(vapply(x, length, numeric(1))),
                 numeric(1))
-    
+
     for (j in which(i==1)) {
         stats3[,j] <- unlist(stats3[,j])
     }
