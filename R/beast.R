@@ -155,7 +155,7 @@ read.stats_beast_internal <- function(beast, text) {
     is_translated <- any(grepl("TRANSLATE", beast, ignore.case = TRUE, perl = TRUE))
 
     phylo <- read.tree(text = text)
-    tree2 <- add_pseudo_nodelabel(beast, phylo, is_translated)
+    tree2 <- add_pseudo_nodelabel(phylo, is_translated)
 
     ## node name corresponding to stats
     nn <- strsplit(tree2, split=",") %>% unlist %>%
@@ -344,7 +344,7 @@ read.stats_beast_internal <- function(beast, text) {
 }
 
 
-add_pseudo_nodelabel <- function(beast, phylo, translated=FALSE) {
+add_pseudo_nodelabel <- function(phylo, translated=FALSE) {
     # When TRANSLATE is TRUE, the tip.label of tree line is
     # the node number of phylo that is parsed via read.nexus, So the
     # tip.label can not be replaced in this condition
