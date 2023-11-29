@@ -25,5 +25,5 @@ knitr::opts_chunk$set(tidy = FALSE,
 
 
 
-Please go to <https://yulab-smu.github.io/treedata-book/> (the first three chapters) for the full vignette.
+Please go to <https://yulab-smu.top/treedata-book/> for the full vignette.
 
