@@ -2,14 +2,15 @@
 ##'
 ##'
 ##' @title write.beast
-##' @param treedata \code{treedata} object
+##' @param treedata \code{treedata} object, list of \code{treedata}, \code{phylo}, or list of \code{phylo} 
 ##' @param file output file. If file = "", print the output content on screen
-##' @param translate whether translate taxa labels
-##' @param tree.name name of the tree
+##' @param translate whether to translate taxa labels
+##' @param tree.name names of the trees, NULL to use existing tree names
 ##' @return output file or file content on screen
 ##' @importFrom ape .compressTipLabel
 ##' @importFrom ape .uncompressTipLabel
 ##' @importFrom tidytree get_tree_data
+##' @importFrom tidytree as.treedata
 ##' @export
 ##' @examples
 ##' nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
@@ -17,15 +18,45 @@
 ##' write.beast(nhx)
 ##' @author Guangchuang Yu
 write.beast <- function(treedata, file = "",
-                        translate = TRUE, tree.name = "UNTITLED") {
+                        translate = TRUE, tree.name = NULL) {
     
     cat("#NEXUS\n", file = file)
     cat(paste("[R-package treeio, ", date(), "]\n\n", sep = ""),
         file = file, append = TRUE)
     
-    N <- Ntip(treedata)
+    # check input type
+    if (class(treedata) %in% c("treedata", "phylo")) {
+      if (is.null(tree.name)) {
+        tree.name <- if (is.null(names(treedata)))
+          "UNTITLED"
+        else
+          names(treedata)
+      }
+      
+      treedatalist <- ifelse(class(treedata) == "treedata", list(treedata), list(as.treedata(treedata)))
+      
+      obj <- list(as.phylo(treedata))
+    } else { # list of trees
+      if (is.null(tree.name)) {
+        tree.name <- if (is.null(names(treedata)))
+          rep("UNTITLED", length(treedata))
+        else
+          names(treedata)
+      }
+      
+      treedatalist <- lapply(treedata, function(x) {
+        if (class(x) == "treedata") {
+          x
+        } else {
+          as.treedata(x)
+        }
+      })
+      
+      obj <- lapply(treedata, as.phylo)
+    }
     
-    obj <- list(as.phylo(treedata))
+    N <- Ntip(treedatalist[[1]])
+    
     ntree <- length(obj)
     cat("BEGIN TAXA;\n", file = file, append = TRUE)
     cat(paste("\tDIMENSIONS NTAX = ", N, ";\n", sep = ""),
@@ -57,12 +88,15 @@ write.beast <- function(treedata, file = "",
             obj <- .uncompressTipLabel(obj)
         }
     }
-    treedata@phylo <- obj[[1]]
     
-    root.tag <- if (is.rooted(treedata)) "= [&R] " else "= [&U] "
-    cat("\tTREE *", tree.name, root.tag, file = file, append = TRUE)
-    cat(write_beast_newick(treedata, file = ""),
-        "\n", sep = "", file = file, append = TRUE)
+    for (index in seq_along(treedatalist)) {
+      treedatalist[[index]]@phylo <- obj[[index]]
+      
+      root.tag <- if (is.rooted(treedatalist[[index]])) "= [&R] " else "= [&U] "
+      cat("\tTREE *", tree.name[i], root.tag, file = file, append = TRUE)
+      cat(write_beast_newick(treedatalist[[index]], file = ""),
+          "\n", sep = "", file = file, append = TRUE)
+    }
     
     cat("END;\n", file = file, append = TRUE)
 }
