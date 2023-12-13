@@ -125,10 +125,10 @@ set_substitution <- function(object, ...) {
 
     if (object@seq_type == "NT") {
         AA_subs <- get.subs_(object, translate=TRUE, ...)
-        AA_subs <- rename(AA_subs, AA_subs = .data$subs)
+        AA_subs <- rename(AA_subs, AA_subs = "subs")
         subs <- full_join(subs, AA_subs, by=c("node", "parent"))
     }
-    subs <- select(subs, - .data$parent)
+    subs <- select(subs, - "parent")
 
     if (nrow(object@data) == 0) {
         object@data <- subs
