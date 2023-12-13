@@ -78,5 +78,6 @@ write.jtree <- function(treedata, file = "") {
     buffer <- c(buffer, "}\n")
     
     writeLines(buffer, file)
+
     invisible(buffer)
 }

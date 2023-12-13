@@ -18,13 +18,13 @@
 ##' @author Guangchuang Yu
 write.beast <- function(treedata, file = "",
                         translate = TRUE, tree.name = "UNTITLED") {
-    
+
     cat("#NEXUS\n", file = file)
     cat(paste("[R-package treeio, ", date(), "]\n\n", sep = ""),
         file = file, append = TRUE)
-    
+
     N <- Ntip(treedata)
-    
+
     obj <- list(as.phylo(treedata))
     ntree <- length(obj)
     cat("BEGIN TAXA;\n", file = file, append = TRUE)
@@ -35,7 +35,7 @@ write.beast <- function(treedata, file = "",
         sep = "\n", file = file, append = TRUE)
     cat("\t;\n", file = file, append = TRUE)
     cat("END;\n", file = file, append = TRUE)
-    
+
     cat("BEGIN TREES;\n", file = file, append = TRUE)
     if (translate) {
         cat("\tTRANSLATE\n", file = file, append = TRUE)
@@ -58,12 +58,12 @@ write.beast <- function(treedata, file = "",
         }
     }
     treedata@phylo <- obj[[1]]
-    
+
     root.tag <- if (is.rooted(treedata)) "= [&R] " else "= [&U] "
     cat("\tTREE *", tree.name, root.tag, file = file, append = TRUE)
     cat(write_beast_newick(treedata, file = ""),
         "\n", sep = "", file = file, append = TRUE)
-    
+
     cat("END;\n", file = file, append = TRUE)
 }
 
@@ -74,10 +74,10 @@ write.beast <- function(treedata, file = "",
 ##' @param treedata \code{treedata} object
 ##' @param file output file. If file = "", print the output content on screen
 ##' @param append logical. Only used if the argument 'file' is the name of file
-##' (and not a connection or "|cmd").  If 'TRUE' output will be appended to 
+##' (and not a connection or "|cmd").  If 'TRUE' output will be appended to
 ##' 'file'; otherwise, it will overwrite the contents of file.
 ##' @param digits integer, the indicating the number of decimal places, default is 10.
-##' @param tree.prefix, character the tree prefix, default is "". 
+##' @param tree.prefix, character the tree prefix, default is "".
 ##' @return output file or file content on screen
 ##' @export
 ##' @examples
@@ -87,26 +87,27 @@ write.beast <- function(treedata, file = "",
 ##' @author Guangchuang Yu
 write.beast.newick <- function(treedata, file = "",
                                append = FALSE, digits = 10, tree.prefix = "") {
-    
+
     phy <- as.phylo(treedata)
-    
+
     anno <- get_tree_data(treedata)
     if (is.null(anno)) {
-        return(write.tree(phy = phy, file = file, 
+        return(write.tree(phy = phy, file = file,
                     append = append, digits = digits,
                     tree.names = tree.prefix)
             )
     }
     anno$node <- as.integer(anno$node)
+
     ## currently substitution is not supported
     anno <- anno[!colnames(anno) %in% c('subs', "AA_subs")]
-    
+
     cn <- colnames(anno)
     col_type <- vapply(anno, class, character(1))
     yy <- lapply(which(!cn %in% c('node', 'label')), function(i) {
         v <- cn[i]
         ## apply sprintf(f.d, anno[[v]]) to round digits?
-        
+
         if (col_type[i] == "list") {
             rr <- paste0(
                 v, "={",
@@ -120,7 +121,7 @@ write.beast.newick <- function(treedata, file = "",
         rr[is.na(anno[[v]])] <- NA
         return(rr)
     }) %>% do.call('cbind', .)
-    
+
     anno_text <- vapply(seq_len(nrow(yy)), function(i) {
         rr <- yy[i,]
         rr <- rr[!is.na(rr)]
@@ -129,21 +130,21 @@ write.beast.newick <- function(treedata, file = "",
         }
         paste0('[&', paste(rr, collapse=','), ']')
     }, character(1))
-    node_anno <- rep(NA, max(anno$node))
-    node_anno[anno$node] <- anno_text
-    
+
+    node_anno <- setNames(lapply(anno_text, function(x) x), anno$node)
+    # want node_anno -> node_id : node_text
     res <- .write.tree3(phy, digits = digits,
                         tree.prefix = tree.prefix, node_anno = node_anno)
-    
+
     if (file == "") return(res)
-    
+
     cat(res, file = file, append = append, sep = "\n")
 }
 
 .write.tree3 <- function(phy, digits = 10, tree.prefix = "", node_anno = NULL) {
     node.label <- checkLabel(phy$node.label)
     if (length(node.label) == 0) node.label <- NULL
-    
+
     .write.tree4(phy$edge, digits = digits, tree.prefix = tree.prefix,
                  root.edge = phy$root.edge, edge.length = phy$edge.length,
                  tip.label = checkLabel(phy$tip.label),
@@ -157,30 +158,30 @@ write_beast_newick <- write.beast.newick
 ## derived from .write.tree3_old to tailor for edge list, then all tree-like graph can be supported.
 .write.tree4 <- function(edge, digits = 10, tree.prefix = "", root.edge=NULL, edge.length = NULL,
                          tip.label=NULL, node.label=NULL, id_as_label = FALSE, node_anno = NULL) {
-    
+
     edge.label <- edge
     edge <- matrix(as.numeric(as.factor(edge.label)), ncol=2)
-    
+
     f.d <- paste("%.", digits, "g", sep = "")
-    
+
     to_tiplab <- function(edge, i) {
         edge.label[edge[,2] == i, 2][1]
     }
-    
+
     to_nodelab <- function(edge, i) {
         edge.label[edge[,1] == i, 1][1]
     }
-    
+
     brl <- !is.null(edge.length)
     nodelab <- !is.null(node.label)
-    
+
     if (id_as_label) nodelab <- TRUE
-    
+
     cp <- function(x){
         STRING[k] <<- x
         k <<- k + 1
     }
-    
+
     add.internal <- function(i) {
         cp("(")
         desc <- kids[[i]]
@@ -210,7 +211,7 @@ write_beast_newick <- write.beast.newick
             cp(sprintf(f.d, edge.length[ind[i]]))
         }
     }
-    
+
     add.terminal <- function(i) {
         ii <- edge[i, 2]
         if (is.null(node_anno) || is.na(node_anno[ii])) {
@@ -226,29 +227,29 @@ write_beast_newick <- write.beast.newick
             cp(sprintf(f.d, edge.length[i]))
         }
     }
-    
+
     Ntip <- function(edge) {
         tip <- edge[,2][!edge[,2] %in% edge[,1]]
         length(tip)
     }
-    
+
     Nnode <- function(edge) {
         tip <- edge[,2][!edge[,2] %in% edge[,1]]
         node <- edge[,1][!edge[,1] %in% tip]
         length(node)
     }
-    
+
     ## borrowed from phangorn:
     parent <- edge[, 1]
     children <- edge[, 2]
     n <- Ntip(edge)
     kids <- vector("list", n + Nnode(edge))
-    
+
     for (i in seq_along(parent))
         kids[[parent[i]]] <- c(kids[[parent[i]]], children[i])
-    
+
     ind <- match(1:max(edge), edge[, 2])
-    
+
     LS <- 4*n + 5
     if (brl) LS <- LS + 4*n
     if (nodelab)  LS <- LS + n
@@ -266,7 +267,7 @@ write_beast_newick <- write.beast.newick
         else add.terminal(ind[j])
         if (j != desc[length(desc)]) cp(",")
     }
-    
+
     if (is.null(root.edge)) {
         cp(")")
         if (nodelab) {
@@ -304,12 +305,12 @@ getRoot <- function(edge){
     phy$tip.label <- checkLabel(phy$tip.label)
     if (nodelab) phy$node.label <- checkLabel(phy$node.label)
     f.d <- paste("%.", digits, "g", sep = "")
-    
+
     cp <- function(x){
         STRING[k] <<- x
         k <<- k + 1
     }
-    
+
     add.internal <- function(i) {
         cp("(")
         desc <- kids[[i]]
@@ -335,7 +336,7 @@ getRoot <- function(edge){
             cp(sprintf(f.d, phy$edge.length[ind[i]]))
         }
     }
-    
+
     add.terminal <- function(i) {
         ii <- phy$edge[i, 2]
         if (is.null(node_anno) || is.na(node_anno[ii])) {
@@ -349,18 +350,18 @@ getRoot <- function(edge){
             cp(sprintf(f.d, phy$edge.length[i]))
         }
     }
-    
+
     n <- length(phy$tip.label)
-    
+
     ## borrowed from phangorn:
     parent <- phy$edge[, 1]
     children <- phy$edge[, 2]
     kids <- vector("list", n + phy$Nnode)
     for (i in seq_along(parent))
         kids[[parent[i]]] <- c(kids[[parent[i]]], children[i])
-    
+
     ind <- match(1:max(phy$edge), phy$edge[, 2])
-    
+
     LS <- 4*n + 5
     if (brl) LS <- LS + 4*n
     if (nodelab)  LS <- LS + n
@@ -377,7 +378,7 @@ getRoot <- function(edge){
         else add.terminal(ind[j])
         if (j != desc[length(desc)]) cp(",")
     }
-    
+
     if (is.null(phy$root.edge)) {
         cp(")")
         if (nodelab) {
