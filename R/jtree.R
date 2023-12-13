@@ -71,6 +71,7 @@ write.jtree <- function(treedata, file = "") {
     data <- rename(data, edge_num="node")
     
     buffer <- c(buffer, toJSON(data, pretty=TRUE))
+
     metainfo <- ',\n\t"metadata": {"info": "R-package treeio", '
     metainfo <- paste0(metainfo, '"data": ', paste0('"', date(), '"'), '}\n')
     buffer <- c(buffer, metainfo)

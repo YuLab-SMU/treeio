@@ -1,3 +1,7 @@
+# treeio 1.27.0.001
+
++ `write.jplace()` method to export `jplace` object to a jplace file (2023-11-27, Mon, #112, #115)
+
 # treeio 1.26.0
 
 + Bioconductor RELEASE_3_18 (2023-10-25, Wed)
