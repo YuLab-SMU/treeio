@@ -18,7 +18,7 @@ write.beast.newick(
 \item{file}{output file. If file = "", print the output content on screen}
 
 \item{append}{logical. Only used if the argument 'file' is the name of file
-(and not a connection or "|cmd").  If 'TRUE' output will be appended to 
+(and not a connection or "|cmd").  If 'TRUE' output will be appended to
 'file'; otherwise, it will overwrite the contents of file.}
 
 \item{digits}{integer, the indicating the number of decimal places, default is 10.}

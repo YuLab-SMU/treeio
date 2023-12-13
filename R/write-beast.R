@@ -79,6 +79,7 @@ write.beast <- function(treedata, file = "",
 ##' @param digits integer, the indicating the number of decimal places, default is 10.
 ##' @param tree.prefix, character the tree prefix, default is "".
 ##' @return output file or file content on screen
+##' @importFrom stats setNames
 ##' @export
 ##' @examples
 ##' nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")

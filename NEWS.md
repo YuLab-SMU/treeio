@@ -1,11 +1,3 @@
-# treeio 1.27.0.001
-
-+ `write.jplace()` method to export `jplace` object to a jplace file (2023-11-27, Mon, #112, #115)
-
-# treeio 1.26.0
-
-+ Bioconductor RELEASE_3_18 (2023-10-25, Wed)
-
 <!--
 
 # TODO LIST
@@ -15,6 +7,18 @@
 
 
 -->
+
+
+# treeio 1.27.0.002
+
++ speed up `read.beast()` (2023-12-13, Wed, #118)
++ optimize `write.jtree()` (2023-12-13, Wed, #117)
++ `write.jplace()` method to export `jplace` object to a jplace file (2023-11-27, Mon, #112, #115)
+
+# treeio 1.26.0
+
++ Bioconductor RELEASE_3_18 (2023-10-25, Wed)
+
 # treeio 1.25.4
 
 + reexport `as.phylo.hclust_node()` to fix `as.phylo.pvclust()` issue (2023-8-25, Fri, #110)
