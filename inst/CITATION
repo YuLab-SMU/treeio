@@ -16,7 +16,7 @@ bibentry(
 bibentry(
     bibtype  = "article",
     title  = "treeio: an R package for phylogenetic tree input and output with richly annotated and associated data.",
-    author = personList(
+    author = c(
         person("Li-Gen", "Wang"),
         person("Tommy Tsan-Yuk Lam"),
         person("Shuangbin", "Xu"),
