@@ -17,7 +17,7 @@ read.beast <- function(file, threads = 1, verbose = FALSE) {
     text <- readLines(file)
 
     treetext <- read.treetext_beast(text)
-    stats <- read.stats_beast(text, treetext, threads = 1, verbose = FALSE)
+    stats <- read.stats_beast(text, treetext, threads = threads, verbose = verbose)
     phylo <- read.nexus(file)
 
     if (length(treetext) == 1) {
