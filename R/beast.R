@@ -18,7 +18,13 @@ read.beast <- function(file, threads = 1, verbose = FALSE) {
 
     treetext <- read.treetext_beast(text)
     stats <- read.stats_beast(text, treetext, threads = threads, verbose = verbose)
+    if (verbose) {
+        cat("reading phylo...\n")
+    }
     phylo <- read.nexus(file)
+    if (verbose) {
+        cat("done reading phylo\n")
+    }
 
     if (length(treetext) == 1) {
         obj <- BEAST(file, treetext, stats, phylo)
@@ -204,6 +210,9 @@ read.stats_beast_internal <- function(text, is_translated, index = NULL, verbose
     ## BEAST1 edge stat fix
    	text <- gsub("\\]:\\[&(.+?\\])", ",\\1:", text, perl = use_perl())
     text <- gsub(":(\\[.+?\\])", "\\1:", text, perl = use_perl())
+
+    ## santise headers
+    text <- gsub(":[^\\[=]+=", "=", text, perl = use_perl())
 
     if (grepl("\\:[0-9\\.eEL+\\-]*\\[", text, perl = use_perl()) || grepl("\\]\\[", text, perl = use_perl())){
         pattern <- "(\\w+)?(:[\\+\\-]?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\L*\\d*)?(\\[&.*?\\])"
