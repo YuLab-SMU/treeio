@@ -95,9 +95,25 @@ as.treedata.tbl_df <- function(tree, branch.length, label, ...) {
                 res@phylo$node.label <- nodelab
             }
         }else{
+            ## the labels are taken from the 'label' column when the input
+            ## has one, they were always taken from the 2nd column (the node
+            ## numbers) and the 'label' column ended up as 'label.y', #87
+            lab <- if ("label" %in% colnames(edgelist)) "label" else 2
+            if (identical(lab, "label")) {
+                d <- d[, names(d) != "label", drop=FALSE]
+            }
             res <- dplyr::left_join(res, d, by=c('label'='.NAME'))
-            res@phylo$tip.label <- edgelist[match(res@phylo$tip.label,edgelist$`.NAME`),2,drop=TRUE]
-            res@phylo$node.label <- edgelist[match(res@phylo$node.label,edgelist$`.NAME`),2,drop=TRUE]
+            res@phylo$tip.label <- as.character(
+                edgelist[match(res@phylo$tip.label, edgelist$`.NAME`), lab, drop=TRUE]
+            )
+            nodelab <- as.character(
+                edgelist[match(res@phylo$node.label, edgelist$`.NAME`), lab, drop=TRUE]
+            )
+            if (all(is.na(nodelab))){
+                res@phylo$node.label <- NULL
+            }else{
+                res@phylo$node.label <- nodelab
+            }
         }
         return(res)
     }
