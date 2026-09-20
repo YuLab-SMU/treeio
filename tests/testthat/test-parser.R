@@ -39,3 +39,18 @@ test_that("read.raxml accepts a text argument", {
 
     expect_error(read.raxml(), "either 'file' or 'text'")
 })
+
+## a file of bootstrap replicates contains several trees and no support
+## value, #121
+raxml_boot <- read.raxml(
+    system.file("extdata/RAxML", "RAxML_bootstrap.output", package="treeio")
+)
+
+test_that("read.raxml works for a file of bootstrap replicates", {
+    expect_true(inherits(raxml_boot, "treedataList"))
+    expect_equal(length(raxml_boot), 3)
+    expect_true(all(vapply(raxml_boot, is, logical(1), "treedata")))
+    expect_equal(Ntip(raxml_boot[[1]]@phylo), 3)
+    expect_equal(raxml_boot[[1]]@phylo$edge.length, c(0.3, 0.1, 0.2, 0.4))
+    expect_true(all(is.na(raxml_boot[[1]]@data$bootstrap)))
+})
