@@ -16,6 +16,7 @@
 + `read.nextstrain.json()` now parses trees with mixed attribute types (e.g. a divergence tree, where `div` is an integer), the numeric attributes were turned into characters when a node had a character attribute and `bind_rows()` refused to combine them (2026-09-20, Sun, #126)
 + `read.raxml()` supports a `text=` argument to parse a tree string or a connection (2026-09-20, Sun, #122)
 + `read.raxml()` now returns a `treedataList` for a file with several trees (e.g. `RAxML_bootstrap.output`) instead of failing (2026-09-20, Sun, #121)
++ the tree of a PAML output is now found when it is annotated (e.g. `#1` for the branch models) and a file without a tree reports it instead of failing in `strsplit()`, #34 (2026-09-20, Sun, #34)
 + strip the BEAST2 partition name from the annotation parameter name in `read.beast()`, `read.beast.newick()`, `read.mrbayes()` and `read.mega()` (2026-09-20, Sun, #136)
 + restore `read.beast()` multithreading and complete the `write.beast()` named node annotation fix (2026-04-30, Thu, #130)
 

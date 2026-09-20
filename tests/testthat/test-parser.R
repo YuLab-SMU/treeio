@@ -54,3 +54,19 @@ test_that("read.raxml works for a file of bootstrap replicates", {
     expect_equal(raxml_boot[[1]]@phylo$edge.length, c(0.3, 0.1, 0.2, 0.4))
     expect_true(all(is.na(raxml_boot[[1]]@data$bootstrap)))
 })
+
+## the tree lines are located by ')...;', an annotated tree (e.g. '#1' for
+## the branch models) was not found and strsplit() then failed on NA, #34
+test_that("the tree of a PAML output is found even when it is annotated", {
+    x <- c("",
+           "TREE #  1:  ((1, 2) #1, 3) #1;", "",
+           "((1: 0.1, 2: 0.2) #1: 0.3, 3: 0.4) #1;", "",
+           "((A: 0.1, B: 0.2) #1: 0.3, C: 0.4) #1;")
+    expect_equal(treeio:::get_tree_index_paml(x), c(2, 4, 6))
+})
+
+test_that("a PAML output without a tree reports it instead of failing", {
+    mlc <- tempfile()
+    writeLines(c("   3   60", "", "A   ATG GAA GAC"), mlc)
+    expect_error(read.codeml_mlc(mlc), "cannot find the tree")
+})
