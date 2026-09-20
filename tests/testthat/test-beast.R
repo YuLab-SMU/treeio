@@ -123,3 +123,38 @@ test_that("read.beast.newick should work for multiple trees",{
     expect_true(inherits(trees, "treedataList"))
     expect_equal(trees[[1]]@phylo, tree1)
 })
+
+
+## BEAST2 appends the partition name to the parameter name (e.g. blockcount.t:hi),
+## the extra ':' used to break the parsing of the annotation, #136
+beast2 <- read.beast(system.file("extdata/BEAST", "beast2_mcc.tree", package="treeio"))
+
+test_that("read.beast strips the BEAST2 partition name from the parameter name", {
+    expect_s4_class(beast2, "treedata")
+    expect_equal(ape::Ntip(beast2@phylo), 4)
+    expect_equal(beast2@phylo$tip.label, c("a", "b", "c", "d"))
+
+    cn <- colnames(beast2@data)
+    expect_true(all(c("blockcount.t", "blockstart.t", "blockend.t") %in% cn))
+
+    ## the values are numbers, not the parameter name itself
+    expect_true(is.numeric(beast2@data$blockcount.t))
+    d <- as.data.frame(beast2@data)[match(as.character(1:4), beast2@data$node), ]
+    expect_equal(d$blockcount.t, c(0, -1, 2, 1))
+    expect_equal(d$blockstart.t, c(0.2, 0.5, 0.1, 0.5))
+    expect_equal(d$blockend.t, c(0.2, 0.5, 0.5, 0.75))
+})
+
+## ':' inside an annotation value must not be treated as a partition name,
+## otherwise the following parameter is swallowed
+beast2_colon <- read.beast.newick(textConnection(
+    '((a[&mutation="A:T",rate=1.5]:0.1,b[&rate=2]:0.2)[&rate=1]:0.3,c[&rate=0.5]:0.4);'
+))
+
+test_that("read.beast does not strip ':' that is inside an annotation value", {
+    d <- as.data.frame(beast2_colon@data)
+    expect_true("mutation" %in% colnames(d))
+    ## the value is truncated at ':' (existing limitation of splitting by ':'),
+    ## but it must not pick up the value of the next parameter
+    expect_equal(d$mutation[1], "A")
+})

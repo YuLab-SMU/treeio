@@ -10,6 +10,7 @@
 
 # treeio 1.37.0.001
 
++ strip the BEAST2 partition name from the annotation parameter name in `read.beast()`, `read.beast.newick()`, `read.mrbayes()` and `read.mega()` (2026-09-20, Sun, #136)
 + restore `read.beast()` multithreading and complete the `write.beast()` named node annotation fix (2026-04-30, Thu, #130)
 
 # treeio 1.36.0

@@ -1,0 +1,20 @@
+#NEXUS
+
+Begin taxa;
+	Dimensions ntax=4;
+	TaxLabels
+		a
+		b
+		c
+		d
+		;
+End;
+Begin trees;
+	Translate
+		1 a,
+		2 b,
+		3 c,
+		4 d
+		;
+tree TREE1 = [&R] ((1[&blockcount.t:hi=0,blockstart.t:hi=0.2,blockend.t:hi=0.2]:1,2[&blockcount.t:hi=-1,blockstart.t:hi=0.5,blockend.t:hi=0.5]:1)[&blockcount.t:hi=-1,blockstart.t:hi=0.5,blockend.t:hi=0.5]:1,(3[&blockcount.t:hi=2,blockstart.t:hi=0.1,blockend.t:hi=0.5]:2,4[&blockcount.t:hi=1,blockstart.t:hi=0.5,blockend.t:hi=0.75]:1)[&blockcount.t:hi=0,blockstart.t:hi=0.5,blockend.t:hi=0.5]:1);
+End;
