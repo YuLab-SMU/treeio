@@ -10,6 +10,8 @@
 
 # treeio 1.37.0.001
 
++ `as.phylo()` now uses the `branch.length` column by default so that the branch lengths are not lost when a tree is re-rooted (2026-09-20, Sun, #134)
++ `as.phylo()` now uses the `label` column by default instead of the node numbers, so that the tip and node labels are not lost when a tree is re-rooted (2026-09-20, Sun, #120)
 + strip the BEAST2 partition name from the annotation parameter name in `read.beast()`, `read.beast.newick()`, `read.mrbayes()` and `read.mega()` (2026-09-20, Sun, #136)
 + restore `read.beast()` multithreading and complete the `write.beast()` named node annotation fix (2026-04-30, Thu, #130)
 

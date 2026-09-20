@@ -20,10 +20,18 @@ as.phylo.tbl_df <- function(x, branch.length, label, ...) {
     if (!rlang::quo_is_missing(branch.length)){
         edge.length <- as.numeric(x %>% dplyr::pull(!!branch.length))
         length_var <- rlang::as_name(branch.length)
+    }else if ("branch.length" %in% colnames(x)){
+        ## e.g. the output of as_tibble(), the branch lengths were dropped, #134
+        edge.length <- as.numeric(x[["branch.length"]])
+        length_var <- "branch.length"
     }
 
     if (!rlang::quo_is_missing(label)){
         labels <- x %>% dplyr::pull(!!label) %>% as.character()
+    }else if ("label" %in% colnames(x)){
+        ## e.g. the output of as_tibble(), otherwise the node numbers were
+        ## used as the labels, #120
+        labels <- as.character(x[["label"]])
     }else{
         labels <- x %>% dplyr::pull(2) %>% as.character()
     }
