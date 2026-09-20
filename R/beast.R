@@ -21,7 +21,7 @@ read.beast <- function(file, threads = 1, verbose = FALSE) {
     if (verbose) {
         cat("reading phylo...\n")
     }
-    phylo <- read.nexus(file)
+    phylo <- read.phylo_beast(file, text, treetext)
     if (verbose) {
         cat("done reading phylo\n")
     }
@@ -157,6 +157,46 @@ read.trans_beast <- function(beast) {
 }
 
 
+## ape::read.nexus() numbers the tips by the keys of the TRANSLATE table,
+## this returns a broken tree when the keys are not 1:Ntip, which is what
+## MEGA writes, #132
+read.phylo_beast <- function(file, beast, treetext) {
+    phylo <- read.nexus(file)
+    if (is_valid_phylo(phylo)) {
+        return(phylo)
+    }
+
+    trans <- read.trans_beast(beast)
+    if (nrow(trans) == 0) {
+        return(phylo)
+    }
+
+    translate_tip <- function(tr) {
+        tr$tip.label <- trans[, 2][match(tr$tip.label, trans[, 1])]
+        return(tr)
+    }
+
+    res <- read.tree(text = treetext)
+    if (inherits(res, "multiPhylo")) {
+        nms <- names(res)
+        res <- lapply(res, translate_tip)
+        names(res) <- nms
+        class(res) <- "multiPhylo"
+    } else {
+        res <- translate_tip(res)
+    }
+    return(res)
+}
+
+is_valid_phylo <- function(phylo) {
+    if (inherits(phylo, "multiPhylo")) {
+        return(all(vapply(phylo, is_valid_phylo, logical(1))))
+    }
+    n <- Ntip(phylo) + phylo$Nnode
+    return(setequal(as.vector(phylo$edge), seq_len(n)))
+}
+
+
 ##' @importFrom parallel mclapply
 read.stats_beast <- function(beast, trees, threads = 1, verbose = FALSE) {
     is_translated <- any(grepl("TRANSLATE", beast, ignore.case = TRUE, perl = use_perl()))
@@ -201,7 +241,10 @@ read.stats_beast_internal <- function(text, is_translated, index = NULL, verbose
     ii <- match(nn, tree_label)
 
     if (is_translated == TRUE) {
-        label2 <- c(phylo$tip.label, root:getNodeNum(phylo))
+        ## the tips are numbered by their position, the keys of the translate
+        ## table are not necessarily 1:Ntip (e.g. MEGA output), #132
+        label2 <- as.character(seq_len(Ntip(phylo)))
+        label2 <- c(label2, as.character(root:getNodeNum(phylo)))
     } else {
         label2 <- as.character(1:getNodeNum(phylo))
     }

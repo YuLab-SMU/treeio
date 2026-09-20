@@ -1,0 +1,20 @@
+#NEXUS
+
+Begin taxa;
+	Dimensions ntax=4;
+	TaxLabels
+		A
+		B
+		C
+		D
+		;
+End;
+Begin trees;
+	Translate
+		1 A,
+		2 B,
+		4 C,
+		5 D
+		;
+tree TREE1 = [&R] ((1[&rate=0.1]:0.2,2[&rate=0.3]:0.4)[&rate=0.5]:0.5,(4[&rate=0.6]:0.7,5[&rate=0.8]:0.9)[&rate=0.9]:1.0);
+End;

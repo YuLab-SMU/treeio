@@ -158,3 +158,33 @@ test_that("read.beast does not strip ':' that is inside an annotation value", {
     ## but it must not pick up the value of the next parameter
     expect_equal(d$mutation[1], "A")
 })
+
+
+## the keys of the TRANSLATE table are not necessarily 1:Ntip (e.g. MEGA
+## output); ape::read.nexus() numbers the tips by the keys and returns a
+## broken tree, and the node data was shifted accordingly, #132
+nonconsecutive <- read.beast(
+    system.file("extdata/MEGA7", "nonconsecutive_translate.nex", package="treeio")
+)
+
+test_that("read.beast works with a non-consecutive translate table", {
+    expect_s4_class(nonconsecutive, "treedata")
+    expect_equal(ape::Ntip(nonconsecutive@phylo), 4)
+    expect_equal(nonconsecutive@phylo$tip.label, c("A", "B", "C", "D"))
+
+    ## the tips are numbered 1:Ntip, not by the keys of the translate table
+    n <- Ntip(nonconsecutive@phylo) + Nnode(nonconsecutive@phylo)
+    expect_setequal(as.vector(nonconsecutive@phylo$edge), seq_len(n))
+
+    d <- as.data.frame(nonconsecutive@data)
+    d <- d[match(as.character(1:4), d$node), ]
+    expect_equal(d$rate, c(0.1, 0.3, 0.6, 0.8))
+})
+
+test_that("read.mega works with a non-consecutive translate table", {
+    mega <- read.mega(
+        system.file("extdata/MEGA7", "nonconsecutive_translate.nex", package="treeio")
+    )
+    expect_equal(mega@phylo, nonconsecutive@phylo)
+    expect_equal(mega@data, nonconsecutive@data)
+})
