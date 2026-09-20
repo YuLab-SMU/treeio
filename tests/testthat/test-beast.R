@@ -188,3 +188,15 @@ test_that("read.mega works with a non-consecutive translate table", {
     expect_equal(mega@phylo, nonconsecutive@phylo)
     expect_equal(mega@data, nonconsecutive@data)
 })
+
+
+## a nexus file written by e.g. FigTree quotes the taxon names, the quotes
+## used to be kept and the tip labels did not match the sequence names, #47
+quoted <- read.beast(
+    system.file("extdata/BEAST", "beast_mcc_quoted.tree", package="treeio")
+)
+
+test_that("read.beast removes the quotes around the taxon names", {
+    expect_equal(quoted@phylo$tip.label, beast@phylo$tip.label)
+    expect_false(any(grepl("['\"]", quoted@phylo$tip.label)))
+})
