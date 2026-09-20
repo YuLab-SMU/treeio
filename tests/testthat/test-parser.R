@@ -24,3 +24,18 @@ test_that("parsing trees", {
     expect_true(all.equal(read.newick(nwk_file), read.tree(nwk_file)))
     expect_true('support' %in% names(read.newick(nwk_file, "support")@data))
 })
+
+## the tree can be passed as a string instead of a file, #122
+test_that("read.raxml accepts a text argument", {
+    txt <- "((a:0.1,b:0.2):0.3[90],c:0.4);"
+    x <- read.raxml(text = txt)
+    expect_s4_class(x, "treedata")
+    expect_equal(Ntip(x@phylo), 3)
+    expect_equal(x@phylo$tip.label, c("a", "b", "c"))
+    expect_true(90 %in% x@data$bootstrap)
+
+    y <- read.raxml(text = textConnection(txt))
+    expect_equal(y@phylo, x@phylo)
+
+    expect_error(read.raxml(), "either 'file' or 'text'")
+})

@@ -14,6 +14,7 @@
 + `as.phylo()` now uses the `label` column by default instead of the node numbers, so that the tip and node labels are not lost when a tree is re-rooted (2026-09-20, Sun, #120)
 + `read.beast()` and `read.mega()` now support a TRANSLATE table with non-consecutive keys (e.g. MEGA output); the tips are numbered 1:Ntip and the node data is mapped accordingly (2026-09-20, Sun, #132)
 + `read.nextstrain.json()` now parses trees with mixed attribute types (e.g. a divergence tree, where `div` is an integer), the numeric attributes were turned into characters when a node had a character attribute and `bind_rows()` refused to combine them (2026-09-20, Sun, #126)
++ `read.raxml()` supports a `text=` argument to parse a tree string or a connection (2026-09-20, Sun, #122)
 + strip the BEAST2 partition name from the annotation parameter name in `read.beast()`, `read.beast.newick()`, `read.mrbayes()` and `read.mega()` (2026-09-20, Sun, #136)
 + restore `read.beast()` multithreading and complete the `write.beast()` named node annotation fix (2026-04-30, Thu, #130)
 

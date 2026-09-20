@@ -4,10 +4,13 @@
 \alias{read.raxml}
 \title{read.raxml}
 \usage{
-read.raxml(file)
+read.raxml(file = NULL, text = NULL)
 }
 \arguments{
 \item{file}{RAxML bootstrapping analysis output}
+
+\item{text}{alternatively, the content of the file as a character string
+or a connection; 'file' is ignored when 'text' is given}
 }
 \value{
 treedata object
@@ -18,6 +21,7 @@ parse RAxML bootstrapping analysis output
 \examples{
 raxml_file <- system.file("extdata/RAxML", "RAxML_bipartitionsBranchLabels.H3", package="treeio")
 read.raxml(raxml_file)
+read.raxml(text = "(a:0.1,b:0.2)90:0.3;")
 }
 \author{
 Guangchuang Yu
