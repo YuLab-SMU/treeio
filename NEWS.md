@@ -18,6 +18,7 @@
 + `read.raxml()` now returns a `treedataList` for a file with several trees (e.g. `RAxML_bootstrap.output`) instead of failing (2026-09-20, Sun, #121)
 + the tree of a PAML output is now found when it is annotated (e.g. `#1` for the branch models) and a file without a tree reports it instead of failing in `strsplit()`, #34 (2026-09-20, Sun, #34)
 + `read.phyloxml()` now keeps the branch lengths, `as.phylo()` was called with `length=` instead of `branch.length=` and the branch lengths were dropped (2026-09-20, Sun, #124)
++ `read.paml_rst()` now attributes the branch length to the node the branch leads to, they were taken by position and ended up on the wrong branch (2026-09-20, Sun, #72)
 + strip the BEAST2 partition name from the annotation parameter name in `read.beast()`, `read.beast.newick()`, `read.mrbayes()` and `read.mega()` (2026-09-20, Sun, #136)
 + restore `read.beast()` multithreading and complete the `write.beast()` named node annotation fix (2026-04-30, Thu, #130)
 

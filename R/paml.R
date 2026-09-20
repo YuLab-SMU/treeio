@@ -177,15 +177,17 @@ read.phylo_paml_rst <- function(rstfile) {
 
     label <- c(tr3$tip.label, tr3$node.label)
     root <- rootnode(tr3)
-    ## label %<>% `[`(. != root)
-    label <- label[label != root]
 
-    node.length <- data.frame(label=label,
-                              length=tr1$edge.length)
+    ## tr1 and tr3 have the same topology, the length of an edge is taken
+    ## from tr1 for the node the edge leads to; using the position instead
+    ## attributed the lengths to the wrong branches, #72
+    len <- rep(NA_real_, length(label))
+    len[tr3$edge[, 2]] <- tr1$edge.length
 
-    ## node.length$node <- sub("_\\w+", "", node.length$label
-    node.length$node <- gsub("^(\\d+)_.*", "\\1", node.length$label)
-    node.length$label <- sub("\\d+_", "", node.length$label)
+    node.length <- data.frame(label = label,
+                              length = len)
+    node.length$node <- as.numeric(sub("_.*$", "", node.length$label))
+    node.length$label <- sub("^\\d+_", "", node.length$label)
 
     edge <- as.data.frame(edge)
     colnames(edge) <- c("parent", "node")

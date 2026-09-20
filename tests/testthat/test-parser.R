@@ -70,3 +70,21 @@ test_that("a PAML output without a tree reports it instead of failing", {
     writeLines(c("   3   60", "", "A   ATG GAA GAC"), mlc)
     expect_error(read.codeml_mlc(mlc), "cannot find the tree")
 })
+
+## the branch lengths were taken by position and ended up on the wrong
+## branch, #72
+test_that("read.paml_rst attributes the branch lengths to the branch", {
+    rstfile <- system.file("extdata/PAML_Codeml", "rst", package="treeio")
+    tr <- read.paml_rst(rstfile)
+    d <- as.data.frame(as_tibble(tr))
+
+    x <- readLines(rstfile, warn=FALSE)
+    tr1 <- read.tree(text = x[treeio:::get_tree_index_paml(x)][1])
+    el <- tr1$edge.length[match(seq_len(Ntip(tr1)), tr1$edge[, 2])]
+
+    i <- match(tr1$tip.label, d$label)
+    expect_equal(d$branch.length[i], el)
+
+    ## this one was 0.048389, the branch length of another tip
+    expect_equal(d$branch.length[match("D", d$label)], 0.082021)
+})
