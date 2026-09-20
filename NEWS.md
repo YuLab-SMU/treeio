@@ -10,6 +10,7 @@
 
 # treeio 1.37.0.001
 
++ `read.iqtree()` now reports that it cannot find a Newick tree in the input instead of parsing the IQ-TREE report file (`*.iqtree`) into a meaningless tree or crashing the R session (2026-09-20, Sun, #98)
 + `as.phylo()` now uses the `branch.length` column by default so that the branch lengths are not lost when a tree is re-rooted (2026-09-20, Sun, #134)
 + `as.phylo()` now uses the `label` column by default instead of the node numbers, so that the tip and node labels are not lost when a tree is re-rooted (2026-09-20, Sun, #120)
 + `read.beast()` and `read.mega()` now support a TRANSLATE table with non-consecutive keys (e.g. MEGA output); the tips are numbered 1:Ntip and the node data is mapped accordingly (2026-09-20, Sun, #132)

@@ -1,0 +1,17 @@
+IQ-TREE 2.2.2.6 built Aug 20 2023
+Input file name: aln.fasta
+Type of analysis: Partitions
+Random seed number 12345
+
+ModelFinder: best-fit model: GTR+F+G4
+
+Partition information;
+Name      Type    Subscheme
+part1     DNA     GTR+F+G4
+
+Total tree length (sum of branch lengths): 1.234
+Log-likelihood of the tree: -5678.901 (s.e. 0.123)
+
+CONSENSUS TREE INFORMATION
+--------------------------
+Maximum likelihood tree was written to ML.treefile
