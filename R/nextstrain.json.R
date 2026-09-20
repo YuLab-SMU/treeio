@@ -50,7 +50,12 @@ parser_children <- function(x, id=list2env(list(id = 0L)), parent = 1){
     }else{
         id[["data"]][[id[["id"]]]][["isTip"]] <- TRUE
     }
-    dat <- dplyr::bind_rows(as.list(id[["data"]])) %>% dplyr::mutate_if(check_num, as.numeric)
+    ## the attributes of a node are unlisted, a node with a character
+    ## attribute turns all of its numeric attributes into characters and
+    ## bind_rows() refuses to combine the two, #126
+    dat <- lapply(as.list(id[["data"]]), function(d){
+        dplyr::mutate_if(d, check_num, as.numeric)
+    }) %>% dplyr::bind_rows()
     return(dat)
 }
 

@@ -1,0 +1,42 @@
+{
+  "version": "2.0",
+  "meta": {
+    "title": "Minimal divergence tree (number of mutations)",
+    "updated": "20 Sep 2026"
+  },
+  "tree": {
+    "name": "NODE_0000000",
+    "node_attrs": {
+      "div": {"value": 0}
+    },
+    "children": [
+      {
+        "name": "A",
+        "node_attrs": {
+          "div": {"value": 2}
+        }
+      },
+      {
+        "name": "NODE_0000001",
+        "node_attrs": {
+          "div": {"value": 3},
+          "author": {"value": "someone"}
+        },
+        "children": [
+          {
+            "name": "C",
+            "node_attrs": {
+              "div": {"value": 5}
+            }
+          },
+          {
+            "name": "D",
+            "node_attrs": {
+              "div": {"value": 4}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
