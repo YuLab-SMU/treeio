@@ -2,14 +2,14 @@
 
 # TODO LIST
 
-+ [ ] improve read.phyloxml
 + [ ] re-write read.beast to optimize parsing large file
 
 
 -->
 
-# treeio 1.37.0.001
+# treeio 1.37.1
 
++ `read.phyloxml()` is much faster and it is no longer limited to a tree nested less than 256 levels deep, the default limit of libxml2; the clade tree is now walked with an explicit stack instead of a recursion that bound all the nodes visited so far at every node, a tree of 512 tips took 7s and now takes 0.4s (2026-09-20, Sun)
 + `edgeNum2nodeNum()` is exported, it maps the `edge_num` of an EPA/pplacer placement (a post-order traversal number) to the node number of the reference tree, #31 (2026-09-20, Sun, #31)
 + `read.beast()` now supports the `UTREE` keyword of an unrooted tree and `write.beast()` no longer annotates a node without data (it wrote `NULL` and could stop with `object 'nl' not found`), which is what happened to the LSD2 timetree of IQ-TREE (2026-09-20, Sun, #111)
 + `read.mcmctree()` now stores the 95% credibility interval of the node age in a `reltime_0.95_CI` column (it used to be a column named `0.95`) so that it can be plotted with `geom_range(range='reltime_0.95_CI', center='reltime')`, and the interval is kept as numbers (2026-09-20, Sun, #13)

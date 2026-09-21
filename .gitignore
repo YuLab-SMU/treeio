@@ -8,3 +8,4 @@ mkdocs/mysoftware
 __pycache__
 *.Rcheck
 *.html
+.workbuddy-ai/

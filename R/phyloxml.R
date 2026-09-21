@@ -11,18 +11,25 @@
 #' px2
 read.phyloxml <- function(file){
     check_installed('xml2', 'for `read.phyloxml()`.')
-    x <- xml2::read_xml(file)
-    x <- xml2::as_list(x)
-    x <- x[["phyloxml"]]
-    index <- which(names(x)=="phylogeny")
+    ## NOBLANKS is the default of `read_xml()` and has to be repeated, it drops
+    ## the indentation of the file, which would otherwise be parsed as the
+    ## annotation of every clade; libxml2 refuses a document nested deeper than
+    ## 256 elements by default, which a ladder tree of ~250 tips reaches
+    x <- xml2::read_xml(file, options = c("NOBLANKS", "HUGE"))
+    x <- xml2::xml_root(x)
+    if (xml2::xml_name(x) != "phyloxml"){
+        stop("The input file is not phyloxml format, please check it !")
+    }
+    phylogeny <- xml2::xml_children(x)
+    index <- which(xml2::xml_name(phylogeny) == "phylogeny")
     if (length(index)==0){
         stop("The input file is not phyloxml format, please check it !")
     }
     if (length(index)==1){
-        objtmp <- single_tree(index, x, file)
+        objtmp <- single_tree(phylogeny[[index]], index, file)
         obj <- objtmp[[1]]
     }else{
-        objtmp <- lapply(index, single_tree, x, file)
+        objtmp <- lapply(index, function(i) single_tree(phylogeny[[i]], i, file))
         obj <- lapply(objtmp, function(x)x[[1]])
         names(obj) <- unlist(lapply(objtmp, function(x)x[[2]]))
         class(obj) <- "treedataList"
@@ -31,10 +38,10 @@ read.phyloxml <- function(file){
 }
 
 #' @keywords internal
-single_tree <- function(i, phylogeny, file){
-    rootflag <- unname(check_attrs(phylogeny[[i]]))
-    treename <- extract_treename(i, phylogeny)
-    dt <- parser_clade(phylogeny[[i]][["clade"]])
+single_tree <- function(phylogeny, i, file){
+    rootflag <- unname(xml2::xml_attrs(phylogeny))
+    treename <- extract_treename(phylogeny, i)
+    dt <- parser_clade(phylogeny)
     dt <- dt[!is.na(dt$parentID), ]
     if ("branch_length" %in% colnames(dt) & !all(is.na(dt[["branch_length"]]))){
         edgedf <- dt[,c("parentID", "NodeID", "branch_length")]
@@ -78,17 +85,58 @@ single_tree <- function(i, phylogeny, file){
 
 
 #' @keywords internal
-parser_clade <- function(x, id=list2env(list(id = 0L)), parent=NULL){
-    # to generate edge data
-    id[["id"]] <- id[["id"]] + 1L
-    id[["data"]][[id[["id"]]]] <- extract_values_attrs(x, id=id[["id"]], isTip=FALSE, parent=fill_id(parent))
-    index <- which(names(x)=="clade")
-    if (length(index)){
-        lapply(x[index], parser_clade, id=id, parent=id[["data"]][[id[["id"]]-1L]][["NodeID"]])
-    }else{
-        id[["data"]][[id[["id"]]]][["isTip"]] <- TRUE
+## walk the clade tree of a <phylogeny> node to generate the edge data.
+## The <clade> elements are nested, so the whole document cannot be turned into
+## a list with xml2::as_list(), which recurses once per level: it overflowed
+## the C stack on a ladder tree of ~500 tips. Only the flat annotation of a
+## clade is converted with as_list() here and the clade tree itself is walked
+## with an explicit stack, which also avoids the bind_rows() of all the nodes
+## visited so far that the recursion did at every node (800 tips took 18s).
+parser_clade <- function(x){
+    kids <- xml2::xml_children(x)
+    root <- kids[[match("clade", xml2::xml_name(kids))]]
+
+    id <- 0L
+    data <- list()
+    ## `stack` is a local list and must be assigned with `<-`, `<<-` would skip
+    ## it and reach utils::stack
+    stack <- list(list(node=root, parent=NULL))
+    top <- 1L
+
+    while (top > 0L){
+        cur <- stack[[top]]
+        top <- top - 1L
+
+        id <- id + 1L
+        kids <- xml2::xml_children(cur$node)
+        nms <- xml2::xml_name(kids)
+        isClade <- nms == "clade"
+
+        ## the annotation of the clade, its attributes and its children that
+        ## are not a <clade>, in the shape xml2::as_list() would give
+        anno <- list()
+        if (any(!isClade)){
+            anno <- lapply(kids[!isClade], xml2::as_list)
+            names(anno) <- nms[!isClade]
+        }
+        attributes(anno) <- c(list(names=names(anno)),
+                              as.list(xml2::xml_attrs(cur$node)))
+
+        data[[id]] <- extract_values_attrs(anno, id=id,
+                                           isTip=!any(isClade),
+                                           parent=fill_id(cur$parent))
+        if (any(isClade)){
+            clades <- kids[isClade]
+            ## the children are pushed in reverse order so that they are
+            ## visited left to right, as the depth first recursion did
+            for (j in rev(seq_along(clades))){
+                top <- top + 1L
+                stack[[top]] <- list(node=clades[[j]], parent=id)
+            }
+        }
     }
-    dat <- dplyr::bind_rows(as.list(id[["data"]]))
+
+    dat <- dplyr::bind_rows(data)
     return(dat)
 }
 
@@ -154,11 +202,13 @@ extract_attrs <- function(x){
 }
 
 #' @keywords internal
-extract_treename <- function(i, phylogeny){
-    if ("name" %in% names(phylogeny[[i]])){
-        treename <- unlist(phylogeny[[i]][["name"]])
-    }else{
+extract_treename <- function(phylogeny, i){
+    kids <- xml2::xml_children(phylogeny)
+    j <- match("name", xml2::xml_name(kids))
+    if (is.na(j)){
         treename <- paste0("phylogeny_", i)
+    }else{
+        treename <- xml2::xml_text(kids[[j]])
     }
     return (treename)
 }
