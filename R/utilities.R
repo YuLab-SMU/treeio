@@ -86,23 +86,25 @@ jplace_treetext_to_phylo <- function(tree.text) {
 }
 
 
-## convert edge number to node number for EPA/pplacer output
+##' convert edge number to node number for EPA/pplacer output
+##'
+##'
+##' @title edgeNum2nodeNum
+##' @param jp a \code{jplace} object
+##' @param edgeNum the edge number of a placement, the \code{edge_num} column
+##' of a jplace file. EPA and pplacer number the edges by a post-order
+##' traversal, they are not the row numbers of \code{jp@phylo$edge}
+##' @return the node number of the reference tree, \code{NA} for an edge
+##' number that is not in the tree
+##' @export
+##' @examples
+##' jpfile <- system.file("extdata", "sample.jplace", package="treeio")
+##' jp <- read.jplace(jpfile)
+##' edgeNum2nodeNum(jp, c(0, 1, 2))
+##' @author Guangchuang Yu
 edgeNum2nodeNum <- function(jp, edgeNum) {
     edges <- attr(jp@phylo, "edgeNum")
-    idx <- match(edgeNum, edges$edgeNum)
-    flagna <- is.na(idx)
-    idx <- idx[!flagna]
-    if (any(flagna) & length(idx)>0){
-        na_edgeNum <- paste(edgeNum[which(flagna)], collapse="; ")
-        stop(paste("The following edges: ",na_edgeNum, ", couldn't be found", sep=""), call. = FALSE)
-        #idx <- idx[!flagna]
-    }
-    #idx <- which(edges$edgeNum == edgeNum)
-    if (length(idx) == 0) {
-        return(NA)
-    }
-
-    edges[idx, "node"]
+    edges$node[match(edgeNum, edges$edgeNum)]
 }
 
 is.tree <- function(x) {

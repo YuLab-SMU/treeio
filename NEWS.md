@@ -10,6 +10,7 @@
 
 # treeio 1.37.0.001
 
++ `edgeNum2nodeNum()` is exported, it maps the `edge_num` of an EPA/pplacer placement (a post-order traversal number) to the node number of the reference tree, #31 (2026-09-20, Sun, #31)
 + `read.beast()` now supports the `UTREE` keyword of an unrooted tree and `write.beast()` no longer annotates a node without data (it wrote `NULL` and could stop with `object 'nl' not found`), which is what happened to the LSD2 timetree of IQ-TREE (2026-09-20, Sun, #111)
 + `read.mcmctree()` now stores the 95% credibility interval of the node age in a `reltime_0.95_CI` column (it used to be a column named `0.95`) so that it can be plotted with `geom_range(range='reltime_0.95_CI', center='reltime')`, and the interval is kept as numbers (2026-09-20, Sun, #13)
 + the substitution is now reported with the node it cannot find a sequence for instead of failing with `seqA should have equal length to seqB`, and that message names the two sequences and their lengths (2026-09-20, Sun, #91)

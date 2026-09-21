@@ -34,3 +34,14 @@ test_that("check the nrow of placements.",{
     expect_equal(nrow(jplacement1), nrowplace1)
     expect_equal(nrow(jplacement2), nrowplace2)
 })
+
+## EPA and pplacer number the edges by a post-order traversal, so the
+## edge_num of a placement is not the row number of the edge matrix, #31
+jp3 <- read.jplace(system.file("extdata", "sample.jplace", package="treeio"))
+
+test_that("edgeNum2nodeNum maps the placement edge to the node of the tree", {
+    p <- get.placements(jp3, "best")
+
+    expect_equal(edgeNum2nodeNum(jp3, p$edge_num), p$node)
+    expect_true(is.na(edgeNum2nodeNum(jp3, -1)))
+})
