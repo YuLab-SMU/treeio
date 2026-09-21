@@ -15,4 +15,5 @@ CONTRIBUTORS.md
 .covrignore
 ^CONDUCT\.md$
 ^codemeta\.json$
+^AGENTS\.md$
 TODO.md
