@@ -43,6 +43,12 @@ summarize_placement <- function(tree) {
 
 ##' @method get.placements jplace
 ##' @param by one of 'best' and 'all'
+##' @details The `node` column is the node number of the reference tree, that
+##' is the node the branch leads to (a tip or an internal node, numbered
+##' 1:Ntip for the tips and Ntip+1:Ntip+Nnode for the internal nodes). It is
+##' translated from the `edge_num` of the jplace file, which EPA and pplacer
+##' number by a post-order traversal of the tree; `edgeNum2nodeNum()` does
+##' that translation, #22
 ##' @export
 ##' @rdname get-placements
 ##' @importFrom dplyr group_by
