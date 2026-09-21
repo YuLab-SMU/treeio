@@ -130,7 +130,11 @@ read.treetext_beast <- function(beast) {
 
     trees <- lapply(seq_along(ii), function(i) {
         tree <- beast[(ii[i]+1):(jj[i]-1)]
-        tree <- tree[grep("^\\s*tree", tree, ignore.case = TRUE, perl = use_perl())]
+        ## the tree line is 'TREE <name> = ...' and 'UTREE <name> = ...' for
+        ## an unrooted tree, e.g. the output of MCMCTree and of the LSD2
+        ## dating of IQ-TREE, #111
+        tree <- tree[grep("^\\s*[a-zA-Z]*tree", tree, ignore.case = TRUE,
+                          perl = use_perl())]
         sub("[^(]*", "", tree)
     }) %>% unlist
 
@@ -161,14 +165,23 @@ read.trans_beast <- function(beast) {
 ## this returns a broken tree when the keys are not 1:Ntip, which is what
 ## MEGA writes, #132
 read.phylo_beast <- function(file, beast, treetext) {
-    phylo <- read.nexus(file)
-    if (is_valid_phylo(phylo)) {
+    ## read.nexus() only knows the 'TREE' keyword and fails on the 'UTREE' of
+    ## an unrooted tree, e.g. the LSD2 output of IQ-TREE, #111
+    phylo <- try(read.nexus(file), silent = TRUE)
+    if (inherits(phylo, "try-error")) {
+        phylo <- NULL
+    }
+    if (!is.null(phylo) && is_valid_phylo(phylo)) {
         return(phylo)
     }
 
+    ## the tips are numbered when the file has a translate table, take the
+    ## labels from it; the tree text is used as it is otherwise
+    res <- read.tree(text = treetext)
+
     trans <- read.trans_beast(beast)
-    if (nrow(trans) == 0) {
-        return(phylo)
+    if (ncol(trans) < 2) {
+        return(res)
     }
 
     translate_tip <- function(tr) {

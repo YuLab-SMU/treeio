@@ -1,0 +1,9 @@
+#NEXUS
+[ LSD2 (IQ-TREE least square dating) output; the confidence intervals are
+  only reported for some of the nodes ]
+
+BEGIN TREES;
+
+	UTREE 1 = (((A[&date=0.0,height=0.0,CI_date={0.0,0.0},CI_height={0.0,0.0}]:0.11,B[&date=0.0,height=0.0,CI_date={0.0,0.0},CI_height={0.0,0.0}]:0.12)[&date=0.15,height=0.15,CI_date={0.10,0.20},CI_height={0.10,0.20}]:0.23,C:0.34)[&date=0.50,height=0.50]:0.45,D:0.56);
+
+END;

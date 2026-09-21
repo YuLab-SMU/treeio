@@ -218,3 +218,33 @@ test_that("read.beast keeps the space inside a quoted taxon name", {
     d <- d[match(as.character(1:4), d$node), ]
     expect_equal(d$length, c(1, 1, 2, 2))
 })
+
+
+## the dating of IQ-TREE (LSD2) writes an unrooted tree with 'UTREE', which
+## ape::read.nexus() does not know, and only some of the nodes are annotated,
+## #111
+lsd2 <- read.beast(system.file("extdata/LSD2", "timetree.nex", package="treeio"))
+
+test_that("read.beast supports the UTREE keyword of an LSD2 timetree", {
+    expect_s4_class(lsd2, "treedata")
+    expect_equal(lsd2@phylo$tip.label, LETTERS[1:4])
+
+    d <- as.data.frame(lsd2@data)
+    d <- d[match(as.character(1:4), d$node), ]
+    expect_equal(d$date, c(0, 0, NA, NA))
+    expect_equal(d$height, c(0, 0, NA, NA))
+})
+
+test_that("write.beast does not annotate the nodes without data", {
+    ## a node without data used to be annotated with 'NULL' and the node label
+    ## was left undefined, which stopped the export, #111
+    file <- tempfile()
+    write.beast(lsd2, file = file)
+
+    txt <- readLines(file)
+    expect_false(any(grepl("NULL", txt, fixed = TRUE)))
+
+    tr <- read.beast(file)
+    expect_equal(tr@phylo$tip.label, lsd2@phylo$tip.label)
+    expect_equal(as.data.frame(tr@data)$date, as.data.frame(lsd2@data)$date)
+})

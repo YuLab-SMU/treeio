@@ -10,6 +10,7 @@
 
 # treeio 1.37.0.001
 
++ `read.beast()` now supports the `UTREE` keyword of an unrooted tree and `write.beast()` no longer annotates a node without data (it wrote `NULL` and could stop with `object 'nl' not found`), which is what happened to the LSD2 timetree of IQ-TREE (2026-09-20, Sun, #111)
 + `read.mcmctree()` now stores the 95% credibility interval of the node age in a `reltime_0.95_CI` column (it used to be a column named `0.95`) so that it can be plotted with `geom_range(range='reltime_0.95_CI', center='reltime')`, and the interval is kept as numbers (2026-09-20, Sun, #13)
 + the substitution is now reported with the node it cannot find a sequence for instead of failing with `seqA should have equal length to seqB`, and that message names the two sequences and their lengths (2026-09-20, Sun, #91)
 + `read.iqtree()` now says when the node labels hold a single support value that cannot be split into SH-aLRT and UFBoot (e.g. the standard bootstrap alone), and it no longer fails on a tree without any branch support (2026-09-20, Sun, #114)

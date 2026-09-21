@@ -215,6 +215,22 @@ write_beast_newick <- write.beast.newick
         k <<- k + 1
     }
 
+    ## a node is not annotated when it is not in the data at all, e.g. a node
+    ## of an LSD2 timetree without a confidence interval; looking it up in
+    ## node_anno returns NULL (or NA) and the annotation used to be written as
+    ## 'NULL', and the node label was even left undefined, #111
+    get_anno <- function(i) {
+        if (is.null(node_anno))
+            return(NULL)
+        j <- match(as.character(i), names(node_anno))
+        if (is.na(j))
+            return(NULL)
+        res <- node_anno[[j]]
+        if (is.null(res) || length(res) == 0 || is.na(res))
+            return(NULL)
+        return(res)
+    }
+
     add.internal <- function(i) {
         char.i <- as.character(i) # make sure we are indexing node_anno by name and not index
         cp("(")
@@ -229,16 +245,18 @@ write_beast_newick <- write.beast.newick
         ## if (nodelab && i > n) {
         if (nodelab && i %in% edge[,1]) {
             ## cp(phy$node.label[i - n]) # fixed by Naim Matasci (2010-12-07)
-            if (is.null(node_anno)) {
+            anno <- get_anno(i)
+            if (is.null(anno)) {
                 if (id_as_label) nl <- to_nodelab(edge, i)
                 else nl <- node.label[i - n]
-            } else if (!is.na(node_anno[char.i])) {
-                if (id_as_label) nl <- paste0(to_nodelab(edge, i), node_anno[char.i])
-                else nl <- paste0(node.label[i - n], node_anno[char.i])
+            } else {
+                if (id_as_label) nl <- paste0(to_nodelab(edge, i), anno)
+                else nl <- paste0(node.label[i - n], anno)
             }
             cp(nl)
         } else if (i %in% edge[,1] && !is.null(node_anno)) {
-            cp(node_anno[char.i])
+            anno <- get_anno(i)
+            if (!is.null(anno)) cp(anno)
         }
         if (brl) {
             cp(":")
@@ -250,12 +268,13 @@ write_beast_newick <- write.beast.newick
         char.i <- as.character(i) # make sure we are indexing node_anno by name and not index
         ii <- edge[i, 2]
         char.ii <- as.character(ii)
-        if (is.null(node_anno) || is.na(node_anno[char.ii])) {
+        anno <- get_anno(ii)
+        if (is.null(anno)) {
             if (id_as_label) tl <- to_tiplab(edge, ii)
             else tl <- tip.label[ii]
         } else {
-            if (id_as_label) tl <- paste0(to_tiplab(edge, ii), node_anno[char.ii])
-            else tl <- paste0(tip.label[ii], node_anno[char.ii])
+            if (id_as_label) tl <- paste0(to_tiplab(edge, ii), anno)
+            else tl <- paste0(tip.label[ii], anno)
         }
         cp(tl)
         if (brl) {
@@ -307,16 +326,17 @@ write_beast_newick <- write.beast.newick
 
     if (is.null(root.edge)) {
         cp(")")
+        anno <- get_anno(root)
         if (nodelab) {
-            if (!is.null(node_anno) && !is.na(node_anno[char.root])) {
-                if(id_as_label) cp(paste0(to_nodelab(edge, root), node_anno[char.root]))
-                else cp(paste0(node.label[1], node_anno[char.root]))
+            if (!is.null(anno)) {
+                if(id_as_label) cp(paste0(to_nodelab(edge, root), anno))
+                else cp(paste0(node.label[1], anno))
             } else {
                 if (id_as_label) cp(to_nodelab(edge, root))
                 else cp(node.label[1])
             }
-        } else if (!is.null(node_anno) && !is.na(node_anno[char.root])) {
-            cp(node_anno[char.root])
+        } else if (!is.null(anno)) {
+            cp(anno)
         }
         cp(";")
     } else {
