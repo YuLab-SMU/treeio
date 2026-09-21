@@ -53,3 +53,28 @@ test_that("as.phylo for tree igraph with weights",{
 
   }
 )
+
+test_that("as.phylo does not run out of stack on a deep tree", {
+    ## a caterpillar tree is as deep as it gets; the conversion used to
+    ## recurse over the nodes and overflowed the C stack, #78
+    n <- 5000
+    edge <- matrix(0L, nrow = 2 * n - 2, ncol = 2)
+    k <- 1
+    for (i in seq_len(n - 2)) {
+        edge[k, ] <- c(n + i, i); k <- k + 1
+        edge[k, ] <- c(n + i, n + i + 1); k <- k + 1
+    }
+    edge[k, ] <- c(2 * n - 1, n - 1)
+    edge[k + 1, ] <- c(2 * n - 1, n)
+
+    d <- data.frame(parent = edge[, 1], child = edge[, 2],
+                    branch.length = 0.1)
+    label <- c(paste0("t", seq_len(n)), paste0("n", (n + 1):(2 * n - 1)))
+    d$label <- label[d$child]
+
+    x <- as.phylo(d)
+
+    expect_equal(Ntip(x), n)
+    expect_equal(Nnode(x), n - 1)
+    expect_setequal(x$tip.label, paste0("t", seq_len(n)))
+})
