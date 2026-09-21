@@ -52,16 +52,16 @@ read.iqtree <- function(file) {
 ## semicolon. The report file of IQ-TREE (*.iqtree) is not a newick file, and
 ## handing it over to read.tree() returned a meaningless tree or even crashed
 ## the R session, #98
-find_newick <- function(treetext) {
-    is_newick <- function(x) {
-        x <- trimws(x)
-        if (!grepl("^\\(", x) || !grepl(";$", x))
-            return(FALSE)
-        nopen <- lengths(regmatches(x, gregexpr("(", x, fixed = TRUE)))
-        nclose <- lengths(regmatches(x, gregexpr(")", x, fixed = TRUE)))
-        return(nopen == nclose && nopen > 0)
-    }
+is_newick <- function(x) {
+    x <- trimws(x)
+    if (!grepl("^\\(", x) || !grepl(";$", x))
+        return(FALSE)
+    nopen <- lengths(regmatches(x, gregexpr("(", x, fixed = TRUE)))
+    nclose <- lengths(regmatches(x, gregexpr(")", x, fixed = TRUE)))
+    return(nopen == nclose && nopen > 0)
+}
 
+find_newick <- function(treetext, hint = NULL) {
     res <- treetext[vapply(treetext, is_newick, logical(1))]
     if (length(res) > 0)
         return(res)
@@ -71,8 +71,10 @@ find_newick <- function(treetext) {
     if (is_newick(txt))
         return(txt)
 
-    stop("cannot find a Newick tree in the input file. ",
-         "Please note that 'read.iqtree' parses the tree file ",
-         "(e.g. '*.treefile') and not the report file ('*.iqtree') ",
-         "of an IQ-TREE run.")
+    if (is.null(hint)) {
+        hint <- paste0("Please note that 'read.iqtree' parses the tree file ",
+                       "(e.g. '*.treefile') and not the report file ",
+                       "('*.iqtree') of an IQ-TREE run.")
+    }
+    stop("cannot find a Newick tree in the input file. ", hint)
 }

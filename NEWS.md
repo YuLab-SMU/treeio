@@ -9,6 +9,8 @@
 
 # treeio 1.37.1
 
++ `read.beast()` now reports a file that does not contain a tree instead of handing a text that is not Newick over to `read.tree()`, which parsed it into a meaningless tree and could crash the R session, e.g. the tabular output of MEGA (use `read.mega_tabular()` for it) (2026-09-20, Sun)
++ `read.beast()` is faster on a large file: the annotation of a node is parsed by a function that no longer calls `use_perl()` and `%>%` for every value and the tree it writes is not parsed a second time, a file of 500 trees took 33s and now takes 25s (2026-09-20, Sun)
 + `read.phyloxml()` is much faster and it is no longer limited to a tree nested less than 256 levels deep, the default limit of libxml2; the clade tree is now walked with an explicit stack instead of a recursion that bound all the nodes visited so far at every node, a tree of 512 tips took 7s and now takes 0.4s (2026-09-20, Sun)
 + `edgeNum2nodeNum()` is exported, it maps the `edge_num` of an EPA/pplacer placement (a post-order traversal number) to the node number of the reference tree, #31 (2026-09-20, Sun, #31)
 + `read.beast()` now supports the `UTREE` keyword of an unrooted tree and `write.beast()` no longer annotates a node without data (it wrote `NULL` and could stop with `object 'nl' not found`), which is what happened to the LSD2 timetree of IQ-TREE (2026-09-20, Sun, #111)

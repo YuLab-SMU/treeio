@@ -17,6 +17,15 @@ read.beast <- function(file, threads = 1, verbose = FALSE) {
     text <- readLines(file)
 
     treetext <- read.treetext_beast(text)
+    ## read.tree() does not report a text that is not a Newick tree, it parses
+    ## fragments of it into a meaningless tree and it may crash the R session,
+    ## e.g. the tabular output of MEGA
+    treetext <- find_newick(treetext,
+                            paste0("Please note that 'read.beast' parses a ",
+                                   "Nexus file that contains a tree (the ",
+                                   "output of BEAST, MrBayes or MEGA); use ",
+                                   "'read.mega_tabular()' for the tabular ",
+                                   "output of MEGA."))
     stats <- read.stats_beast(text, treetext, threads = threads, verbose = verbose)
     if (verbose) {
         cat("reading phylo...\n")
@@ -67,6 +76,14 @@ read.mrbayes <- read.beast
 read.beast.newick <- function(file, threads = 1, verbose = FALSE) {
     text <- readLines(file)
     treetext <- text
+    ## read.tree() does not report a text that is not a Newick tree, it parses
+    ## fragments of it into a meaningless tree and it may crash the R session
+    if (!any(vapply(treetext, is_newick, logical(1))) &&
+        !is_newick(paste(treetext, collapse = ""))) {
+        stop("cannot find a Newick tree in the input file. ",
+             "Please note that 'read.beast.newick' parses a Newick file ",
+             "with an annotated tree.")
+    }
     phylo <- read.tree(textConnection(treetext))
 
     is_translated <- any(grepl("TRANSLATE", text, ignore.case = TRUE, perl = use_perl()))
@@ -124,6 +141,8 @@ remove_quote_in_tree_label <- function(phylo) {
 
 read.treetext_beast <- function(beast) {
     ii <- grep("begin trees;", beast, ignore.case = TRUE, perl = use_perl())
+    ## a file without a tree block, e.g. the tabular output of MEGA
+    if (length(ii) == 0) return(character(0))
     jj <- grep("end;", beast, ignore.case = TRUE, perl = use_perl())
     jj <- jj[jj > max(ii)][1]
     jj <- c(ii[-1], jj)
@@ -237,20 +256,31 @@ read.stats_beast_internal <- function(text, is_translated, index = NULL, verbose
         text = text[[index]]
     }
 
+    ## use_perl() looks the option up and the annotation of every node is
+    ## parsed below, it is taken once for the whole tree
+    perl <- use_perl()
+
     phylo <- read.tree(text = text)
     tree2 <- add_pseudo_nodelabel(phylo, is_translated)
 
     ## node name corresponding to stats
-    nn <- strsplit(tree2, split="[,\\)]", perl = use_perl()) %>% unlist %>%
-        gsub("\\(*", "", ., perl = use_perl()) %>%
-        gsub("[:;].*", "", ., perl = use_perl()) %>%
-        gsub("[ '\"]", "", ., perl = use_perl())
+    nn <- strsplit(tree2, split="[,\\)]", perl = perl) %>% unlist %>%
+        gsub("\\(*", "", ., perl = perl) %>%
+        gsub("[:;].*", "", ., perl = perl) %>%
+        gsub("[ '\"]", "", ., perl = perl)
 
-    phylo <- read.tree(text = tree2)
+    ## the labels of the tree that has just been written are the ones
+    ## add_pseudo_nodelabel() has set, the tree does not have to be parsed
+    ## a second time to know them, which is one read.tree() per tree
+    if (is_translated) {
+        tree_label <- c(phylo$tip.label, paste0("N", seq_len(phylo$Nnode)))
+    } else {
+        tree_label <- c(paste0("T", seq_len(Ntip(phylo))),
+                        paste0("N", seq_len(phylo$Nnode)))
+    }
     root <- rootnode(phylo)
     nnode <- phylo$Nnode
 
-    tree_label <- c(phylo$tip.label, phylo$node.label)
     ii <- match(nn, tree_label)
 
     if (is_translated == TRUE) {
@@ -264,15 +294,15 @@ read.stats_beast_internal <- function(text, is_translated, index = NULL, verbose
     node <- label2[match(nn, tree_label)]
 
     ## BEAST1 edge stat fix
-   	text <- gsub("\\]:\\[&(.+?\\])", ",\\1:", text, perl = use_perl())
-    text <- gsub(":(\\[.+?\\])", "\\1:", text, perl = use_perl())
+   	text <- gsub("\\]:\\[&(.+?\\])", ",\\1:", text, perl = perl)
+    text <- gsub(":(\\[.+?\\])", "\\1:", text, perl = perl)
 
     ## BEAST2 puts the partition name into the parameter name,
     ## e.g. blockcount.t:hi=0, and the extra ':' breaks the parsing below
     ## as the stats are split by ':'
-    text <- gsub(":([^,\\[\\]=\\(\\)\\s]+)=", "=", text, perl = use_perl())
+    text <- gsub(":([^,\\[\\]=\\(\\)\\s]+)=", "=", text, perl = perl)
 
-    if (grepl("\\:[0-9\\.eEL+\\-]*\\[", text, perl = use_perl()) || grepl("\\]\\[", text, perl = use_perl())){
+    if (grepl("\\:[0-9\\.eEL+\\-]*\\[", text, perl = perl) || grepl("\\]\\[", text, perl = perl)){
         pattern <- "(\\w+)?(:[\\+\\-]?\\d*\\.?\\d*[Ee]?[\\+\\-]?\\L*\\d*)?(\\[&.*?\\])"
         text <- gsub(pattern, "\\1\\3\\2", text)  # not PCRE compatible
     }
@@ -280,84 +310,19 @@ read.stats_beast_internal <- function(text, is_translated, index = NULL, verbose
     stats <- strsplit(text, ":") %>% unlist
     names(stats) <- node
 
-    stats <- stats[grep("\\[", stats, perl = use_perl())]
-    stats <- sub("[^\\[]*\\[", "", stats, perl = use_perl())
+    stats <- stats[grep("\\[", stats, perl = perl)]
+    stats <- sub("[^\\[]*\\[", "", stats, perl = perl)
 
-    stats <- sub("^&", "", stats, perl = use_perl())
+    stats <- sub("^&", "", stats, perl = perl)
     # this is for MrBayes output
-    stats <- sub("\\]\\[&", ",", stats, perl = use_perl())
-    stats <- sub("];*$", "", stats, perl = use_perl())
-    stats <- gsub("\"", "", stats, perl = use_perl())
+    stats <- sub("\\]\\[&", ",", stats, perl = perl)
+    stats <- sub("];*$", "", stats, perl = perl)
+    stats <- gsub("\"", "", stats, perl = perl)
 
-    stats2 <- lapply(seq_along(stats), function(i) {
-        x <- stats[[i]]
-        y <- unlist(strsplit(x, ","))
-        # the stats information does not has always {}
-        sidx1 <- grep("=", y, fixed = TRUE)
-        eidx1 <- sidx1 - 1
-        eidx1 <- c(eidx1[-1], length(y))
-        # for better parsing [&mutation="test",name="A"] single value to key.
-        sidx <- sidx1[!(sidx1==eidx1)]
-        eidx <- eidx1[!(sidx1==eidx1)]
-
-        flag <- FALSE
-        if (length(sidx) > 0) {
-            flag <- TRUE
-            SETS <- lapply(seq_along(sidx), function(k) {
-                p <- y[sidx[k]:eidx[k]]
-                gsub(".*=\\{", "", p, perl = use_perl()) %>%
-                    gsub("\\}$", "", ., perl = use_perl()) %>%
-                    gsub(".*=", "", ., perl = use_perl())
-            })
-            names(SETS) <- gsub("=.*", "", y[sidx], perl = use_perl())
-
-            kk <- lapply(seq_along(sidx), function(k) {
-                sidx[k]:eidx[k]
-            }) %>%
-                unlist
-            y <- y[-kk]
-        }
-
-        if (length(y) == 0) {
-            ## an annotation that only holds a set, e.g. the 95% CI of an
-            ## MCMCTree output; the values are kept as numbers so that they
-            ## are not different from an annotation that holds more, #13
-            SETS <- lapply(SETS, function(x) {
-                if (is_numeric(x)) as.numeric(x) else x
-            })
-            return(SETS)
-        }
-
-        name <- gsub("=.*", "", y, perl = use_perl())
-        val <- gsub(".*=", "", y, perl = use_perl()) %>%
-            gsub("^\\{", "", ., perl = use_perl()) %>%
-            gsub("\\}$", "", ., perl = use_perl())
-
-        if (flag) {
-            nn <- c(name, names(SETS))
-        } else {
-            nn <- name
-        }
-
-        res <- rep(NA, length(nn))
-        names(res) <- nn
-
-        for (i in seq_along(name)) {
-            res[i] <- if(is_numeric(val[i])) as.numeric(val[i]) else val[i]
-        }
-        if (flag) {
-            j <- i
-            for (i in seq_along(SETS)) {
-                if(is_numeric(SETS[[i]])) {
-                    res[i+j] <- list(as.numeric(SETS[[i]]))
-                } else {
-                    res[i+j] <- SETS[i]
-                }
-            }
-        }
-
-        return(res)
-    })
+    ## the annotation of all the nodes is split at once, a strsplit() per node
+    ## was one of the bottlenecks of a large file
+    stats2 <- lapply(strsplit(stats, ",", fixed = TRUE),
+                     parse_annotation, perl = perl)
 
     nn <- lapply(stats2, names) %>% unlist %>%
         unique %>% sort
@@ -398,6 +363,84 @@ read.stats_beast_internal <- function(text, is_translated, index = NULL, verbose
     return(stats3)
 }
 
+
+## the annotation of a single node, e.g. 'rate=0.5,height=0.3', as a named
+## vector; it used to be parsed by an anonymous function of an lapply() and
+## this is called once per node, so the overhead of a pipe, of a strsplit()
+## and of an as.numeric() per value was what made a large file slow
+parse_annotation <- function(y, perl = TRUE) {
+    # the stats information does not has always {}
+    sidx1 <- grep("=", y, fixed = TRUE)
+    eidx1 <- sidx1 - 1
+    eidx1 <- c(eidx1[-1], length(y))
+    # for better parsing [&mutation="test",name="A"] single value to key.
+    sidx <- sidx1[!(sidx1==eidx1)]
+    eidx <- eidx1[!(sidx1==eidx1)]
+
+    flag <- FALSE
+    if (length(sidx) > 0) {
+        flag <- TRUE
+        SETS <- lapply(seq_along(sidx), function(k) {
+            p <- y[sidx[k]:eidx[k]]
+            p <- gsub(".*=\\{", "", p, perl = perl)
+            p <- gsub("\\}$", "", p, perl = perl)
+            gsub(".*=", "", p, perl = perl)
+        })
+        names(SETS) <- gsub("=.*", "", y[sidx], perl = perl)
+
+        kk <- unlist(lapply(seq_along(sidx), function(k) sidx[k]:eidx[k]))
+        y <- y[-kk]
+    }
+
+    if (length(y) == 0) {
+        ## an annotation that only holds a set, e.g. the 95% CI of an
+        ## MCMCTree output; the values are kept as numbers so that they
+        ## are not different from an annotation that holds more, #13
+        SETS <- lapply(SETS, function(x) {
+            if (is_numeric(x)) as.numeric(x) else x
+        })
+        return(SETS)
+    }
+
+    name <- gsub("=.*", "", y, perl = perl)
+    val <- gsub(".*=", "", y, perl = perl)
+    val <- gsub("^\\{", "", val, perl = perl)
+    val <- gsub("\\}$", "", val, perl = perl)
+
+    if (flag) {
+        nn <- c(name, names(SETS))
+    } else {
+        nn <- name
+    }
+
+    res <- rep(NA, length(nn))
+    names(res) <- nn
+
+    ## one as.numeric() for all the values of the node, is_numeric() was
+    ## called (and as.numeric() run twice) for every single value
+    num <- !is.na(suppressWarnings(as.numeric(val)))
+    if (all(num)) {
+        ## the values are all numbers and the vector has to stay numeric,
+        ## it is what made the columns of the stats numeric
+        res[seq_along(name)] <- as.numeric(val)
+    } else {
+        for (i in seq_along(name)) {
+            res[i] <- if (num[i]) as.numeric(val[i]) else val[i]
+        }
+    }
+    if (flag) {
+        j <- length(name)
+        for (i in seq_along(SETS)) {
+            if(is_numeric(SETS[[i]])) {
+                res[i+j] <- list(as.numeric(SETS[[i]]))
+            } else {
+                res[i+j] <- SETS[i]
+            }
+        }
+    }
+
+    return(res)
+}
 
 add_pseudo_nodelabel <- function(phylo, translated=FALSE) {
     # When TRANSLATE is TRUE, the tip.label of tree line is

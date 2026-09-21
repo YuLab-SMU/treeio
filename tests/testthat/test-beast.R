@@ -248,3 +248,12 @@ test_that("write.beast does not annotate the nodes without data", {
     expect_equal(tr@phylo$tip.label, lsd2@phylo$tip.label)
     expect_equal(as.data.frame(tr@data)$date, as.data.frame(lsd2@data)$date)
 })
+
+test_that("read.beast reports a file that does not contain a tree", {
+    ## read.tree() used to parse the tabular output of MEGA into a meaningless
+    ## tree and it could crash the R session
+    file <- system.file("extdata/MEGA7", "mtCDNA_timetree_tabular.txt",
+                        package="treeio")
+    expect_error(read.beast(file), "cannot find a Newick tree")
+    expect_error(read.beast.newick(file), "cannot find a Newick tree")
+})
