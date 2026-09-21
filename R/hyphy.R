@@ -152,6 +152,19 @@ get.subs_ <- function(object, translate=TRUE, removeGap=TRUE) {
 
     label <- getNodeName(tree)
     seqs <- c(as.list(ancseq), as.list(tipseq))
+
+    ## the sequences are named after the tip and node labels; a label that is
+    ## not among the names returns an empty sequence, and the substitution is
+    ## then reported as a length mismatch without saying why, #91
+    ## the root has no parent and is skipped below, its sequence may be absent
+    missing <- setdiff(label[-rootnode(tree)], names(seqs))
+    if (length(missing) > 0) {
+        stop("cannot find the sequence of ", length(missing), " node(s): ",
+             paste(missing, collapse=", "),
+             ". Please make sure that the tip and node labels are unique ",
+             "and that they match the names of the sequences.")
+    }
+
     subs <- vapply(seq_along(node), function(i) {
         if (i == rootnode(tree)) {
             return('')
@@ -184,7 +197,11 @@ getSubsLabel <- function(seqs, A, B, translate, removeGap) {
     BB <- unlist(as.character(seqB))
 
     if (length(AA) != length(BB)) {
-        stop("seqA should have equal length to seqB")
+        stop("seqA (", A, ") has ", length(AA), " sites, ",
+             "while seqB (", B, ") has ", length(BB), "; ",
+             "the two sequences should have equal length. ",
+             "Please make sure that the sequences are aligned ",
+             "and that the tip and node labels are unique.")
     }
 
     ii <- which(AA != BB)
