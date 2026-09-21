@@ -1,27 +1,23 @@
 {
-  "@context": [
-    "http://purl.org/codemeta/2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "treeio",
-  "description": "Base classes and functions for parsing and exporting phylogenetic trees. 'treeio' supports parsing analysis findings from commonly used software packages, allows linking external data to phylogeny and merging tree data obtained from different sources. It also supports exporting phylogenetic tree with heterogeneous associated data to a single tree file.",
+  "description": "'treeio' is an R package to make it easier to import and store phylogenetic tree with associated data; and to link external data from different sources to phylogeny. It also supports exporting phylogenetic tree with heterogeneous associated data to a single tree file and can be served as a platform for merging tree with associated data and converting file formats.",
   "name": "treeio: Base Classes and Functions for Phylogenetic Tree Input and Output",
-  "codeRepository": "https://github.com/GuangchuangYu/treeio",
-  "issueTracker": "https://github.com/GuangchuangYu/treeio/issues",
+  "codeRepository": "https://github.com/YuLab-SMU/treeio",
+  "issueTracker": "https://github.com/YuLab-SMU/treeio/issues",
   "license": "https://spdx.org/licenses/Artistic-2.0",
-  "version": "1.3.12",
+  "version": "1.37.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.4.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.4.3 (2017-11-30)",
+  "runtimePlatform": "R version 4.6.1 (2026-06-24)",
   "provider": {
     "@id": "https://www.bioconductor.org",
     "@type": "Organization",
-    "name": "BioConductor",
+    "name": "Bioconductor",
     "url": "https://www.bioconductor.org"
   },
   "author": [
@@ -42,25 +38,76 @@
     },
     {
       "@type": "Person",
-      "givenName": "Casey",
-      "familyName": "Dunn",
-      "email": "casey_dunn@brown.edu"
+      "givenName": "Shuangbin",
+      "familyName": "Xu",
+      "email": "xshuangbin@163.com",
+      "@id": "https://orcid.org/0000-0003-3513-5362"
     },
     {
       "@type": "Person",
       "givenName": "Bradley",
       "familyName": "Jones",
       "email": "brj1@sfu.ca"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Casey",
+      "familyName": "Dunn",
+      "email": "casey_dunn@brown.edu"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Tyler",
+      "familyName": "Bradley",
+      "email": "tcb85@drexel.edu"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Konstantinos",
+      "familyName": "Geles",
+      "email": "konstantinos.geles@studenti.unicz.it"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Tommy Tsan-Yuk",
+      "familyName": "Lam",
+      "email": "tylam.tommy@gmail.com"
     }
   ],
-  "maintainer": {
-    "@type": "Person",
-    "givenName": "Guangchuang",
-    "familyName": "Yu",
-    "email": "guangchuangyu@gmail.com",
-    "@id": "https://orcid.org/0000-0002-6485-8781"
-  },
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Guangchuang",
+      "familyName": "Yu",
+      "email": "guangchuangyu@gmail.com",
+      "@id": "https://orcid.org/0000-0002-6485-8781"
+    }
+  ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "Biostrings",
+      "name": "Biostrings",
+      "provider": {
+        "@id": "https://www.bioconductor.org",
+        "@type": "Organization",
+        "name": "Bioconductor",
+        "url": "https://www.bioconductor.org"
+      },
+      "sameAs": "https://bioconductor.org/packages/release/bioc/html/Biostrings.html"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "ggplot2",
@@ -68,9 +115,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggplot2"
     },
     {
       "@type": "SoftwareApplication",
@@ -79,9 +127,22 @@
       "provider": {
         "@id": "https://www.bioconductor.org",
         "@type": "Organization",
-        "name": "BioConductor",
+        "name": "Bioconductor",
         "url": "https://www.bioconductor.org"
-      }
+      },
+      "sameAs": "https://bioconductor.org/packages/release/bioc/html/ggtree.html"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "igraph",
+      "name": "igraph",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=igraph"
     },
     {
       "@type": "SoftwareApplication",
@@ -90,9 +151,34 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "phangorn",
+      "name": "phangorn",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=phangorn"
     },
     {
       "@type": "SoftwareApplication",
@@ -101,9 +187,22 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=prettydoc"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "purrr",
+      "name": "purrr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=purrr"
     },
     {
       "@type": "SoftwareApplication",
@@ -112,9 +211,10 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
     },
     {
       "@type": "SoftwareApplication",
@@ -123,105 +223,278 @@
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "vroom",
+      "name": "vroom",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vroom"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "xml2",
+      "name": "xml2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=xml2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "yaml",
+      "name": "yaml",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=yaml"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.6.0"
+    },
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "ape",
       "name": "ape",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ape"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=magrittr"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
-      "identifier": "rvcheck",
-      "name": "rvcheck",
+      "identifier": "rlang",
+      "name": "rlang",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    {
+    "8": {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats"
+    },
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
-    {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "tidytree",
       "name": "tidytree",
-      "version": "0.1.7",
+      "version": ">= 0.4.5",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
-        "name": "Central R Archive Network (CRAN)",
+        "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
-      }
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidytree"
+    },
+    "11": {
+      "@type": "SoftwareApplication",
+      "identifier": "utils",
+      "name": "utils"
+    },
+    "12": {
+      "@type": "SoftwareApplication",
+      "identifier": "yulab.utils",
+      "name": "yulab.utils",
+      "version": ">= 0.1.6",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=yulab.utils"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "3713.424KB",
+  "citation": [
+    {
+      "@type": "Book",
+      "datePublished": "2022",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Guangchuang",
+          "familyName": "Yu"
+        }
+      ],
+      "name": "Data Integration, Manipulation and Visualization of Phylogenetic Treess",
+      "url": "https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/"
     },
     {
-      "@type": "SoftwareApplication",
-      "identifier": "R",
-      "name": "R",
-      "version": "3.4.0"
+      "@type": "ScholarlyArticle",
+      "datePublished": "2020",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Li-Gen",
+          "familyName": "Wang"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Tommy Tsan-Yuk",
+          "familyName": "Lam"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Shuangbin",
+          "familyName": "Xu"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Zehan",
+          "familyName": "Dai"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Lang",
+          "familyName": "Zhou"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Tingze",
+          "familyName": "Feng"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Pingfan",
+          "familyName": "Guo"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Casey W.",
+          "familyName": "Dunn"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Bradley R.",
+          "familyName": "Jones"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Tyler",
+          "familyName": "Bradley"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Huachen",
+          "familyName": "Zhu"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Yi",
+          "familyName": "Guan"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Yong",
+          "familyName": "Jiang"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Guangchuang",
+          "familyName": "Yu"
+        }
+      ],
+      "name": "treeio: an R package for phylogenetic tree input and output with richly annotated and associated data.",
+      "identifier": "10.1093/molbev/msz240",
+      "pagination": "599-603",
+      "@id": "https://doi.org/10.1093/molbev/msz240",
+      "sameAs": "https://doi.org/10.1093/molbev/msz240",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2020",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "37",
+          "name": "Molecular Biology and Evolution"
+        }
+      }
     }
   ],
-  "contIntegration": "https://travis-ci.org/GuangchuangYu/treeio",
-  "developmentStatus": "active",
-  "releaseNotes": "https://github.com/GuangchuangYu/treeio/blob/master/NEWS.md",
-  "readme": "https://github.com/GuangchuangYu/treeio/blob/master/README.md",
-  "fileSize": "1130.987KB"
+  "relatedLink": ["https://yulab-smu.top/contribution-tree-data/", "https://bioconductor.org/packages/release/bioc/html/treeio.html"],
+  "releaseNotes": "https://github.com/YuLab-SMU/treeio/blob/main/NEWS.md",
+  "readme": "https://github.com/YuLab-SMU/treeio/blob/devel/README.md",
+  "keywords": ["phylogenetic-trees", "parser", "exporter"]
 }
