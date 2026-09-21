@@ -305,8 +305,15 @@ read.stats_beast_internal <- function(text, is_translated, index = NULL, verbose
             y <- y[-kk]
         }
 
-        if (length(y) == 0)
+        if (length(y) == 0) {
+            ## an annotation that only holds a set, e.g. the 95% CI of an
+            ## MCMCTree output; the values are kept as numbers so that they
+            ## are not different from an annotation that holds more, #13
+            SETS <- lapply(SETS, function(x) {
+                if (is_numeric(x)) as.numeric(x) else x
+            })
             return(SETS)
+        }
 
         name <- gsub("=.*", "", y, perl = use_perl())
         val <- gsub(".*=", "", y, perl = use_perl()) %>%

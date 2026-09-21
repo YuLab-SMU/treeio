@@ -20,6 +20,13 @@ treedata object
 \description{
 read MCMCTree output Tree
 }
+\details{
+The node age is not reported by MCMCTree, it is derived from the
+branch lengths and stored in the \code{reltime} column. The credibility interval
+of a node age, \code{[&95\%={lower, upper}]} in the file, is stored in the
+\code{reltime_0.95_CI} column and can be plotted with
+\code{geom_range(range='reltime_0.95_CI', center='reltime')}.
+}
 \examples{
 file <- system.file("extdata/MCMCTree", "mcmctree_output.tree", package="treeio")
 tr <- read.mcmctree(file)
