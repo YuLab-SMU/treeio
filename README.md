@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# treeio: Base classes and functions for phylogenetic tree input and output <a href="https://yulab-smu.top/treedata-book/"><img src="man/figures/logo.png" align="right" height="139" /></a>
+# treeio: Base classes and functions for phylogenetic tree input and output <a href="https://yulab-smu.top/treedata-book-2ed/"><img src="man/figures/logo.png" align="right" height="139" /></a>
 
 [![](https://badges.ropensci.org/179_status.svg)](https://github.com/ropensci/onboarding/issues/179)
 [![Bioc](http://www.bioconductor.org/shields/years-in-bioc/treeio.svg)](https://www.bioconductor.org/packages/devel/bioc/html/treeio.html#since)
@@ -22,7 +22,7 @@ tree with heterogeneous associated data to a single tree file and can be
 served as a platform for merging tree with associated data and
 converting file formats.
 
-Visit <https://yulab-smu.top/treedata-book/> for details.
+Visit <https://yulab-smu.top/treedata-book-2ed/> for details.
 
 ## :arrow_double_down: Installation
 
@@ -49,8 +49,8 @@ remotes::install_github("YuLab-SMU/treeio")
   page](https://www.bioconductor.org/packages/treeio), with the
   reference manual and the package vignette
 - [*Data Integration, Manipulation and Visualization of Phylogenetic
-  Trees*](https://yulab-smu.top/treedata-book/), the online book that
-  documents `treeio` and its companion packages
+  Trees*](https://yulab-smu.top/treedata-book-2ed/), the online book
+  (2nd edition) that documents `treeio` and its companion packages
 
 ## :writing_hand: Authors
 
