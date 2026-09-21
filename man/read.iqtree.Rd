@@ -15,6 +15,17 @@ treedata object
 \description{
 parse IQ-TREE output
 }
+\details{
+\code{read.iqtree()} parses the tree file of an IQ-TREE run (e.g.
+\code{*.treefile}, the report file \code{*.iqtree} is not a tree file) and splits the
+node labels into the SH-aLRT and the UFBoot support values. The two values
+are expected to be separated by a \code{/}, which is what IQ-TREE writes when
+both were requested. If the branch support was assessed with a single
+method (e.g. the standard non-parametric bootstrap or SH-aLRT alone), the
+node label holds one value only and there is no way to tell which method
+produced it; the value is then stored in both columns and a message is
+emitted. Use \code{read.newick()} to import such a tree without guessing.
+}
 \author{
 Guangchuang Yu
 }

@@ -10,6 +10,7 @@
 
 # treeio 1.37.0.001
 
++ `read.iqtree()` now says when the node labels hold a single support value that cannot be split into SH-aLRT and UFBoot (e.g. the standard bootstrap alone), and it no longer fails on a tree without any branch support (2026-09-20, Sun, #114)
 + `read.iqtree()` now reports that it cannot find a Newick tree in the input instead of parsing the IQ-TREE report file (`*.iqtree`) into a meaningless tree or crashing the R session (2026-09-20, Sun, #98)
 + `as.phylo()` now uses the `branch.length` column by default so that the branch lengths are not lost when a tree is re-rooted (2026-09-20, Sun, #134)
 + `as.phylo()` now uses the `label` column by default instead of the node numbers, so that the tip and node labels are not lost when a tree is re-rooted (2026-09-20, Sun, #120)

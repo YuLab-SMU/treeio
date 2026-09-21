@@ -22,6 +22,24 @@ test_that("read.iqtree rejects a file without a newick tree", {
     expect_error(read.iqtree(file), "cannot find a Newick tree")
 })
 
+test_that("read.iqtree says it cannot split a single support value", {
+    ## the branch support may be assessed with a single method (e.g. the
+    ## standard bootstrap) and then there is only one value per node, #114
+    txt <- "((A:0.11,B:0.22)98:0.33,C:0.44);"
+
+    expect_message(tr <- read.iqtree(textConnection(txt)), "do not contain")
+    expect_equal(as.data.frame(tr@data)$SH_aLRT, c(NA, 98))
+    expect_equal(as.data.frame(tr@data)$UFboot, as.data.frame(tr@data)$SH_aLRT)
+})
+
+test_that("read.iqtree supports a tree without any branch support", {
+    txt <- "((A:0.11,B:0.22):0.33,C:0.44);"
+    tr <- read.iqtree(textConnection(txt))
+
+    expect_equal(as.data.frame(tr@data)$SH_aLRT, c(NA_real_, NA_real_))
+    expect_equal(as.data.frame(tr@data)$UFboot, c(NA_real_, NA_real_))
+})
+
 test_that("read.iqtree accepts a newick string wrapped over several lines", {
     txt <- c("((A:0.11,B:0.22)95/98:0.33,",
              "C:0.44);")
