@@ -200,3 +200,21 @@ test_that("read.beast removes the quotes around the taxon names", {
     expect_equal(quoted@phylo$tip.label, beast@phylo$tip.label)
     expect_false(any(grepl("['\"]", quoted@phylo$tip.label)))
 })
+
+
+## a taxon name may contain a space, e.g. 'MF574563.1 _COL_2015'; it is single
+## quoted and ape::read.nexus() used to split it, which returned a tree with
+## the wrong number of tips and crashed the session when plotted, #71
+spaced <- read.beast(
+    system.file("extdata/BEAST", "beast_mcc_spaced.tree", package="treeio")
+)
+
+test_that("read.beast keeps the space inside a quoted taxon name", {
+    expect_equal(ape::Ntip(spaced@phylo), 4)
+    expect_equal(spaced@phylo$tip.label,
+                 c("A_1995", "B_1996", "MF574563.1 _COL_2015", "D_1987"))
+
+    d <- as.data.frame(spaced@data)
+    d <- d[match(as.character(1:4), d$node), ]
+    expect_equal(d$length, c(1, 1, 2, 2))
+})

@@ -1,0 +1,21 @@
+#NEXUS
+
+Begin taxa;
+	Dimensions ntax=4;
+	Taxlabels
+		'A_1995'
+		'B_1996'
+		'MF574563.1 _COL_2015'
+		'D_1987'
+		;
+End;
+
+Begin trees;
+	Translate
+		1 'A_1995',
+		2 'B_1996',
+		3 'MF574563.1 _COL_2015',
+		4 'D_1987'
+		;
+tree TREE1 = [&R] ((1[&height=0.0,length=1.0]:1.0,2[&height=1.0,length=1.0]:1.0)[&height=1.0,posterior=1.0]:0.5,(3[&height=0.0,length=2.0]:2.0,4[&height=0.0,length=2.0]:2.0)[&height=2.0,posterior=1.0]:0.5)[&height=2.5,posterior=1.0];
+End;
