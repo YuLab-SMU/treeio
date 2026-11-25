@@ -1,3 +1,7 @@
+# treeio 1.38.0
+
++ Bioconductor RELEASE_3_24 (2026-11-25, Wed)
+
 # treeio 1.37.1
 
 + `read.beast()` now reports a file that does not contain a tree instead of handing a text that is not Newick over to `read.tree()`, which parsed it into a meaningless tree and could crash the R session, e.g. the tabular output of MEGA (use `read.mega_tabular()` for it) (2026-09-20, Sun)
